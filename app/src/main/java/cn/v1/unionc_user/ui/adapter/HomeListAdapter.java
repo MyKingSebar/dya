@@ -63,19 +63,44 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     homeData.getMajor());
         }
         if (TextUtils.equals(homeData.getType(), Common.ATTENDING_DOCTORS)) {
-            Glide.with(context).load(homeData.getImagePath()).into(holder.imgMessageAvator);
+            if(TextUtils.isEmpty(homeData.getImagePath())){
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
+            }else{
+                Glide.with(context)
+                        .load(homeData.getImagePath())
+                        .placeholder(R.drawable.icon_doctor_default)
+                        .error(R.drawable.icon_doctor_default)
+                        .into(holder.imgMessageAvator);
+
+            }
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
             holder.tvRole.setText("（主治医生）");
             holder.tvDescribe.setText("最近的聊天记录");
         }
         if (TextUtils.equals(homeData.getType(), Common.SIGNED_DOCTROS)) {
-            Glide.with(context).load(homeData.getImagePath()).into(holder.imgMessageAvator);
+            if(TextUtils.isEmpty(homeData.getImagePath())){
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
+            }else{
+                Glide.with(context)
+                        .load(homeData.getImagePath())
+                        .placeholder(R.drawable.icon_doctor_default)
+                        .error(R.drawable.icon_doctor_default)
+                        .into(holder.imgMessageAvator);
+            }
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
             holder.tvRole.setText("（家庭医生）");
             holder.tvDescribe.setText("最近的聊天记录");
         }
         if (TextUtils.equals(homeData.getType(), Common.RECOMMEND_DOCTOR)) {
-            Glide.with(context).load(homeData.getImagePath()).into(holder.imgMessageAvator);
+            if(TextUtils.isEmpty(homeData.getImagePath())){
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
+            }else{
+                Glide.with(context)
+                        .load(homeData.getImagePath())
+                        .placeholder(R.drawable.icon_doctor_default)
+                        .error(R.drawable.icon_doctor_default)
+                        .into(holder.imgMessageAvator);
+            }
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
             holder.tvRole.setText(homeData.getDepartName() + "  " +
                     homeData.getProfessLevel());
