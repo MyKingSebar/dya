@@ -145,6 +145,7 @@ public class MessageFragment extends BaseFragment {
                 goNewActivity(SearchWebViewActivity.class);
                 break;
             case R.id.tv_saoma:
+                //扫一扫
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if ((context.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) {
                         requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_PHONE_PERMISSIONS);
@@ -156,12 +157,15 @@ public class MessageFragment extends BaseFragment {
                 }
                 break;
             case R.id.tv_guahao:
-                goNewActivity(HospitalDetailActivity.class);
+                //名医挂号
+//                goNewActivity(HospitalDetailActivity.class);
                 break;
             case R.id.tv_yihu:
+                //医护上门
                 break;
             case R.id.tv_health:
-                goNewActivity(HealthClassActivity.class);
+                //健康课堂
+//                goNewActivity(HealthClassActivity.class);
                 break;
         }
     }

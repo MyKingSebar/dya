@@ -67,9 +67,11 @@ public class UpdateAvatorActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_right:
+                //保存
                 uploadImage();
                 break;
             case R.id.tv_album:
+                //从相册中选择
                 Intent intent1 = new Intent(Intent.ACTION_PICK, null);
                 intent1.setDataAndType(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -77,6 +79,7 @@ public class UpdateAvatorActivity extends BaseActivity {
                 startActivityForResult(intent1, 1);
                 break;
             case R.id.tv_camera:
+                //拍照
                 Intent intent2 = new Intent(
                         MediaStore.ACTION_IMAGE_CAPTURE);
                 //下面这句指定调用相机拍照后的照片存储的路径

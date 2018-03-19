@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
-    android:layout_height="280dp"
+    android:layout_width="351dp"
+    android:layout_height="200dp"
     android:orientation="vertical"
     android:background="@drawable/bg_dialog_white"
     android:layout_gravity="center"
@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_gravity="center_horizontal"
         android:text="选择居住地址"
         android:textColor="@color/main_text"
@@ -18,20 +18,28 @@
         />
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginTop="20dp"
         android:background="@color/line"/>
+    <LinearLayout
+        android:layout_marginTop="14dp"
+        android:background="@color/color_location"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="当前位置："
+            android:textColor="@color/main_text"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="30dp"
-        android:text="当前位置："
-        android:textColor="@color/main_text"
-        android:textSize="14sp"
-        />
+
 
     <TextView
         android:id="@+id/tv_current_poi"
@@ -40,7 +48,7 @@
         android:drawableLeft="@drawable/icon_location_blue"
         android:drawablePadding="10dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="16dp"
         android:text="锐创国际 >"
         android:textColor="@color/qm_blue"
         android:textSize="16sp"
@@ -50,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         >
         <TextView
@@ -61,19 +69,19 @@
             android:gravity="center"
             android:text="更换地址"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="15sp"
             />
 
         <TextView
             android:id="@+id/tv_confirm"
             android:layout_width="100dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="32dp"
             android:background="@drawable/bg_button_blue"
             android:gravity="center"
             android:text="确定"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="15sp"
             />
 
     </LinearLayout>

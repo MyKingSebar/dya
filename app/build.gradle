@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 
 
 android {
+    dexOptions {
+        //incremental true
+        javaMaxHeapSize "4g"
+    }
     signingConfigs {
         config {
             keyAlias 'windo'

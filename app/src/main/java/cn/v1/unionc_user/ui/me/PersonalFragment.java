@@ -109,19 +109,24 @@ public class PersonalFragment extends BaseFragment {
             case R.id.img_back:
                 break;
             case R.id.tv_right:
+                //设置
                 goNewActivity(SettingActivity.class);
                 break;
             case R.id.tv_edit:
+                //编辑
                 Intent intent = new Intent(context, EditUserInfoActivity.class);
                 intent.putExtra("userInfo", (Serializable) userInfo);
                 startActivity(intent);
                 break;
             case R.id.tv_yaoqing:
+                //邀请好友
                 break;
             case R.id.tv_my_activity:
+                //我的活动
                 goNewActivity(MyactivityActivity.class);
                 break;
             case R.id.tv_kefu:
+                //客服中心
                 PromptDialog contactDialog = new PromptDialog(context);
                 contactDialog.show();
                 contactDialog.setTitle(servicePhone + "");

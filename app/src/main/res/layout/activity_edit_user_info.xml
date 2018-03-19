@@ -55,7 +55,7 @@
             android:layout_marginLeft="12dp"
             android:text="头像"
             android:textColor="@color/main_text"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <cn.v1.unionc_user.view.CircleImageView
             android:id="@+id/img_avator"
@@ -73,7 +73,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
             android:text=">"
-            android:textColor="@color/describe_color"
+            android:textColor="@color/color_arrowhead"
             android:textSize="16sp" />
 
         <View
@@ -97,7 +97,7 @@
             android:layout_marginLeft="12dp"
             android:text="昵称"
             android:textColor="@color/main_text"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_nickname"
@@ -108,7 +108,7 @@
             android:layout_marginRight="27dp"
             tools:text="15010444321"
             android:textColor="@color/detail_text"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
             android:text=">"
-            android:textColor="@color/describe_color"
+            android:textColor="@color/color_arrowhead"
             android:textSize="16sp" />
 
         <View
@@ -141,7 +141,7 @@
             android:layout_marginLeft="12dp"
             android:text="性别"
             android:textColor="@color/main_text"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_sex"
@@ -151,7 +151,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="27dp"
             android:textColor="@color/detail_text"
-            android:textSize="14sp"
+            android:textSize="15sp"
             tools:text="nan" />
 
         <TextView
@@ -161,7 +161,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
             android:text=">"
-            android:textColor="@color/describe_color"
+            android:textColor="@color/color_arrowhead"
             android:textSize="16sp" />
 
         <View
@@ -185,7 +185,7 @@
             android:layout_marginLeft="12dp"
             android:text="实名认证"
             android:textColor="@color/main_text"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -221,7 +221,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
             android:text=">"
-            android:textColor="@color/describe_color"
+            android:textColor="@color/color_arrowhead"
             android:textSize="16sp" />
 
         <View
@@ -245,7 +245,7 @@
             android:layout_marginLeft="12dp"
             android:text="绑定手机"
             android:textColor="@color/main_text"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_bindphone"
@@ -256,9 +256,10 @@
             android:layout_marginRight="27dp"
             tools:text="15010444321"
             android:textColor="@color/detail_text"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <TextView
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

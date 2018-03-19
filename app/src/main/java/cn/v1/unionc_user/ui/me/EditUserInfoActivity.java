@@ -86,6 +86,7 @@ public class EditUserInfoActivity extends BaseActivity {
                 BusProvider.getInstance().post(new UpdatePersonalEventData(true));
                 break;
             case R.id.rl_avator:
+                //更换头像
                 Intent avatorIntent = new Intent(context, UpdateAvatorActivity.class);
                 avatorIntent.putExtra("avator", avator);
                 startActivityForResult(avatorIntent, AVATOR);

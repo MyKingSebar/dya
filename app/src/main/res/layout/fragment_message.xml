@@ -6,7 +6,7 @@
     tools:context="cn.v1.unionc_user.ui.home.MessageFragment">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="#4E78F6"
@@ -26,22 +26,30 @@
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ll_search"
             android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/tv_city"
+            android:layout_toRightOf="@+id/tv_city"
             android:drawablePadding="3dp"
             android:drawableRight="@drawable/icon_sanjiao"
             android:ellipsize="end"
+            android:layout_gravity="center_vertical"
             android:lines="1"
             android:maxLength="5"
             android:maxWidth="120dp"
             android:textColor="#FFE1E5F2"
-            android:textSize="14dp"
+            android:textSize="14sp"
             tools:text="锐创国际" />
-
+<View
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"/>
         <LinearLayout
             android:id="@+id/ll_search"
             android:layout_width="240dp"
             android:layout_height="28dp"
-            android:layout_alignParentRight="true"
+            android:layout_gravity="right|center_vertical"
             android:layout_marginRight="12dp"
             android:background="@drawable/bg_search"
             android:gravity="center_vertical"
@@ -68,13 +76,14 @@
         </LinearLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="#4E78F6"
-        android:paddingTop="15dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="14dp"
         android:orientation="horizontal">
 
         <TextView
@@ -105,16 +114,17 @@
                 android:gravity="center"
                 android:text="名医挂号"
                 android:textColor="#FFB6B8BF"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
             <TextView
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="0dp"
                 android:text="…敬请期待…"
                 android:textColor="#FFB6B8BF"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
@@ -137,13 +147,14 @@
                 android:textSize="14dp" />
 
             <TextView
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="0dp"
                 android:text="…敬请期待…"
                 android:textColor="#FFB6B8BF"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -165,13 +176,14 @@
                 android:textSize="14dp" />
 
             <TextView
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="0dp"
                 android:text="…敬请期待…"
                 android:textColor="#FFB6B8BF"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
@@ -210,7 +222,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/img_hi"
-            android:text="青麦欢迎您！"
+            android:text="医巴士欢迎您！"
             android:textColor="@color/main_text"
             android:textSize="16sp" />
 

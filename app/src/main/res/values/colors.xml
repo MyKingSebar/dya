@@ -13,4 +13,6 @@
     <color name="tool_bar">#FAFAFA</color>
     <color name="windowbackground">#F2F2F2</color>
     <color name="red_rz">#F75C43</color>
+    <color name="color_arrowhead">#93969F</color>
+    <color name="color_location">#F2F4F7</color>
 </resources>
