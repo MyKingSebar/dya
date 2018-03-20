@@ -32,5 +32,6 @@ public class Common {
     public static final String ATTENDING_DOCTORS = "attendingDoctors";
     public static final String SIGNED_DOCTROS = "signedDoctros";
     public static final String CONVERSATIONS = "conversations";
+    public static final String ACTIVITY_PUSH = "push";
 
 }

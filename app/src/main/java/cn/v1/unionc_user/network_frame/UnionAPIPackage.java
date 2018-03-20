@@ -116,6 +116,18 @@ public class UnionAPIPackage {
 
 
     /**
+     * 获取活动弹窗
+     *
+     * @return
+     */
+    public static Observable<HomeListData> getPushList(String token) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("imei", MobileConfigUtil.getMacCode());
+        params.put("token", token);
+        return ConnectHttp.getUnionAPI().getPushList(dataProcess(params));
+    }
+
+    /**
      * 获取医生详细信息
      *
      * @return

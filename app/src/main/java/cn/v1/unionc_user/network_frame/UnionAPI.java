@@ -84,6 +84,17 @@ public interface UnionAPI {
     @POST("clinic/home-page2")
     Observable<HomeListData> getHomeList(@FieldMap Map<String, Object> params);
 
+    /**
+     * 获取活动弹窗
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("activity/activities_pop_up")
+    Observable<HomeListData> getPushList(@FieldMap Map<String, Object> params);
+
+
 
     /**
      * 获取医生详细信息

@@ -97,11 +97,13 @@ public class MessageFragment extends BaseFragment {
     private HomeListAdapter homeListAdapter;
     private List<HomeListData.DataData.HomeData> datas = new ArrayList<>();
     private List<HomeListData.DataData.HomeData> newConversations = new ArrayList<>();
+    private List<HomeListData.DataData.HomeData> pushdatas = new ArrayList<>();
     private String currentPoiname;
     private String longitude;
     private String latitude;
     private LocationDialog locationDialog;
     private final int REQUEST_PHONE_PERMISSIONS = 0;
+    private int dialogtime=0;
 
     public MessageFragment() {
         // Required empty public constructor
@@ -248,7 +250,7 @@ public class MessageFragment extends BaseFragment {
                 tvAddress.setText(amapLocation.getPoiName());
                 stopLocation();
                 //位置确定弹框
-                confirmLocationDialog();
+//                confirmLocationDialog();
                 //获取经纬度
                 longitude = amapLocation.getLongitude() + "";
                 latitude = amapLocation.getLatitude() + "";
@@ -292,11 +294,13 @@ public class MessageFragment extends BaseFragment {
 
     private void getHomeList(String longitude, String latitude) {
         showDialog("加载中...");
+        dialogtime=0;
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         ConnectHttp.connect(UnionAPIPackage.getHomeList(token, longitude, latitude), new BaseObserver<HomeListData>(context) {
             @Override
             public void onResponse(HomeListData data) {
-                closeDialog();
+
+
                 if (TextUtils.equals("4000", data.getCode())) {
                     if (!isLogin()) {
                         rlRecommond.setVisibility(View.VISIBLE);
@@ -345,7 +349,10 @@ public class MessageFragment extends BaseFragment {
                         }
                     }
                     datas.addAll(newConversations);
-                    homeListAdapter.setData(datas);
+                    getActivityPush();
+//                    datas.addAll(pushdatas);
+                    connectclosedialog();
+//                    homeListAdapter.setData(datas);
                     Logger.json(new Gson().toJson(datas));
                 } else {
                     showTost(data.getMessage());
@@ -354,12 +361,19 @@ public class MessageFragment extends BaseFragment {
 
             @Override
             public void onFail(Throwable e) {
-                closeDialog();
+                connectclosedialog();
             }
         });
 
     }
-
+private void connectclosedialog(){
+    dialogtime++;
+    if (dialogtime>1){
+        closeDialog();
+        datas.addAll(pushdatas);
+        homeListAdapter.setData(datas);
+    }
+}
     private void getCoversationList() {
         //获取会话列表
         if (isLogin()) {
@@ -388,7 +402,40 @@ public class MessageFragment extends BaseFragment {
         }
     }
 
+    private void getActivityPush() {
+        Log.d("linshi","getActivityPush()");
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        pushdatas.clear();
+        ConnectHttp.connect(UnionAPIPackage.getPushList(token), new BaseObserver<HomeListData>(context) {
+            @Override
+            public void onResponse(HomeListData data) {
+                Log.d("linshi","data:"+new Gson().toJson(data));
+                Log.d("linshi","size:"+data.getData().getActivities().size());
 
+                if (TextUtils.equals("4000", data.getCode())) {
+
+                    if (data.getData().getActivities().size() != 0) {
+                        int index = pushdatas.size();
+                        int activities = data.getData().getActivities().size();
+                        for (int i = 0; i < activities; i++) {
+                            pushdatas.add(data.getData().getActivities().get(i));
+                            pushdatas.get(index + i).setType(Common.ACTIVITY_PUSH);
+                        }
+                    }
+
+                } else {
+                    showTost(data.getMessage());
+                }
+                connectclosedialog();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                connectclosedialog();
+            }
+        });
+
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

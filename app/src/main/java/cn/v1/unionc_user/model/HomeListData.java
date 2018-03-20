@@ -30,6 +30,10 @@ public class HomeListData extends BaseData {
         private List<HomeData> recommendDoctors;
         private List<HomeData> signedDoctros;
 
+
+
+        private List<HomeData> activities;
+
         public List<HomeData> getAttendingDoctors() {
             return attendingDoctors;
         }
@@ -52,6 +56,14 @@ public class HomeListData extends BaseData {
 
         public void setSignedDoctros(List<HomeData> signedDoctros) {
             this.signedDoctros = signedDoctros;
+        }
+
+        public List<HomeData> getActivities() {
+            return activities;
+        }
+
+        public void setActivities(List<HomeData> activities) {
+            this.activities = activities;
         }
 
         public static class HomeData {
@@ -199,6 +211,120 @@ public class HomeListData extends BaseData {
             public void setProfessLevel(String professLevel) {
                 this.professLevel = professLevel;
             }
+
+
+
+
+            /**
+             * 活动弹窗
+             *
+             *
+             "LinkUrl": "www.baidu.com",
+             "EndTime": "2017-12-29 22:00:00",
+             "ActivityId": "2",
+             "StartTime": "2017-12-28 10:00:00",
+             "ImagePath": "/webServer/compress/68/15/1/fa586bba-b4b8-4d1c-be2c-fe2c2dc72c10_登录.png",
+             "LinkType": "1",
+             "MessageId": "14",
+             "Name": "弹窗2"
+             {"message":"成功","data":{"activities":
+             [{"activityId":"16","Name":"成功吧","CreatedTime":"2018-03-20 15:23:57","LinkType":"1","MessageId":"31","Address":"北京北京","LinkUrl":"","EndTime":"2018-03-21 15:23:49","StartTime":"2018-03-19 15:23:47","ImagePath":"http://192.168.21.93:8081/webServer/image/webServer/compress/1/7/7/a2b9afcf-0240-4711-b0b6-55b91814036e_logo.jpg"},
+             {"activityId":"2","Name":"测试320","CreatedTime":"2018-03-20 15:21:40","LinkType":"1","MessageId":"30","Address":"北京","LinkUrl":"","EndTime":"2018-03-21 15:21:32","StartTime":"2018-03-19 15:21:29","ImagePath":"http://192.168.21.93:8081/webServer/image/webServer/compress/1/10/6/510f3f0b-c434-4d92-9ea6-950d6d1cd417_logo.jpg"}]},"code":"4000"}
+             */
+            private String LinkUrl;
+            private String EndTime;
+            private String activityId;
+            private String StartTime;
+            private String ImagePath;
+            private String LinkType;
+            private String MessageId;
+            private String Name;
+
+
+
+            private String Address;
+            private String CreatedTime;
+
+
+            public String getImagePath2() {
+                return ImagePath;
+            }
+
+            public void setImagePath2(String ImagePath) {
+                this.ImagePath = ImagePath;
+            }
+            public String getLinkUrl() {
+                return LinkUrl;
+            }
+
+            public void setLinkUrl(String linkUrl) {
+                LinkUrl = linkUrl;
+            }
+
+            public String getEndTime() {
+                return EndTime;
+            }
+
+            public void setEndTime(String endTime) {
+                EndTime = endTime;
+            }
+
+            public String getActivityId() {
+                return activityId;
+            }
+
+            public void setActivityId(String activityId) {
+                this.activityId = activityId;
+            }
+
+            public String getStartTime() {
+                return StartTime;
+            }
+
+            public void setStartTime(String startTime) {
+                StartTime = startTime;
+            }
+
+            public String getLinkType() {
+                return LinkType;
+            }
+
+            public void setLinkType(String linkType) {
+                LinkType = linkType;
+            }
+
+            public String getMessageId() {
+                return MessageId;
+            }
+
+            public void setMessageId(String messageId) {
+                MessageId = messageId;
+            }
+
+            public String getName() {
+                return Name;
+            }
+
+            public void setName(String name) {
+                Name = name;
+            }
+
+            public String getAddress() {
+                return Address;
+            }
+
+            public void setAddress(String address) {
+                Address = address;
+            }
+
+            public String getCreatedTime() {
+                return CreatedTime;
+            }
+
+            public void setCreatedTime(String createdTime) {
+                CreatedTime = createdTime;
+            }
+
         }
 
     }
