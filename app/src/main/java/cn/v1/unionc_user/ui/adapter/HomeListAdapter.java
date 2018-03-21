@@ -178,7 +178,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         .into(holder.imgMessageAvator);
 
             }
-            holder.tvEndTime.setVisibility(View.VISIBLE);
+            holder.tvEndTime.setVisibility(View.GONE);
             holder.tvAddress.setVisibility(View.VISIBLE);
             holder.tvDescribe.setVisibility(View.GONE);
             holder.tvEndTime.setText(DateUtils.getStartandEnd(homeData.getStartTime(),homeData.getEndTime()));

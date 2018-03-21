@@ -117,8 +117,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initView() {
-        isCheckAgreement = false;
-        imgCheckAgreement.setImageResource(R.drawable.agreement_circle);
+        isCheckAgreement = true;
+        imgCheckAgreement.setImageResource(R.drawable.icon_check);
         tvAgreement.setText(Html.fromHtml("<font color=\'#9B9CA0\'>我同意并遵守《</font>" +
                 "<font color=\'#4e78f6\'>用户使用协议</font>" +
                 "<font color=\'#9B9CA0\'>》</font>"));

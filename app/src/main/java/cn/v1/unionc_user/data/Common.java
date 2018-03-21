@@ -34,4 +34,9 @@ public class Common {
     public static final String CONVERSATIONS = "conversations";
     public static final String ACTIVITY_PUSH = "push";
 
+
+    //我的/关注
+    public static final int DOCTORTYPE=1;
+    public static final int HOSPITALTYPE=2;
+
 }

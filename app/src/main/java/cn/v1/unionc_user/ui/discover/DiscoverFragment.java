@@ -49,7 +49,7 @@ public class DiscoverFragment extends BaseFragment {
     }
 
 
-    private final String url = "https://192.168.21.93:8085/unionApp/page/index.html";
+        private final String url = "https://192.168.21.93:8085/unionApp/page/index.html";
 
 
     @Override

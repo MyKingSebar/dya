@@ -13,6 +13,8 @@ import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
+import cn.v1.unionc_user.model.MeWatchingDoctorListData;
+import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
@@ -83,6 +85,26 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("clinic/home-page2")
     Observable<HomeListData> getHomeList(@FieldMap Map<String, Object> params);
+
+    /**
+     * 获取我的/关注/医生 列表
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/user-attention")
+    Observable<MeWatchingDoctorListData> getMeWatchingDoctorList(@FieldMap Map<String, Object> params);
+
+    /**
+     * 获取我的/关注/医生 列表
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/user-attention")
+    Observable<MeWatchingHospitalListData> getMeWatchingHospitalList(@FieldMap Map<String, Object> params);
 
     /**
      * 获取活动弹窗

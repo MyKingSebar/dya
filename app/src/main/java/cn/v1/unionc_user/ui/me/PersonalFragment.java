@@ -71,6 +71,8 @@ public class PersonalFragment extends BaseFragment {
     private String workingHours = "";
     private UserInfoData.DataData userInfo;
 
+    private Intent intent;
+
     public PersonalFragment() {
         // Required empty public constructor
     }
@@ -103,7 +105,7 @@ public class PersonalFragment extends BaseFragment {
         getUserInfo();
     }
 
-    @OnClick({R.id.img_back, R.id.tv_right, R.id.tv_edit, R.id.tv_yaoqing, R.id.tv_my_activity, R.id.tv_kefu})
+    @OnClick({R.id.img_back, R.id.tv_right, R.id.tv_edit, R.id.tv_yaoqing, R.id.tv_my_activity, R.id.tv_kefu,R.id.tv_doctor_num,R.id.tv_hospital_num,R.id.tv_comment_num})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_back:
@@ -114,10 +116,31 @@ public class PersonalFragment extends BaseFragment {
                 break;
             case R.id.tv_edit:
                 //编辑
-                Intent intent = new Intent(context, EditUserInfoActivity.class);
+                intent = new Intent(context, EditUserInfoActivity.class);
                 intent.putExtra("userInfo", (Serializable) userInfo);
                 startActivity(intent);
                 break;
+
+            case R.id.tv_doctor_num:
+                //医生
+                intent = new Intent(context, MyWatchinghActivity.class);
+                intent.putExtra("type", Common.DOCTORTYPE);
+                startActivity(intent);
+                break;
+
+            case R.id.tv_hospital_num:
+                //医院
+                intent = new Intent(context, MyWatchinghActivity.class);
+                intent.putExtra("type", Common.HOSPITALTYPE);
+                startActivity(intent);
+                break;
+
+            case R.id.tv_comment_num:
+                //评论
+
+                break;
+
+
             case R.id.tv_yaoqing:
                 //邀请好友
                 break;

@@ -17,6 +17,8 @@ import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
+import cn.v1.unionc_user.model.MeWatchingDoctorListData;
+import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
@@ -112,6 +114,32 @@ public class UnionAPIPackage {
         params.put("longitude", longitude);
         params.put("latitude", latitude);
         return ConnectHttp.getUnionAPI().getHomeList(dataProcess(params));
+    }
+    /**
+     * 获取我的/关注/医生 列表
+     *
+     * @return
+     */
+    public static Observable<MeWatchingDoctorListData> getMeWatchingDoctorList(String token) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("attentType", "1");//查询类型（1：查询关注的医生 2关注的医院)
+        params.put("pageNo", "1");
+        params.put("pageSize", "100");
+        return ConnectHttp.getUnionAPI().getMeWatchingDoctorList(dataProcess(params));
+    }
+    /**
+     * 获取我的/关注/医院 列表
+     *
+     * @return
+     */
+    public static Observable<MeWatchingHospitalListData> getMeWatchingHospitalList(String token) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("attentType", "2");//查询类型（1：查询关注的医生 2关注的医院)
+        params.put("pageNo", "1");
+        params.put("pageSize", "100");
+        return ConnectHttp.getUnionAPI().getMeWatchingHospitalList(dataProcess(params));
     }
 
 
