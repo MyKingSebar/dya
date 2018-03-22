@@ -150,25 +150,26 @@ public class PersonalFragment extends BaseFragment {
                 break;
             case R.id.tv_kefu:
                 //客服中心
-                PromptDialog contactDialog = new PromptDialog(context);
-                contactDialog.show();
-                contactDialog.setTitle(servicePhone + "");
-                contactDialog.setMessage(workingHours + "");
-                contactDialog.setTvConfirm("取消");
-                contactDialog.setTvCancel("呼叫");
-                contactDialog.setOnButtonClickListener(new OnButtonClickListener() {
-                    @Override
-                    public void onConfirmClick() {
-                    }
-
-                    @Override
-                    public void onCancelClick() {
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        Uri data = Uri.parse("tel:" + servicePhone);
-                        intent.setData(data);
-                        startActivity(intent);
-                    }
-                });
+                goNewActivity(ServerCenterActivity.class);
+//                PromptDialog contactDialog = new PromptDialog(context);
+//                contactDialog.show();
+//                contactDialog.setTitle(servicePhone + "");
+//                contactDialog.setMessage(workingHours + "");
+//                contactDialog.setTvConfirm("取消");
+//                contactDialog.setTvCancel("呼叫");
+//                contactDialog.setOnButtonClickListener(new OnButtonClickListener() {
+//                    @Override
+//                    public void onConfirmClick() {
+//                    }
+//
+//                    @Override
+//                    public void onCancelClick() {
+//                        Intent intent = new Intent(Intent.ACTION_DIAL);
+//                        Uri data = Uri.parse("tel:" + servicePhone);
+//                        intent.setData(data);
+//                        startActivity(intent);
+//                    }
+//                });
                 break;
         }
     }

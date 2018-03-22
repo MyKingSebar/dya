@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context="cn.v1.unionc_user.ui.home.SearchWebViewActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+<ImageView
+    android:layout_marginTop="22dp"
+    android:layout_width="135dp"
+    android:layout_height="87dp"
+    android:src="@drawable/icon_me_servercenter"
+
+    />
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        >
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/detail_text"
+            android:text="服务时间：上午9：00-下午18：00"
+            tools:text="服务时间：上午9：00-下午18：00"
+            />
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/detail_text"
+            android:text="联系电话：400-625-8851"
+            tools:text="联系电话：400-625-8851"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_online"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:textSize="17sp"
+        android:textColor="@color/qm_blue"
+        android:text="在线咨询"
+        android:gravity="center"
+        android:background="@drawable/bg_button_grey2_line"
+        />
+    <TextView
+        android:id="@+id/tv_call"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:textSize="17sp"
+        android:textColor="@color/qm_blue"
+        android:background="@drawable/bg_button_grey2_line"
+        android:text="拨打电话"
+        android:gravity="center"
+        />
+
+</LinearLayout>

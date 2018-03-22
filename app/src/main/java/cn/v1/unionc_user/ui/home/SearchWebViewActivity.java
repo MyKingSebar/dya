@@ -1,8 +1,15 @@
 package cn.v1.unionc_user.ui.home;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -10,12 +17,17 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
+
+import static android.content.ContentValues.TAG;
 
 public class SearchWebViewActivity extends BaseActivity {
 
@@ -26,11 +38,16 @@ public class SearchWebViewActivity extends BaseActivity {
     @Bind(R.id.tv_title)
     TextView tvTitle;
 
+    private String provider;//位置提供器
+    double latitude;
+    double longitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_web_view);
         ButterKnife.bind(this);
+        init();
         initView();
     }
 
@@ -47,7 +64,12 @@ public class SearchWebViewActivity extends BaseActivity {
             }
         });
         webviewSearch.setWebViewClient(new WebViewClient() {
-
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                webviewSearch.loadUrl("javascript:app('"+latitude+","+longitude+"')");
+                Log.d("linshi","load:"+latitude+","+longitude);
+            }
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -81,6 +103,42 @@ public class SearchWebViewActivity extends BaseActivity {
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webviewSearch.loadUrl("https://192.168.21.93:8085/unionApp/page/index.html#/search");
 
+    }
+
+    private void init() {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "onCreate: 没有权限 ");
+            return;
+        }else{
+            LocationManager locationManager= (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            provider = judgeProvider(locationManager);
+            Location location = locationManager.getLastKnownLocation(provider);
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude= location.getLongitude();
+                Log.d("linshi",latitude+","+longitude);
+            } else {
+                Toast.makeText(context,"暂时无法获得当前位置",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+    }
+
+    /**
+     * 判断是否有可用的内容提供器
+     * @return 不存在返回null
+     */
+    private String judgeProvider(LocationManager locationManager) {
+        List<String> prodiverlist = locationManager.getProviders(true);
+        if(prodiverlist.contains(LocationManager.NETWORK_PROVIDER)){
+            return LocationManager.NETWORK_PROVIDER;
+        }else if(prodiverlist.contains(LocationManager.GPS_PROVIDER)) {
+            return LocationManager.GPS_PROVIDER;
+        }else{
+            Toast.makeText(context,"没有可用的位置提供器",Toast.LENGTH_SHORT).show();
+        }
+        return null;
     }
 
     @OnClick(R.id.img_back)

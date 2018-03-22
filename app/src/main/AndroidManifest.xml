@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.v1.unionc_user">
 
+
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 用于访问GPS定位 -->
@@ -133,6 +134,7 @@
         <activity android:name=".ui.me.SettingActivity" />
         <activity android:name=".ui.me.MyactivityActivity" />
         <activity android:name=".ui.me.MyWatchinghActivity" />
+        <activity android:name=".ui.me.ServerCenterActivity" />
         <activity android:name=".ui.home.SearchWebViewActivity" />
         <activity
             android:name=".ui.home.SignactivityActivity"
