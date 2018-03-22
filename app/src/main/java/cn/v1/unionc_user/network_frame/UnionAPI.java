@@ -190,7 +190,7 @@ public interface UnionAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("clinic/doctor-schedule")
+    @POST("doctor/doctor-schedule")
     Observable<DoctorScheduleData> doctorSchedule(@FieldMap Map<String, Object> params);
 
     /**

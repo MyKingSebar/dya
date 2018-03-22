@@ -85,9 +85,9 @@ public class MeWatchingDoctorListAdapter extends RecyclerView.Adapter<MeWatching
 //                if (TextUtils.equals(type, Common.RECOMMEND_DOCTOR) ||
 //                        TextUtils.equals(type, Common.SIGNED_DOCTROS) ||
 //                        TextUtils.equals(type, Common.ATTENDING_DOCTORS)) {
-//                    Intent intent = new Intent(context, DoctorDetailActivity.class);
-//                    intent.putExtra("doctorId", doctorId);
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, DoctorDetailActivity.class);
+                    intent.putExtra("doctorId", doctorData.getDoctId());
+                    context.startActivity(intent);
 //                }
 //                if (TextUtils.equals(type, Common.CONVERSATIONS)) {
 //                    DoctorInfo doctorInfo = new DoctorInfo();

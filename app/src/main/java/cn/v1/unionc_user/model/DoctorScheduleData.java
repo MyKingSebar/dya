@@ -70,7 +70,24 @@ public class DoctorScheduleData extends BaseData {
         }
 
         public static class Schedules{
+            public String getScheduleDate() {
+                return ScheduleDate;
+            }
 
+            public void setScheduleDate(String scheduleDate) {
+                ScheduleDate = scheduleDate;
+            }
+
+            public String getSchedulingType() {
+                return SchedulingType;
+            }
+
+            public void setSchedulingType(String schedulingType) {
+                SchedulingType = schedulingType;
+            }
+
+            private String ScheduleDate;
+            private String SchedulingType;
         }
     }
 }

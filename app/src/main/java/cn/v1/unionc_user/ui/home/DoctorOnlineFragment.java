@@ -1,10 +1,13 @@
 package cn.v1.unionc_user.ui.home;
 
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +101,7 @@ public class DoctorOnlineFragment extends BaseFragment {
     private TextView[] amView;
     private TextView[] pmView;
     private TextView[] nightView;
+    private int pagenum=1;
 
     public static DoctorOnlineFragment newInstance(String doctorId) {
         DoctorOnlineFragment fragment = new DoctorOnlineFragment();
@@ -132,7 +136,7 @@ public class DoctorOnlineFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
-        initData(1);
+        initData(pagenum);
     }
 
     @Override
@@ -145,8 +149,15 @@ public class DoctorOnlineFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_preview:
+                if(pagenum>1){
+                   pagenum--;
+                    initData(pagenum);
+                }
                 break;
             case R.id.tv_next:
+                pagenum++;
+                    initData(pagenum);
+
                 break;
         }
     }
@@ -159,6 +170,7 @@ public class DoctorOnlineFragment extends BaseFragment {
         amView = new TextView[]{tvAm1, tvAm2, tvAm3, tvAm4, tvAm5, tvAm6, tvAm7};
         pmView = new TextView[]{tvPm1, tvPm2, tvPm3, tvPm4, tvPm5, tvPm6, tvPm7};
         nightView = new TextView[]{tvNight1, tvNight2, tvNight3, tvNight4, tvNight5, tvNight6, tvNight7};
+        pagenum=1;
     }
 
 
@@ -172,8 +184,32 @@ public class DoctorOnlineFragment extends BaseFragment {
                         closeDialog();
                         if (TextUtils.equals("4000", data.getCode())) {
                             List<DoctorScheduleData.DataData.DaysData> dayData = data.getData().getDays();
+                            List<DoctorScheduleData.DataData.Schedules> schedules = data.getData().getSchedules();
                             for (int i = 0; i < dayData.size(); i++) {
+//                                Log.d("linshi","dayData.get(i).getScheduleDate():"+dayData.get(i).getScheduleDate()+",getWeek():"+dayData.get(i).getWeek());
                                 dayView[i].setText(dayData.get(i).getScheduleDate() + "\n" + dayData.get(i).getWeek());
+                                amView[i].setBackgroundResource(R.color.transparent);
+                                pmView[i].setBackgroundResource(R.color.transparent);
+                                nightView[i].setBackgroundResource(R.color.transparent);
+                                for (int j = 0; j < schedules.size(); j++) {
+                                    //1.上午班 2.下午班 3.晚班 4.白班 5.通班
+                                    if (TextUtils.equals(dayData.get(i).getScheduleDate(), schedules.get(j).getScheduleDate())) {
+                                        if (TextUtils.equals("1", schedules.get(j).getSchedulingType())) {
+                                            amView[i].setBackgroundResource(R.color.colorpaiban);
+                                        } else if (TextUtils.equals("2", schedules.get(j).getSchedulingType())) {
+                                            pmView[i].setBackgroundResource(R.color.colorpaiban);
+                                        }else if (TextUtils.equals("3", schedules.get(j).getSchedulingType())) {
+                                            nightView[i].setBackgroundResource(R.color.colorpaiban);
+                                        }else if (TextUtils.equals("4", schedules.get(j).getSchedulingType())) {
+                                            amView[i].setBackgroundResource(R.color.colorpaiban);
+                                            pmView[i].setBackgroundResource(R.color.colorpaiban);
+                                        }else if (TextUtils.equals("5", schedules.get(j).getSchedulingType())) {
+                                            amView[i].setBackgroundResource(R.color.colorpaiban);
+                                            pmView[i].setBackgroundResource(R.color.colorpaiban);
+                                            nightView[i].setBackgroundResource(R.color.colorpaiban);
+                                        }
+                                    }
+                                }
                             }
 
                         } else {
