@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context="cn.v1.unionc_user.ui.home.SearchWebViewActivity">
+    tools:context="cn.v1.unionc_user.ui.me.ServerCenterActivity">
 
     <include layout="@layout/layout_toolbar" />
 

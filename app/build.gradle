@@ -84,5 +84,5 @@ dependencies {
     implementation project(':library:TIM_PRESENTATION')
     implementation project(':library:TIM_UI')
     compile 'com.jaywei:compresstool:1.0.4'
-
+    implementation files('libs/Amap_2DMap_V5.2.0_20170627.jar')
 }
