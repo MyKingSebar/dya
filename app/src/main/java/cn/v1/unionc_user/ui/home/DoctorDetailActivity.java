@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -404,11 +405,13 @@ public class DoctorDetailActivity extends BaseActivity {
     private void evaluateDoctor(String starCount) {
         showDialog("提交...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        Log.d("linshi","starCount:"+starCount);
         ConnectHttp.connect(UnionAPIPackage.evaluateDoctor(token, doctorId, starCount),
                 new BaseObserver<BaseData>(context) {
                     @Override
                     public void onResponse(BaseData data) {
                         closeDialog();
+                        Log.d("linshi","starCountgetCode:"+data.getCode());
                         if (TextUtils.equals("4000", data.getCode())) {
                             llBottomSheet.setVisibility(View.VISIBLE);
                             llRecommendSheet.setVisibility(View.GONE);
@@ -509,6 +512,7 @@ public class DoctorDetailActivity extends BaseActivity {
         if (TextUtils.equals("0", doctorsData.getIsRecom())) {
             imgRecommend.setImageResource(R.drawable.icon_recommend_btn);
         }
+        Log.d("linshi","getIsRecom:"+doctorsData.getIsRecom());
         if (TextUtils.equals("1", doctorsData.getIsRecom())) {
             cbNoRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_no_recommend_select);

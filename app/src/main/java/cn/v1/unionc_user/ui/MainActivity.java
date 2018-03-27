@@ -14,6 +14,7 @@ import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment2;
+import cn.v1.unionc_user.ui.discover.DiscoverFragment3;
 import cn.v1.unionc_user.ui.me.PersonalFragment;
 import cn.v1.unionc_user.ui.home.MessageFragment;
 
@@ -25,7 +26,7 @@ public class MainActivity extends BaseActivity {
     private Fragment mCurrentfragment;//记录选中的fragment
     private int mCurrentCheckedId;//记录选中的id
     private MessageFragment messageFragment;
-    private DiscoverFragment2 discoverFragment2;
+    private DiscoverFragment3 discoverFragment3;
     private PersonalFragment personalFragment;
     private final String MESSAGE = "message";
     private final String DISCOVER = "discover";
@@ -67,10 +68,10 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.discover:
                         mCurrentCheckedId = R.id.discover;
-                        if (null == discoverFragment2) {
-                            discoverFragment2 = new DiscoverFragment2();
+                        if (null == discoverFragment3) {
+                            discoverFragment3 = new DiscoverFragment3();
                         }
-                        switchContent(discoverFragment2, 1);
+                        switchContent(discoverFragment3, 1);
                         break;
                     case R.id.personal:
                         if (null == personalFragment) {

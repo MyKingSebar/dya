@@ -1,5 +1,7 @@
 package cn.v1.unionc_user.network_frame;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
@@ -9,6 +11,7 @@ import java.util.Map;
 
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicActivityData;
+import cn.v1.unionc_user.model.ClinicInfoData;
 import cn.v1.unionc_user.model.DoctorAnswerDetailData;
 import cn.v1.unionc_user.model.DoctorEvaluateData;
 import cn.v1.unionc_user.model.DoctorInfoData;
@@ -17,6 +20,7 @@ import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
+import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.TIMSigData;
@@ -156,6 +160,33 @@ public class UnionAPIPackage {
     }
 
     /**
+     * 8.6.	获取首页地图诊所列表
+     *
+     * @return
+     */
+    public static Observable<MapClinicData> getMapClinic(String type, String longitude, String latitude) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type", type);
+        params.put("imei",MobileConfigUtil.getMacCode());
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
+        return ConnectHttp.getUnionAPI().getMapClinic(dataProcess(params));
+    }
+    /**
+     * 获取诊所详细信息
+     *
+     * @return
+     */
+    public static Observable<ClinicInfoData> getClinicInfo(String token, String clinicId, String longitude, String latitude) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("clinicId", clinicId);
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
+        return ConnectHttp.getUnionAPI().getClinicInfo(dataProcess(params));
+    }
+
+    /**
      * 获取医生详细信息
      *
      * @return
@@ -170,6 +201,8 @@ public class UnionAPIPackage {
         params.put("source", source);
         return ConnectHttp.getUnionAPI().getDoctorInfo(dataProcess(params));
     }
+
+
 
     /**
      * 获取医生详细信息
@@ -300,6 +333,22 @@ public class UnionAPIPackage {
     }
 
     /**
+     * 推荐和不推荐诊所
+     *
+     * @param token
+     * @param clinicId
+     * @param starCount : 1 不推荐   5 推荐
+     * @return
+     */
+    public static Observable<BaseData> evaluateClinic(String token, String clinicId, String starCount) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("imei",MobileConfigUtil.getMacCode() );
+        params.put("clinicId", clinicId);
+        params.put("starCount", starCount);
+        return ConnectHttp.getUnionAPI().evaluateClinic(dataProcess(params));
+    }
+    /**
      * 推荐和不推荐医生
      *
      * @param token
@@ -319,19 +368,29 @@ public class UnionAPIPackage {
      * 关注和取消医生
      *
      * @param token
-     * @param doctId
+     * @param Id
      * @param attentFlag : 0：关注 1：取消关注
      * @param attentType ：（1：医生 2：医院，3：义诊活动）
      * @return
      */
     public static Observable<BaseData> attentionDoctor(String token,
                                                        String attentType,
-                                                       String doctId,
+                                                       String Id,
                                                        String attentFlag) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("attentType", attentType);
-        params.put("doctId", doctId);
+        switch (Integer.parseInt(attentType)){
+            case 1:
+                params.put("doctId", Id);
+                break;
+            case 2:
+                params.put("clinicId", Id);
+                break;
+            case 3:
+                params.put("activityId", Id);
+                break;
+        }
         params.put("attentFlag", attentFlag);
         return ConnectHttp.getUnionAPI().attention(dataProcess(params));
     }
@@ -356,10 +415,36 @@ public class UnionAPIPackage {
         params.put("evaType", evaType);
         params.put("pageNo", pageNo);
         params.put("pageSize", pageSize);
-        params.put("doctId", doctId);
+        switch (Integer.parseInt(evaType)){
+            case 1:
+                params.put("doctId", doctId);
+                break;
+            case 2:
+                params.put("clinicId", doctId);
+                break;
+        }
         return ConnectHttp.getUnionAPI().evaluates(dataProcess(params));
     }
 
+    /**
+     * 保存医院评价
+     *
+     * @param token
+     * @param clinicId
+     * @param content
+     * @return
+     */
+    public static Observable<BaseData> saveClinicEvaluate(String token,
+                                                          String clinicId,
+                                                          String content
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("imei", MobileConfigUtil.getMacCode());
+        params.put("clinicId", clinicId);
+        params.put("content", content);
+        return ConnectHttp.getUnionAPI().saveClinicEvaluate(dataProcess(params));
+    }
     /**
      * 保存医生评价
      *

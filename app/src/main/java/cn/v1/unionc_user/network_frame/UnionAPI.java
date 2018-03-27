@@ -5,6 +5,7 @@ import java.util.Map;
 
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicActivityData;
+import cn.v1.unionc_user.model.ClinicInfoData;
 import cn.v1.unionc_user.model.DoctorAnswerDetailData;
 import cn.v1.unionc_user.model.DoctorEvaluateData;
 import cn.v1.unionc_user.model.DoctorInfoData;
@@ -13,6 +14,7 @@ import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
+import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.TIMSigData;
@@ -116,6 +118,25 @@ public interface UnionAPI {
     @POST("activity/activities_pop_up")
     Observable<HomeListData> getPushList(@FieldMap Map<String, Object> params);
 
+
+    /**
+     * 8.6.	获取首页地图诊所列表
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("clinic/home-page")
+    Observable<MapClinicData> getMapClinic(@FieldMap Map<String, Object> params);
+    /**
+     * 获取诊所详细信息
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("clinic/clinic-info")
+    Observable<ClinicInfoData> getClinicInfo(@FieldMap Map<String, Object> params);
 
 
     /**
@@ -234,6 +255,16 @@ public interface UnionAPI {
     Observable<BaseData> evaluateDoctor(@FieldMap Map<String, Object> params);
 
     /**
+     * 推荐和不推荐诊所
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("clinic/save-clinic-evaluate-star")
+    Observable<BaseData> evaluateClinic(@FieldMap Map<String, Object> params);
+
+    /**
      * 关注取消接口
      *
      * @param params
@@ -262,6 +293,15 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("clinic/save-doctor-evaluate")
     Observable<BaseData> saveDoctorEvaluate(@FieldMap Map<String, Object> params);
+    /**
+     * 保存医院评价
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("clinic/save-clinic-evaluate")
+    Observable<BaseData> saveClinicEvaluate(@FieldMap Map<String, Object> params);
 
     /**
      * 查询医院活动

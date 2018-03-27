@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,6 +42,9 @@ public class EvaluateActivity extends BaseActivity {
 
     private EvaluateAdapter evaluateAdapter;
     private String doctorId = "";
+    private String clinicId = "";
+    private String Id = "";
+    private int type=0;
     private List<DoctorEvaluateData.DataData.EvaluatesData> evaluates = new ArrayList<>();
 
     @Override
@@ -60,7 +64,7 @@ public class EvaluateActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_send:
-                saveDoctorEvaluate();
+                saveEvaluate();
                 break;
         }
     }
@@ -75,7 +79,12 @@ public class EvaluateActivity extends BaseActivity {
     private void initData() {
         if (getIntent().hasExtra("doctorId")) {
             doctorId = getIntent().getStringExtra("doctorId");
+            type=1;
+        }else if(getIntent().hasExtra("clinicId")){
+            clinicId=getIntent().getStringExtra("clinicId");
+            type=2;
         }
+        Log.d("linshi","doctorId:"+doctorId+",clinicId:"+clinicId+",type:"+type);
     }
 
 
@@ -85,7 +94,15 @@ public class EvaluateActivity extends BaseActivity {
     private void getEvaluates() {
         showDialog("提交...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.doctorevaluates(token, "1", "1", "10", doctorId),
+        switch (type){
+            case 1:
+                Id=doctorId;
+                break;
+            case 2:
+                Id=clinicId;
+                break;
+        }
+        ConnectHttp.connect(UnionAPIPackage.doctorevaluates(token, type+"", "1", "10", Id),
                 new BaseObserver<DoctorEvaluateData>(context) {
                     @Override
                     public void onResponse(DoctorEvaluateData data) {
@@ -106,7 +123,16 @@ public class EvaluateActivity extends BaseActivity {
                 });
     }
 
-
+    private void saveEvaluate(){
+        switch (type){
+            case 1:
+                saveDoctorEvaluate();
+                break;
+            case 2:
+                saveClinicEvaluate();
+                break;
+        }
+    }
     /**
      * 保存医生评论
      */
@@ -119,6 +145,36 @@ public class EvaluateActivity extends BaseActivity {
         }
         showDialog("提交评论...");
         ConnectHttp.connect(UnionAPIPackage.saveDoctorEvaluate(token, doctorId, content),
+                new BaseObserver<BaseData>(context) {
+                    @Override
+                    public void onResponse(BaseData data) {
+                        closeDialog();
+                        if (TextUtils.equals("4000", data.getCode())) {
+                            etInput.setText("");
+                            getEvaluates();
+                        } else {
+                            showTost(data.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        closeDialog();
+                    }
+                });
+    }
+    /**
+     * 保存医院评论
+     */
+    private void saveClinicEvaluate() {
+
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        String content = etInput.getText().toString().trim();
+        if (TextUtils.isEmpty(content)) {
+            return;
+        }
+        showDialog("提交评论...");
+        ConnectHttp.connect(UnionAPIPackage.saveClinicEvaluate(token, clinicId, content),
                 new BaseObserver<BaseData>(context) {
                     @Override
                     public void onResponse(BaseData data) {
