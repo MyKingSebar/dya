@@ -70,6 +70,8 @@ public class DoctorDetailActivity extends BaseActivity {
     TextView tvDepartment;
     @Bind(R.id.tv_hospital)
     TextView tvHospital;
+    @Bind(R.id.tv_major)
+    TextView tvMajor;
     @Bind(R.id.tv_summary)
     TextView tvSummary;
     @Bind(R.id.tv_open)
@@ -309,6 +311,7 @@ public class DoctorDetailActivity extends BaseActivity {
             String doctorIdentifier = getIntent().getStringExtra("doctorIdentifier");
             String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
             showDialog("加载中...");
+            Log.d("linshi","doctorIdentifier:"+doctorIdentifier);
             ConnectHttp.connect(UnionAPIPackage.doctorInfoByParam(token, doctorIdentifier),
                     new BaseObserver<DoctorInfoIdentifierData>(context) {
                         @Override
@@ -405,13 +408,11 @@ public class DoctorDetailActivity extends BaseActivity {
     private void evaluateDoctor(String starCount) {
         showDialog("提交...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        Log.d("linshi","starCount:"+starCount);
         ConnectHttp.connect(UnionAPIPackage.evaluateDoctor(token, doctorId, starCount),
                 new BaseObserver<BaseData>(context) {
                     @Override
                     public void onResponse(BaseData data) {
                         closeDialog();
-                        Log.d("linshi","starCountgetCode:"+data.getCode());
                         if (TextUtils.equals("4000", data.getCode())) {
                             llBottomSheet.setVisibility(View.VISIBLE);
                             llRecommendSheet.setVisibility(View.GONE);
@@ -488,11 +489,24 @@ public class DoctorDetailActivity extends BaseActivity {
         doctorName = doctorsData.getDoctorName();
         identifier = doctorsData.getIdentifier();
         doctorPhone = doctorsData.getTelphone();
-        Glide.with(context).load(doctorsData.getImagePath()).into(imgDoctorAvator);
+        if(TextUtils.isEmpty(doctorsData.getImagePath())){
+
+            imgDoctorAvator.setImageResource(R.drawable.icon_doctor_default);
+        }else{
+            Glide.with(context)
+                    .load(doctorsData.getImagePath())
+                    .placeholder(R.drawable.icon_doctor_default)
+                    .error(R.drawable.icon_doctor_default)
+                    .into(imgDoctorAvator);
+
+        }
+
         tvDoctorName.setText(doctorsData.getDoctorName() + "");
         tvDepartment.setText(doctorsData.getDepartName() + "  " + doctorsData.getProfessLevel());
         tvHospital.setText(doctorsData.getFirstClinicName() + "");
+        tvMajor.setText("擅长："+doctorsData.getMajor() + "");
         tvSummary.setText(doctorsData.getRemarks() + "");
+
         List<DoctorInfoData.DataData.QuestionsData> questionsData = data.getData().getQuestions();
         questionsDataList.clear();
         questionsDataList.addAll(questionsData);
@@ -512,7 +526,6 @@ public class DoctorDetailActivity extends BaseActivity {
         if (TextUtils.equals("0", doctorsData.getIsRecom())) {
             imgRecommend.setImageResource(R.drawable.icon_recommend_btn);
         }
-        Log.d("linshi","getIsRecom:"+doctorsData.getIsRecom());
         if (TextUtils.equals("1", doctorsData.getIsRecom())) {
             cbNoRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_no_recommend_select);

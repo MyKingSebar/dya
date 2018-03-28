@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -255,7 +256,21 @@ private void initfragmentData(){
         Notes=clinicData.getNotes();
         Name=clinicData.getName();
         Tips=clinicData.getTips();
-        Glide.with(context).load(ImagePath).into(imgHospital);
+
+        if(TextUtils.isEmpty(ImagePath)){
+
+            imgHospital.setImageResource(R.drawable.me_watching_hospital);
+        }else{
+            Glide.with(context)
+                    .load(ImagePath)
+                    .placeholder(R.drawable.me_watching_hospital)
+                    .error(R.drawable.me_watching_hospital)
+                    .into(imgHospital);
+
+        }
+
+
+
         tvHospitalName.setText(Name);
         tvSummary.setText(Notes);
         tvAddress.setText(AUniress);

@@ -140,10 +140,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="6dp"
-                android:drawableTop="@drawable/icon_hushi_preview"
+                android:drawableTop="@drawable/icon_songyao"
                 android:gravity="center"
-                android:text="医护上门"
-                android:textColor="#FFB6B8BF"
+                android:text="送药到家"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
 
             <TextView
@@ -172,7 +172,7 @@
                 android:drawableTop="@drawable/icon_health_preview"
                 android:gravity="center"
                 android:text="健康课堂"
-                android:textColor="#FFB6B8BF"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
 
             <TextView

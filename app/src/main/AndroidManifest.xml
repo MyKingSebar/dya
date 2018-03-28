@@ -136,6 +136,7 @@
         <activity android:name=".ui.me.UpdateSexActivity" />
         <activity android:name=".ui.me.UpdateNicknameActivity" />
         <activity android:name=".ui.home.ViewDoctorAnswerActivity" />
+        <activity android:name=".ui.home.ToDoorWebViewActivity" />
         <activity android:name=".ui.home.EvaluateActivity" />
         <activity android:name=".ui.me.RealNameAuthActivity" />
         <activity android:name=".ui.home.SignDoctorAgreeMentWebViewActivity" />
@@ -144,6 +145,7 @@
         <activity android:name=".ui.me.MyWatchinghActivity" />
         <activity android:name=".ui.me.ServerCenterActivity" />
         <activity android:name=".ui.home.SearchWebViewActivity" />
+        <activity android:name=".ui.home.MapClinicWebViewActivity" />
         <activity
             android:name=".ui.home.SignactivityActivity"
             android:theme="@style/Dialog" />

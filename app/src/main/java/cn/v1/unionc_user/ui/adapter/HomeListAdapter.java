@@ -64,10 +64,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     homeData.getMajor());
         }
         if (TextUtils.equals(homeData.getType(), Common.ATTENDING_DOCTORS)) {
-            if(TextUtils.isEmpty(homeData.getImagePath())){
+            if (TextUtils.isEmpty(homeData.getImagePath())) {
 
                 holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
-            }else{
+            } else {
                 Glide.with(context)
                         .load(homeData.getImagePath())
                         .placeholder(R.drawable.icon_doctor_default)
@@ -83,9 +83,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             holder.tvAddress.setVisibility(View.GONE);
         }
         if (TextUtils.equals(homeData.getType(), Common.SIGNED_DOCTROS)) {
-            if(TextUtils.isEmpty(homeData.getImagePath())){
+            if (TextUtils.isEmpty(homeData.getImagePath())) {
                 holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
-            }else{
+            } else {
                 Glide.with(context)
                         .load(homeData.getImagePath())
                         .placeholder(R.drawable.icon_doctor_default)
@@ -100,9 +100,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             holder.tvAddress.setVisibility(View.GONE);
         }
         if (TextUtils.equals(homeData.getType(), Common.RECOMMEND_DOCTOR)) {
-            if(TextUtils.isEmpty(homeData.getImagePath())){
+            if (TextUtils.isEmpty(homeData.getImagePath())) {
                 holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
-            }else{
+            } else {
                 Glide.with(context)
                         .load(homeData.getImagePath())
                         .placeholder(R.drawable.icon_doctor_default)
@@ -130,6 +130,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         //错误码code和错误描述desc，可用于定位请求失败原因
                         //错误码code列表请参见错误码表
                         Log.e("tim", "getUsersProfile failed: " + code + " desc");
+                        holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
+                        holder.tvMessageName.setText(homeData.getIdentifier() + "");
                     }
 
                     @Override
@@ -141,16 +143,19 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                             if (!TextUtils.isEmpty(res.getNickName())) {
                                 holder.tvMessageName.setText(res.getNickName() + "");
                                 homeData.setDoctorName(res.getNickName() + "");
+                            } else {
+                                holder.tvMessageName.setText(homeData.getIdentifier() + "");
                             }
                             if (!TextUtils.isEmpty(res.getFaceUrl())) {
                                 Glide.with(context).load(res.getFaceUrl()).into(holder.imgMessageAvator);
                                 homeData.setImagePath(res.getFaceUrl() + "");
+                            } else {
+                                holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
                             }
                         }
                     }
                 });
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
-                holder.tvMessageName.setText(homeData.getIdentifier() + "");
+
                 holder.tvDescribe.setText(homeData.getLastMessage().getSummary() + "");
                 holder.tvDescribe.setVisibility(View.VISIBLE);
                 holder.tvTime.setText(homeData.getLasttime() + "");
@@ -166,11 +171,11 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
             }
         }
-        if(TextUtils.equals(homeData.getType(), Common.ACTIVITY_PUSH)){
-            if(TextUtils.isEmpty(homeData.getImagePath())){
+        if (TextUtils.equals(homeData.getType(), Common.ACTIVITY_PUSH)) {
+            if (TextUtils.isEmpty(homeData.getImagePath())) {
 
                 holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
-            }else{
+            } else {
                 Glide.with(context)
                         .load(homeData.getImagePath2())
                         .placeholder(R.drawable.icon_push)
@@ -181,7 +186,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             holder.tvEndTime.setVisibility(View.GONE);
             holder.tvAddress.setVisibility(View.VISIBLE);
             holder.tvDescribe.setVisibility(View.GONE);
-            holder.tvEndTime.setText(DateUtils.getStartandEnd(homeData.getStartTime(),homeData.getEndTime()));
+            holder.tvEndTime.setText(DateUtils.getStartandEnd(homeData.getStartTime(), homeData.getEndTime()));
 //            holder.tvEndTime.setText(homeData.getEndTime());
             holder.tvAddress.setText(homeData.getAddress());
             holder.tvMessageName.setText(homeData.getName() + "  ");
@@ -211,7 +216,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     doctorInfo.setImagePath(homeData.getImagePath() + "");
                     TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
                 }
-                if(TextUtils.equals(type, Common.ACTIVITY_PUSH)){
+                if (TextUtils.equals(type, Common.ACTIVITY_PUSH)) {
                     //
                 }
             }

@@ -2,6 +2,7 @@ package cn.v1.unionc_user.ui.discover;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -36,12 +37,15 @@ import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.BitmapDescriptor;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.Circle;
 import com.amap.api.maps2d.model.CircleOptions;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.LatLngBounds;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
+import com.amap.api.maps2d.model.VisibleRegion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +63,15 @@ import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseFragment;
+import cn.v1.unionc_user.ui.home.HospitalDetailActivity;
+import cn.v1.unionc_user.ui.home.MapClinicWebViewActivity;
 import cn.v1.unionc_user.ui.home.SearchWebViewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DiscoverFragment3 extends BaseFragment implements LocationSource,
-        AMapLocationListener {
+        AMapLocationListener,AMap.OnMarkerClickListener ,AMap.OnCameraChangeListener {
 
 
     @Bind(R.id.map)
@@ -116,6 +122,9 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
     CheckBox cb4;
     @Bind(R.id.cb5)
     CheckBox cb5;
+
+    private double maplat;
+    private double maplon;
 
     private String type;
     private List<MapClinicData.DataData.MapClinic> mapCliniclist;
@@ -185,6 +194,7 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
 
             aMap = mapView.getMap();
             mUiSettings = aMap.getUiSettings();
+            aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
             setupmap();
         }
 
@@ -204,13 +214,14 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
 //aMap.getUiSettings().setMyLocationButtonEnabled(true);设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 是否可触发定位并显示定位层
+        aMap.setOnCameraChangeListener(this);
         aMap.setLocationSource(this);// 设置定位监听
         mUiSettings.setMyLocationButtonEnabled(false); // 是否显示默认的定位按钮
         mUiSettings.setZoomControlsEnabled(false);
 
 
         setUpMap();
-
+        addMaker(null,null);
     }
 
 //myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);//只定位一次。
@@ -228,7 +239,7 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
         homeSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goNewActivity(SearchWebViewActivity.class);
+                goNewActivity(MapClinicWebViewActivity.class);
             }
         });
         tvLocation.setOnClickListener(new View.OnClickListener() {
@@ -326,97 +337,8 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
             @Override
             public void onDrawerClosed(View drawerView) {
                 //失去焦点
-                showDialog("加载中");
-                ConnectHttp.connect(UnionAPIPackage.getMapClinic(getTypeString(),
-                        (String) SPUtil.get(context, Common.LONGITUDE, ""),
-                        (String) SPUtil.get(context, Common.LATITUDE, "")),
-                        new BaseObserver<MapClinicData>(context) {
-                            @Override
-                            public void onResponse(MapClinicData data) {
-                                closeDialog();
-                                if (TextUtils.equals("4000", data.getCode())) {
-                                    if (markerList.size() > 0) {
-                                        for (Marker marker : markerList) {
-                                            if (marker != null) {
-                                                marker.remove();
-                                            }
-                                        }
-                                        markerList.clear();
-                                    }
-                                    mapCliniclist = data.getData().getClinicDatas();
-                                    if (mapCliniclist.size() > 0) {
-                                        for (int i = 0; i < mapCliniclist.size(); i++) {
-                                            MarkerOptions markerOptions = new MarkerOptions();
-                                            markerOptions.position(new LatLng(Double.parseDouble(mapCliniclist.get(i).getLatitude()), Double.parseDouble(mapCliniclist.get(i).getLongitude())));
-                                            markerOptions.title(mapCliniclist.get(i).getName());
-                                            markerOptions.visible(true);
-                                            BitmapDescriptor bitmapDescriptor;
-                                            View view;
-                                            view= View.inflate(getActivity(),R.layout.map_maker_drawable, null);
-                                            TextView tv_price = (TextView) view.findViewById(R.id.marker);
-                                            tv_price.setText(mapCliniclist.get(i).getName());
-                                            Drawable drawable=null;
-                                            switch (Integer.parseInt(mapCliniclist.get(i).getParCategory())) {
-                                                case 1:
-//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic1));
-//                                                    markerOptions.icon(bitmapDescriptor);
-//                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic1),null,null);
-                                                    drawable=ContextCompat.getDrawable(context,R.drawable.clinic1);
-                                                    break;
-                                                case 2:
-//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic2));
-//                                                    markerOptions.icon(bitmapDescriptor);
+                addMaker(maplon+"",maplat+"");
 
-
-//                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic2),null,null);
-
-                                                    drawable=ContextCompat.getDrawable(context,R.drawable.clinic2);
-//                                                    marker.setIcon(BitmapDescriptorFactory.fromView(view));
-//                                                    Bitmap bitmap = CommentActivity.convertViewToBitmap(view);
-//
-//                                                    drawMarkerOnMap(new LatLng(Double.parseDouble(positionEneityList.get(i).getLatitude())
-//
-//                                                            , Double.parseDouble(positionEneityList.get(i).getLongitude())), bitmap, positionEneityList.get(i).getId());
-                                                    break;
-                                                case 3:
-//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic3));
-//                                                    markerOptions.icon(bitmapDescriptor);
-                                                    drawable=ContextCompat.getDrawable(context,R.drawable.clinic3);
-                                                    break;
-                                                case 4:
-//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic4));
-//                                                    markerOptions.icon(bitmapDescriptor);
-//                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic4),null,null);
-                                                    drawable=ContextCompat.getDrawable(context,R.drawable.clinic4);
-                                                    break;
-                                                case 5:
-//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic5));
-//                                                    markerOptions.icon(bitmapDescriptor);
-//                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic5),null,null);
-                                                    drawable=ContextCompat.getDrawable(context,R.drawable.clinic5);
-                                                    break;
-
-
-                                            }
-                                            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());//必须设置图片大小，否则不显示
-                                            tv_price.setCompoundDrawables(null, drawable,null,null);
-                                            Marker marker = aMap.addMarker(markerOptions);
-
-                                                marker.setIcon(BitmapDescriptorFactory.fromView(view));
-                                            markerList.add(marker);
-
-                                        }
-                                    }
-                                } else {
-                                    showTost(data.getMessage());
-                                }
-                            }
-
-                            @Override
-                            public void onFail(Throwable e) {
-                                closeDialog();
-                            }
-                        });
 
                 refrash();
             }
@@ -442,6 +364,108 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
 //        });
 
 
+    }
+    private void addMaker(String lon,String lan){
+        showDialog("加载中");
+        if(TextUtils.isEmpty(lon)||null==lon){
+            lon=(String) SPUtil.get(context, Common.LONGITUDE, "");
+        }
+        if(TextUtils.isEmpty(lan)||null==lan){
+            lan=(String) SPUtil.get(context, Common.LATITUDE, "");
+        }
+
+        ConnectHttp.connect(UnionAPIPackage.getMapClinic(getTypeString(),
+                lon+"",
+                lan+""),
+                new BaseObserver<MapClinicData>(context) {
+                    @Override
+                    public void onResponse(MapClinicData data) {
+                        closeDialog();
+                        if (TextUtils.equals("4000", data.getCode())) {
+                            if (markerList.size() > 0) {
+                                for (Marker marker : markerList) {
+                                    if (marker != null) {
+                                        marker.remove();
+                                    }
+                                }
+                                markerList.clear();
+                            }
+                            mapCliniclist = data.getData().getClinicDatas();
+                            if (mapCliniclist.size() > 0) {
+                                for (int i = 0; i < mapCliniclist.size(); i++) {
+                                    MarkerOptions markerOptions = new MarkerOptions();
+                                    markerOptions.position(new LatLng(Double.parseDouble(mapCliniclist.get(i).getLatitude()), Double.parseDouble(mapCliniclist.get(i).getLongitude())));
+//                                            markerOptions.title(mapCliniclist.get(i).getId());
+                                    markerOptions.visible(true);
+                                    BitmapDescriptor bitmapDescriptor;
+                                    View view;
+                                    view= View.inflate(getActivity(),R.layout.map_maker_drawable2, null);
+                                    TextView tv_price = (TextView) view.findViewById(R.id.marker);
+                                    ImageView iv=(ImageView) view.findViewById(R.id.iv);
+                                    tv_price.setText(mapCliniclist.get(i).getName());
+                                    Drawable drawable=null;
+                                    switch (Integer.parseInt(mapCliniclist.get(i).getParCategory())) {
+                                        case 1:
+//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic1));
+//                                                    markerOptions.icon(bitmapDescriptor);
+//                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic1),null,null);
+                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic1);
+                                            break;
+                                        case 2:
+//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic2));
+//                                                    markerOptions.icon(bitmapDescriptor);
+
+
+//                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic2),null,null);
+
+                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic2);
+//                                                    marker.setIcon(BitmapDescriptorFactory.fromView(view));
+//                                                    Bitmap bitmap = CommentActivity.convertViewToBitmap(view);
+//
+//                                                    drawMarkerOnMap(new LatLng(Double.parseDouble(positionEneityList.get(i).getLatitude())
+//
+//                                                            , Double.parseDouble(positionEneityList.get(i).getLongitude())), bitmap, positionEneityList.get(i).getId());
+                                            break;
+                                        case 3:
+//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic3));
+//                                                    markerOptions.icon(bitmapDescriptor);
+                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic3);
+                                            break;
+                                        case 4:
+//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic4));
+//                                                    markerOptions.icon(bitmapDescriptor);
+//                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic4),null,null);
+                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic4);
+                                            break;
+                                        case 5:
+//                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic5));
+//                                                    markerOptions.icon(bitmapDescriptor);
+//                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic5),null,null);
+                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic5);
+                                            break;
+
+
+                                    }
+                                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());//必须设置图片大小，否则不显示
+                                    iv.setImageDrawable(drawable);
+//                                            tv_price.setCompoundDrawables(null, drawable,null,null);
+                                    Marker marker = aMap.addMarker(markerOptions);
+
+                                    marker.setIcon(BitmapDescriptorFactory.fromView(view));
+                                    markerList.add(marker);
+
+                                }
+                            }
+                        } else {
+                            showTost(data.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        closeDialog();
+                    }
+                });
     }
 private String getTypeString(){
     type = "";
@@ -620,6 +644,7 @@ private String getTypeString(){
                 lon = amapLocation.getLongitude();
                 Log.v("pcw", "lat : " + lat + " lon : " + lon);
                 IsFirst();
+
                 refrash();
 
 
@@ -638,6 +663,48 @@ private String getTypeString(){
             aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lon), 15));
             isFirst = false;
         }
+    }
+
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        // TODO Auto-generated method stub
+        for(int i=0;i<markerList.size();i++){
+            if (marker.equals(markerList.get(i))) {
+                if (aMap != null) {
+                    if(mapCliniclist.get(i).getId()!=null){
+
+                        Intent intent = new Intent(context, HospitalDetailActivity.class);
+                        intent.putExtra("clinicId", mapCliniclist.get(i).getId());
+                        context.startActivity(intent);
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+
+    /**
+     * 对正在移动地图事件回调
+     */
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+
+    }
+
+    /**
+     * 对移动地图结束事件回调
+     */
+    @Override
+    public void onCameraChangeFinish(CameraPosition cameraPosition) {
+maplon=cameraPosition.target.longitude;
+maplat=cameraPosition.target.latitude;
+        addMaker(maplon+"",maplat+"");
+
     }
 }
 

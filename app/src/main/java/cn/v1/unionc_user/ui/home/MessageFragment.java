@@ -133,6 +133,7 @@ public class MessageFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("linshi","MessageFragment.onViewCreated");
         initView();
         initLocation();
     }
@@ -164,6 +165,7 @@ public class MessageFragment extends BaseFragment {
                 break;
             case R.id.tv_yihu:
                 //医护上门
+                goNewActivity(ToDoorWebViewActivity.class);
                 break;
             case R.id.tv_health:
                 //健康课堂
@@ -200,6 +202,7 @@ public class MessageFragment extends BaseFragment {
         banner.startLoop(true);
 
         mainRecycleview.setLayoutManager(new LinearLayoutManager(context));
+
         homeListAdapter = new HomeListAdapter(context);
         mainRecycleview.setAdapter(homeListAdapter);
 
@@ -299,8 +302,6 @@ public class MessageFragment extends BaseFragment {
         ConnectHttp.connect(UnionAPIPackage.getHomeList(token, longitude, latitude), new BaseObserver<HomeListData>(context) {
             @Override
             public void onResponse(HomeListData data) {
-
-
                 if (TextUtils.equals("4000", data.getCode())) {
                     if (!isLogin()) {
                         rlRecommond.setVisibility(View.VISIBLE);

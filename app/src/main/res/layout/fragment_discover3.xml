@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -67,6 +68,13 @@
                         android:src="@drawable/icon_search2" />
 
                 </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="53dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/icon_maptoken"
+                    />
 
                 <TextView
                     android:id="@+id/tv_more"
