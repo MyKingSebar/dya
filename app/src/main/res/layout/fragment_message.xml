@@ -140,11 +140,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="6dp"
-                android:drawableTop="@drawable/icon_songyao"
+                android:drawableTop="@drawable/icon_yihushangmen"
                 android:gravity="center"
-                android:text="送药到家"
+                android:text="医护上门"
                 android:textColor="@color/white"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:visibility="invisible"
@@ -169,9 +169,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="6dp"
-                android:drawableTop="@drawable/icon_health_preview"
+                android:drawableTop="@drawable/icon_songyao"
                 android:gravity="center"
-                android:text="健康课堂"
+                android:text="送药上门"
                 android:textColor="@color/white"
                 android:textSize="14dp" />
 

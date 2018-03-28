@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -100,7 +101,7 @@ public class CaptureActivity extends BaseActivity {
                         }
                         Intent intent = new Intent(context, SignactivityActivity.class);
                         intent.putExtra("clinicId", clinicId);
-                        startActivity(intent);
+                        startActivityForResult(intent,1);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -124,7 +125,7 @@ public class CaptureActivity extends BaseActivity {
                         Intent intent = new Intent(context, DoctorDetailActivity.class);
                         intent.putExtra("doctorId", doctId);
                         intent.putExtra("source", 1 + "");
-                        startActivity(intent);
+                        startActivityForResult(intent,2);
                         finish();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -162,6 +163,13 @@ public class CaptureActivity extends BaseActivity {
                 break;
             case R.id.tv_input:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==1){
+            finish();
         }
     }
 }

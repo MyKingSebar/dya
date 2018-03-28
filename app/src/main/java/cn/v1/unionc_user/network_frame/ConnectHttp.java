@@ -17,6 +17,9 @@ public class ConnectHttp<T> {
     public static UnionAPI getUnionAPI() {
         return RetrofitConfigure.unioncRetrofit.create(UnionAPI.class);
     }
+    public static UnionAPI getUnionappAPI() {
+        return RetrofitConfigure.unioncRetrofitapp.create(UnionAPI.class);
+    }
 
     //创建 Rong API 接口的一个实例。
     public static RongAPI getRongAPI() {

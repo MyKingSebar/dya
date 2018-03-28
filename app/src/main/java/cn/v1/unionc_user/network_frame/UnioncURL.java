@@ -7,6 +7,7 @@ package cn.v1.unionc_user.network_frame;
 public class UnioncURL {
 
     public static final String Unionc_Host = "http://192.168.21.93:8080/unionWeb/";
+    public static final String Unionc_app_Host = "http://192.168.21.93:8080/unionApp/";
 
 
 }

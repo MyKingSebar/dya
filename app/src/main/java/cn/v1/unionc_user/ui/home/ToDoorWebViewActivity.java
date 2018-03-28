@@ -9,6 +9,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -27,6 +28,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.BaseData;
+import cn.v1.unionc_user.model.HomeSongYaoData;
+import cn.v1.unionc_user.network_frame.ConnectHttp;
+import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.utils.URLEncoderURI;
 
@@ -35,7 +43,7 @@ import static android.content.ContentValues.TAG;
 public class ToDoorWebViewActivity extends BaseActivity {
 
     @Bind(R.id.webview_search)
-    WebView webviewSearch;
+    cn.v1.unionc_user.view.X5WebView webviewSearch;
     @Bind(R.id.img_back)
     ImageView imgBack;
     @Bind(R.id.tv_title)
@@ -44,7 +52,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_web_view);
+        setContentView(R.layout.activity_search_x5_web_view);
         ButterKnife.bind(this);
         initView();
     }
@@ -52,58 +60,32 @@ public class ToDoorWebViewActivity extends BaseActivity {
     private void initView() {
         tvTitle.setText("医护上门");
         showDialog("加载中...");
-        webviewSearch.setWebChromeClient(new WebChromeClient() {
+        showDialog("加载中...");
+        String token=(String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.getsongyao(token), new BaseObserver<HomeSongYaoData>(context) {
             @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                if (newProgress == 100) {
-                    closeDialog();
+            public void onResponse(HomeSongYaoData data) {
+                closeDialog();
+                if (TextUtils.equals("4000", data.getCode())) {
+                    webviewSearch.loadUrl(data.getData().getRedirectUrl());
+                    Log.d("linshi","songyao:"+data.getData().getRedirectUrl());
+                } else {
+                    showTost(data.getMessage() + "");
                 }
-            }
-        });
-        webviewSearch.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-            }
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
             }
 
             @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();//设置支持https
+            public void onFail(Throwable e) {
+                closeDialog();
             }
         });
-        // android 5.0以上默认不支持Mixed Content
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webviewSearch.getSettings().setMixedContentMode(
-                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        }
-        WebSettings webSettings = webviewSearch.getSettings();
-        //多窗口
-        webSettings.supportMultipleWindows();
-        //获取触摸焦点
-        webviewSearch.requestFocusFromTouch();
-        //允许访问文件
-        webSettings.setAllowFileAccess(true);
-        //开启javascript
-        webSettings.setJavaScriptEnabled(true);
-        //支持通过JS打开新窗口
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        //提高渲染的优先级
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        //支持内容重新布局
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-//        Log.d("linshi","")
 //        String url="192.168.21.93:8080/unionApp/yh_h5/yhpage?data={token:\"YAMLT6U6eYTmoBDjRvnbLg==\"}";
 //        String url="192.168.21.93:8080/unionApp/yh_h5/yhpage?data=%7btoken%3a%22YAMLT6U6eYTmoBDjRvnbLg%3d%3d%22%7d";
-        String url="http://192.168.21.160:8082/yihudaojia/intoYihuPage?partner=yibashi&phone=16601139826&thirdPartId=ybs_9&sign=4A6F3A8DAECE5390FB16E587CDD807B9";
-        webviewSearch.loadUrl(url);
-        Log.d("linshi","url:"+url);
-        String urlStr;
+//        String url="http://192.168.21.160:8082/yihudaojia/intoYihuPage?partner=yibashi&phone=16601139826&thirdPartId=ybs_9&sign=4A6F3A8DAECE5390FB16E587CDD807B9";
+//        String url="192.168.21.93:8080/unionApp/yh_h5/yhpage?data={token:\""+(String) SPUtil.get(context, Common.USER_TOKEN, "")+"\"}";
+//        String url="192.168.21.93:8080/unionApp/yh_h5/yhpage";
+
+//        String urlStr;
 //        try {
 //            urlStr = URLEncoderURI.encode(url, "UTF-8");
 //            webviewSearch.loadUrl(urlStr);
@@ -112,6 +94,17 @@ public class ToDoorWebViewActivity extends BaseActivity {
 //            e.printStackTrace();
 //        }
 
+//                try {
+//            urlStr = URLEncoderURI.encode("{token:\""+(String) SPUtil.get(context, Common.USER_TOKEN, "")+"\"}", "UTF-8");
+////            webviewSearch.loadUrl(urlStr);
+////                    Log.d("linshi","urlStr:"+urlStr);
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+//        webviewSearch.postUrl(url,("data="+"{token:\""+(String) SPUtil.get(context, Common.USER_TOKEN, "")+"\"}").getBytes());
+//        Log.d("linshi","url:"+url+"data="+"{token:\""+(String) SPUtil.get(context, Common.USER_TOKEN, "")+"\"}");
+//        webviewSearch.loadUrl(url);
+//        Log.d("linshi","url:"+url);
     }
 
 

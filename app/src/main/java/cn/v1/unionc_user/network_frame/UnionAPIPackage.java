@@ -18,6 +18,7 @@ import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.HomeListData;
+import cn.v1.unionc_user.model.HomeSongYaoData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
@@ -494,5 +495,18 @@ public class UnionAPIPackage {
         params.put("activityIds", activityIds);
         params.put("token", token);
         return ConnectHttp.getUnionAPI().signActivities(dataProcess(params));
+    }
+
+    /**
+     * 获取送药到家网址
+     *
+     * @param token
+     * @return
+     */
+    public static Observable<HomeSongYaoData> getsongyao(String token
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        return ConnectHttp.getUnionappAPI().getsongyao(dataProcess(params));
     }
 }

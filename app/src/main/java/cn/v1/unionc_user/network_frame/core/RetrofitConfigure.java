@@ -22,6 +22,14 @@ public class RetrofitConfigure {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
 
+    //APP
+    public static Retrofit unioncRetrofitapp = new Retrofit.Builder()
+            .baseUrl(UnioncURL.Unionc_app_Host)
+            .client(OkHttpConfigure.httpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build();
+
 
     /**
      * 融云服务器

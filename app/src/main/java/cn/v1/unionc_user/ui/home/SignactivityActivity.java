@@ -1,5 +1,6 @@
 package cn.v1.unionc_user.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -121,7 +122,14 @@ public class SignactivityActivity extends BaseActivity {
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
                     showTost("签到成功");
-                    finish();
+                    //数据是使用Intent返回
+                    Intent intent = new Intent();
+                    //把返回数据存入Intent
+//                    intent.putExtra("result", "My name is linjiqin");
+                    //设置返回数据
+                    SignactivityActivity.this.setResult(1, intent);
+                    //关闭Activity
+                    SignactivityActivity.this.finish();
                 } else {
                     showTost(data.getMessage() + "");
                 }

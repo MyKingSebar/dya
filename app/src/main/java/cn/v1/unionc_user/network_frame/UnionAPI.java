@@ -12,6 +12,7 @@ import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.HomeListData;
+import cn.v1.unionc_user.model.HomeSongYaoData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
@@ -323,6 +324,17 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("activity/sign-activities")
     Observable<BaseData> signActivities(@FieldMap Map<String, Object> params);
+
+
+    /**
+     * 获取送药到家网址
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("yh_h5/yhpage")
+    Observable<HomeSongYaoData> getsongyao(@FieldMap Map<String, Object> params);
 
 
 }

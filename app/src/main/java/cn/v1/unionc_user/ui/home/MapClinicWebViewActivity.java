@@ -2,6 +2,7 @@ package cn.v1.unionc_user.ui.home;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -9,13 +10,17 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +47,8 @@ public class MapClinicWebViewActivity extends BaseActivity {
     ImageView imgBack;
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.toplayout)
+    RelativeLayout rl;
 
     private String provider;//位置提供器
     double latitude;
@@ -57,6 +64,7 @@ public class MapClinicWebViewActivity extends BaseActivity {
     }
 
     private void initView() {
+        rl.setVisibility(View.GONE);
         tvTitle.setText("搜索周边");
         showDialog("加载中...");
         webviewSearch.setWebChromeClient(new WebChromeClient() {
@@ -120,6 +128,7 @@ public class MapClinicWebViewActivity extends BaseActivity {
 //        } catch (UnsupportedEncodingException e) {
 //            e.printStackTrace();
 //        }
+        webviewSearch.addJavascriptInterface(new JsInteration(), "android");
         webviewSearch.loadUrl(url);
     }
 
@@ -162,5 +171,22 @@ public class MapClinicWebViewActivity extends BaseActivity {
     @OnClick(R.id.img_back)
     public void onClick() {
         finish();
+    }
+
+    public class JsInteration {
+        @JavascriptInterface
+        public void back() {
+            finish();
+        }
+        @JavascriptInterface
+        public void doctor(String doctorID) {
+            Log.d("linshi","JavascriptInterface.doctorId:"+doctorID);
+            if(!TextUtils.isEmpty(doctorID)&&doctorID!=null){
+                Intent intent = new Intent(context, DoctorDetailActivity.class);
+                intent.putExtra("doctorId", doctorID);
+                context.startActivity(intent);
+            }
+
+        }
     }
 }

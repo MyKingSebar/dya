@@ -57,6 +57,7 @@ import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.MessageFactory;
 import cn.v1.unionc_user.tecent_qcloud.tim_util.TimeUtil;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.adapter.HomeListAdapter;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.utils.Location;
@@ -165,11 +166,16 @@ public class MessageFragment extends BaseFragment {
                 break;
             case R.id.tv_yihu:
                 //医护上门
-                goNewActivity(ToDoorWebViewActivity.class);
+                if (isLogin()) {
+                    goNewActivity(ToDoorWebViewActivity.class);
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
+
                 break;
             case R.id.tv_health:
-                //健康课堂
-//                goNewActivity(HealthClassActivity.class);
+                //送药上门
+//                goNewActivity(TeachWebViewActivity.class);
                 break;
         }
     }
@@ -317,6 +323,10 @@ public class MessageFragment extends BaseFragment {
                     if (data.getData().getRecommendDoctors().size() != 0) {
                         int index = datas.size();
                         int recommendDoctors = data.getData().getRecommendDoctors().size();
+                        if(recommendDoctors==0){
+                            rlRecommond.setVisibility(View.GONE);
+                        }
+                        tvRecommond.setText("向您推荐附近"+recommendDoctors+"名家庭医生为您服务");
                         for (int i = 0; i < recommendDoctors; i++) {
                             datas.add(data.getData().getRecommendDoctors().get(i));
                             datas.get(index + i).setType(Common.RECOMMEND_DOCTOR);
