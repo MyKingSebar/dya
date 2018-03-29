@@ -3,6 +3,7 @@ package cn.v1.unionc_user.ui.home;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.donkingliang.labels.LabelsView;
 import com.orhanobut.logger.Logger;
+import com.tencent.imsdk.TIMConversationType;
 
 import java.util.List;
 
@@ -30,6 +32,9 @@ import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
+import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
+import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.adapter.HospitalDoctorAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.view.ScrollListView;
@@ -85,12 +90,15 @@ public class HospitalDetailActivity extends BaseActivity {
     CheckBox cbRecommend;
     @Bind(R.id.cb_no_recommend)
     CheckBox cbNoRecommend;
+    @Bind(R.id.tv_kefu)
+    FloatingActionButton tv_kefu;
 
     private String recommendNum;
     private String attention;
 
     private int mLines;
 
+    private final int MESSAGE = 1000;
 
     private String clinicId;
 
@@ -107,6 +115,11 @@ public class HospitalDetailActivity extends BaseActivity {
     private String Distance;
     private String Notes;
     private String Name;
+
+    //0否 1是
+    private String IsDuty;
+    private String Identifier;
+
     private List<String> Tips;
 
     private HospitalDoctorAdapter hospitalDoctorAdapter;
@@ -121,7 +134,7 @@ public class HospitalDetailActivity extends BaseActivity {
         initBottomSheet();
     }
 
-    @OnClick({R.id.img_back, R.id.img_share, R.id.img_dial,R.id.ll_recommend,R.id.ll_follow,R.id.ll_comment})
+    @OnClick({R.id.img_back, R.id.img_share, R.id.img_dial,R.id.ll_recommend,R.id.ll_follow,R.id.ll_comment,R.id.tv_kefu})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_back:
@@ -162,6 +175,17 @@ public class HospitalDetailActivity extends BaseActivity {
                     Intent intent2 = new Intent(context, EvaluateActivity.class);
                     intent2.putExtra("clinicId", clinicId);
                     startActivity(intent2);
+                }
+                break;
+
+            case  R.id.tv_kefu:
+                if(TextUtils.equals(IsDuty,"1")){
+
+                    if (isLogin()) {
+                        isCertification(MESSAGE);
+                    } else {
+                        goNewActivity(LoginActivity.class);
+                    }
                 }
                 break;
         }
@@ -256,7 +280,8 @@ private void initfragmentData(){
         Notes=clinicData.getNotes();
         Name=clinicData.getName();
         Tips=clinicData.getTips();
-
+        IsDuty=clinicData.getIsDuty();
+        Identifier=clinicData.getIdentifier();
         if(TextUtils.isEmpty(ImagePath)){
 
             imgHospital.setImageResource(R.drawable.me_watching_hospital);
@@ -301,6 +326,11 @@ private void initfragmentData(){
         }
         tvCommentNum.setText("评论" + clinicData.getEvaCount());
 
+        if(TextUtils.equals(IsDuty,"1")){
+            tv_kefu.setVisibility(View.VISIBLE);
+        }else{
+            tv_kefu.setVisibility(View.GONE);
+        }
 //        tvDoctorName.setText(doctorsData.getDoctorName() + "");
 //        tvDepartment.setText(doctorsData.getDepartName() + "  " + doctorsData.getProfessLevel());
 //        tvHospital.setText(doctorsData.getFirstClinicName() + "");
@@ -422,4 +452,37 @@ private void initfragmentData(){
             }
         });
     }
+
+    /**
+     * 查询是否实名认证
+     */
+    private void isCertification(final int type) {
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.isCertification(token),
+                new BaseObserver<BaseData>(context) {
+                    @Override
+                    public void onResponse(BaseData data) {
+                        if (TextUtils.equals("4000", data.getCode())) {
+                            if (MESSAGE == type) {
+                                DoctorInfo doctorInfo = new DoctorInfo();
+                                doctorInfo.setDoctorName(Name + "");
+                                doctorInfo.setIdentifier(Identifier + "");
+                                doctorInfo.setImagePath(ImagePath + "");
+                                TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
+                            }
+
+
+                        } else if (TextUtils.equals("4021", data.getCode())) {
+                            gotoAuthDialog();
+                        } else {
+                            showTost(data.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                    }
+                });
+    }
+
 }

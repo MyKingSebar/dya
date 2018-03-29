@@ -2,6 +2,7 @@ package cn.v1.unionc_user.ui.home;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -146,7 +147,7 @@ public class MessageFragment extends BaseFragment {
                 confirmLocationDialog();
                 break;
             case R.id.ll_search:
-                goNewActivity(SearchWebViewActivity.class);
+                goNewActivity(MapClinicWebViewActivity.class);
                 break;
             case R.id.tv_saoma:
                 //扫一扫
@@ -167,7 +168,9 @@ public class MessageFragment extends BaseFragment {
             case R.id.tv_yihu:
                 //医护上门
                 if (isLogin()) {
-                    goNewActivity(ToDoorWebViewActivity.class);
+                    Intent intent=new Intent(context,ToDoorWebViewActivity.class);
+                    intent.putExtra("type",Common.WEB_YIHUSHANGMEN);
+                    startActivity(intent);
                 } else {
                     goNewActivity(LoginActivity.class);
                 }
@@ -175,7 +178,13 @@ public class MessageFragment extends BaseFragment {
                 break;
             case R.id.tv_health:
                 //送药上门
-//                goNewActivity(TeachWebViewActivity.class);
+                 if (isLogin()) {
+                Intent intent=new Intent(context,ToDoorWebViewActivity.class);
+                intent.putExtra("type",Common.WEB_SONGYAOSHANGMEN);
+                startActivity(intent);
+        } else {
+            goNewActivity(LoginActivity.class);
+        }
                 break;
         }
     }

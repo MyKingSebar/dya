@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -186,6 +187,15 @@ public class MapClinicWebViewActivity extends BaseActivity {
                 intent.putExtra("doctorId", doctorID);
                 context.startActivity(intent);
             }
+
+        }
+        @JavascriptInterface
+        public void call(String num) {
+            Log.d("linshi","JavascriptInterface.num:"+num);
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            Uri uriData = Uri.parse("tel:" + num);
+            intent.setData(uriData);
+            startActivity(intent);
 
         }
     }

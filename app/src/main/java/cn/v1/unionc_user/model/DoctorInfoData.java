@@ -101,8 +101,35 @@ public class DoctorInfoData extends BaseData {
             private String ProfessLevel;
             private String RecommendCount;
             private String Remarks;
-            private String Telphone;
+            //诊所电话
+            private String clinicTelphone;
+            //个人电话
+            private String doctTelphone;
+
             private String Identifier;
+
+
+
+            public String getClinicTelphone() {
+                return clinicTelphone;
+            }
+
+            public void setClinicTelphone(String clinicTelphone) {
+                this.clinicTelphone = clinicTelphone;
+            }
+
+            public String getDoctTelphone() {
+                return doctTelphone;
+            }
+
+            public void setDoctTelphone(String doctTelphone) {
+                this.doctTelphone = doctTelphone;
+            }
+
+
+
+
+
 
             public String getIdentifier() {
                 return Identifier;
@@ -264,13 +291,7 @@ public class DoctorInfoData extends BaseData {
                 this.Remarks = Remarks;
             }
 
-            public String getTelphone() {
-                return Telphone;
-            }
 
-            public void setTelphone(String Telphone) {
-                this.Telphone = Telphone;
-            }
         }
 
         public static class QuestionsData {

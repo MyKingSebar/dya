@@ -250,7 +250,7 @@ public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
     }
 
 
-    private void gotoAuthDialog() {
+    public void gotoAuthDialog() {
         PromptDialog signDoctor = new PromptDialog(context);
         signDoctor.show();
         signDoctor.setTitle("实名认证");

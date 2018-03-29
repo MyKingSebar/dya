@@ -80,6 +80,7 @@ public class UnionAPIPackage {
         params.put("userMobile", userMobile);
         params.put("authCode", authCode);
         params.put("imei", MobileConfigUtil.getMacCode());
+        Log.d("linshi","imei"+MobileConfigUtil.getMacCode());
         return ConnectHttp.getUnionAPI().login(dataProcess(params));
     }
 
@@ -165,8 +166,9 @@ public class UnionAPIPackage {
      *
      * @return
      */
-    public static Observable<MapClinicData> getMapClinic(String type, String longitude, String latitude) {
+    public static Observable<MapClinicData> getMapClinic(String token,String type, String longitude, String latitude) {
         HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
         params.put("type", type);
         params.put("imei",MobileConfigUtil.getMacCode());
         params.put("longitude", longitude);

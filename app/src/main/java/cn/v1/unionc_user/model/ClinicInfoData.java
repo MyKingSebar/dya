@@ -207,6 +207,29 @@ public class ClinicInfoData extends BaseData {
             private String Distance;
             private String Notes;
             private String Name;
+            //是否有值班医生
+            private String IsDuty;
+            private String Identifier;
+
+            public String getIsDuty() {
+                return IsDuty;
+            }
+
+            public void setIsDuty(String isDuty) {
+                this.IsDuty = isDuty;
+            }
+
+            public String getIdentifier() {
+                return Identifier;
+            }
+
+            public void setIdentifier(String identifier) {
+                Identifier = identifier;
+            }
+
+
+
+
 
             public String getIsRecom() {
                 return IsRecom;

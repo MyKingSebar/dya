@@ -373,8 +373,8 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
         if(TextUtils.isEmpty(lan)||null==lan){
             lan=(String) SPUtil.get(context, Common.LATITUDE, "");
         }
-
-        ConnectHttp.connect(UnionAPIPackage.getMapClinic(getTypeString(),
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.getMapClinic(token,getTypeString(),
                 lon+"",
                 lan+""),
                 new BaseObserver<MapClinicData>(context) {
@@ -540,7 +540,10 @@ private String getTypeString(){
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-        mapView.onDestroy();
+        if(null!=mapView){
+
+            mapView.onDestroy();
+        }
         if (null != mlocationClient) {
             mlocationClient.onDestroy();
         }
@@ -613,9 +616,9 @@ private String getTypeString(){
         if (marker != null) {
             marker.remove();
         }
-        if (circle != null) {
-            circle.remove();
-        }
+//        if (circle != null) {
+//            circle.remove();
+//        }
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(new LatLng(lat, lon));
         markerOptions.title("当前位置");
@@ -624,10 +627,10 @@ private String getTypeString(){
         markerOptions.icon(bitmapDescriptor);
         marker = aMap.addMarker(markerOptions);
 
-        // 绘制一个圆形
-        circle = aMap.addCircle(new CircleOptions().center(new LatLng(lat, lon))
-                .radius(1000).strokeColor(R.color.circle)
-                .fillColor(R.color.circle).strokeWidth(0));
+//        // 绘制一个圆形
+//        circle = aMap.addCircle(new CircleOptions().center(new LatLng(lat, lon))
+//                .radius(1000).strokeColor(R.color.circle)
+//                .fillColor(R.color.circle).strokeWidth(0));
 
     }
 

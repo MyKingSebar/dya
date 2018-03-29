@@ -50,6 +50,7 @@ import cn.v1.unionc_user.utils.DP_PX;
 import cn.v1.unionc_user.view.CircleImageView;
 import cn.v1.unionc_user.view.ObserverScrollView;
 import cn.v1.unionc_user.view.PromptDialog;
+import cn.v1.unionc_user.view.PromptOnebtnDialog;
 import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 public class DoctorDetailActivity extends BaseActivity {
@@ -107,6 +108,7 @@ public class DoctorDetailActivity extends BaseActivity {
     @Bind(R.id.rl_sign)
     RelativeLayout rlSign;
 
+    boolean isDoctorSign;
 
     private String[] tabItemText = new String[]{"Ta回答的问题", "坐诊时间"};
     private int[] tabItemIcon = new int[]{R.drawable.selector_doctor_tab_1, R.drawable.selector_doctor_tab_2};
@@ -361,10 +363,7 @@ public class DoctorDetailActivity extends BaseActivity {
                                 TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
                             }
                             if (PHONE == type) {
-                                Intent intent = new Intent(Intent.ACTION_DIAL);
-                                Uri uriData = Uri.parse("tel:" + doctorPhone);
-                                intent.setData(uriData);
-                                startActivity(intent);
+                                isDoctorSign();
                             }
 
                         } else if (TextUtils.equals("4021", data.getCode())) {
@@ -380,14 +379,15 @@ public class DoctorDetailActivity extends BaseActivity {
                 });
     }
 
+
     /**
-     * 实名认证提示框
+     * 电话提示框
      */
-    private void gotoAuthDialog() {
+    private void photoDialog() {
         PromptDialog signDoctor = new PromptDialog(context);
         signDoctor.show();
-        signDoctor.setTitle("实名认证");
-        signDoctor.setMessage("你还没有实名认证，先去实名认证?");
+        signDoctor.setTitle("电话咨询");
+        signDoctor.setMessage("是否要进行电话咨询");
         signDoctor.setTvCancel("确定");
         signDoctor.setTvConfirm("取消");
         signDoctor.setOnButtonClickListener(new OnButtonClickListener() {
@@ -397,7 +397,10 @@ public class DoctorDetailActivity extends BaseActivity {
 
             @Override
             public void onCancelClick() {
-                goNewActivity(RealNameAuthActivity.class);
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri uriData = Uri.parse("tel:" + doctorPhone);
+                intent.setData(uriData);
+                startActivity(intent);
             }
         });
     }
@@ -488,7 +491,7 @@ public class DoctorDetailActivity extends BaseActivity {
         doctorAvator = doctorsData.getImagePath();
         doctorName = doctorsData.getDoctorName();
         identifier = doctorsData.getIdentifier();
-        doctorPhone = doctorsData.getTelphone();
+        doctorPhone = doctorsData.getDoctTelphone();
         if(TextUtils.isEmpty(doctorsData.getImagePath())){
 
             imgDoctorAvator.setImageResource(R.drawable.icon_doctor_default);
@@ -525,14 +528,17 @@ public class DoctorDetailActivity extends BaseActivity {
         recommendNum = doctorsData.getIsRecom();
         if (TextUtils.equals("0", doctorsData.getIsRecom())) {
             imgRecommend.setImageResource(R.drawable.icon_recommend_btn);
+            llComment.setClickable(false);
         }
         if (TextUtils.equals("1", doctorsData.getIsRecom())) {
             cbNoRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_no_recommend_select);
+            llComment.setClickable(false);
         }
         if (TextUtils.equals("5", doctorsData.getIsRecom())) {
             cbRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_recommend_select);
+            llComment.setClickable(false);
         }
         attention = doctorsData.getIsAttention();
         if (TextUtils.equals("0", doctorsData.getIsAttention())) {
@@ -585,5 +591,60 @@ public class DoctorDetailActivity extends BaseActivity {
             return tabItemText[position];
         }
     }
+
+
+
+    /**
+     * 查询医生是否签约
+     */
+    private void isDoctorSign() {
+
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.isDoctorSign(token, doctorId),
+                new BaseObserver<IsDoctorSignData>(context) {
+                    @Override
+                    public void onResponse(IsDoctorSignData data) {
+                        closeDialog();
+                        if (TextUtils.equals("4000", data.getCode())) {
+                            String signState = data.getData().getIsSigned();
+                            if (TextUtils.equals("1", signState)) {
+                                //已签约
+                                photoDialog();
+                            } else if (TextUtils.equals("-1", signState)) {
+                                //审核
+                                isDoctorSign=false;
+                                showPromptDialog("您的签约正在审核中，审核后即可开通此功能！");
+                            } else if (TextUtils.equals("0", signState)) {
+                                //可以签约
+                                isDoctorSign=false;
+                                showPromptDialog("与医生签约后即可开通此功能！");
+                            }
+                        } else if (TextUtils.equals("4021", data.getCode())) {
+                            gotoAuthDialog();
+                        } else {
+                            showTost(data.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        closeDialog();
+                    }
+                });
+    }
+
+
+    private void showPromptDialog(String message){
+        PromptOnebtnDialog promptOnebtnDialog = new PromptOnebtnDialog(context){
+            @Override
+            public void onClosed() {
+
+            }
+        };
+        promptOnebtnDialog.show();
+        promptOnebtnDialog.setTitle("小巴提示：");
+        promptOnebtnDialog.setMessage(message);
+    }
+
 
 }

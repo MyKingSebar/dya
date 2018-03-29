@@ -18,6 +18,9 @@ import com.tencent.imsdk.TIMUserStatusListener;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.tecent_qcloud.UserConfig;
+import cn.v1.unionc_user.ui.me.RealNameAuthActivity;
+import cn.v1.unionc_user.view.PromptDialog;
+import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 /**
  * Created by qy on 2018/2/1.
@@ -150,5 +153,25 @@ public class BaseActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
     }
 
+    /**
+     * 实名认证提示框
+     */
+    protected void gotoAuthDialog() {
+        PromptDialog signDoctor = new PromptDialog(context);
+        signDoctor.show();
+        signDoctor.setTitle("实名认证");
+        signDoctor.setMessage("你还没有实名认证，先去实名认证?");
+        signDoctor.setTvCancel("确定");
+        signDoctor.setTvConfirm("取消");
+        signDoctor.setOnButtonClickListener(new OnButtonClickListener() {
+            @Override
+            public void onConfirmClick() {
+            }
 
+            @Override
+            public void onCancelClick() {
+                goNewActivity(RealNameAuthActivity.class);
+            }
+        });
+    }
 }

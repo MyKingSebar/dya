@@ -35,6 +35,11 @@ public class Common {
     public static final String ACTIVITY_PUSH = "push";
 
 
+    public static final int WEB_YIHUSHANGMEN = 1;
+    public static final int WEB_SONGYAOSHANGMEN = 2;
+
+
+
     //我的/关注
     public static final int DOCTORTYPE=1;
     public static final int HOSPITALTYPE=2;

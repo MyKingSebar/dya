@@ -49,36 +49,36 @@ public class ToDoorWebViewActivity extends BaseActivity {
     @Bind(R.id.tv_title)
     TextView tvTitle;
 
+    int type=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_x5_web_view);
         ButterKnife.bind(this);
+        initData();
         initView();
+
+    }
+
+    private void initData() {
+        if (getIntent().hasExtra("type")) {
+            type = getIntent().getIntExtra("type",0);
+
+        }
     }
 
     private void initView() {
-        tvTitle.setText("医护上门");
-        showDialog("加载中...");
-        showDialog("加载中...");
-        String token=(String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.getsongyao(token), new BaseObserver<HomeSongYaoData>(context) {
-            @Override
-            public void onResponse(HomeSongYaoData data) {
-                closeDialog();
-                if (TextUtils.equals("4000", data.getCode())) {
-                    webviewSearch.loadUrl(data.getData().getRedirectUrl());
-                    Log.d("linshi","songyao:"+data.getData().getRedirectUrl());
-                } else {
-                    showTost(data.getMessage() + "");
-                }
-            }
+        switch (type){
+            case 1:
+                initYiHu();
+                break;
+            case 2:
+                initSongYao();
+                break;
+        }
 
-            @Override
-            public void onFail(Throwable e) {
-                closeDialog();
-            }
-        });
+
 //        String url="192.168.21.93:8080/unionApp/yh_h5/yhpage?data={token:\"YAMLT6U6eYTmoBDjRvnbLg==\"}";
 //        String url="192.168.21.93:8080/unionApp/yh_h5/yhpage?data=%7btoken%3a%22YAMLT6U6eYTmoBDjRvnbLg%3d%3d%22%7d";
 //        String url="http://192.168.21.160:8082/yihudaojia/intoYihuPage?partner=yibashi&phone=16601139826&thirdPartId=ybs_9&sign=4A6F3A8DAECE5390FB16E587CDD807B9";
@@ -112,5 +112,34 @@ public class ToDoorWebViewActivity extends BaseActivity {
     @OnClick(R.id.img_back)
     public void onClick() {
         finish();
+    }
+
+
+
+    private void initYiHu(){
+        tvTitle.setText("医护上门");
+        showDialog("加载中...");
+        String token=(String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.getsongyao(token), new BaseObserver<HomeSongYaoData>(context) {
+            @Override
+            public void onResponse(HomeSongYaoData data) {
+                closeDialog();
+                if (TextUtils.equals("4000", data.getCode())) {
+                    webviewSearch.loadUrl(data.getData().getRedirectUrl());
+                    Log.d("linshi","songyao:"+data.getData().getRedirectUrl());
+                } else {
+                    showTost(data.getMessage() + "");
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                closeDialog();
+            }
+        });
+    }
+
+    private void initSongYao(){
+        tvTitle.setText("送药上门");
     }
 }
