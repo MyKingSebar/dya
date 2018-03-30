@@ -2,13 +2,17 @@ package cn.v1.unionc_user.ui.home;
 
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -45,11 +49,15 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.jiguang.ExampleUtil;
+import cn.v1.unionc_user.jiguang.LocalBroadcastManager;
 import cn.v1.unionc_user.model.HomeListData;
+import cn.v1.unionc_user.model.JiGuangData;
 import cn.v1.unionc_user.model.LocationUpdateEventData;
 import cn.v1.unionc_user.model.LoginUpdateEventData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
@@ -100,12 +108,16 @@ public class MessageFragment extends BaseFragment {
     private List<HomeListData.DataData.HomeData> datas = new ArrayList<>();
     private List<HomeListData.DataData.HomeData> newConversations = new ArrayList<>();
     private List<HomeListData.DataData.HomeData> pushdatas = new ArrayList<>();
+    private List<HomeListData.DataData.HomeData> pushactivitydatas = new ArrayList<>();
+    private HomeListData.DataData.HomeData pushactivitydata;
     private String currentPoiname;
     private String longitude;
     private String latitude;
     private LocationDialog locationDialog;
     private final int REQUEST_PHONE_PERMISSIONS = 0;
-    private int dialogtime=0;
+    private int dialogtime = 0;
+
+    Gson gson = new Gson();
 
     public MessageFragment() {
         // Required empty public constructor
@@ -135,9 +147,10 @@ public class MessageFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("linshi","MessageFragment.onViewCreated");
+        Log.d("linshi", "MessageFragment.onViewCreated");
         initView();
         initLocation();
+        registerMessageReceiver();  // used for receive msg
     }
 
     @OnClick({R.id.tv_address, R.id.ll_search, R.id.tv_saoma, R.id.tv_guahao, R.id.tv_yihu, R.id.tv_health})
@@ -168,8 +181,8 @@ public class MessageFragment extends BaseFragment {
             case R.id.tv_yihu:
                 //医护上门
                 if (isLogin()) {
-                    Intent intent=new Intent(context,ToDoorWebViewActivity.class);
-                    intent.putExtra("type",Common.WEB_YIHUSHANGMEN);
+                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+                    intent.putExtra("type", Common.WEB_YIHUSHANGMEN);
                     startActivity(intent);
                 } else {
                     goNewActivity(LoginActivity.class);
@@ -178,13 +191,13 @@ public class MessageFragment extends BaseFragment {
                 break;
             case R.id.tv_health:
                 //送药上门
-                 if (isLogin()) {
-                Intent intent=new Intent(context,ToDoorWebViewActivity.class);
-                intent.putExtra("type",Common.WEB_SONGYAOSHANGMEN);
-                startActivity(intent);
-        } else {
-            goNewActivity(LoginActivity.class);
-        }
+                if (isLogin()) {
+                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+                    intent.putExtra("type", Common.WEB_SONGYAOSHANGMEN);
+                    startActivity(intent);
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
                 break;
         }
     }
@@ -312,7 +325,7 @@ public class MessageFragment extends BaseFragment {
 
     private void getHomeList(String longitude, String latitude) {
         showDialog("加载中...");
-        dialogtime=0;
+        dialogtime = 0;
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         ConnectHttp.connect(UnionAPIPackage.getHomeList(token, longitude, latitude), new BaseObserver<HomeListData>(context) {
             @Override
@@ -332,10 +345,10 @@ public class MessageFragment extends BaseFragment {
                     if (data.getData().getRecommendDoctors().size() != 0) {
                         int index = datas.size();
                         int recommendDoctors = data.getData().getRecommendDoctors().size();
-                        if(recommendDoctors==0){
+                        if (recommendDoctors == 0) {
                             rlRecommond.setVisibility(View.GONE);
                         }
-                        tvRecommond.setText("向您推荐附近"+recommendDoctors+"名家庭医生为您服务");
+                        tvRecommond.setText("向您推荐附近" + recommendDoctors + "名家庭医生为您服务");
                         for (int i = 0; i < recommendDoctors; i++) {
                             datas.add(data.getData().getRecommendDoctors().get(i));
                             datas.get(index + i).setType(Common.RECOMMEND_DOCTOR);
@@ -386,14 +399,16 @@ public class MessageFragment extends BaseFragment {
         });
 
     }
-private void connectclosedialog(){
-    dialogtime++;
-    if (dialogtime>1){
-        closeDialog();
-        datas.addAll(pushdatas);
-        homeListAdapter.setData(datas);
+
+    private void connectclosedialog() {
+        dialogtime++;
+        if (dialogtime > 1) {
+            closeDialog();
+            datas.addAll(pushdatas);
+            homeListAdapter.setData(datas);
+        }
     }
-}
+
     private void getCoversationList() {
         //获取会话列表
         if (isLogin()) {
@@ -423,14 +438,14 @@ private void connectclosedialog(){
     }
 
     private void getActivityPush() {
-        Log.d("linshi","getActivityPush()");
+        Log.d("linshi", "getActivityPush()");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         pushdatas.clear();
         ConnectHttp.connect(UnionAPIPackage.getPushList(token), new BaseObserver<HomeListData>(context) {
             @Override
             public void onResponse(HomeListData data) {
-                Log.d("linshi","data:"+new Gson().toJson(data));
-                Log.d("linshi","size:"+data.getData().getActivities().size());
+                Log.d("linshi", "data:" + new Gson().toJson(data));
+                Log.d("linshi", "size:" + data.getData().getActivities().size());
 
                 if (TextUtils.equals("4000", data.getCode())) {
 
@@ -456,10 +471,52 @@ private void connectclosedialog(){
         });
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
 
+
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+
+    public void registerMessageReceiver() {
+        mMessageReceiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(Common.MESSAGE_JGPUSH_ACTION);
+        LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiver, filter);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+Log.d("linshi","action():"+intent.getAction());
+            if (Common.MESSAGE_JGPUSH_ACTION.equals(intent.getAction())) {
+                String extras = intent.getStringExtra(JPushInterface.EXTRA_EXTRA);
+                StringBuilder showMsg = new StringBuilder();
+                if (!ExampleUtil.isEmpty(extras)) {
+                    Log.d("linshi","extras():"+extras);
+                    JiGuangData child2 = gson.fromJson(extras, JiGuangData.class);
+                    pushactivitydata = new HomeListData.DataData.HomeData();
+                    pushactivitydata.setName(child2.getTitle());
+                    pushactivitydata.setStartTime(child2.getStartTime());
+                    pushactivitydata.setEndTime(child2.getEndTime());
+                    pushactivitydata.setAddress(child2.getAddr());
+                    pushactivitydata.setCreatedTime(child2.getPublishTime());
+                }
+                if (pushactivitydata != null) {
+                    pushactivitydatas.clear();
+                    pushactivitydatas.add(pushactivitydata);
+                    datas.addAll(pushactivitydatas);
+                    homeListAdapter.setData(datas);
+
+                }
+            }
+
+        }
+    }
 }

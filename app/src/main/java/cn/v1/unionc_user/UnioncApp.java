@@ -14,6 +14,7 @@ import com.tencent.imsdk.TIMOfflinePushNotification;
 import com.tencent.qalsdk.sdk.MsfSdkUtils;
 import com.tencent.smtt.sdk.QbSdk;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.v1.unionc_user.tecent_qcloud.InitSDK;
 import cn.v1.unionc_user.tecent_qcloud.UserConfig;
 import cn.v1.unionc_user.tecent_qcloud.tim_util.Foreground;
@@ -52,8 +53,15 @@ public class UnioncApp extends MultiDexApplication {
         initX5();
         initLog();
         initAndroidN();
+        initJiGuang();
     }
-private void initX5(){
+
+    private void initJiGuang() {
+        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
+    }
+
+    private void initX5(){
     //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
 
     QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {

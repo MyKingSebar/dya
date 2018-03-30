@@ -44,4 +44,6 @@ public class Common {
     public static final int DOCTORTYPE=1;
     public static final int HOSPITALTYPE=2;
 
+    public static final String MESSAGE_JGPUSH_ACTION = "MESSAGE_JGPUSH_ACTION";
+
 }

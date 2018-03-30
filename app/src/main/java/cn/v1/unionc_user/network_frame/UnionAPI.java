@@ -10,6 +10,7 @@ import cn.v1.unionc_user.model.DoctorAnswerDetailData;
 import cn.v1.unionc_user.model.DoctorEvaluateData;
 import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
+import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.HomeSongYaoData;
@@ -159,6 +160,15 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("doctor/doctor-info-by-param")
     Observable<DoctorInfoIdentifierData> doctorInfoByParam(@FieldMap Map<String, Object> params);
+    /**
+     * 通过identy获取 医院/医生  /医院id
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("doctor/jpuser-type")
+    Observable<DoctorOrClinicData> doctorOrclinicByParam(@FieldMap Map<String, Object> params);
 
 
     /**

@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +42,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
+import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.LoginUpdateEventData;
+import cn.v1.unionc_user.network_frame.ConnectHttp;
+import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.CustomMessage;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.FileMessage;
@@ -56,6 +65,7 @@ import cn.v1.unionc_user.tecent_qcloud.tim_util.RecorderUtil;
 import cn.v1.unionc_user.tecent_qcloud.tim_util.TIMFileUtil;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
+import cn.v1.unionc_user.ui.home.HospitalDetailActivity;
 
 public class TIMChatActivity extends BaseActivity implements ChatView {
 
@@ -68,6 +78,8 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
     VoiceSendingView voiceSendingView;
     @Bind(R.id.chat_title)
     TemplateTitle title;
+
+     DoctorOrClinicData doctorOrClinicData;
 
 
     private DoctorInfo doctoInfo;
@@ -106,6 +118,30 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
     private void initData() {
         doctoInfo = (DoctorInfo) getIntent().getSerializableExtra("doctoInfo");
         type = (TIMConversationType) getIntent().getSerializableExtra("type");
+
+
+        String doctorIdentifier = doctoInfo.getIdentifier();
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        showDialog("加载中...");
+        Log.d("linshi","doctorIdentifier:"+doctoInfo.getIdentifier());
+        ConnectHttp.connect(UnionAPIPackage.doctorOrclinicByParam(token, doctorIdentifier),
+                new BaseObserver<DoctorOrClinicData>(context) {
+                    @Override
+                    public void onResponse(DoctorOrClinicData data) {
+                        closeDialog();
+                        if (TextUtils.equals("4000", data.getCode())) {
+                            doctorOrClinicData=data;
+                        } else {
+                            showTost(data.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        closeDialog();
+                    }
+                });
+
     }
 
 
@@ -150,9 +186,21 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
         title.setMoreImgAction(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DoctorDetailActivity.class);
-                intent.putExtra("doctorIdentifier", doctoInfo.getIdentifier() + "");
-                startActivity(intent);
+                if(null!=doctorOrClinicData){
+                    //医院
+                    if(TextUtils.equals(doctorOrClinicData.getData().getRoleType(),"0")){
+                        Intent intent = new Intent(context, HospitalDetailActivity.class);
+                        intent.putExtra("clinicId", doctorOrClinicData.getData().getClinicId() + "");
+                        startActivity(intent);
+                    }else if(TextUtils.equals(doctorOrClinicData.getData().getRoleType(),"1")|TextUtils.equals(doctorOrClinicData.getData().getRoleType(),"2")){
+                        Intent intent = new Intent(context, DoctorDetailActivity.class);
+                        intent.putExtra("doctorId", doctorOrClinicData.getData().getDoctId()+"");
+                        startActivity(intent);
+                    }
+                }
+
+
+
             }
         });
         presenter.start();

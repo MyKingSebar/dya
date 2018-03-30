@@ -190,6 +190,16 @@ public class MapClinicWebViewActivity extends BaseActivity {
 
         }
         @JavascriptInterface
+        public void clinic(String clinicId) {
+            Log.d("linshi","JavascriptInterface.clinicID:"+clinicId);
+            if(!TextUtils.isEmpty(clinicId)&&clinicId!=null){
+                Intent intent = new Intent(context, HospitalDetailActivity.class);
+                intent.putExtra("clinicId", clinicId);
+                context.startActivity(intent);
+            }
+
+        }
+        @JavascriptInterface
         public void call(String num) {
             Log.d("linshi","JavascriptInterface.num:"+num);
             Intent intent = new Intent(Intent.ACTION_DIAL);

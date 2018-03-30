@@ -16,6 +16,7 @@ import cn.v1.unionc_user.model.DoctorAnswerDetailData;
 import cn.v1.unionc_user.model.DoctorEvaluateData;
 import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
+import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.HomeSongYaoData;
@@ -217,6 +218,18 @@ public class UnionAPIPackage {
         params.put("token", token);
         params.put("identifier", identifier);
         return ConnectHttp.getUnionAPI().doctorInfoByParam(dataProcess(params));
+    }
+
+    /**
+     * 通过identy获取 医院/医生  /医院id
+     *
+     * @return
+     */
+    public static Observable<DoctorOrClinicData> doctorOrclinicByParam(String token, String identifier) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("identifier", identifier);
+        return ConnectHttp.getUnionAPI().doctorOrclinicByParam(dataProcess(params));
     }
 
 
