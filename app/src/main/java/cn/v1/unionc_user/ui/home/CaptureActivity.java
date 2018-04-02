@@ -102,6 +102,7 @@ public class CaptureActivity extends BaseActivity {
                         Intent intent = new Intent(context, SignactivityActivity.class);
                         intent.putExtra("clinicId", clinicId);
                         startActivityForResult(intent,1);
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

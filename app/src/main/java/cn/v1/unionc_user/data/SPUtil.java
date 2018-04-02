@@ -3,9 +3,16 @@ package cn.v1.unionc_user.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import cn.v1.unionc_user.model.HomeListData;
 
 /**
  * Created by qy on 2017/12/7.
@@ -27,6 +34,45 @@ public class SPUtil {
         put(context, FILE_NAME, key, object);
     }
 
+    /**
+     * 保存List
+     * @param datalist
+     */
+    public static  void  setDataList(Context context,String key, List<HomeListData.DataData.HomeData> datalist) {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        if (null == datalist || datalist.size() <= 0)
+            return;
+
+        Gson gson = new Gson();
+        //转换成json数据，再保存
+        String strJson = gson.toJson(datalist);
+        editor.putString(key, strJson);
+        editor.commit();
+
+    }
+
+    /**
+     * 获取List
+     * @return
+     */
+    public static  List<HomeListData.DataData.HomeData> getDataList(Context context, String key) {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        List<HomeListData.DataData.HomeData> datalist=new ArrayList<HomeListData.DataData.HomeData>();
+        String strJson = sp.getString(key, null);
+        if (null == strJson) {
+            return datalist;
+        }
+        Gson gson = new Gson();
+        datalist = gson.fromJson(strJson, new TypeToken<List<HomeListData.DataData.HomeData>>() {
+        }.getType());
+        return datalist;
+
+    }
+
     public static void put(Context context, String spName, String key, Object object) {
         SharedPreferences sp = context.getSharedPreferences(spName,
                 Context.MODE_PRIVATE);
@@ -42,6 +88,14 @@ public class SPUtil {
             editor.putFloat(key, (Float) object);
         } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
+        }else if(object instanceof List){
+            if (null == object || ((List)object).size() <= 0){
+                return;
+            }
+            Gson gson = new Gson();
+            //转换成json数据，再保存
+            String strJson = gson.toJson((List)object);
+            editor.putString(key, strJson);
         } else {
             editor.putString(key, object.toString());
         }
@@ -70,6 +124,18 @@ public class SPUtil {
             return sp.getFloat(key, (Float) defaultObject);
         } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
+        } else if (defaultObject instanceof List) {
+            List<?> datalist=new ArrayList<>();
+            String strJson =sp.getString(key,(String) defaultObject);
+            if (null == strJson) {
+                return datalist;
+            }
+            Gson gson = new Gson();
+            datalist = gson.fromJson(strJson, new TypeToken<List>() {
+            }.getType());
+            return datalist;
+
+
         }
 
         return null;
@@ -164,5 +230,8 @@ public class SPUtil {
             }
             editor.commit();
         }
+
+
+
     }
 }

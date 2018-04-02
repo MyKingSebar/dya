@@ -474,6 +474,18 @@ public class DoctorDetailActivity extends BaseActivity {
                         closeDialog();
                         if (TextUtils.equals("4000", data.getCode())) {
                             bindData(data);
+                            if(TextUtils.equals(source,"1")){
+                                //关注
+                                if (!isLogin()) {
+                                    showTost("登录后关注");
+                                } else {
+                                    if (TextUtils.equals("0", attention)) {
+                                        attentionDoctor("0");
+                                        source="0";
+                                    }
+
+                                }
+                            }
                         } else {
                             showTost(data.getMessage());
                         }
@@ -528,17 +540,17 @@ public class DoctorDetailActivity extends BaseActivity {
         recommendNum = doctorsData.getIsRecom();
         if (TextUtils.equals("0", doctorsData.getIsRecom())) {
             imgRecommend.setImageResource(R.drawable.icon_recommend_btn);
-            llComment.setClickable(false);
+//            llComment.setClickable(false);
         }
         if (TextUtils.equals("1", doctorsData.getIsRecom())) {
             cbNoRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_no_recommend_select);
-            llComment.setClickable(false);
+//            llComment.setClickable(false);
         }
         if (TextUtils.equals("5", doctorsData.getIsRecom())) {
             cbRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_recommend_select);
-            llComment.setClickable(false);
+//            llComment.setClickable(false);
         }
         attention = doctorsData.getIsAttention();
         if (TextUtils.equals("0", doctorsData.getIsAttention())) {

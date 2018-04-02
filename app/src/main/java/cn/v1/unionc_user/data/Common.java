@@ -18,6 +18,7 @@ public class Common {
 
     public static final String KEY_UUID = "uuid";
 
+    public static final String PUSH_ACTIVITY_LOCAL = "pushactivitylocal";
     public static final String USER_TOKEN = "userToken";
     public static final String TIM_SIG = "timSig";
     public static final String IDENTIFIER = "identifier";
@@ -33,10 +34,12 @@ public class Common {
     public static final String SIGNED_DOCTROS = "signedDoctros";
     public static final String CONVERSATIONS = "conversations";
     public static final String ACTIVITY_PUSH = "push";
+    public static final String ACTIVITY_PUSH_LOCAL = "pushlocal";
 
 
     public static final int WEB_YIHUSHANGMEN = 1;
     public static final int WEB_SONGYAOSHANGMEN = 2;
+    public static final int WEB_ACTICITY = 3;
 
 
 

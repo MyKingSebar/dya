@@ -17,6 +17,7 @@ import com.tencent.imsdk.TIMManager;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
@@ -167,6 +168,7 @@ public class LoginActivity extends BaseActivity {
                     SPUtil.put(context, Common.IDENTIFIER, identifier);
                     SPUtil.put(context, Common.USER_PHONE, phoneNumber);
                     getTIMSig(data.getData().getToken(), identifier);
+                    JPushInterface.setAlias(context,1,identifier);
                 } else {
                     showTost(data.getMessage());
                 }

@@ -22,6 +22,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
     @Bind(R.id.tv_title)
     TextView tvTitle;
     @Bind(R.id.toplayout)
-    LinearLayout toplayout;
+    RelativeLayout toplayout;
 
     int type = 0;
     String activityId = null;
@@ -73,7 +74,9 @@ public class ToDoorWebViewActivity extends BaseActivity {
         if (getIntent().hasExtra("type")) {
             type = getIntent().getIntExtra("type", 0);
         }
-
+        Log.d("linshi", "todoor.type:" + type);
+        Log.d("linshi", "todoor.hasExtra:" + getIntent().hasExtra("activityid"));
+        Log.d("linshi", "todoor.hasExtra2:" + getIntent().getStringExtra("activityid"));
         if (getIntent().hasExtra("activityid")) {
             activityId = getIntent().getStringExtra("activityid");
         }
@@ -85,7 +88,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(com.tencent.smtt.sdk.WebView webView, String s) {
                 super.onPageFinished(webView, s);
-                if (TextUtils.isEmpty(activityId) | null == activityId) {
+                if (!TextUtils.isEmpty(activityId) && null != activityId) {
 
                     String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
                     webviewSearch.loadUrl("javascript:app('" + token + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId + "')");
@@ -104,8 +107,8 @@ public class ToDoorWebViewActivity extends BaseActivity {
                 break;
             case 3:
                 //活动详情
-                toplayout.setVisibility(View.GONE);
-                initactivityInfo();
+                iniactivity();
+
                 break;
         }
 
@@ -138,6 +141,12 @@ public class ToDoorWebViewActivity extends BaseActivity {
 //        Log.d("linshi","url:"+url);
     }
 
+    private void iniactivity() {
+
+        toplayout.setVisibility(View.GONE);
+        initactivityInfo();
+    }
+
 
     @OnClick(R.id.img_back)
     public void onClick() {
@@ -152,13 +161,9 @@ public class ToDoorWebViewActivity extends BaseActivity {
         ConnectHttp.connect(UnionAPIPackage.getsongyao(token), new BaseObserver<HomeSongYaoData>(context) {
             @Override
             public void onResponse(HomeSongYaoData data) {
+                String url=data.getData().getRedirectUrl();
+                webviewSearch.loadUrl(url);
                 closeDialog();
-                if (TextUtils.equals("4000", data.getCode())) {
-                    webviewSearch.loadUrl(data.getData().getRedirectUrl());
-                    Log.d("linshi", "songyao:" + data.getData().getRedirectUrl());
-                } else {
-                    showTost(data.getMessage() + "");
-                }
             }
 
             @Override
@@ -173,7 +178,8 @@ public class ToDoorWebViewActivity extends BaseActivity {
     }
 
     private void initactivityInfo() {
-        String url = "https://192.168.21.93:8085/unionApp/pages/index.html#/clinicDetails";
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        String url = "https://192.168.21.93:8085/unionApp/pages/index.html#/clinicDetails?" + token + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId;
         webviewSearch.loadUrl(url);
     }
 

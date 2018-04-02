@@ -27,7 +27,9 @@ import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
+import cn.v1.unionc_user.ui.StartActivity;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
+import cn.v1.unionc_user.ui.home.ToDoorWebViewActivity;
 import cn.v1.unionc_user.utils.DateUtils;
 
 /**
@@ -62,6 +64,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
             holder.tvDescribe.setText(homeData.getClinicName() + "\n" +
                     homeData.getMajor());
+            holder.tvRole.setVisibility(View.VISIBLE);
         }
         if (TextUtils.equals(homeData.getType(), Common.ATTENDING_DOCTORS)) {
             if (TextUtils.isEmpty(homeData.getImagePath())) {
@@ -75,6 +78,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         .into(holder.imgMessageAvator);
 
             }
+            holder.tvRole.setVisibility(View.VISIBLE);
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
             holder.tvRole.setText("（主治医生）");
             holder.tvDescribe.setText("最近的聊天记录");
@@ -92,6 +96,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         .error(R.drawable.icon_doctor_default)
                         .into(holder.imgMessageAvator);
             }
+            holder.tvRole.setVisibility(View.VISIBLE);
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
             holder.tvRole.setText("（家庭医生）");
             holder.tvDescribe.setText("最近的聊天记录");
@@ -109,6 +114,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         .error(R.drawable.icon_doctor_default)
                         .into(holder.imgMessageAvator);
             }
+            holder.tvRole.setVisibility(View.VISIBLE);
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
             holder.tvRole.setText(homeData.getDepartName() + "  " +
                     homeData.getProfessLevel());
@@ -183,10 +189,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         .into(holder.imgMessageAvator);
 
             }
-            holder.tvEndTime.setVisibility(View.GONE);
+            holder.tvEndTime.setVisibility(View.VISIBLE);
             holder.tvAddress.setVisibility(View.VISIBLE);
             holder.tvDescribe.setVisibility(View.GONE);
-            holder.tvEndTime.setText(DateUtils.getStartandEnd(homeData.getStartTime(), homeData.getEndTime()));
+            holder.tvRole.setVisibility(View.GONE);
+//            holder.tvEndTime.setText(DateUtils.getStartandEnd(homeData.getStartTime(), homeData.getEndTime()));
+            holder.tvEndTime.setText(homeData.getStartTime() + "-" + homeData.getEndTime());
 //            holder.tvEndTime.setText(homeData.getEndTime());
             holder.tvAddress.setText(homeData.getAddress());
             holder.tvMessageName.setText(homeData.getName() + "  ");
@@ -218,6 +226,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 }
                 if (TextUtils.equals(type, Common.ACTIVITY_PUSH)) {
                     //
+                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+                    intent.putExtra("type", 3);
+                    intent.putExtra("activityid", homeData.getActivityId());
+                    context.startActivity(intent);
                 }
             }
         });

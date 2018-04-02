@@ -382,9 +382,15 @@ public class MessageFragment extends BaseFragment {
                         }
                     }
                     datas.addAll(newConversations);
-                    getActivityPush();
+                    getPushActivity();
+                    if (pushactivitydatas!=null&&pushactivitydatas.size() != 0) {
+                        datas.addAll((List<HomeListData.DataData.HomeData>)pushactivitydatas);
+                    }
+//                    getActivityPush();
 //                    datas.addAll(pushdatas);
-                    connectclosedialog();
+//                    connectclosedialog();
+                    closeDialog();
+                    homeListAdapter.setData(datas);
 //                    homeListAdapter.setData(datas);
                     Logger.json(new Gson().toJson(datas));
                 } else {
@@ -394,11 +400,28 @@ public class MessageFragment extends BaseFragment {
 
             @Override
             public void onFail(Throwable e) {
-                connectclosedialog();
+                closeDialog();
+//                connectclosedialog();
             }
         });
 
     }
+
+    /**
+     * 获得本地活动列表
+     */
+
+    private void getPushActivity(){
+//        pushactivitydatas=(List<HomeListData.DataData.HomeData>) SPUtil.get(context,Common.PUSH_ACTIVITY_LOCAL,null);
+        pushactivitydatas=SPUtil.getDataList(context,Common.PUSH_ACTIVITY_LOCAL);
+        if(pushactivitydatas!=null){
+            Log.d("linshi","getPushActivity:"+pushactivitydatas.toString());
+
+        }else{
+            Log.d("linshi","getPushActivity:null");
+        }
+}
+
 
     private void connectclosedialog() {
         dialogtime++;
@@ -437,40 +460,40 @@ public class MessageFragment extends BaseFragment {
         }
     }
 
-    private void getActivityPush() {
-        Log.d("linshi", "getActivityPush()");
-        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        pushdatas.clear();
-        ConnectHttp.connect(UnionAPIPackage.getPushList(token), new BaseObserver<HomeListData>(context) {
-            @Override
-            public void onResponse(HomeListData data) {
-                Log.d("linshi", "data:" + new Gson().toJson(data));
-                Log.d("linshi", "size:" + data.getData().getActivities().size());
-
-                if (TextUtils.equals("4000", data.getCode())) {
-
-                    if (data.getData().getActivities().size() != 0) {
-                        int index = pushdatas.size();
-                        int activities = data.getData().getActivities().size();
-                        for (int i = 0; i < activities; i++) {
-                            pushdatas.add(data.getData().getActivities().get(i));
-                            pushdatas.get(index + i).setType(Common.ACTIVITY_PUSH);
-                        }
-                    }
-
-                } else {
-                    showTost(data.getMessage());
-                }
-                connectclosedialog();
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                connectclosedialog();
-            }
-        });
-
-    }
+//    private void getActivityPush() {
+//        Log.d("linshi", "getActivityPush()");
+//        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//        pushdatas.clear();
+//        ConnectHttp.connect(UnionAPIPackage.getPushList(token), new BaseObserver<HomeListData>(context) {
+//            @Override
+//            public void onResponse(HomeListData data) {
+//                Log.d("linshi", "data:" + new Gson().toJson(data));
+//                Log.d("linshi", "size:" + data.getData().getActivities().size());
+//
+//                if (TextUtils.equals("4000", data.getCode())) {
+//
+//                    if (data.getData().getActivities().size() != 0) {
+//                        int index = pushdatas.size();
+//                        int activities = data.getData().getActivities().size();
+//                        for (int i = 0; i < activities; i++) {
+//                            pushdatas.add(data.getData().getActivities().get(i));
+//                            pushdatas.get(index + i).setType(Common.ACTIVITY_PUSH);
+//                        }
+//                    }
+//
+//                } else {
+//                    showTost(data.getMessage());
+//                }
+//                connectclosedialog();
+//            }
+//
+//            @Override
+//            public void onFail(Throwable e) {
+//                connectclosedialog();
+//            }
+//        });
+//
+//    }
 
     @Override
     public void onDestroyView() {
@@ -507,11 +530,23 @@ Log.d("linshi","action():"+intent.getAction());
                     pushactivitydata.setEndTime(child2.getEndTime());
                     pushactivitydata.setAddress(child2.getAddr());
                     pushactivitydata.setCreatedTime(child2.getPublishTime());
+                    pushactivitydata.setActivityId(child2.getActivityId());
+                    pushactivitydata.setType(Common.ACTIVITY_PUSH);
+
                 }
                 if (pushactivitydata != null) {
-                    pushactivitydatas.clear();
-                    pushactivitydatas.add(pushactivitydata);
-                    datas.addAll(pushactivitydatas);
+//                    pushactivitydatas=(List<HomeListData.DataData.HomeData>) SPUtil.get(context,Common.PUSH_ACTIVITY_LOCAL,null);
+                    pushactivitydatas=SPUtil.getDataList(context,Common.PUSH_ACTIVITY_LOCAL);
+                    if(pushactivitydatas!=null){
+
+                        pushactivitydatas.add(pushactivitydata);
+//                        SPUtil.put(context,Common.PUSH_ACTIVITY_LOCAL,pushactivitydatas);
+                        SPUtil.setDataList(context,Common.PUSH_ACTIVITY_LOCAL,pushactivitydatas);
+                    }
+//                    pushactivitydatas.clear();
+//                    pushactivitydatas.add(pushactivitydata);
+//                    datas.addAll(pushactivitydatas);
+                    datas.add(pushactivitydata);
                     homeListAdapter.setData(datas);
 
                 }

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tencent.imsdk.TIMConversationType;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -20,6 +21,9 @@ import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
+import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
+import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.view.CircleImageView;
 
@@ -49,6 +53,14 @@ public class ViewDoctorAnswerActivity extends BaseActivity {
     private String doctorId = "";
     private String questionId = "";
 
+    private String identifier = "";
+    private String doctorPhone;
+    private final int MESSAGE = 1000;
+    private final int PHONE = 2000;
+    private String doctorAvator;
+    private String doctorName;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +77,11 @@ public class ViewDoctorAnswerActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_online_ask:
+                if (isLogin()) {
+                    isCertification(MESSAGE);
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
                 break;
         }
     }
@@ -77,7 +94,7 @@ public class ViewDoctorAnswerActivity extends BaseActivity {
         if (getIntent().hasExtra("questionId")) {
             questionId = getIntent().getStringExtra("questionId");
         }
-        getAnswer();
+
         getDoctorInfo();
     }
 
@@ -129,6 +146,10 @@ public class ViewDoctorAnswerActivity extends BaseActivity {
                             tvDoctorName.setText(doctorsData.getDoctorName() + "");
                             tvDepartment.setText(doctorsData.getDepartName() + "  " + doctorsData.getProfessLevel());
                             tvHospital.setText(doctorsData.getFirstClinicName() + "");
+                            doctorAvator = doctorsData.getImagePath();
+                            doctorName = doctorsData.getDoctorName();
+                            identifier = doctorsData.getIdentifier();
+                            getAnswer();
                         } else {
                             showTost(data.getMessage());
                         }
@@ -137,6 +158,38 @@ public class ViewDoctorAnswerActivity extends BaseActivity {
                     @Override
                     public void onFail(Throwable e) {
                         closeDialog();
+                    }
+                });
+    }
+
+    /**
+     * 查询是否实名认证
+     */
+    private void isCertification(final int type) {
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.isCertification(token),
+                new BaseObserver<BaseData>(context) {
+                    @Override
+                    public void onResponse(BaseData data) {
+                        if (TextUtils.equals("4000", data.getCode())) {
+                            if (MESSAGE == type) {
+                                DoctorInfo doctorInfo = new DoctorInfo();
+                                doctorInfo.setDoctorName(doctorName + "");
+                                doctorInfo.setIdentifier(identifier + "");
+                                doctorInfo.setImagePath(doctorAvator + "");
+                                TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
+                            }
+
+
+                        } else if (TextUtils.equals("4021", data.getCode())) {
+                            gotoAuthDialog();
+                        } else {
+                            showTost(data.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
                     }
                 });
     }
