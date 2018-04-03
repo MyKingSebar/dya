@@ -331,16 +331,16 @@ public class MessageFragment extends BaseFragment {
             @Override
             public void onResponse(HomeListData data) {
                 if (TextUtils.equals("4000", data.getCode())) {
-                    if (!isLogin()) {
-                        rlRecommond.setVisibility(View.VISIBLE);
-                    } else {
-                        if (data.getData().getSignedDoctros().size() != 0 ||
-                                data.getData().getAttendingDoctors().size() != 0) {
-                            rlRecommond.setVisibility(View.GONE);
-                        } else {
-                            rlRecommond.setVisibility(View.VISIBLE);
-                        }
-                    }
+//                    if (!isLogin()) {
+//                        rlRecommond.setVisibility(View.VISIBLE);
+//                    } else {
+//                        if (data.getData().getSignedDoctros().size() != 0 ||
+//                                data.getData().getAttendingDoctors().size() != 0) {
+//                            rlRecommond.setVisibility(View.GONE);
+//                        } else {
+//                            rlRecommond.setVisibility(View.VISIBLE);
+//                        }
+//                    }
                     datas.clear();
                     if (data.getData().getRecommendDoctors().size() != 0) {
                         int index = datas.size();

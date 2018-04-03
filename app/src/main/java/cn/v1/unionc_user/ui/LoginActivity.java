@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -213,6 +214,7 @@ public class LoginActivity extends BaseActivity {
                                 goNewActivity(MainActivity.class);
                             }
                             login(token);
+                            Log.d("linshi","puttoken:"+token);
                             //通知首页和我的页面刷新数据
                             BusProvider.getInstance().post(new LoginUpdateEventData(true));
                             finish();

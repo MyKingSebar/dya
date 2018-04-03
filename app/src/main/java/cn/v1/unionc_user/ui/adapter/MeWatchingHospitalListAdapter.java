@@ -19,10 +19,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
-import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
 import cn.v1.unionc_user.ui.home.HospitalDetailActivity;
-import cn.v1.unionc_user.ui.home.HospitalDetailActivity$$ViewBinder;
-import cn.v1.unionc_user.view.CircleImageView;
 
 /**
  * Created by qy on 2018/2/7.

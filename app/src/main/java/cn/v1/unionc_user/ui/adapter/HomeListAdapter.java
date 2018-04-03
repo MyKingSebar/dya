@@ -198,7 +198,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 //            holder.tvEndTime.setText(homeData.getEndTime());
             holder.tvAddress.setText(homeData.getAddress());
             holder.tvMessageName.setText(homeData.getName() + "  ");
-            holder.tvTime.setText(DateUtils.getTime());
+            holder.tvTime.setText(homeData.getCreatedTime());
 //            holder.tvTime.setText(homeData.getCreatedTime());
 //            holder.tvRole.setText("（主治医生）");
 //            holder.tvDescribe.setText("最近的聊天记录");

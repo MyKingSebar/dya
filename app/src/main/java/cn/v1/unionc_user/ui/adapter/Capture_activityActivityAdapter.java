@@ -1,6 +1,7 @@
 package cn.v1.unionc_user.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.ClinicActivityData;
+import cn.v1.unionc_user.ui.home.ToDoorWebViewActivity;
 
 /**
  * Created by qy on 2018/3/15.
@@ -54,12 +56,25 @@ public class Capture_activityActivityAdapter extends RecyclerView.Adapter<Captur
         holder.tvTime.setText(activitiesData.getStartTime() + "-" + activitiesData.getEndTime());
         holder.tvAddress.setText(activitiesData.getActionAddr() + "");
         Glide.with(context).load(activitiesData.getImagePath()).into(holder.imgPreview);
+
+
+
+
         if(TextUtils.equals("0",activitiesData.getIsSignIn())){
             holder.cbSelect.setChecked(false);
         }
         if(TextUtils.equals("1",activitiesData.getIsSignIn())){
             holder.cbSelect.setChecked(true);
         }
+        holder.imgPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+                intent.putExtra("type", 3);
+                intent.putExtra("activityid", activitiesData.getActivityId());
+                context.startActivity(intent);
+            }
+        });
         holder.cbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

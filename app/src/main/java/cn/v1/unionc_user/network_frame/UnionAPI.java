@@ -22,6 +22,7 @@ import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
+import cn.v1.unionc_user.model.WatchingActivityData;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -109,6 +110,25 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("user/user-attention")
     Observable<MeWatchingHospitalListData> getMeWatchingHospitalList(@FieldMap Map<String, Object> params);
+
+    /**
+     * 获取我的/关注/活动 列表
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("activity/user-attention-activities")
+    Observable<WatchingActivityData> getMeWatchingActivityList(@FieldMap Map<String, Object> params);
+    /**
+     * 获取我的/报名/活动 列表
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("activity/user-signup-activities")
+    Observable<WatchingActivityData> getMeApplyActivityList(@FieldMap Map<String, Object> params);
 
     /**
      * 获取活动弹窗

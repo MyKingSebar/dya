@@ -36,6 +36,8 @@ public class Common {
     public static final String ACTIVITY_PUSH = "push";
     public static final String ACTIVITY_PUSH_LOCAL = "pushlocal";
 
+    public static final String APPLYACTIVITY = "APPLYACTIVITY";
+    public static final String COLLECTACTIVITY = "COLLECTACTIVITY";
 
     public static final int WEB_YIHUSHANGMEN = 1;
     public static final int WEB_SONGYAOSHANGMEN = 2;

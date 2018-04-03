@@ -40,6 +40,7 @@ import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.HomeSongYaoData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.UnioncURL;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.utils.URLEncoderURI;
@@ -88,12 +89,12 @@ public class ToDoorWebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(com.tencent.smtt.sdk.WebView webView, String s) {
                 super.onPageFinished(webView, s);
-                if (!TextUtils.isEmpty(activityId) && null != activityId) {
-
-                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-                    webviewSearch.loadUrl("javascript:app('" + token + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId + "')");
-                    Log.d("linshi", "load:" + token + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId);
-                }
+//                if (!TextUtils.isEmpty(activityId) && null != activityId) {
+//
+//                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//                    webviewSearch.loadUrl("javascript:app('" + token + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId + "')");
+//                    Log.d("linshi", "load:" + token + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId);
+//                }
             }
         });
         switch (type) {
@@ -161,7 +162,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
         ConnectHttp.connect(UnionAPIPackage.getsongyao(token), new BaseObserver<HomeSongYaoData>(context) {
             @Override
             public void onResponse(HomeSongYaoData data) {
-                String url=data.getData().getRedirectUrl();
+                String url = data.getData().getRedirectUrl();
                 webviewSearch.loadUrl(url);
                 closeDialog();
             }
@@ -179,8 +180,16 @@ public class ToDoorWebViewActivity extends BaseActivity {
 
     private void initactivityInfo() {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        String url = "https://192.168.21.93:8085/unionApp/pages/index.html#/clinicDetails?" + token + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId;
-        webviewSearch.loadUrl(url);
+        try {
+            String query = URLEncoder.encode(token, "utf-8");
+            String url = UnioncURL.Unionc_WEB_Host + "pages/index.html#/clinicDetails?" + query + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId;
+            Log.d("linshi", "url" + url);
+            webviewSearch.loadUrl(url);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public class JsInteration {

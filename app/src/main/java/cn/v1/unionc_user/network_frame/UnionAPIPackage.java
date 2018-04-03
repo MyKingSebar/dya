@@ -28,6 +28,7 @@ import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
+import cn.v1.unionc_user.model.WatchingActivityData;
 import cn.v1.unionc_user.utils.MobileConfigUtil;
 import io.reactivex.Observable;
 import okhttp3.MediaType;
@@ -147,6 +148,30 @@ public class UnionAPIPackage {
         params.put("pageNo", "1");
         params.put("pageSize", "100");
         return ConnectHttp.getUnionAPI().getMeWatchingHospitalList(dataProcess(params));
+    }
+    /**
+     * 获取我的/关注/活动 列表
+     *
+     * @return
+     */
+    public static Observable<WatchingActivityData> getMeWatchingActivityList(String token) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("pageNo", "1");
+        params.put("pageSize", "100");
+        return ConnectHttp.getUnionAPI().getMeWatchingActivityList(dataProcess(params));
+    }
+    /**
+     * 获取我的/关注/报名活动 列表
+     *
+     * @return
+     */
+    public static Observable<WatchingActivityData> getMeApplyActivityList(String token) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("pageNo", "1");
+        params.put("pageSize", "100");
+        return ConnectHttp.getUnionAPI().getMeApplyActivityList(dataProcess(params));
     }
 
 

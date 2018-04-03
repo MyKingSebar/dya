@@ -56,6 +56,7 @@ public class ClinicActivityData extends BaseData {
             private String Title;
             private String ActionAddr;
 
+
             public String getActionAddr() {
                 return ActionAddr;
             }
@@ -127,6 +128,8 @@ public class ClinicActivityData extends BaseData {
             public void setTitle(String Title) {
                 this.Title = Title;
             }
+
+
         }
     }
 }

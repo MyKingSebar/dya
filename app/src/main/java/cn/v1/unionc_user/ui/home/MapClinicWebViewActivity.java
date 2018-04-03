@@ -35,6 +35,7 @@ import butterknife.OnClick;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.network_frame.UnioncURL;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.utils.URLEncoderURI;
 
@@ -119,7 +120,16 @@ public class MapClinicWebViewActivity extends BaseActivity {
 //        String url="https://192.168.21.93:8085/unionApp/pages/index.html#/search?data{token:\""+(String) SPUtil.get(context, Common.USER_TOKEN, "")+","+(String) SPUtil.get(context, Common.LONGITUDE, "")+","+(String) SPUtil.get(context, Common.LATITUDE, "")+"\"}";
 //        String url="https://192.168.21.93:8085/unionApp/pages/index.html#/search?data="+(String) SPUtil.get(context, Common.USER_TOKEN, "")+","+(String) SPUtil.get(context, Common.LONGITUDE, "")+","+(String) SPUtil.get(context, Common.LATITUDE, "");
 //        String url="https://192.168.21.93:8085/unionApp/pages/index.html#/search?data={token:\""+(String) SPUtil.get(context, Common.USER_TOKEN, "")+"\",a:\""+(String) SPUtil.get(context, Common.LONGITUDE, "")+"\",b:\""+(String) SPUtil.get(context, Common.LATITUDE, "")+"\"}&encryption=false";
-        String url="https://192.168.21.93:8085/unionApp/pages/index.html#/search?"+(String) SPUtil.get(context, Common.USER_TOKEN, "")+","+(String) SPUtil.get(context, Common.LONGITUDE, "")+","+(String) SPUtil.get(context, Common.LATITUDE, "");
+        String token=(String) SPUtil.get(context, Common.USER_TOKEN, "");
+        try {
+            String query = URLEncoder.encode(token, "utf-8");
+            String url= UnioncURL.Unionc_WEB_Host+"pages/index.html#/search?"+query+","+(String) SPUtil.get(context, Common.LONGITUDE, "")+","+(String) SPUtil.get(context, Common.LATITUDE, "");
+            webviewSearch.addJavascriptInterface(new JsInteration(), "android");
+            Log.d("linshi", "url" + url);
+            webviewSearch.loadUrl(url);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 //        String urlStr;
 //        try {
 //            urlStr = URLEncoderURI.encode(url, "UTF-8");
@@ -129,8 +139,6 @@ public class MapClinicWebViewActivity extends BaseActivity {
 //        } catch (UnsupportedEncodingException e) {
 //            e.printStackTrace();
 //        }
-        webviewSearch.addJavascriptInterface(new JsInteration(), "android");
-        webviewSearch.loadUrl(url);
     }
 
 //    private void init() {

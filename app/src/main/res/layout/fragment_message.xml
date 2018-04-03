@@ -233,7 +233,7 @@
             android:layout_below="@+id/img_hi"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="5dp"
-            android:text="向您推荐附近3名家庭医生为您服务！"
+            tools:text="向您推荐附近3名家庭医生为您服务！"
             android:textColor="@color/describe_color"
             android:textSize="14sp" />
 
