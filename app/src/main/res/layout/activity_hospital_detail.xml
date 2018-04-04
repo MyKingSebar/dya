@@ -7,18 +7,19 @@
     android:orientation="vertical"
     tools:context="cn.v1.unionc_user.ui.home.HospitalDetailActivity">
 
-    <android.support.design.widget.FloatingActionButton
+<!--    <android.support.design.widget.FloatingActionButton
         android:id="@+id/tv_kefu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="55dp"
         android:layout_marginRight="12dp"
         android:layout_gravity="end|top"
         app:borderWidth="0dp"
         app:useCompatPadding="false"
         app:fabSize="mini"
-        app:backgroundTint="@color/white"
-        android:src="@drawable/icon_hospitial_kefu_mini"/>
+        app:backgroundTint="@color/qm_blue"
+        android:src="@drawable/kefu"/>-->
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,14 +30,14 @@
         android:id="@+id/l1"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/white">
+        android:background="@color/qm_blue">
 
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:scaleType="center"
-            android:src="@drawable/icon_back_black" />
+            android:src="@drawable/icon_back_white" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="医疗机构主页"
-            android:textColor="@color/main_text"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ImageView
@@ -54,7 +55,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="12dp"
             android:scaleType="center"
-            android:src="@drawable/icon_share_grey" />
+            android:src="@drawable/icon_share_white" />
 
     </RelativeLayout>
 
@@ -79,21 +80,23 @@
                 android:paddingBottom="13dp">
 
                 <RelativeLayout
+                    android:background="@color/qm_blue"
                     android:layout_width="match_parent"
-                    android:layout_height="90dp">
+                    android:layout_height="120dp">
 
                     <ImageView
                         android:id="@+id/img_hospital"
                         android:layout_width="120dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="17dp" />
 
                     <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="26dp"
+                        android:layout_marginTop="77dp"
                         android:layout_toRightOf="@+id/img_hospital"
                         android:src="@drawable/icon_img" />
 
@@ -105,10 +108,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="9dp"
                     tools:text="北京协和医院广安门附属医院"
                     android:textColor="@color/main_text"
-                    android:textSize="16dp" />
+                    android:textSize="15dp" />
 
                 <com.donkingliang.labels.LabelsView
                     android:id="@+id/labels"
@@ -203,13 +206,13 @@
 
                 <ImageView
                     android:id="@+id/img_dial"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginBottom="13dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="17dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="24dp"
                     android:src="@drawable/icon_dial" />
 
 
@@ -283,4 +286,12 @@
     <include layout="@layout/layout_bottom_recommond"/>
 
     </LinearLayout>
+    <ImageView
+        android:id="@+id/kefu2"
+        android:src="@drawable/kefu"
+        android:layout_marginTop="55dp"
+        android:layout_marginRight="12dp"
+        android:layout_gravity="end|top"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
 </android.support.design.widget.CoordinatorLayout>

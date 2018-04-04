@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -118,6 +119,7 @@ public class EditUserInfoActivity extends BaseActivity {
             if (requestCode == AVATOR) {
                 try {
                     String avator = data.getStringExtra("avator");
+                    Log.d("linshi","onActivityResult:"+avator);
                     Glide.with(context).load("file://" + avator)
                             .placeholder(R.drawable.icon_default_avator)
                             .error(R.drawable.icon_default_avator)

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -100,7 +101,11 @@ public class UpdateAvatorActivity extends BaseActivity {
             switch (requestCode) {
                 // 如果是直接从相册获取
                 case 1:
-                    startPhotoZoom(data.getData());
+                    String replace = data.getData().toString().replace("content", "file");
+                    Log.d("linshi","data.getData():"+data.getData().toString());
+                    Log.d("linshi","replace:"+replace);
+                    startPhotoZoom(Uri.parse(replace));
+//                    startPhotoZoom(data.getData());
                     break;
                 // 如果是调用相机拍照时
                 case 2:
@@ -165,6 +170,7 @@ public class UpdateAvatorActivity extends BaseActivity {
             Bitmap photo = extras.getParcelable("data");
             //图片路径
             urlpath = PictureFileUtil.saveFile(context, "temphead.jpg", photo);
+            Log.d("linshi","urlpath:"+urlpath);
             Glide.with(context).load("file://" + urlpath).into(imgAvator);
         }
     }

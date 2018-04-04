@@ -106,10 +106,10 @@ public class LoginActivity extends BaseActivity {
             case R.id.img_check_agreement:
                 if (isCheckAgreement) {
                     isCheckAgreement = false;
-                    imgCheckAgreement.setImageResource(R.drawable.agreement_circle);
+                    imgCheckAgreement.setImageResource(R.drawable.icon_check2_off);
                 } else {
                     isCheckAgreement = true;
-                    imgCheckAgreement.setImageResource(R.drawable.icon_check);
+                    imgCheckAgreement.setImageResource(R.drawable.icon_check2);
                 }
                 break;
             case R.id.tv_agreement:
@@ -120,7 +120,7 @@ public class LoginActivity extends BaseActivity {
 
     private void initView() {
         isCheckAgreement = true;
-        imgCheckAgreement.setImageResource(R.drawable.icon_check);
+        imgCheckAgreement.setImageResource(R.drawable.icon_check2);
         tvAgreement.setText(Html.fromHtml("<font color=\'#9B9CA0\'>我同意并遵守《</font>" +
                 "<font color=\'#4e78f6\'>用户使用协议</font>" +
                 "<font color=\'#9B9CA0\'>》</font>"));
@@ -172,6 +172,7 @@ public class LoginActivity extends BaseActivity {
                     JPushInterface.setAlias(context,1,identifier);
                 } else {
                     showTost(data.getMessage());
+                    Log.d("linshi","data.getMessage()");
                 }
             }
 
@@ -237,14 +238,17 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onTick(long l) {
             runningThree = true;
-            tvCode.setText(Html.fromHtml("<font color=\'#ff0000\'> " + (l / 1000) + "</font>" +
-                    "<font color=\'#9B9CA0\'>s后重新获取</font>"));
+            tvCode.setText((l / 1000) + "s后重新获取");
+            tvCode.setBackgroundResource(R.drawable.bg_gray_btn);
+//            tvCode.setText(Html.fromHtml("<font color=\'#ff0000\'> " + (l / 1000) + "</font>" +
+//                    "<font color=\'#9B9CA0\'>s后重新获取</font>"));
         }
 
         @Override
         public void onFinish() {
             runningThree = false;
             tvCode.setText("重新发送");
+            tvCode.setBackgroundResource(R.drawable.bg_login_btn);
         }
     };
 

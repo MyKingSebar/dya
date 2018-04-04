@@ -1,6 +1,5 @@
 package cn.v1.unionc_user.network_frame;
 
-import java.io.File;
 import java.util.Map;
 
 import cn.v1.unionc_user.model.BaseData;
@@ -13,7 +12,7 @@ import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.HomeListData;
-import cn.v1.unionc_user.model.HomeSongYaoData;
+import cn.v1.unionc_user.model.HomeToHomeData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
@@ -25,14 +24,11 @@ import cn.v1.unionc_user.model.UserInfoData;
 import cn.v1.unionc_user.model.WatchingActivityData;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 /**
@@ -357,14 +353,24 @@ public interface UnionAPI {
 
 
     /**
-     * 获取送药到家网址
+     * 获取医护到家网址
      *
      * @param params
      * @return
      */
     @FormUrlEncoded
     @POST("yh_h5/yhpage")
-    Observable<HomeSongYaoData> getsongyao(@FieldMap Map<String, Object> params);
+    Observable<HomeToHomeData> getyihu(@FieldMap Map<String, Object> params);
+
+    /**
+     * 获取送药到家网址
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("dd_h5/ddpage")
+    Observable<HomeToHomeData> getsongyao(@FieldMap Map<String, Object> params);
 
 
 }

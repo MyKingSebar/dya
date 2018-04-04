@@ -55,9 +55,15 @@ public class Capture_activityActivityAdapter extends RecyclerView.Adapter<Captur
         holder.tvActivityContent.setText(activitiesData.getPresentDesc() + "  " + activitiesData.getDigest());
         holder.tvTime.setText(activitiesData.getStartTime() + "-" + activitiesData.getEndTime());
         holder.tvAddress.setText(activitiesData.getActionAddr() + "");
-        Glide.with(context).load(activitiesData.getImagePath()).into(holder.imgPreview);
-
-
+        if (TextUtils.isEmpty(activitiesData.getImagePath())) {
+            holder.imgPreview.setImageResource(R.drawable.icon_activity);
+        } else {
+            Glide.with(context)
+                    .load(activitiesData.getImagePath())
+                    .placeholder(R.drawable.icon_activity)
+                    .error(R.drawable.icon_activity)
+                    .into(holder.imgPreview);
+        }
 
 
         if(TextUtils.equals("0",activitiesData.getIsSignIn())){

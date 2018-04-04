@@ -3,6 +3,7 @@ package cn.v1.unionc_user.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import com.google.gson.Gson;
@@ -113,6 +114,7 @@ public class MainActivity extends BaseActivity {
     private void stateCheck(Bundle saveInstanceState) {
         Logger.i(new Gson().toJson(saveInstanceState));
         if (null != saveInstanceState) {
+            Log.d("linshi","null != saveInstanceState");
             //通过tag找回失去引用但是存在内存中的fragment.id相同
             MessageFragment messageFragment = (MessageFragment) getSupportFragmentManager().findFragmentByTag(tags[0]);
             DiscoverFragment discoverFragment = (DiscoverFragment) getSupportFragmentManager().findFragmentByTag(tags[1]);
@@ -124,6 +126,7 @@ public class MainActivity extends BaseActivity {
                     .hide(personalFragment)
                     .commit();
         } else {
+            Log.d("linshi","null == saveInstanceState");
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if (null == messageFragment) {
                 messageFragment = new MessageFragment();

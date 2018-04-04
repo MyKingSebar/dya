@@ -45,7 +45,7 @@ public class UnioncApp extends MultiDexApplication {
                 public void handleNotification(TIMOfflinePushNotification notification) {
                     if (notification.getGroupReceiveMsgOpt() == TIMGroupReceiveMessageOpt.ReceiveAndNotify) {
                         //消息被设置为需要提醒
-                        notification.doNotify(getApplicationContext(), R.mipmap.ic_launcher);
+                        notification.doNotify(getApplicationContext(), R.mipmap.ic_launcher2);
                     }
                 }
             });

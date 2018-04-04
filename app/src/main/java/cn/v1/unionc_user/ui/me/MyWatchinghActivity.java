@@ -70,6 +70,7 @@ public class MyWatchinghActivity extends BaseActivity {
     }
 
     private void initView() {
+        linearLayout.setFocusable(false);
         Log.d("linshi","myinitView:");
         tvTitle.setText("我的关注");
         stateCheck(outState);

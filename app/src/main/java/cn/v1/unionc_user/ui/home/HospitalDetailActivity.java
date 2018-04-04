@@ -90,8 +90,10 @@ public class HospitalDetailActivity extends BaseActivity {
     CheckBox cbRecommend;
     @Bind(R.id.cb_no_recommend)
     CheckBox cbNoRecommend;
-    @Bind(R.id.tv_kefu)
-    FloatingActionButton tv_kefu;
+//    @Bind(R.id.tv_kefu)
+//    FloatingActionButton tv_kefu;
+    @Bind(R.id.kefu2)
+    ImageView kefu2;
 
     private String recommendNum;
     private String attention;
@@ -134,7 +136,12 @@ public class HospitalDetailActivity extends BaseActivity {
         initBottomSheet();
     }
 
-    @OnClick({R.id.img_back, R.id.img_share, R.id.img_dial,R.id.ll_recommend,R.id.ll_follow,R.id.ll_comment,R.id.tv_kefu})
+    @OnClick({R.id.img_back, R.id.img_share, R.id.img_dial,R.id.ll_recommend,R.id.ll_follow,R.id.ll_comment,
+
+//            R.id.tv_kefu,
+            R.id.kefu2
+
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_back:
@@ -178,7 +185,17 @@ public class HospitalDetailActivity extends BaseActivity {
                 }
                 break;
 
-            case  R.id.tv_kefu:
+//            case  R.id.tv_kefu:
+//                if(TextUtils.equals(IsDuty,"1")){
+//
+//                    if (isLogin()) {
+//                        isCertification(MESSAGE);
+//                    } else {
+//                        goNewActivity(LoginActivity.class);
+//                    }
+//                }
+//                break;
+            case  R.id.kefu2:
                 if(TextUtils.equals(IsDuty,"1")){
 
                     if (isLogin()) {
@@ -201,6 +218,7 @@ private void initData(){
 
 }
     private void initView() {
+        listView.setFocusable(false);
         tvSummary.post(new Runnable() {
             @Override
             public void run() {
@@ -326,10 +344,15 @@ private void initfragmentData(){
         }
         tvCommentNum.setText("评论" + clinicData.getEvaCount());
 
+//        if(TextUtils.equals(IsDuty,"1")){
+//            tv_kefu.setVisibility(View.VISIBLE);
+//        }else{
+//            tv_kefu.setVisibility(View.GONE);
+//        }
         if(TextUtils.equals(IsDuty,"1")){
-            tv_kefu.setVisibility(View.VISIBLE);
+            kefu2.setVisibility(View.VISIBLE);
         }else{
-            tv_kefu.setVisibility(View.GONE);
+            kefu2.setVisibility(View.GONE);
         }
 //        tvDoctorName.setText(doctorsData.getDoctorName() + "");
 //        tvDepartment.setText(doctorsData.getDepartName() + "  " + doctorsData.getProfessLevel());

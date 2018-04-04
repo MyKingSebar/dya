@@ -1,34 +1,18 @@
 package cn.v1.unionc_user.ui.home;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
-import android.net.http.SslError;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,16 +20,12 @@ import butterknife.OnClick;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
-import cn.v1.unionc_user.model.BaseData;
-import cn.v1.unionc_user.model.HomeSongYaoData;
+import cn.v1.unionc_user.model.HomeToHomeData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.UnioncURL;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
-import cn.v1.unionc_user.utils.URLEncoderURI;
-
-import static android.content.ContentValues.TAG;
 
 public class ToDoorWebViewActivity extends BaseActivity {
 
@@ -75,9 +55,9 @@ public class ToDoorWebViewActivity extends BaseActivity {
         if (getIntent().hasExtra("type")) {
             type = getIntent().getIntExtra("type", 0);
         }
-        Log.d("linshi", "todoor.type:" + type);
-        Log.d("linshi", "todoor.hasExtra:" + getIntent().hasExtra("activityid"));
-        Log.d("linshi", "todoor.hasExtra2:" + getIntent().getStringExtra("activityid"));
+//        Log.d("linshi", "todoor.type:" + type);
+//        Log.d("linshi", "todoor.hasExtra:" + getIntent().hasExtra("activityid"));
+//        Log.d("linshi", "todoor.hasExtra2:" + getIntent().getStringExtra("activityid"));
         if (getIntent().hasExtra("activityid")) {
             activityId = getIntent().getStringExtra("activityid");
         }
@@ -89,6 +69,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(com.tencent.smtt.sdk.WebView webView, String s) {
                 super.onPageFinished(webView, s);
+                closeDialog();
 //                if (!TextUtils.isEmpty(activityId) && null != activityId) {
 //
 //                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
@@ -143,7 +124,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
     }
 
     private void iniactivity() {
-
+        showDialog("加载中...");
         toplayout.setVisibility(View.GONE);
         initactivityInfo();
     }
@@ -159,12 +140,12 @@ public class ToDoorWebViewActivity extends BaseActivity {
         tvTitle.setText("医护上门");
         showDialog("加载中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.getsongyao(token), new BaseObserver<HomeSongYaoData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.getyihu(token), new BaseObserver<HomeToHomeData>(context) {
             @Override
-            public void onResponse(HomeSongYaoData data) {
+            public void onResponse(HomeToHomeData data) {
                 String url = data.getData().getRedirectUrl();
                 webviewSearch.loadUrl(url);
-                closeDialog();
+
             }
 
             @Override
@@ -176,6 +157,22 @@ public class ToDoorWebViewActivity extends BaseActivity {
 
     private void initSongYao() {
         tvTitle.setText("送药上门");
+        showDialog("加载中...");
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.getsongyao(token), new BaseObserver<HomeToHomeData>(context) {
+            @Override
+            public void onResponse(HomeToHomeData data) {
+                String url = data.getData().getRedirectUrl();
+                webviewSearch.loadUrl(url);
+
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                closeDialog();
+            }
+        });
+
     }
 
     private void initactivityInfo() {

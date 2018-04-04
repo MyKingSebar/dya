@@ -229,6 +229,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     Intent intent = new Intent(context, ToDoorWebViewActivity.class);
                     intent.putExtra("type", 3);
                     intent.putExtra("activityid", homeData.getActivityId());
+                    Log.d("linshi","activityid"+homeData.getActivityId());
                     context.startActivity(intent);
                 }
             }
