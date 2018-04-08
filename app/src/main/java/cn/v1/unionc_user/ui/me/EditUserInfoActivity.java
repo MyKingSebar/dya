@@ -120,7 +120,7 @@ public class EditUserInfoActivity extends BaseActivity {
                 try {
                     String avator = data.getStringExtra("avator");
                     Log.d("linshi","onActivityResult:"+avator);
-                    Glide.with(context).load("file://" + avator)
+                    Glide.with(context).load( avator)
                             .placeholder(R.drawable.icon_default_avator)
                             .error(R.drawable.icon_default_avator)
                             .into(imgAvator);

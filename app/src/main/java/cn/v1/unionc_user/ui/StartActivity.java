@@ -49,6 +49,12 @@ public class StartActivity extends BaseActivity {
                 permissionsList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
             if ((checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED))
                 permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+//            if ((checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED))
+//                permissionsList.add(Manifest.permission.READ_CONTACTS);
+//            if ((checkSelfPermission(Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED))
+//                permissionsList.add(Manifest.permission.WRITE_CONTACTS);
+            if ((checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.CAMERA);
             if (permissionsList.size() == 0) {
                 init();
             } else {
@@ -115,6 +121,7 @@ public class StartActivity extends BaseActivity {
                     showTost("您需要开启权限,并重启应用");
                     finish();
                 }
+
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
