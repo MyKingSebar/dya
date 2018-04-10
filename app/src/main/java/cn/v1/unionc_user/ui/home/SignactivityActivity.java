@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,16 +16,22 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.ActivityListReturnEventData;
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicActivityData;
+import cn.v1.unionc_user.model.LocationUpdateEventData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.adapter.Capture_activityActivityAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
+import cn.v1.unionc_user.view.PromptDialog;
+import cn.v1.unionc_user.view.PromptOnebtnDialog;
+import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 public class SignactivityActivity extends BaseActivity {
 
@@ -64,6 +71,7 @@ public class SignactivityActivity extends BaseActivity {
     private void initData() {
         if (getIntent().hasExtra("clinicId")) {
             clinicId = getIntent().getStringExtra("clinicId");
+            Log.d("linshi","clinicId"+clinicId);
         }
         clinicActivities();
     }
@@ -88,8 +96,16 @@ public class SignactivityActivity extends BaseActivity {
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
                     activities.clear();
-                    activities.addAll(data.getData().getActivities());
-                    capture_activityActivityAdapter.setDatas(activities);
+                    if(data.getData().getActivities().size()>0){
+
+                        activities.addAll(data.getData().getActivities());
+                        capture_activityActivityAdapter.setDatas(activities);
+                    }else{
+                        finish();
+                        Log.d("linshi","ActivityListReturnEventData"+clinicId);
+                        ActivityListReturnEventData eventData = new ActivityListReturnEventData(clinicId);
+                        BusProvider.getInstance().post(eventData);
+                    }
                 } else {
                     showTost(data.getMessage() + "");
                 }

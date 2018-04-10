@@ -31,17 +31,13 @@ import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
 import com.tencent.imsdk.TIMConversation;
 import com.tencent.imsdk.TIMConversationType;
-import com.tencent.imsdk.TIMFriendshipManager;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMMessage;
 import com.tencent.imsdk.TIMMessageListener;
-import com.tencent.imsdk.TIMUserProfile;
-import com.tencent.imsdk.TIMValueCallBack;
-import com.tencent.imsdk.ext.group.TIMGroupCacheInfo;
 import com.tencent.imsdk.ext.message.TIMConversationExt;
 import com.tencent.imsdk.ext.message.TIMManagerExt;
-import com.tencent.qcloud.presentation.viewfeatures.ConversationView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -56,6 +52,7 @@ import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.jiguang.ExampleUtil;
 import cn.v1.unionc_user.jiguang.LocalBroadcastManager;
+import cn.v1.unionc_user.model.ActivityListReturnEventData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.JiGuangData;
 import cn.v1.unionc_user.model.LocationUpdateEventData;
@@ -72,7 +69,10 @@ import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.utils.Location;
 import cn.v1.unionc_user.view.BannerView;
 import cn.v1.unionc_user.view.LocationDialog;
+import cn.v1.unionc_user.view.PromptOnebtnDialog;
 import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
+
+import static cn.v1.unionc_user.network_frame.UnionAPIPackage.updateAdd;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -151,6 +151,7 @@ public class MessageFragment extends BaseFragment {
         initView();
         initLocation();
         registerMessageReceiver();  // used for receive msg
+        getActivityPush();
     }
 
     @OnClick({R.id.tv_address, R.id.ll_search, R.id.tv_saoma, R.id.tv_guahao, R.id.tv_yihu, R.id.tv_health})
@@ -260,9 +261,18 @@ public class MessageFragment extends BaseFragment {
         tvAddress.setText(data.getPoiName());
         latitude = data.getLat() + "";
         longitude = data.getLon() + "";
+        SPUtil.put(context, Common.ADDRESS, data.getPoiName());
         SPUtil.put(context, Common.LONGITUDE, longitude);
         SPUtil.put(context, Common.LATITUDE, latitude);
         getHomeList(longitude, latitude);
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        if(isLogin()&&!TextUtils.equals(Common.LOCATYPE_NET,data.getType())){
+            updateAdd(token, data.getPoiName(),latitude,longitude);
+            SPUtil.put(context, Common.USER_ADD, data.getPoiName());
+            Log.d("linshi","put:"+data.getPoiName());
+            return;
+        }
+
     }
 
     @Subscribe
@@ -270,35 +280,77 @@ public class MessageFragment extends BaseFragment {
         getHomeList(longitude, latitude);
     }
 
+    @Subscribe
+    public void  activityListReturn(final ActivityListReturnEventData data) {
+        PromptOnebtnDialog promptOnebtnDialog = new PromptOnebtnDialog(context){
+            @Override
+            public void onClosed() {
+                Log.d("linshi","ActivityListReturnEventData"+data.getClinicId());
+                if(!TextUtils.isEmpty(data.getClinicId())){
+                    Intent intent = new Intent(context, HospitalDetailActivity.class);
+                    intent.putExtra("clinicId", data.getClinicId()+ "");
+                    startActivity(intent);
+                }else{
+                    Log.d("linshi","activityListReturn.data.getClinicId()isEmpty");
+                }
+
+            }
+        };
+        promptOnebtnDialog.show();
+        promptOnebtnDialog.setTitle("小巴提示：");
+        promptOnebtnDialog.setMessage("暂无活动");
+    }
+
 
     private void initLocation() {
         showDialog("定位中...");
-        new Location(context) {
-            @Override
-            protected void locationSuccess(AMapLocation amapLocation) {
-                currentPoiname = amapLocation.getPoiName();
-                tvCity.setText(amapLocation.getCity());
-                tvAddress.setText(amapLocation.getPoiName());
-                stopLocation();
-                //位置确定弹框
-//                confirmLocationDialog();
-                //获取经纬度
-                longitude = amapLocation.getLongitude() + "";
-                latitude = amapLocation.getLatitude() + "";
-                SPUtil.put(context, Common.LONGITUDE, longitude);
-                SPUtil.put(context, Common.LATITUDE, latitude);
-                //请求数据
-                getHomeList(longitude, latitude);
-                closeDialog();
-            }
+            new Location(context) {
+                @Override
+                protected void locationSuccess(AMapLocation amapLocation) {
+                    currentPoiname = amapLocation.getPoiName();
+//                    if (isLogin()&&!SPUtil.contains(context,Common.USER_ADD)) {
+//                        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//                        updateAdd(token, amapLocation.getPoiName(),latitude,longitude);
+//                        SPUtil.put(context, Common.USER_ADD, amapLocation.getPoiName());
+//                        return;
+//                    }else {
+//                        tvAddress.setText((String)SPUtil.get(context,Common.USER_ADD,""));
+//                    }
+                    String add=(String)SPUtil.get(context,Common.USER_ADD,"");
+                    Log.d("linshi","isLogin():"+isLogin());
+                    Log.d("linshi","SPUtil.contains(context, Common.USER_ADD):"+SPUtil.contains(context, Common.USER_ADD));
+                    Log.d("linshi","TextUtils.isEmpty(add):"+TextUtils.isEmpty(add));
+                    if(isLogin()&&SPUtil.contains(context, Common.USER_ADD)&&!TextUtils.isEmpty(add)){
+                        tvAddress.setText(add);
 
-            @Override
-            protected void locationFailure() {
-                tvAddress.setText("请选择");
-                stopLocation();
-                closeDialog();
-            }
-        };
+                    }else{
+                        tvCity.setText(amapLocation.getCity());
+                        tvAddress.setText(amapLocation.getPoiName());
+                    }
+                    stopLocation();
+                    //位置确定弹框
+//                confirmLocationDialog();
+                    //获取经纬度
+                    longitude = amapLocation.getLongitude() + "";
+                    latitude = amapLocation.getLatitude() + "";
+                    SPUtil.put(context, Common.ADDRESS, amapLocation.getPoiName());
+                    SPUtil.put(context, Common.LONGITUDE, longitude);
+                    SPUtil.put(context, Common.LATITUDE, latitude);
+                    //请求数据
+                    getHomeList(longitude, latitude);
+                    closeDialog();
+                }
+
+                @Override
+                protected void locationFailure() {
+                    tvAddress.setText("请选择");
+                    stopLocation();
+                    closeDialog();
+                }
+            };
+
+
+
     }
 
     /**
@@ -460,6 +512,39 @@ public class MessageFragment extends BaseFragment {
         }
     }
 
+    private void getActivityPush() {
+        Log.d("linshi", "getActivityPush()");
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        pushdatas.clear();
+        ConnectHttp.connect(UnionAPIPackage.getPushList(token), new BaseObserver<HomeListData>(context) {
+            @Override
+            public void onResponse(HomeListData data) {
+
+                if (TextUtils.equals("4000", data.getCode())) {
+                    Log.d("linshi", "data:" + new Gson().toJson(data));
+                    Log.d("linshi", "size:" + data.getData().getActivities().size());
+
+                    if (data.getData().getActivities().size() != 0) {
+                        Intent intent=new Intent(context,ActivityPopwindowActivity.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putSerializable("list",(Serializable)data.getData().getActivities());//序列化,要注意转化(Serializable)
+                        intent.putExtras(bundle);//发送数据
+                        startActivity(intent);//启动intent
+                    }
+
+                } else {
+                    showTost(data.getMessage());
+                }
+                connectclosedialog();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                connectclosedialog();
+            }
+        });
+
+    }
 //    private void getActivityPush() {
 //        Log.d("linshi", "getActivityPush()");
 //        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");

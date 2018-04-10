@@ -46,6 +46,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
             //检查Token是否过期
             if(TextUtils.equals("0100",baseData.getCode())){
                 SPUtil.remove(context, Common.USER_TOKEN);
+                SPUtil.remove(context, Common.USER_ADD);
                 Intent intent = new Intent(context, LoginActivity.class);
                 context.startActivity(intent);
                 //登出

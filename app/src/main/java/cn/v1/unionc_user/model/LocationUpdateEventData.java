@@ -8,6 +8,16 @@ public class LocationUpdateEventData {
 
     private String poiName;
 
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     private double lat;
 
     private double lon;

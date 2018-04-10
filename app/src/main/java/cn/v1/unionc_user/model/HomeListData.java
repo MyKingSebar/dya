@@ -1,5 +1,6 @@
 package cn.v1.unionc_user.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.v1.unionc_user.tecent_qcloud.tim_model.Message;
@@ -8,7 +9,7 @@ import cn.v1.unionc_user.tecent_qcloud.tim_model.Message;
  * Created by qy on 2018/2/9.
  */
 
-public class HomeListData extends BaseData {
+public class HomeListData extends BaseData  {
 
 
     /**
@@ -66,7 +67,7 @@ public class HomeListData extends BaseData {
             this.activities = activities;
         }
 
-        public static class HomeData {
+        public static class HomeData implements Serializable{
 
             private String type;
 

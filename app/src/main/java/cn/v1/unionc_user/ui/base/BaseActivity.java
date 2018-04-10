@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
@@ -17,6 +18,10 @@ import com.tencent.imsdk.TIMUserStatusListener;
 
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.BaseData;
+import cn.v1.unionc_user.network_frame.ConnectHttp;
+import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.tecent_qcloud.UserConfig;
 import cn.v1.unionc_user.ui.me.RealNameAuthActivity;
 import cn.v1.unionc_user.view.PromptDialog;
@@ -97,6 +102,7 @@ public class BaseActivity extends FragmentActivity {
      */
     protected void logout() {
         SPUtil.remove(context, Common.USER_TOKEN);
+        SPUtil.remove(context, Common.USER_ADD);
         //登出
         TIMManager.getInstance().logout(new TIMCallBack() {
             @Override
@@ -171,6 +177,32 @@ public class BaseActivity extends FragmentActivity {
             @Override
             public void onCancelClick() {
                 goNewActivity(RealNameAuthActivity.class);
+            }
+        });
+    }
+
+    /**
+     * 修改用户地址：
+     *
+     */
+    protected void updateAdd( String token, String add,String la,String lo) {
+        showDialog("请稍侯...");
+        ConnectHttp.connect(UnionAPIPackage.updateAdd(token, add,la,lo), new BaseObserver<BaseData>(context) {
+
+            @Override
+            public void onResponse(BaseData data) {
+                closeDialog();
+                if (TextUtils.equals("4000", data.getCode())) {
+                    Log.d("linshi","修改用户地址成功");
+                } else {
+                    showTost(data.getMessage());
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                closeDialog();
+                showTost("修改用户地址失败");
             }
         });
     }

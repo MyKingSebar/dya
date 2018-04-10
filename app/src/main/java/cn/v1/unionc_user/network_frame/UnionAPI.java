@@ -47,6 +47,16 @@ public interface UnionAPI {
     Observable<BaseData> getAuthCode(@FieldMap Map<String, Object> params);
 
     /**
+     * 修改用户地址
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/update-user-address")
+    Observable<BaseData> updateAdd(@FieldMap Map<String, Object> params);
+
+    /**
      * 登录
      *
      * @param params

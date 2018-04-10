@@ -12,6 +12,7 @@
     <!-- Required  一些系统要求的权限，如访问网络等-->
     <uses-permission android:name="cn.v1.unionc_user.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <!-- if you want to load images from a file OR from the internet -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
    <!-- SDCard中创建与删除文件权限-->
@@ -174,6 +175,9 @@
             android:name=".ui.home.SignactivityActivity"
             android:theme="@style/Dialog" />
         <activity android:name=".ui.LoginAgreementActivity" />
+        <activity
+            android:name=".ui.home.ActivityPopwindowActivity"
+            android:theme="@style/Dialog" />
         <activity android:name=".ui.me.AboutYIBASHIActivity"></activity>
 
 

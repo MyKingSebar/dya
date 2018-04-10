@@ -24,7 +24,11 @@ public class Common {
     public static final String IDENTIFIER = "identifier";
     public static final String USER_PHONE = "userPhone";
     public static final String USER_AVATOR = "userAvator";
+    public static final String USER_ADD= "USER_ADD";
+    public static final String USER_LATITUDE= "USER_LATITUDE";
+    public static final String USER_LONGITUDE= "USER_LONGITUDE";
 
+    public static final String ADDRESS = "address";
     public static final String LONGITUDE = "longitude";
     public static final String LATITUDE = "latitude";
 
@@ -38,6 +42,11 @@ public class Common {
 
     public static final String APPLYACTIVITY = "APPLYACTIVITY";
     public static final String COLLECTACTIVITY = "COLLECTACTIVITY";
+
+
+
+
+    public static final String LOCATYPE_NET = "LOCATYPE_NET";
 
     public static final int WEB_YIHUSHANGMEN = 1;
     public static final int WEB_SONGYAOSHANGMEN = 2;

@@ -71,6 +71,19 @@ public class UnionAPIPackage {
     }
 
     /**
+     * 修改用户地址
+     *
+     * @return
+     */
+    public static Observable<BaseData> updateAdd(String token,String add, String la,String lo) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("address", add);
+        params.put("latitude", la);
+        params.put("longitude", lo);
+        return ConnectHttp.getUnionAPI().updateAdd(dataProcess(params));
+    }
+    /**
      * 登录
      *
      * @param userMobile 手机号

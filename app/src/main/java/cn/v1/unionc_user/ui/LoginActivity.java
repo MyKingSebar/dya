@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.BaseData;
+import cn.v1.unionc_user.model.LocationUpdateEventData;
 import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.LoginUpdateEventData;
 import cn.v1.unionc_user.model.TIMSigData;
@@ -31,6 +33,8 @@ import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
+
+import static cn.v1.unionc_user.data.Common.ADDRESS;
 
 
 public class LoginActivity extends BaseActivity {
@@ -168,6 +172,26 @@ public class LoginActivity extends BaseActivity {
                     String identifier = data.getData().getIdentifier() + "";
                     SPUtil.put(context, Common.IDENTIFIER, identifier);
                     SPUtil.put(context, Common.USER_PHONE, phoneNumber);
+                    Log.d("linshi","Add:"+data.getData().getAddr());
+                    if(!TextUtils.isEmpty(data.getData().getAddr())){
+
+                        SPUtil.put(context, Common.USER_ADD, data.getData().getAddr());
+                        SPUtil.put(context, Common.USER_LATITUDE, data.getData().getAddrLatitude());
+                        SPUtil.put(context, Common.USER_LONGITUDE, data.getData().getAddrLongitude());
+                        LocationUpdateEventData eventData = new LocationUpdateEventData();
+                        eventData.setLat(Double.parseDouble(data.getData().getAddrLatitude()));
+                        eventData.setLon(Double.parseDouble(data.getData().getAddrLongitude()));
+                        eventData.setPoiName(data.getData().getAddr());
+                        eventData.setType(Common.LOCATYPE_NET);
+                        BusProvider.getInstance().post(eventData);
+                    }else{
+                        String add=(String)SPUtil.get(context,Common.ADDRESS,"");
+                        String la=(String)SPUtil.get(context,Common.LATITUDE,"");
+                        String lo=(String)SPUtil.get(context,Common.LONGITUDE,"");
+                        Log.d("linshi","updateAdd:"+data.getData().getToken()+","+add+","+la+","+lo);
+                        updateAdd(data.getData().getToken(),add,la,lo);
+                        SPUtil.put(context, Common.USER_ADD, add);
+                    }
                     getTIMSig(data.getData().getToken(), identifier);
                     JPushInterface.setAlias(context,1,identifier);
                 } else {
@@ -183,6 +207,8 @@ public class LoginActivity extends BaseActivity {
             }
         });
     }
+
+
 
     /**
      * 获取TIM sig
