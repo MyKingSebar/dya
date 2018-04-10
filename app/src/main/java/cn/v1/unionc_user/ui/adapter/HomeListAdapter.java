@@ -62,7 +62,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         if (TextUtils.equals(homeData.getType(), Common.INQUIRY_RECORD)) {
             Glide.with(context).load(homeData.getImagePath()).into(holder.imgMessageAvator);
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
-            holder.tvDescribe.setText(homeData.getClinicName() + "\n" +
+            holder.tvDescribe.setText(homeData.getClinicName() + "\n" +"擅长："+
                     homeData.getMajor());
             holder.tvRole.setVisibility(View.VISIBLE);
         }
@@ -118,7 +118,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
             holder.tvRole.setText(homeData.getDepartName() + "  " +
                     homeData.getProfessLevel());
-            holder.tvDescribe.setText(homeData.getClinicName() + "\n" +
+            holder.tvDescribe.setLineSpacing(10,1);
+            holder.tvDescribe.setText(homeData.getClinicName() + "\n" +"擅长："+
                     homeData.getMajor());
             holder.tvDescribe.setVisibility(View.VISIBLE);
             holder.tvEndTime.setVisibility(View.GONE);

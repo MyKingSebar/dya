@@ -11,7 +11,7 @@
     <!-- 开屏页设置 -->
     <style name="Start_Theme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-       <item name="android:windowBackground">@drawable/start3</item>
+       <item name="android:windowBackground">@drawable/start2</item>
     </style>
 
     <style name="Dialog" parent="@android:style/Theme.Dialog">

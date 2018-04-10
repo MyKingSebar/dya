@@ -156,22 +156,23 @@ public class ToDoorWebViewActivity extends BaseActivity {
     }
 
     private void initSongYao() {
-        tvTitle.setText("送药上门");
-        showDialog("加载中...");
-        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+            tvTitle.setText("送药上门");
+            showDialog("加载中...");
+            String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        Log.d("linshi","送药上门:"+token);
         ConnectHttp.connect(UnionAPIPackage.getsongyao(token), new BaseObserver<HomeToHomeData>(context) {
-            @Override
-            public void onResponse(HomeToHomeData data) {
-                String url = data.getData().getRedirectUrl();
-                webviewSearch.loadUrl(url);
+                @Override
+                public void onResponse(HomeToHomeData data) {
+                    String url = data.getData().getRedirectUrl();
+                    webviewSearch.loadUrl(url);
 
-            }
+                }
 
-            @Override
-            public void onFail(Throwable e) {
-                closeDialog();
-            }
-        });
+                @Override
+                public void onFail(Throwable e) {
+                    closeDialog();
+                }
+            });
 
     }
 

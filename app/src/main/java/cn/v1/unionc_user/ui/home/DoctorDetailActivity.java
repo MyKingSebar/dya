@@ -520,7 +520,7 @@ public class DoctorDetailActivity extends BaseActivity {
         tvDepartment.setText(doctorsData.getDepartName() + "  " + doctorsData.getProfessLevel());
         tvHospital.setText(doctorsData.getFirstClinicName() + "");
         tvMajor.setText("擅长："+doctorsData.getMajor() + "");
-        tvSummary.setText(doctorsData.getRemarks() + "");
+        tvSummary.setText("简介: "+doctorsData.getRemarks() + "");
 
         List<DoctorInfoData.DataData.QuestionsData> questionsData = data.getData().getQuestions();
         questionsDataList.clear();

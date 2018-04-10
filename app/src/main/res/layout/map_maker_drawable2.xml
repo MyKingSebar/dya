@@ -15,6 +15,8 @@
     android:layout_height="wrap_content"
     android:textSize="12sp"
     android:textColor="#26282E"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
     android:background="@drawable/bg_dialog_white"
     />
 </LinearLayout>

@@ -8,7 +8,10 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.model.ActivityListReturnEventData;
+import cn.v1.unionc_user.model.LogOutEventData;
 import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.view.PromptDialog;
@@ -58,6 +61,8 @@ public class SettingActivity extends BaseActivity {
                     public void onConfirmClick() {
                         logout();
                         goNewActivity(LoginActivity.class);
+                        LogOutEventData eventData = new LogOutEventData();
+                        BusProvider.getInstance().post(eventData);
                     }
 
                     @Override

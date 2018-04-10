@@ -56,6 +56,7 @@ import cn.v1.unionc_user.model.ActivityListReturnEventData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.JiGuangData;
 import cn.v1.unionc_user.model.LocationUpdateEventData;
+import cn.v1.unionc_user.model.LogOutEventData;
 import cn.v1.unionc_user.model.LoginUpdateEventData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
@@ -116,6 +117,7 @@ public class MessageFragment extends BaseFragment {
     private LocationDialog locationDialog;
     private final int REQUEST_PHONE_PERMISSIONS = 0;
     private int dialogtime = 0;
+    private boolean refrash=false;
 
     Gson gson = new Gson();
 
@@ -277,6 +279,11 @@ public class MessageFragment extends BaseFragment {
 
     @Subscribe
     public void subscribeUpdate(LoginUpdateEventData data) {
+        refrash=true;
+        getHomeList(longitude, latitude);
+    }
+    @Subscribe
+    public void logoutReturn(LogOutEventData data) {
         getHomeList(longitude, latitude);
     }
 
@@ -399,6 +406,8 @@ public class MessageFragment extends BaseFragment {
                         int recommendDoctors = data.getData().getRecommendDoctors().size();
                         if (recommendDoctors == 0) {
                             rlRecommond.setVisibility(View.GONE);
+                        }else{
+                            rlRecommond.setVisibility(View.VISIBLE);
                         }
                         tvRecommond.setText("向您推荐附近" + recommendDoctors + "名家庭医生为您服务");
                         for (int i = 0; i < recommendDoctors; i++) {
@@ -422,22 +431,26 @@ public class MessageFragment extends BaseFragment {
                             datas.get(index + i).setType(Common.ATTENDING_DOCTORS);
                         }
                     }
-                    getCoversationList();
-                    for (int i = 0; i < newConversations.size(); i++) {
-                        String conversationIdentifier = newConversations.get(i).getIdentifier();
-                        Iterator<HomeListData.DataData.HomeData> it = datas.iterator();
-                        while (it.hasNext()) {
-                            String datasIdentifier = it.next().getIdentifier();
-                            if (TextUtils.equals(conversationIdentifier, datasIdentifier)) {
-                                it.remove();
+                    if(isLogin()){
+
+                        getCoversationList();
+                        for (int i = 0; i < newConversations.size(); i++) {
+                            String conversationIdentifier = newConversations.get(i).getIdentifier();
+                            Iterator<HomeListData.DataData.HomeData> it = datas.iterator();
+                            while (it.hasNext()) {
+                                String datasIdentifier = it.next().getIdentifier();
+                                if (TextUtils.equals(conversationIdentifier, datasIdentifier)) {
+                                    it.remove();
+                                }
                             }
                         }
+                        datas.addAll(newConversations);
+                        getPushActivity();
+                        if (pushactivitydatas!=null&&pushactivitydatas.size() != 0) {
+                            datas.addAll((List<HomeListData.DataData.HomeData>)pushactivitydatas);
+                        }
                     }
-                    datas.addAll(newConversations);
-                    getPushActivity();
-                    if (pushactivitydatas!=null&&pushactivitydatas.size() != 0) {
-                        datas.addAll((List<HomeListData.DataData.HomeData>)pushactivitydatas);
-                    }
+
 //                    getActivityPush();
 //                    datas.addAll(pushdatas);
 //                    connectclosedialog();
@@ -479,8 +492,10 @@ public class MessageFragment extends BaseFragment {
         dialogtime++;
         if (dialogtime > 1) {
             closeDialog();
-            datas.addAll(pushdatas);
-            homeListAdapter.setData(datas);
+//            datas.addAll(pushdatas);
+//            homeListAdapter.setData(datas);
+
+
         }
     }
 
@@ -637,6 +652,15 @@ Log.d("linshi","action():"+intent.getAction());
                 }
             }
 
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(refrash){
+            getHomeList(longitude, latitude);
+            refrash=false;
         }
     }
 }

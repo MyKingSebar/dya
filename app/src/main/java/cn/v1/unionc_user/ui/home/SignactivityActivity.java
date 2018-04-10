@@ -42,6 +42,9 @@ public class SignactivityActivity extends BaseActivity {
     @Bind(R.id.img_close)
     ImageView imgClose;
 
+
+    List<ClinicActivityData.DataData.ActivitiesData> datadata;
+
     private Capture_activityActivityAdapter capture_activityActivityAdapter;
     private String clinicId;
     private List<ClinicActivityData.DataData.ActivitiesData> activities = new ArrayList<>();
@@ -51,8 +54,8 @@ public class SignactivityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signactivity);
         ButterKnife.bind(this);
-        initData();
         initView();
+        initData();
     }
 
 
@@ -73,7 +76,16 @@ public class SignactivityActivity extends BaseActivity {
             clinicId = getIntent().getStringExtra("clinicId");
             Log.d("linshi","clinicId"+clinicId);
         }
-        clinicActivities();
+        if(getIntent().hasExtra("activities")){
+            datadata=(List<ClinicActivityData.DataData.ActivitiesData>)getIntent().getSerializableExtra("activities");
+            clinicActivities();
+        }
+    }
+
+    private void clinicActivities() {
+        activities.clear();
+        activities.addAll(datadata);
+                        capture_activityActivityAdapter.setDatas(activities);
     }
 
     private void initView() {
@@ -84,39 +96,39 @@ public class SignactivityActivity extends BaseActivity {
 
     }
 
-    /**
-     * 查询医院活动
-     */
-    private void clinicActivities() {
-        showDialog("加载中...");
-        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.clinicActivities(clinicId, token), new BaseObserver<ClinicActivityData>(context) {
-            @Override
-            public void onResponse(ClinicActivityData data) {
-                closeDialog();
-                if (TextUtils.equals("4000", data.getCode())) {
-                    activities.clear();
-                    if(data.getData().getActivities().size()>0){
-
-                        activities.addAll(data.getData().getActivities());
-                        capture_activityActivityAdapter.setDatas(activities);
-                    }else{
-                        finish();
-                        Log.d("linshi","ActivityListReturnEventData"+clinicId);
-                        ActivityListReturnEventData eventData = new ActivityListReturnEventData(clinicId);
-                        BusProvider.getInstance().post(eventData);
-                    }
-                } else {
-                    showTost(data.getMessage() + "");
-                }
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                closeDialog();
-            }
-        });
-    }
+//    /**
+//     * 查询医院活动
+//     */
+//    private void clinicActivities() {
+//        showDialog("加载中...");
+//        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//        ConnectHttp.connect(UnionAPIPackage.clinicActivities(clinicId, token), new BaseObserver<ClinicActivityData>(context) {
+//            @Override
+//            public void onResponse(ClinicActivityData data) {
+//                closeDialog();
+//                if (TextUtils.equals("4000", data.getCode())) {
+//                    activities.clear();
+//                    if(data.getData().getActivities().size()>0){
+//
+//                        activities.addAll(data.getData().getActivities());
+//                        capture_activityActivityAdapter.setDatas(activities);
+//                    }else{
+//                        finish();
+//                        Log.d("linshi","ActivityListReturnEventData"+clinicId);
+//                        ActivityListReturnEventData eventData = new ActivityListReturnEventData(clinicId);
+//                        BusProvider.getInstance().post(eventData);
+//                    }
+//                } else {
+//                    showTost(data.getMessage() + "");
+//                }
+//            }
+//
+//            @Override
+//            public void onFail(Throwable e) {
+//                closeDialog();
+//            }
+//        });
+//    }
 
     private void signActivities() {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");

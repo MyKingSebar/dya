@@ -1,5 +1,6 @@
 package cn.v1.unionc_user.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public class ClinicActivityData extends BaseData {
             this.activities = activities;
         }
 
-        public static class ActivitiesData {
+        public static class ActivitiesData implements Serializable{
             /**
              * ActivityId : 16
              * Digest : 心脑血管

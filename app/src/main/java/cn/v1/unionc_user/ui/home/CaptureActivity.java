@@ -17,13 +17,22 @@ import com.mylhyl.zxing.scanner.ScannerOptions;
 import com.mylhyl.zxing.scanner.ScannerView;
 import com.orhanobut.logger.Logger;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.ActivityListReturnEventData;
+import cn.v1.unionc_user.model.ClinicActivityData;
+import cn.v1.unionc_user.network_frame.ConnectHttp;
+import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.adapter.Capture_activityActivityAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
@@ -99,10 +108,11 @@ public class CaptureActivity extends BaseActivity {
                         if (clinicId.contains("\"")) {
                             clinicId = clinicId.replaceAll("\"", "");
                         }
-                        Intent intent = new Intent(context, SignactivityActivity.class);
-                        intent.putExtra("clinicId", clinicId);
-                        startActivityForResult(intent,1);
-                        finish();
+                        clinicActivities(clinicId);
+//                        Intent intent = new Intent(context, SignactivityActivity.class);
+//                        intent.putExtra("clinicId", clinicId);
+//                        startActivityForResult(intent,1);
+//                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -173,4 +183,45 @@ public class CaptureActivity extends BaseActivity {
             finish();
         }
     }
+
+
+    /**
+     * 查询医院活动
+     */
+    private void clinicActivities(final String clinicId) {
+        showDialog("加载中...");
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.clinicActivities(clinicId, token), new BaseObserver<ClinicActivityData>(context) {
+            @Override
+            public void onResponse(ClinicActivityData data) {
+                closeDialog();
+                if (TextUtils.equals("4000", data.getCode())) {
+                    if(data.getData().getActivities().size()>0){
+
+                        Intent intent = new Intent(context, SignactivityActivity.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putSerializable("activities",(Serializable) data.getData().getActivities());
+                        intent.putExtra("clinicId", clinicId);
+                        intent.putExtras(bundle);
+                        startActivityForResult(intent,1);
+                        finish();
+                    }else{
+                        finish();
+                        Log.d("linshi","ActivityListReturnEventData"+clinicId);
+                        ActivityListReturnEventData eventData = new ActivityListReturnEventData(clinicId);
+                        BusProvider.getInstance().post(eventData);
+                    }
+                } else {
+                    showTost(data.getMessage() + "");
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                closeDialog();
+            }
+        });
+    }
+
+
 }
