@@ -7,25 +7,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
-import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.base.BaseActivity;
-import cn.v1.unionc_user.view.PromptDialog;
-import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 public class ServerCenterActivity extends BaseActivity {
 
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
 
-    @Bind(R.id.tv_online)
+    @BindView(R.id.tv_online)
     TextView tvOnline;
-    @Bind(R.id.tv_call)
+    @BindView(R.id.tv_call)
     TextView tvCall;
 
 

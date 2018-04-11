@@ -3,9 +3,7 @@ package cn.v1.unionc_user.ui.home;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -20,7 +18,7 @@ import com.tencent.imsdk.TIMConversationType;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -28,7 +26,6 @@ import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicInfoData;
-import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
@@ -41,58 +38,58 @@ import cn.v1.unionc_user.view.ScrollListView;
 
 public class HospitalDetailActivity extends BaseActivity {
 
-    @Bind(R.id.tv_summary)
+    @BindView(R.id.tv_summary)
     TextView tvSummary;
 
 
-    @Bind(R.id.tv_open)
+    @BindView(R.id.tv_open)
     TextView tvOpen;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.img_share)
+    @BindView(R.id.img_share)
     ImageView imgShare;
-    @Bind(R.id.img_hospital)
+    @BindView(R.id.img_hospital)
     ImageView imgHospital;
-    @Bind(R.id.tv_hospital_name)
+    @BindView(R.id.tv_hospital_name)
     TextView tvHospitalName;
-    @Bind(R.id.labels)
+    @BindView(R.id.labels)
     LabelsView labels;
-    @Bind(R.id.tv_address)
+    @BindView(R.id.tv_address)
     TextView tvAddress;
-    @Bind(R.id.tv_distance)
+    @BindView(R.id.tv_distance)
     TextView tvDistance;
-    @Bind(R.id.img_dial)
+    @BindView(R.id.img_dial)
     ImageView imgDial;
-    @Bind(R.id.listView)
+    @BindView(R.id.listView)
     ScrollListView listView;
 
-    @Bind(R.id.ll_recommend)
+    @BindView(R.id.ll_recommend)
     LinearLayout llRecommend;
-    @Bind(R.id.ll_follow)
+    @BindView(R.id.ll_follow)
     LinearLayout llFollow;
-    @Bind(R.id.ll_comment)
+    @BindView(R.id.ll_comment)
     LinearLayout llComment;
-    @Bind(R.id.ll_bottom_sheet)
+    @BindView(R.id.ll_bottom_sheet)
     LinearLayout llBottomSheet;
-    @Bind(R.id.ll_recommend_sheet)
+    @BindView(R.id.ll_recommend_sheet)
     LinearLayout llRecommendSheet;
-    @Bind(R.id.img_follow)
+    @BindView(R.id.img_follow)
     ImageView imgFollow;
-    @Bind(R.id.tv_recommend)
+    @BindView(R.id.tv_recommend)
     TextView tvRecommend;
-    @Bind(R.id.tv_comment_num)
+    @BindView(R.id.tv_comment_num)
     TextView tvCommentNum;
-    @Bind(R.id.img_recommend)
+    @BindView(R.id.img_recommend)
     ImageView imgRecommend;
-    @Bind(R.id.cb_recommend)
+    @BindView(R.id.cb_recommend)
     CheckBox cbRecommend;
-    @Bind(R.id.cb_no_recommend)
+    @BindView(R.id.cb_no_recommend)
     CheckBox cbNoRecommend;
-//    @Bind(R.id.tv_kefu)
+//    @BindView(R.id.tv_kefu)
 //    FloatingActionButton tv_kefu;
-    @Bind(R.id.kefu2)
+    @BindView(R.id.kefu2)
     ImageView kefu2;
 
     private String recommendNum;

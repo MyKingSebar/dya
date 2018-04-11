@@ -16,7 +16,7 @@ import com.orhanobut.logger.Logger;
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMManager;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
@@ -39,17 +39,17 @@ import static cn.v1.unionc_user.data.Common.ADDRESS;
 
 public class LoginActivity extends BaseActivity {
 
-    @Bind(R.id.et_phone)
+    @BindView(R.id.et_phone)
     EditText etPhone;
-    @Bind(R.id.et_code)
+    @BindView(R.id.et_code)
     EditText etCode;
-    @Bind(R.id.tv_code)
+    @BindView(R.id.tv_code)
     TextView tvCode;
-    @Bind(R.id.tv_login)
+    @BindView(R.id.tv_login)
     TextView tvLogin;
-    @Bind(R.id.img_check_agreement)
+    @BindView(R.id.img_check_agreement)
     ImageView imgCheckAgreement;
-    @Bind(R.id.tv_agreement)
+    @BindView(R.id.tv_agreement)
     TextView tvAgreement;
 
     private boolean runningThree;

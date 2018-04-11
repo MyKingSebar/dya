@@ -2,12 +2,8 @@ package cn.v1.unionc_user.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,8 +11,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import butterknife.BindView;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.ClinicInfoData;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
@@ -65,20 +60,20 @@ public class HospitalDoctorAdapter extends NewBaseAdapter<List<ClinicInfoData.Da
 
     public class HeheHolder extends BaseHolder<List<ClinicInfoData.DataData.DoctorsData>> {
 
-        @Bind(R.id.img_message_avator)
+        @BindView(R.id.img_message_avator)
         CircleImageView imgMessageAvator;
 
-        @Bind(R.id.tv_message_name)
+        @BindView(R.id.tv_message_name)
         TextView tv_doctorname;
-        @Bind(R.id.tv_role)
+        @BindView(R.id.tv_role)
         TextView tvRole;
-        @Bind(R.id.tv_identity)
+        @BindView(R.id.tv_identity)
         TextView tvIdentity;
-        @Bind(R.id.tv_describe)
+        @BindView(R.id.tv_describe)
         TextView tvDescribe;
-        @Bind(R.id.tv_major)
+        @BindView(R.id.tv_major)
         TextView tvMajor;
-        @Bind(R.id.ll)
+        @BindView(R.id.ll)
         LinearLayout ll;
 
 

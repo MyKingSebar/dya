@@ -11,26 +11,27 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class LoginAgreementActivity extends BaseActivity {
 
-    @Bind(R.id.webview_login_agreement)
+    @BindView(R.id.webview_login_agreement)
     WebView webviewLoginAgreement;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-
+    private Unbinder unbinder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_agreement);
-        ButterKnife.bind(this);
+        unbinder=ButterKnife.bind(this);
         initView();
     }
 

@@ -1,10 +1,12 @@
 package cn.v1.unionc_user.ui.me;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -15,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -30,22 +32,25 @@ import cn.v1.unionc_user.view.TimePicker;
 
 public class RealNameAuthActivity extends BaseActivity {
 
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.et_real_name)
+    @BindView(R.id.et_real_name)
     EditText etRealName;
-    @Bind(R.id.cb_maile)
+    @BindView(R.id.cb_maile)
     CheckBox cbMaile;
-    @Bind(R.id.cb_female)
+    @BindView(R.id.cb_female)
     CheckBox cbFemale;
-    @Bind(R.id.et_phone)
+    @BindView(R.id.et_phone)
     EditText etPhone;
-    @Bind(R.id.tv_confirm)
+    @BindView(R.id.tv_confirm)
     TextView tvConfirm;
-    @Bind(R.id.tv_age)
+    @BindView(R.id.tv_age)
     TextView tvAge;
+
+    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +124,25 @@ public class RealNameAuthActivity extends BaseActivity {
                     cbMaile.setChecked(false);
                 } else {
                     cbFemale.setClickable(true);
+                }
+            }
+        });
+
+        etRealName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    // 隐藏软键盘
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+                }
+            }
+        });
+        etPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    // 隐藏软键盘
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
                 }
             }
         });

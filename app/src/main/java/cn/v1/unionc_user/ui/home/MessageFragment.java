@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -42,9 +41,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.jpush.android.api.JPushInterface;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
@@ -61,7 +61,6 @@ import cn.v1.unionc_user.model.LoginUpdateEventData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
-import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.MessageFactory;
 import cn.v1.unionc_user.tecent_qcloud.tim_util.TimeUtil;
 import cn.v1.unionc_user.ui.LoginActivity;
@@ -73,35 +72,33 @@ import cn.v1.unionc_user.view.LocationDialog;
 import cn.v1.unionc_user.view.PromptOnebtnDialog;
 import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
-import static cn.v1.unionc_user.network_frame.UnionAPIPackage.updateAdd;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MessageFragment extends BaseFragment {
+    private Unbinder unbinder;
 
-
-    @Bind(R.id.banner)
+    @BindView(R.id.banner)
     BannerView banner;
-    @Bind(R.id.tv_city)
+    @BindView(R.id.tv_city)
     TextView tvCity;
-    @Bind(R.id.tv_address)
+    @BindView(R.id.tv_address)
     TextView tvAddress;
-    @Bind(R.id.ll_search)
+    @BindView(R.id.ll_search)
     LinearLayout llSearch;
-    @Bind(R.id.tv_saoma)
+    @BindView(R.id.tv_saoma)
     TextView tvSaoma;
-    @Bind(R.id.tv_guahao)
+    @BindView(R.id.tv_guahao)
     TextView tvGuahao;
-    @Bind(R.id.tv_yihu)
+    @BindView(R.id.tv_yihu)
     TextView tvYihu;
-    @Bind(R.id.tv_health)
+    @BindView(R.id.tv_health)
     TextView tvHealth;
-    @Bind(R.id.main_recycleview)
+    @BindView(R.id.main_recycleview)
     RecyclerView mainRecycleview;
-    @Bind(R.id.tv_recommond)
+    @BindView(R.id.tv_recommond)
     TextView tvRecommond;
-    @Bind(R.id.rl_recommond)
+    @BindView(R.id.rl_recommond)
     RelativeLayout rlRecommond;
 
     private int[] imgs = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
@@ -142,7 +139,7 @@ public class MessageFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_message, container, false);
-        ButterKnife.bind(this, view);
+        unbinder=ButterKnife.bind(this, view);
         return view;
     }
 
@@ -598,7 +595,7 @@ public class MessageFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
 

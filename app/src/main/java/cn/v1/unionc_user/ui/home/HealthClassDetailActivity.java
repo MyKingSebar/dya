@@ -5,7 +5,8 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -13,13 +14,13 @@ import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class HealthClassDetailActivity extends BaseActivity {
 
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.webview)
+    @BindView(R.id.webview)
     WebView webview;
-    @Bind(R.id.tv_recommend)
+    @BindView(R.id.tv_recommend)
     TextView tvRecommend;
-    @Bind(R.id.img_follow)
+    @BindView(R.id.img_follow)
     ImageView imgFollow;
 
     @Override

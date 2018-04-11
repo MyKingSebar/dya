@@ -1,13 +1,10 @@
 package cn.v1.unionc_user.ui.home;
 
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +12,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
@@ -33,66 +31,66 @@ import cn.v1.unionc_user.ui.base.BaseFragment;
  * create an instance of this fragment.
  */
 public class DoctorOnlineFragment extends BaseFragment {
-
-    @Bind(R.id.tv_preview)
+    private Unbinder unbinder;
+    @BindView(R.id.tv_preview)
     TextView tvPreview;
-    @Bind(R.id.tv_next)
+    @BindView(R.id.tv_next)
     TextView tvNext;
-    @Bind(R.id.tv_day1)
+    @BindView(R.id.tv_day1)
     TextView tvDay1;
-    @Bind(R.id.tv_day2)
+    @BindView(R.id.tv_day2)
     TextView tvDay2;
-    @Bind(R.id.tv_day3)
+    @BindView(R.id.tv_day3)
     TextView tvDay3;
-    @Bind(R.id.tv_day4)
+    @BindView(R.id.tv_day4)
     TextView tvDay4;
-    @Bind(R.id.tv_day5)
+    @BindView(R.id.tv_day5)
     TextView tvDay5;
-    @Bind(R.id.tv_day6)
+    @BindView(R.id.tv_day6)
     TextView tvDay6;
-    @Bind(R.id.tv_day7)
+    @BindView(R.id.tv_day7)
     TextView tvDay7;
-    @Bind(R.id.tv_am1)
+    @BindView(R.id.tv_am1)
     TextView tvAm1;
-    @Bind(R.id.tv_am2)
+    @BindView(R.id.tv_am2)
     TextView tvAm2;
-    @Bind(R.id.tv_am3)
+    @BindView(R.id.tv_am3)
     TextView tvAm3;
-    @Bind(R.id.tv_am4)
+    @BindView(R.id.tv_am4)
     TextView tvAm4;
-    @Bind(R.id.tv_am5)
+    @BindView(R.id.tv_am5)
     TextView tvAm5;
-    @Bind(R.id.tv_am6)
+    @BindView(R.id.tv_am6)
     TextView tvAm6;
-    @Bind(R.id.tv_am7)
+    @BindView(R.id.tv_am7)
     TextView tvAm7;
-    @Bind(R.id.tv_pm1)
+    @BindView(R.id.tv_pm1)
     TextView tvPm1;
-    @Bind(R.id.tv_pm2)
+    @BindView(R.id.tv_pm2)
     TextView tvPm2;
-    @Bind(R.id.tv_pm3)
+    @BindView(R.id.tv_pm3)
     TextView tvPm3;
-    @Bind(R.id.tv_pm4)
+    @BindView(R.id.tv_pm4)
     TextView tvPm4;
-    @Bind(R.id.tv_pm5)
+    @BindView(R.id.tv_pm5)
     TextView tvPm5;
-    @Bind(R.id.tv_pm6)
+    @BindView(R.id.tv_pm6)
     TextView tvPm6;
-    @Bind(R.id.tv_pm7)
+    @BindView(R.id.tv_pm7)
     TextView tvPm7;
-    @Bind(R.id.tv_night1)
+    @BindView(R.id.tv_night1)
     TextView tvNight1;
-    @Bind(R.id.tv_night2)
+    @BindView(R.id.tv_night2)
     TextView tvNight2;
-    @Bind(R.id.tv_night3)
+    @BindView(R.id.tv_night3)
     TextView tvNight3;
-    @Bind(R.id.tv_night4)
+    @BindView(R.id.tv_night4)
     TextView tvNight4;
-    @Bind(R.id.tv_night5)
+    @BindView(R.id.tv_night5)
     TextView tvNight5;
-    @Bind(R.id.tv_night6)
+    @BindView(R.id.tv_night6)
     TextView tvNight6;
-    @Bind(R.id.tv_night7)
+    @BindView(R.id.tv_night7)
     TextView tvNight7;
 
 
@@ -142,7 +140,7 @@ public class DoctorOnlineFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @OnClick({R.id.tv_preview, R.id.tv_next})

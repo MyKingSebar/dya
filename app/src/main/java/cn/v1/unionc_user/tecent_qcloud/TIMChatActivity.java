@@ -37,14 +37,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
-import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.LoginUpdateEventData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
@@ -70,13 +68,13 @@ import cn.v1.unionc_user.ui.home.HospitalDetailActivity;
 public class TIMChatActivity extends BaseActivity implements ChatView {
 
 
-    @Bind(R.id.input_panel)
+    @BindView(R.id.input_panel)
     ChatInput input;
-    @Bind(R.id.list)
+    @BindView(R.id.list)
     ListView listView;
-    @Bind(R.id.voice_sending)
+    @BindView(R.id.voice_sending)
     VoiceSendingView voiceSendingView;
-    @Bind(R.id.chat_title)
+    @BindView(R.id.chat_title)
     TemplateTitle title;
 
      DoctorOrClinicData doctorOrClinicData;

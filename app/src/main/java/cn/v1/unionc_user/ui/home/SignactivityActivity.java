@@ -13,33 +13,27 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
-import cn.v1.unionc_user.model.ActivityListReturnEventData;
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicActivityData;
-import cn.v1.unionc_user.model.LocationUpdateEventData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.adapter.Capture_activityActivityAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
-import cn.v1.unionc_user.view.PromptDialog;
-import cn.v1.unionc_user.view.PromptOnebtnDialog;
-import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 public class SignactivityActivity extends BaseActivity {
 
-    @Bind(R.id.recycleView_activity)
+    @BindView(R.id.recycleView_activity)
     RecyclerView recycleViewActivity;
-    @Bind(R.id.tv_sign)
+    @BindView(R.id.tv_sign)
     TextView tvSign;
-    @Bind(R.id.img_close)
+    @BindView(R.id.img_close)
     ImageView imgClose;
 
 

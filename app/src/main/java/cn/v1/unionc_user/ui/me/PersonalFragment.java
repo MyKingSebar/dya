@@ -3,7 +3,6 @@ package cn.v1.unionc_user.ui.me;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,9 +19,10 @@ import com.squareup.otto.Subscribe;
 
 import java.io.Serializable;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
@@ -33,45 +33,42 @@ import cn.v1.unionc_user.model.UserInfoData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
-import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.view.CircleImageView;
-import cn.v1.unionc_user.view.PromptDialog;
-import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PersonalFragment extends BaseFragment {
+    private Unbinder unbinder;
 
-
-    @Bind(R.id.tv_right)
+    @BindView(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.img_person_avator)
+    @BindView(R.id.img_person_avator)
     CircleImageView imgAvator;
-    @Bind(R.id.tv_number)
+    @BindView(R.id.tv_number)
     TextView tvNumber;
-    @Bind(R.id.tv_edit)
+    @BindView(R.id.tv_edit)
     TextView tvEdit;
-    @Bind(R.id.img_user_state)
+    @BindView(R.id.img_user_state)
     ImageView imgUserState;
-    @Bind(R.id.tv_state)
+    @BindView(R.id.tv_state)
     TextView tvState;
-    @Bind(R.id.tv_doctor_num)
+    @BindView(R.id.tv_doctor_num)
     TextView tvDoctorNum;
-    @Bind(R.id.tv_hospital_num)
+    @BindView(R.id.tv_hospital_num)
     TextView tvHospitalNum;
-    @Bind(R.id.tv_comment_num)
+    @BindView(R.id.tv_comment_num)
     TextView tvCommentNum;
-    @Bind(R.id.tv_yaoqing)
+    @BindView(R.id.tv_yaoqing)
     TextView tvYaoqing;
-    @Bind(R.id.tv_kefu)
+    @BindView(R.id.tv_kefu)
     TextView tvKefu;
-    @Bind(R.id.ll_doctor_num)
+    @BindView(R.id.ll_doctor_num)
     LinearLayout ll_doctor_num;
-    @Bind(R.id.ll_hospital_num)
+    @BindView(R.id.ll_hospital_num)
     LinearLayout ll_hospital_num;
-    @Bind(R.id.ll_comment_num)
+    @BindView(R.id.ll_comment_num)
     LinearLayout ll_comment_num;
 
     private String servicePhone = "";
@@ -102,7 +99,7 @@ public class PersonalFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
-        ButterKnife.bind(this, view);
+        unbinder=ButterKnife.bind(this, view);
         return view;
     }
 
@@ -243,7 +240,12 @@ public class PersonalFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getUserInfo();
+    }
 }

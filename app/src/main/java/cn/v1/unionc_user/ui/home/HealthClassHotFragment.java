@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.adapter.HealthHotAdapter;
 import cn.v1.unionc_user.ui.base.BaseFragment;
@@ -18,8 +19,8 @@ import cn.v1.unionc_user.ui.base.BaseFragment;
  * 热门健康课堂
  */
 public class HealthClassHotFragment extends BaseFragment {
-
-    @Bind(R.id.recycleView)
+    private Unbinder unbinder;
+    @BindView(R.id.recycleView)
     RecyclerView recycleView;
 
     public static HealthClassHotFragment newInstance() {
@@ -44,7 +45,7 @@ public class HealthClassHotFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_health_hot, container, false);
-        ButterKnife.bind(this, view);
+        unbinder=ButterKnife.bind(this, view);
         return view;
     }
 
@@ -63,6 +64,6 @@ public class HealthClassHotFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 }

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -23,15 +23,15 @@ import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class UpdateNicknameActivity extends BaseActivity {
 
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_right)
+    @BindView(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.et_nickname)
+    @BindView(R.id.et_nickname)
     EditText etNickname;
-    @Bind(R.id.img_close)
+    @BindView(R.id.img_close)
     ImageView imgClose;
 
     private String nickName;

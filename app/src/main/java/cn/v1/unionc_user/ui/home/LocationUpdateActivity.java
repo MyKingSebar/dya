@@ -6,10 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +19,7 @@ import com.amap.api.services.poisearch.PoiResult;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.BusProvider;
@@ -39,15 +36,15 @@ import cn.v1.unionc_user.utils.POISearchBound;
 
 public class LocationUpdateActivity extends BaseActivity {
 
-    @Bind(R.id.tv_city)
+    @BindView(R.id.tv_city)
     TextView tvCity;
-    @Bind(R.id.et_address)
+    @BindView(R.id.et_address)
     EditText etAddress;
-    @Bind(R.id.tv_current_poi)
+    @BindView(R.id.tv_current_poi)
     TextView tvCurrentPoi;
-    @Bind(R.id.recycleView)
+    @BindView(R.id.recycleView)
     RecyclerView recycleView;
-    @Bind(R.id.img_close)
+    @BindView(R.id.img_close)
     ImageView imgClose;
 
     private double lat;

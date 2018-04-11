@@ -18,8 +18,9 @@ import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
@@ -35,8 +36,8 @@ import cn.v1.unionc_user.ui.base.BaseFragment;
  * A simple {@link Fragment} subclass.
  */
 public class MyActivity1Fragment extends BaseFragment {
-
-    @Bind(R.id.recycleView)
+    private Unbinder unbinder;
+    @BindView(R.id.recycleView)
     RecyclerView mainRecycleview;
 private String type;
     private ActivityAdapter activityAdapter;
@@ -79,7 +80,7 @@ private String type;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.layout_recycleview, container, false);
-        ButterKnife.bind(this, view);
+        unbinder=ButterKnife.bind(this, view);
         return view;
     }
 
@@ -172,7 +173,7 @@ private void initapply(String token){
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
 }

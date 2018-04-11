@@ -7,9 +7,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
 import cn.v1.unionc_user.R;
-import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 /**
  * Created by qy on 2018/2/11.

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -29,15 +29,15 @@ import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class EvaluateActivity extends BaseActivity {
 
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.recycleView_evaluate)
+    @BindView(R.id.recycleView_evaluate)
     RecyclerView recycleViewEvaluate;
-    @Bind(R.id.et_input)
+    @BindView(R.id.et_input)
     EditText etInput;
-    @Bind(R.id.tv_send)
+    @BindView(R.id.tv_send)
     TextView tvSend;
 
     private EvaluateAdapter evaluateAdapter;

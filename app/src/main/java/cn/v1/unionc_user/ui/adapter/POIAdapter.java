@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.NearbyPOIData;
@@ -66,11 +66,11 @@ public class POIAdapter extends RecyclerView.Adapter<POIAdapter.ViewHolder> {
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_poi_name)
+        @BindView(R.id.tv_poi_name)
         TextView tvPoiName;
-        @Bind(R.id.tv_address)
+        @BindView(R.id.tv_address)
         TextView tvAddress;
-        @Bind(R.id.tv_distance)
+        @BindView(R.id.tv_distance)
         TextView tvDistance;
 
         public ViewHolder(View itemView) {

@@ -18,10 +18,9 @@ import com.mylhyl.zxing.scanner.ScannerView;
 import com.orhanobut.logger.Logger;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.BusProvider;
@@ -33,24 +32,23 @@ import cn.v1.unionc_user.model.ClinicActivityData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
-import cn.v1.unionc_user.ui.adapter.Capture_activityActivityAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class CaptureActivity extends BaseActivity {
 
-    @Bind(R.id.scanner_view)
+    @BindView(R.id.scanner_view)
     ScannerView mScannerView;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_right)
+    @BindView(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.tv_light)
+    @BindView(R.id.tv_light)
     TextView tvLight;
-    @Bind(R.id.tv_sao)
+    @BindView(R.id.tv_sao)
     TextView tvSao;
-    @Bind(R.id.tv_input)
+    @BindView(R.id.tv_input)
     TextView tvInput;
 
     private boolean lightOn = false;

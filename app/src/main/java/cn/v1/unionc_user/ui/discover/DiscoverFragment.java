@@ -2,7 +2,6 @@ package cn.v1.unionc_user.ui.discover;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -14,13 +13,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ConsoleMessage;
-import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -29,32 +25,26 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
-
-import java.io.File;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
-import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.Position;
 import cn.v1.unionc_user.ui.base.BaseFragment;
-import cn.v1.unionc_user.utils.NetWorkUtils;
 
 import static android.content.ContentValues.TAG;
-import static cn.v1.unionc_user.data.Common.APP_CACAHE_DIRNAME;
-import static cn.v1.unionc_user.data.Common.QM_SET;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DiscoverFragment extends BaseFragment {
+    private Unbinder unbinder;
 
-
-    @Bind(R.id.webview)
+    @BindView(R.id.webview)
     WebView webview;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvtitle;
     private String provider;//位置提供器
     double latitude;
@@ -76,7 +66,7 @@ public class DiscoverFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
-        ButterKnife.bind(this, view);
+        unbinder=ButterKnife.bind(this, view);
         return view;
     }
 
@@ -207,7 +197,7 @@ public class DiscoverFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         if (webview != null) {
             webview.clearHistory();
             webview.destroy();

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.home.HealthClassDetailActivity;
@@ -49,23 +49,23 @@ public class HealthHotAdapter extends RecyclerView.Adapter<HealthHotAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.img_point_avator)
+        @BindView(R.id.img_point_avator)
         CircleImageView imgPointAvator;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tvName;
-        @Bind(R.id.tv_hospital_name)
+        @BindView(R.id.tv_hospital_name)
         TextView tvHospitalName;
-        @Bind(R.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView tvTitle;
-        @Bind(R.id.tv_describe)
+        @BindView(R.id.tv_describe)
         TextView tvDescribe;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView tvTime;
-        @Bind(R.id.tv_readed)
+        @BindView(R.id.tv_readed)
         TextView tvReaded;
-        @Bind(R.id.tv_follow)
+        @BindView(R.id.tv_follow)
         TextView tvFollow;
-        @Bind(R.id.img_big)
+        @BindView(R.id.img_big)
         ImageView imgBig;
 
         ViewHolder(View itemView) {

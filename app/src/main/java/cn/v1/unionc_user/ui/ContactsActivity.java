@@ -5,8 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.gjiazhe.wavesidebar.WaveSideBar;
 import java.util.ArrayList;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.Contact;
 import cn.v1.unionc_user.ui.adapter.ContactsAdapter;
@@ -14,11 +15,11 @@ import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class ContactsActivity extends BaseActivity {
 
-    @Bind(R.id.rv_contacts)
+    @BindView(R.id.rv_contacts)
     RecyclerView rvContacts;
-    @Bind(R.id.side_bar)
+    @BindView(R.id.side_bar)
     WaveSideBar sideBar;
-
+    private Unbinder unbinder;
     private ArrayList<Contact> contacts = new ArrayList<>();
 
 
@@ -26,7 +27,7 @@ public class ContactsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
-        ButterKnife.bind(this);
+        unbinder=ButterKnife.bind(this);
         initData();
         initView();
     }

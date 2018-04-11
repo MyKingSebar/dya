@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.DoctorInfoData;
@@ -81,11 +81,11 @@ public class DoctorAnswerAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        @Bind(R.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView tvTitle;
-        @Bind(R.id.tv_look)
+        @BindView(R.id.tv_look)
         TextView tvLook;
-        @Bind(R.id.tv_looks)
+        @BindView(R.id.tv_looks)
         TextView tvLooks;
 
         ViewHolder(View view) {

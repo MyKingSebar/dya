@@ -36,9 +36,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
@@ -67,9 +68,9 @@ import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
  */
 public class WatchingDoctorFragment extends BaseFragment {
 
+    private Unbinder unbinder;
 
-
-    @Bind(R.id.recycleView)
+    @BindView(R.id.recycleView)
     RecyclerView mainRecycleview;
 
     private MeWatchingDoctorListAdapter meWatchingDoctorListAdapter;
@@ -97,7 +98,7 @@ public class WatchingDoctorFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.layout_recycleview, container, false);
-        ButterKnife.bind(this, view);
+        unbinder=ButterKnife.bind(this, view);
         return view;
     }
 
@@ -152,7 +153,7 @@ public class WatchingDoctorFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
 }

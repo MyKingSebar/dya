@@ -10,14 +10,14 @@ import android.view.SurfaceView;
 
 import java.io.IOException;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class VideoActivity extends BaseActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener {
 
-    @Bind(R.id.video)
+    @BindView(R.id.video)
     SurfaceView video;
 
     private MediaPlayer player;

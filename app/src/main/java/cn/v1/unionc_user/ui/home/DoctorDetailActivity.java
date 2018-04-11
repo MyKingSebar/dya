@@ -28,7 +28,7 @@ import com.tencent.imsdk.TIMConversationType;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -55,57 +55,57 @@ import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 public class DoctorDetailActivity extends BaseActivity {
 
-    @Bind(R.id.tab)
+    @BindView(R.id.tab)
     TabLayout tabLayout;
-    @Bind(R.id.vp_doctor)
+    @BindView(R.id.vp_doctor)
     ViewPager vpDoctor;
-    @Bind(R.id.scrollView)
+    @BindView(R.id.scrollView)
     ObserverScrollView scrollView;
-    @Bind(R.id.rl_toolbar)
+    @BindView(R.id.rl_toolbar)
     RelativeLayout rlToolbar;
-    @Bind(R.id.img_doctor_avator)
+    @BindView(R.id.img_doctor_avator)
     CircleImageView imgDoctorAvator;
-    @Bind(R.id.tv_doctor_name)
+    @BindView(R.id.tv_doctor_name)
     TextView tvDoctorName;
-    @Bind(R.id.tv_department)
+    @BindView(R.id.tv_department)
     TextView tvDepartment;
-    @Bind(R.id.tv_hospital)
+    @BindView(R.id.tv_hospital)
     TextView tvHospital;
-    @Bind(R.id.tv_major)
+    @BindView(R.id.tv_major)
     TextView tvMajor;
-    @Bind(R.id.tv_summary)
+    @BindView(R.id.tv_summary)
     TextView tvSummary;
-    @Bind(R.id.tv_open)
+    @BindView(R.id.tv_open)
     TextView tvOpen;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.img_share)
+    @BindView(R.id.img_share)
     ImageView imgShare;
-    @Bind(R.id.tv_recommend)
+    @BindView(R.id.tv_recommend)
     TextView tvRecommend;
-    @Bind(R.id.ll_recommend)
+    @BindView(R.id.ll_recommend)
     LinearLayout llRecommend;
-    @Bind(R.id.img_follow)
+    @BindView(R.id.img_follow)
     ImageView imgFollow;
-    @Bind(R.id.ll_follow)
+    @BindView(R.id.ll_follow)
     LinearLayout llFollow;
-    @Bind(R.id.ll_comment)
+    @BindView(R.id.ll_comment)
     LinearLayout llComment;
-    @Bind(R.id.ll_bottom_sheet)
+    @BindView(R.id.ll_bottom_sheet)
     LinearLayout llBottomSheet;
-    @Bind(R.id.cb_recommend)
+    @BindView(R.id.cb_recommend)
     CheckBox cbRecommend;
-    @Bind(R.id.cb_no_recommend)
+    @BindView(R.id.cb_no_recommend)
     CheckBox cbNoRecommend;
-    @Bind(R.id.ll_recommend_sheet)
+    @BindView(R.id.ll_recommend_sheet)
     LinearLayout llRecommendSheet;
-    @Bind(R.id.tv_comment_num)
+    @BindView(R.id.tv_comment_num)
     TextView tvCommentNum;
-    @Bind(R.id.img_recommend)
+    @BindView(R.id.img_recommend)
     ImageView imgRecommend;
-    @Bind(R.id.rl_sign)
+    @BindView(R.id.rl_sign)
     RelativeLayout rlSign;
 
     boolean isDoctorSign;
@@ -504,6 +504,7 @@ public class DoctorDetailActivity extends BaseActivity {
         doctorName = doctorsData.getDoctorName();
         identifier = doctorsData.getIdentifier();
         doctorPhone = doctorsData.getDoctTelphone();
+        Log.d("linshi","bindData.doctorsData.getImagePath():"+doctorsData.getImagePath());
         if(TextUtils.isEmpty(doctorsData.getImagePath())){
 
             imgDoctorAvator.setImageResource(R.drawable.icon_doctor_default);

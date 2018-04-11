@@ -2,47 +2,32 @@ package cn.v1.unionc_user.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
-import cn.v1.unionc_user.data.Common;
-import cn.v1.unionc_user.data.SPUtil;
-import cn.v1.unionc_user.model.BaseData;
-import cn.v1.unionc_user.model.ClinicActivityData;
 import cn.v1.unionc_user.model.HomeListData;
-import cn.v1.unionc_user.network_frame.ConnectHttp;
-import cn.v1.unionc_user.network_frame.UnionAPIPackage;
-import cn.v1.unionc_user.network_frame.core.BaseObserver;
-import cn.v1.unionc_user.ui.adapter.Capture_activityActivityAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class ActivityPopwindowActivity extends BaseActivity {
 
-    @Bind(R.id.img_close)
+    @BindView(R.id.img_close)
     ImageView imgClose;
-    @Bind(R.id.slider)
+    @BindView(R.id.slider)
     SliderLayout mDemoSlider;
-    @Bind(R.id.custom_indicator2)
+    @BindView(R.id.custom_indicator2)
     PagerIndicator pagerIndicator;
 
 private  List<HomeListData.DataData.HomeData> data;

@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
@@ -116,22 +116,22 @@ public class MeWatchingHospitalListAdapter extends RecyclerView.Adapter<MeWatchi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.img_message_avator)
+        @BindView(R.id.img_message_avator)
         ImageView imgMessageAvator;
-        @Bind(R.id.im_call)
+        @BindView(R.id.im_call)
         ImageView imCall;
 
-        @Bind(R.id.tv_message_name)
+        @BindView(R.id.tv_message_name)
         TextView tvHospitalname;
-        @Bind(R.id.tv_tag1)
+        @BindView(R.id.tv_tag1)
         TextView tvTag1;
-        @Bind(R.id.tv_tag2)
+        @BindView(R.id.tv_tag2)
         TextView tvTag2;
-        @Bind(R.id.tv_tag3)
+        @BindView(R.id.tv_tag3)
         TextView tvTag3;
-        @Bind(R.id.tv_address)
+        @BindView(R.id.tv_address)
         TextView tvAddress;
-        @Bind(R.id.tv_km)
+        @BindView(R.id.tv_km)
         TextView tvKm;
 
 

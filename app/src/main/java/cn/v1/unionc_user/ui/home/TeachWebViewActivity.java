@@ -5,8 +5,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -18,11 +17,11 @@ import cn.v1.unionc_user.view.WebClient;
 
 public class TeachWebViewActivity extends BaseActivity {
 
-    @Bind(R.id.webview_search)
+    @BindView(R.id.webview_search)
     WebView webviewSearch;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
 
     private String provider;//位置提供器

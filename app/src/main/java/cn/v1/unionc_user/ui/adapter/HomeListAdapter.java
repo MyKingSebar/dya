@@ -20,17 +20,15 @@ import com.tencent.imsdk.TIMValueCallBack;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
-import cn.v1.unionc_user.ui.StartActivity;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
 import cn.v1.unionc_user.ui.home.ToDoorWebViewActivity;
-import cn.v1.unionc_user.utils.DateUtils;
 
 /**
  * Created by qy on 2018/2/7.
@@ -244,21 +242,21 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.img_message_avator)
+        @BindView(R.id.img_message_avator)
         ImageView imgMessageAvator;
-        @Bind(R.id.tv_message_name)
+        @BindView(R.id.tv_message_name)
         TextView tvMessageName;
-        @Bind(R.id.tv_role)
+        @BindView(R.id.tv_role)
         TextView tvRole;
-        @Bind(R.id.tv_describe)
+        @BindView(R.id.tv_describe)
         TextView tvDescribe;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView tvTime;
-        @Bind(R.id.tv_unread)
+        @BindView(R.id.tv_unread)
         TextView tvUnread;
-        @Bind(R.id.tv_endtime)
+        @BindView(R.id.tv_endtime)
         TextView tvEndTime;
-        @Bind(R.id.tv_address)
+        @BindView(R.id.tv_address)
         TextView tvAddress;
 
         ViewHolder(View view) {

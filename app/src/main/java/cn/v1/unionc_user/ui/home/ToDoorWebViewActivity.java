@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -29,13 +29,13 @@ import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class ToDoorWebViewActivity extends BaseActivity {
 
-    @Bind(R.id.webview_search)
+    @BindView(R.id.webview_search)
     cn.v1.unionc_user.view.X5WebView webviewSearch;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.toplayout)
+    @BindView(R.id.toplayout)
     RelativeLayout toplayout;
 
     int type = 0;

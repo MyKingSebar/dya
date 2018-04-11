@@ -1,30 +1,17 @@
 package cn.v1.unionc_user.ui.discover;
 
 
-import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.location.Location;
 import android.location.LocationManager;
-import android.net.http.SslError;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,38 +33,36 @@ import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
-import com.amap.api.services.core.LatLonPoint;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.Position;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.home.SearchWebViewActivity;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DiscoverFragment2 extends BaseFragment implements LocationSource,
         AMapLocationListener {
+    private Unbinder unbinder;
 
-
-    @Bind(R.id.map)
+    @BindView(R.id.map)
     MapView mapView;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvtitle;
 
-    @Bind(R.id.rel_activity_home_search)
+    @BindView(R.id.rel_activity_home_search)
     RelativeLayout homeSearch;
-    @Bind(R.id.tv_more)
+    @BindView(R.id.tv_more)
     TextView tvMore;
-    @Bind(R.id.tv_location)
+    @BindView(R.id.tv_location)
     TextView tvLocation;
-    @Bind(R.id.webview)
+    @BindView(R.id.webview)
     WebView webView;
 
     private Marker locationMarker; // 选择的点
@@ -113,7 +98,7 @@ public class DiscoverFragment2 extends BaseFragment implements LocationSource,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover2, container, false);
-        ButterKnife.bind(this, view);
+        unbinder=ButterKnife.bind(this, view);
         return view;
     }
 
@@ -236,7 +221,7 @@ public class DiscoverFragment2 extends BaseFragment implements LocationSource,
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         mapView.onDestroy();
         if (null != mlocationClient) {
             mlocationClient.onDestroy();

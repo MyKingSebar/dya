@@ -9,8 +9,9 @@ import android.widget.RadioGroup;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment;
@@ -21,7 +22,9 @@ import cn.v1.unionc_user.ui.home.MessageFragment;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.rg)
+    private Unbinder unbinder;
+
+    @BindView(R.id.rg)
     RadioGroup rg;
 
     private Fragment mCurrentfragment;//记录选中的fragment
@@ -38,7 +41,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        unbinder=ButterKnife.bind(this);
 //        getRongToken();
 //        initLocation();
         initView();

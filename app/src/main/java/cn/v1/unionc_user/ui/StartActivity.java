@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
@@ -30,12 +31,14 @@ public class StartActivity extends BaseActivity {
     private SplashPresenter presenter;
     private Handler handler = new Handler();
 
+    private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         clearNotification();
         setContentView(R.layout.activity_start);
-        ButterKnife.bind(this);
+        unbinder= ButterKnife.bind(this);
         final List<String> permissionsList = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             /**

@@ -3,41 +3,34 @@ package cn.v1.unionc_user.ui.me;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
-import cn.v1.unionc_user.ui.LoginActivity;
-import cn.v1.unionc_user.ui.adapter.ActivityAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
-import cn.v1.unionc_user.ui.discover.DiscoverFragment;
-import cn.v1.unionc_user.ui.home.MessageFragment;
 
 public class MyWatchinghActivity extends BaseActivity {
 
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.cb_had_register)
+    @BindView(R.id.cb_had_register)
     CheckBox cbHadRegister;
-    @Bind(R.id.cb_collect)
+    @BindView(R.id.cb_collect)
     CheckBox cbCollect;
-    @Bind(R.id.ll_fragment_container)
+    @BindView(R.id.ll_fragment_container)
     LinearLayout linearLayout;
 
     private Fragment mCurrentfragment;//记录选中的fragment

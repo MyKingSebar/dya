@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.WatchingActivityData;
@@ -137,29 +137,29 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.present)
+        @BindView(R.id.present)
         TextView present;
-        @Bind(R.id.im)
+        @BindView(R.id.im)
         ImageView im;
         //title
-        @Bind(R.id.tv_activity_title)
+        @BindView(R.id.tv_activity_title)
         TextView tvActivityTitle;
         //标签des
-        @Bind(R.id.tv_activity_content)
+        @BindView(R.id.tv_activity_content)
         TextView tvActivityContent;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView tvTime;
 
-        @Bind(R.id.tv_address)
+        @BindView(R.id.tv_address)
         TextView tvAddress;
         //进行中 Status 0-未开始，1-已开始，2-已结束，3-已作废,4-未发布
-        @Bind(R.id.tv_activity_state)
+        @BindView(R.id.tv_activity_state)
         TextView tvActivityState;
         //多少人已报名 sign
-        @Bind(R.id.tv_had_registe)
+        @BindView(R.id.tv_had_registe)
         TextView tvHadRegiste;
         //立刻报名  issign
-        @Bind(R.id.tv_regis)
+        @BindView(R.id.tv_regis)
         TextView tvRegis;
 
         ViewHolder(View view) {

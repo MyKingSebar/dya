@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tencent.imsdk.TIMConversationType;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -29,25 +29,25 @@ import cn.v1.unionc_user.view.CircleImageView;
 
 public class ViewDoctorAnswerActivity extends BaseActivity {
 
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_question)
+    @BindView(R.id.tv_question)
     TextView tvQuestion;
-    @Bind(R.id.tv_answer)
+    @BindView(R.id.tv_answer)
     TextView tvAnswer;
-    @Bind(R.id.tv_looks)
+    @BindView(R.id.tv_looks)
     TextView tvLooks;
-    @Bind(R.id.img_doctor_avator)
+    @BindView(R.id.img_doctor_avator)
     CircleImageView imgDoctorAvator;
-    @Bind(R.id.tv_doctor_name)
+    @BindView(R.id.tv_doctor_name)
     TextView tvDoctorName;
-    @Bind(R.id.tv_department)
+    @BindView(R.id.tv_department)
     TextView tvDepartment;
-    @Bind(R.id.tv_hospital)
+    @BindView(R.id.tv_hospital)
     TextView tvHospital;
-    @Bind(R.id.tv_online_ask)
+    @BindView(R.id.tv_online_ask)
     TextView tvOnlineAsk;
 
     private String doctorId = "";

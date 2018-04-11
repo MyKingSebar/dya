@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.ui.adapter.DoctorAnswerAdapter;
-import cn.v1.unionc_user.ui.adapter.HospitalDoctorAdapter;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.view.ScrollListView;
 
@@ -24,9 +24,9 @@ import cn.v1.unionc_user.view.ScrollListView;
  * A simple {@link Fragment} subclass.
  */
 public class DoctorAnswerFragment extends BaseFragment {
+    private Unbinder unbinder;
 
-
-    @Bind(R.id.listView)
+    @BindView(R.id.listView)
     ScrollListView listView;
 
     private List<DoctorInfoData.DataData.QuestionsData> questionsDataList = new ArrayList<>();
@@ -84,6 +84,6 @@ public class DoctorAnswerFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 }

@@ -13,14 +13,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.io.Serializable;
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
-import cn.v1.unionc_user.model.LoginUpdateEventData;
 import cn.v1.unionc_user.model.UpdatePersonalEventData;
 import cn.v1.unionc_user.model.UserInfoData;
 import cn.v1.unionc_user.ui.base.BaseActivity;
@@ -28,31 +25,31 @@ import cn.v1.unionc_user.view.CircleImageView;
 
 public class EditUserInfoActivity extends BaseActivity {
 
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.img_avator)
+    @BindView(R.id.img_avator)
     CircleImageView imgAvator;
-    @Bind(R.id.rl_avator)
+    @BindView(R.id.rl_avator)
     RelativeLayout rlAvator;
-    @Bind(R.id.tv_nickname)
+    @BindView(R.id.tv_nickname)
     TextView tvNickname;
-    @Bind(R.id.rl_nickname)
+    @BindView(R.id.rl_nickname)
     RelativeLayout rlNickname;
-    @Bind(R.id.tv_sex)
+    @BindView(R.id.tv_sex)
     TextView tvSex;
-    @Bind(R.id.rl_sex)
+    @BindView(R.id.rl_sex)
     RelativeLayout rlSex;
-    @Bind(R.id.img_user_state)
+    @BindView(R.id.img_user_state)
     ImageView imgUserState;
-    @Bind(R.id.tv_state)
+    @BindView(R.id.tv_state)
     TextView tvState;
-    @Bind(R.id.rl_auth)
+    @BindView(R.id.rl_auth)
     RelativeLayout rlAuth;
-    @Bind(R.id.tv_bindphone)
+    @BindView(R.id.tv_bindphone)
     TextView tvBindphone;
-    @Bind(R.id.rl_bindphone)
+    @BindView(R.id.rl_bindphone)
     RelativeLayout rlBindphone;
 
 

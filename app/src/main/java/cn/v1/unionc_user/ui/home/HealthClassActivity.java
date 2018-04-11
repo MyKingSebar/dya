@@ -7,20 +7,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
-import com.tencent.imsdk.TIMConversation;
-import com.tencent.imsdk.TIMConversationType;
-import com.tencent.imsdk.TIMManager;
-import com.tencent.imsdk.TIMMessage;
-import com.tencent.imsdk.TIMUserProfile;
-import com.tencent.imsdk.ext.message.TIMConversationExt;
-import com.tencent.imsdk.ext.message.TIMManagerExt;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -28,9 +18,9 @@ import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class HealthClassActivity extends BaseActivity {
 
-    @Bind(R.id.tab)
+    @BindView(R.id.tab)
     TabLayout tab;
-    @Bind(R.id.vp_content)
+    @BindView(R.id.vp_content)
     ViewPager vpContent;
 
     private List<Fragment> healthFragment = new ArrayList<>();

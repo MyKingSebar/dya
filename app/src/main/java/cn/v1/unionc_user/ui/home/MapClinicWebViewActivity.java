@@ -1,16 +1,10 @@
 package cn.v1.unionc_user.ui.home;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -23,13 +17,11 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -37,19 +29,16 @@ import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.network_frame.UnioncURL;
 import cn.v1.unionc_user.ui.base.BaseActivity;
-import cn.v1.unionc_user.utils.URLEncoderURI;
-
-import static android.content.ContentValues.TAG;
 
 public class MapClinicWebViewActivity extends BaseActivity {
 
-    @Bind(R.id.webview_search)
+    @BindView(R.id.webview_search)
     WebView webviewSearch;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.toplayout)
+    @BindView(R.id.toplayout)
     RelativeLayout rl;
 
     private String provider;//位置提供器

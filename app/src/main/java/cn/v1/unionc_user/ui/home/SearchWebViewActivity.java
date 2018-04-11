@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -31,11 +31,11 @@ import static android.content.ContentValues.TAG;
 
 public class SearchWebViewActivity extends BaseActivity {
 
-    @Bind(R.id.webview_search)
+    @BindView(R.id.webview_search)
     WebView webviewSearch;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
 
     private String provider;//位置提供器

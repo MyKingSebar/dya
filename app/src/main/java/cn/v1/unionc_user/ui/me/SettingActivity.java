@@ -5,29 +5,29 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
-import cn.v1.unionc_user.model.ActivityListReturnEventData;
 import cn.v1.unionc_user.model.LogOutEventData;
 import cn.v1.unionc_user.ui.LoginActivity;
+import cn.v1.unionc_user.ui.LoginAgreementActivity;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.view.PromptDialog;
 import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 public class SettingActivity extends BaseActivity {
 
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_service_agreement)
+    @BindView(R.id.tv_service_agreement)
     TextView tvServiceAgreement;
-    @Bind(R.id.tv_about_us)
+    @BindView(R.id.tv_about_us)
     TextView tvAboutUs;
-    @Bind(R.id.tv_logout)
+    @BindView(R.id.tv_logout)
     TextView tvLogout;
 
     @Override
@@ -45,6 +45,7 @@ public class SettingActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_service_agreement:
+                goNewActivity(LoginAgreementActivity.class);
                 break;
             case R.id.tv_about_us:
                 goNewActivity(AboutYIBASHIActivity.class);

@@ -3,7 +3,6 @@ package cn.v1.unionc_user.ui.discover;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
@@ -39,24 +38,20 @@ import com.amap.api.maps2d.model.BitmapDescriptor;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.Circle;
-import com.amap.api.maps2d.model.CircleOptions;
 import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.LatLngBounds;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
-import com.amap.api.maps2d.model.VisibleRegion;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnTouch;
+import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
-import cn.v1.unionc_user.model.ClinicInfoData;
 import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.Position;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
@@ -65,62 +60,61 @@ import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.home.HospitalDetailActivity;
 import cn.v1.unionc_user.ui.home.MapClinicWebViewActivity;
-import cn.v1.unionc_user.ui.home.SearchWebViewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DiscoverFragment3 extends BaseFragment implements LocationSource,
         AMapLocationListener,AMap.OnMarkerClickListener ,AMap.OnCameraChangeListener {
+    private Unbinder unbinder;
 
-
-    @Bind(R.id.map)
+    @BindView(R.id.map)
     MapView mapView;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvtitle;
 
-    @Bind(R.id.rel_activity_home_search)
+    @BindView(R.id.rel_activity_home_search)
     RelativeLayout homeSearch;
-    @Bind(R.id.tv_more)
+    @BindView(R.id.tv_more)
     TextView tvMore;
-    @Bind(R.id.tv_location)
+    @BindView(R.id.tv_location)
     TextView tvLocation;
-    @Bind(R.id.webview)
+    @BindView(R.id.webview)
     WebView webView;
 
-    @Bind(R.id.drawerlayout)
+    @BindView(R.id.drawerlayout)
     DrawerLayout drawerLayout;
-    @Bind(R.id.right)
+    @BindView(R.id.right)
     RelativeLayout relativeLayoutRight;
-    @Bind(R.id.ll1)
+    @BindView(R.id.ll1)
     LinearLayout ll1;
-    @Bind(R.id.ll2)
+    @BindView(R.id.ll2)
     LinearLayout ll2;
-    @Bind(R.id.ll3)
+    @BindView(R.id.ll3)
     LinearLayout ll3;
-    @Bind(R.id.ll4)
+    @BindView(R.id.ll4)
     LinearLayout ll4;
-    @Bind(R.id.ll5)
+    @BindView(R.id.ll5)
     LinearLayout ll5;
-    @Bind(R.id.im1)
+    @BindView(R.id.im1)
     ImageView im1;
-    @Bind(R.id.im2)
+    @BindView(R.id.im2)
     ImageView im2;
-    @Bind(R.id.im3)
+    @BindView(R.id.im3)
     ImageView im3;
-    @Bind(R.id.im4)
+    @BindView(R.id.im4)
     ImageView im4;
-    @Bind(R.id.im5)
+    @BindView(R.id.im5)
     ImageView im5;
-    @Bind(R.id.cb1)
+    @BindView(R.id.cb1)
     CheckBox cb1;
-    @Bind(R.id.cb2)
+    @BindView(R.id.cb2)
     CheckBox cb2;
-    @Bind(R.id.cb3)
+    @BindView(R.id.cb3)
     CheckBox cb3;
-    @Bind(R.id.cb4)
+    @BindView(R.id.cb4)
     CheckBox cb4;
-    @Bind(R.id.cb5)
+    @BindView(R.id.cb5)
     CheckBox cb5;
 
     private double maplat;
@@ -171,7 +165,7 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover3, container, false);
-        ButterKnife.bind(this, view);
+        unbinder=ButterKnife.bind(this, view);
         return view;
     }
 
@@ -362,7 +356,13 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
 //                }
 //            }
 //        });
+        im3.setImageDrawable(getResources().getDrawable(R.drawable.icon_choose_no_3));
+        cb3text = "民营诊所";
+        cb3.setChecked(true);
 
+        im5.setImageDrawable(getResources().getDrawable(R.drawable.icon_choose_no_5));
+        cb5text = "社区卫生服务站";
+        cb5.setChecked(true);
 
     }
     private void addMaker(String lon,String lan){
@@ -539,7 +539,7 @@ private String getTypeString(){
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         if(null!=mapView){
 
             mapView.onDestroy();

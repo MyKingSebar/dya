@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.ClinicActivityData;
@@ -102,17 +102,17 @@ public class Capture_activityActivityAdapter extends RecyclerView.Adapter<Captur
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.cb_select)
+        @BindView(R.id.cb_select)
         CheckBox cbSelect;
-        @Bind(R.id.img_preview)
+        @BindView(R.id.img_preview)
         ImageView imgPreview;
-        @Bind(R.id.tv_activity_title)
+        @BindView(R.id.tv_activity_title)
         TextView tvActivityTitle;
-        @Bind(R.id.tv_activity_content)
+        @BindView(R.id.tv_activity_content)
         TextView tvActivityContent;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView tvTime;
-        @Bind(R.id.tv_address)
+        @BindView(R.id.tv_address)
         TextView tvAddress;
 
         ViewHolder(View view) {

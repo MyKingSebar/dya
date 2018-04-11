@@ -1,7 +1,5 @@
 package cn.v1.unionc_user.ui.home;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,16 +7,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tencent.imsdk.TIMConversationType;
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
@@ -28,9 +23,7 @@ import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
-import cn.v1.unionc_user.network_frame.UnioncURL;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
-import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.me.RealNameAuthActivity;
 import cn.v1.unionc_user.view.PromptDialog;
@@ -39,13 +32,13 @@ import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
 
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.webview_sign_doctor)
+    @BindView(R.id.webview_sign_doctor)
     WebView webviewSignDoctor;
-    @Bind(R.id.tv_sign)
+    @BindView(R.id.tv_sign)
     TextView tvSign;
 
 
@@ -182,7 +175,7 @@ public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
                     public void onResponse(BaseData data) {
                         closeDialog();
                         if (TextUtils.equals("4000", data.getCode())) {
-                            showTost("签约成功");
+//                            showTost("签约成功");
                             finish();
                         } else if (TextUtils.equals("4021", data.getCode())) {
                             gotoAuthDialog();
