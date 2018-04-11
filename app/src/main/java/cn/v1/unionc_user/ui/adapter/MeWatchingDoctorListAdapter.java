@@ -54,7 +54,7 @@ public class MeWatchingDoctorListAdapter extends RecyclerView.Adapter<MeWatching
             }else{
                 Glide.with(context)
                         .load(doctorData.getImagePath())
-                        .placeholder(R.drawable.icon_doctor_default)
+                        .placeholder(R.drawable.icon_doctor_default).dontAnimate()
                         .error(R.drawable.icon_doctor_default)
                         .into(holder.imgMessageAvator);
 

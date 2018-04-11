@@ -11,7 +11,7 @@ public class UnioncURL {
 //    public static final String Unionc_WEB_Host = "https://192.168.21.93:8085/unionApp/";
     public static final String Unionc_Host = "http://114.118.5.189:8080/unionWeb/";
     public static final String Unionc_app_Host = "http://114.118.5.189:8081/unionApp/";
-    public static final String Unionc_WEB_Host = "http://114.118.5.189:8081/unionApp/";
+    public static final String Unionc_WEB_Host = "http://114.118.5.189:8080/unionWeb/";
 
 
 }

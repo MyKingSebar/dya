@@ -616,6 +616,9 @@ public class MessageFragment extends BaseFragment {
         public void onReceive(Context context, Intent intent) {
 Log.d("linshi","action():"+intent.getAction());
             if (Common.MESSAGE_JGPUSH_ACTION.equals(intent.getAction())) {
+                if(!isLogin()){
+                    return;
+                }
                 String extras = intent.getStringExtra(JPushInterface.EXTRA_EXTRA);
                 StringBuilder showMsg = new StringBuilder();
                 if (!ExampleUtil.isEmpty(extras)) {

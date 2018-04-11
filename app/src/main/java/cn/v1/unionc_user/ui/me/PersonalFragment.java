@@ -7,14 +7,21 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.squareup.otto.Subscribe;
 
 import java.io.Serializable;
@@ -207,7 +214,7 @@ public class PersonalFragment extends BaseFragment {
                             userInfo = data.getData();
                             SPUtil.put(context, Common.USER_AVATOR, data.getData().getHeadImage());
                             Glide.with(context).load(data.getData().getHeadImage())
-                                    .placeholder(R.drawable.icon_default_avator)
+                                    .placeholder(imgAvator.getDrawable()).dontAnimate()
                                     .error(R.drawable.icon_default_avator)
                                     .into(imgAvator);
                             tvNumber.setText(data.getData().getUserName() + "");

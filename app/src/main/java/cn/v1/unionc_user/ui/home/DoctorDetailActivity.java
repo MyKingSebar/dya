@@ -511,7 +511,7 @@ public class DoctorDetailActivity extends BaseActivity {
         }else{
             Glide.with(context)
                     .load(doctorsData.getImagePath())
-                    .placeholder(R.drawable.icon_doctor_default)
+                    .placeholder(R.drawable.icon_doctor_default).dontAnimate()
                     .error(R.drawable.icon_doctor_default)
                     .into(imgDoctorAvator);
 

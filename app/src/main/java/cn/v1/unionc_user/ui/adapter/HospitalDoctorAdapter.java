@@ -87,7 +87,7 @@ imgMessageAvator.setImageResource(R.drawable.me_watching_hospital);
             }else{
                 Glide.with(context)
                         .load(data.get(position).getImagePath())
-                        .placeholder(R.drawable.me_watching_hospital)
+                        .placeholder(R.drawable.me_watching_hospital).dontAnimate()
                         .error(R.drawable.me_watching_hospital)
                         .into(imgMessageAvator);
 

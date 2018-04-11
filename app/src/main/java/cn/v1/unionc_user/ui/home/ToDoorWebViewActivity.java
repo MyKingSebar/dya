@@ -8,8 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -25,6 +29,7 @@ import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.UnioncURL;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class ToDoorWebViewActivity extends BaseActivity {
@@ -37,7 +42,8 @@ public class ToDoorWebViewActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.toplayout)
     RelativeLayout toplayout;
-
+    @BindView(R.id.myProgressBar)
+     ProgressBar bar;
     int type = 0;
     String activityId = null;
 
@@ -65,7 +71,22 @@ public class ToDoorWebViewActivity extends BaseActivity {
 
     private void initView() {
         webviewSearch.addJavascriptInterface(new JsInteration(), "android");
+        webviewSearch.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView webView, int i) {
+                if (i == 100) {
+                    bar.setVisibility(View.INVISIBLE);
+                } else {
+                    if (View.INVISIBLE == bar.getVisibility()) {
+                        bar.setVisibility(View.VISIBLE);
+                    }
+                    bar.setProgress(i);
+                }
+                super.onProgressChanged(webView, i);
+            }
+        });
         webviewSearch.setWebViewClient(new com.tencent.smtt.sdk.WebViewClient() {
+
             @Override
             public void onPageFinished(com.tencent.smtt.sdk.WebView webView, String s) {
                 super.onPageFinished(webView, s);
@@ -124,7 +145,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
     }
 
     private void iniactivity() {
-        showDialog("加载中...");
+//        showDialog("加载中...");
         toplayout.setVisibility(View.GONE);
         initactivityInfo();
     }
@@ -138,7 +159,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
 
     private void initYiHu() {
         tvTitle.setText("医护上门");
-        showDialog("加载中...");
+//        showDialog("加载中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         ConnectHttp.connect(UnionAPIPackage.getyihu(token), new BaseObserver<HomeToHomeData>(context) {
             @Override
@@ -157,7 +178,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
 
     private void initSongYao() {
             tvTitle.setText("送药上门");
-            showDialog("加载中...");
+//            showDialog("加载中...");
             String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         Log.d("linshi","送药上门:"+token);
         ConnectHttp.connect(UnionAPIPackage.getsongyao(token), new BaseObserver<HomeToHomeData>(context) {
@@ -216,5 +237,15 @@ public class ToDoorWebViewActivity extends BaseActivity {
             startActivity(intent);
 
         }
+
+        @JavascriptInterface
+        public void login() {
+            Log.d("linshi", "JavascriptInterface.login:" );
+            goNewActivity(LoginActivity.class);
+            finish();
+
+        }
     }
+
+
 }

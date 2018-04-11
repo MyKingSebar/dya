@@ -8,7 +8,13 @@
     tools:context="cn.v1.unionc_user.ui.home.SearchWebViewActivity">
 
     <include layout="@layout/layout_toolbar" />
-
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/myProgressBar"
+        android:layout_below="@+id/layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        />
     <cn.v1.unionc_user.view.X5WebView
         android:id="@+id/webview_search"
         android:layout_width="match_parent"

@@ -180,7 +180,7 @@ public class UpdateAvatorActivity extends BaseActivity {
         if (getIntent().hasExtra("avator")) {
             avator = getIntent().getStringExtra("avator");
             Glide.with(context).load(avator)
-                    .placeholder(R.drawable.icon_default_avator)
+                    .placeholder(R.drawable.icon_default_avator).dontAnimate()
                     .error(R.drawable.icon_default_avator)
                     .into(imgAvator);
         }

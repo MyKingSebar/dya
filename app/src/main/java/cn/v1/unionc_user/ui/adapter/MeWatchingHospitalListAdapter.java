@@ -54,7 +54,7 @@ public class MeWatchingHospitalListAdapter extends RecyclerView.Adapter<MeWatchi
             }else{
                 Glide.with(context)
                         .load(hospitalData.getImagePath())
-                        .placeholder(R.drawable.me_watching_hospital)
+                        .placeholder(R.drawable.me_watching_hospital).dontAnimate()
                         .error(R.drawable.me_watching_hospital)
                         .into(holder.imgMessageAvator);
 

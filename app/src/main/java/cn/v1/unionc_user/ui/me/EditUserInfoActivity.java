@@ -118,7 +118,7 @@ public class EditUserInfoActivity extends BaseActivity {
                     String avator = data.getStringExtra("avator");
                     Log.d("linshi","onActivityResult:"+avator);
                     Glide.with(context).load( avator)
-                            .placeholder(R.drawable.icon_default_avator)
+                            .placeholder(R.drawable.icon_default_avator).dontAnimate()
                             .error(R.drawable.icon_default_avator)
                             .into(imgAvator);
                 } catch (Exception e) {
@@ -170,7 +170,7 @@ public class EditUserInfoActivity extends BaseActivity {
                 sex = userInfo.getGender();
                 nickname = userInfo.getUserName();
                 Glide.with(context).load(userInfo.getHeadImage())
-                        .placeholder(R.drawable.icon_default_avator)
+                        .placeholder(R.drawable.icon_default_avator).dontAnimate()
                         .error(R.drawable.icon_default_avator)
                         .into(imgAvator);
                 tvNickname.setText(userInfo.getUserName() + "");

@@ -60,7 +60,7 @@ public class Capture_activityActivityAdapter extends RecyclerView.Adapter<Captur
         } else {
             Glide.with(context)
                     .load(activitiesData.getImagePath())
-                    .placeholder(R.drawable.icon_activity)
+                    .placeholder(R.drawable.icon_activity).dontAnimate()
                     .error(R.drawable.icon_activity)
                     .into(holder.imgPreview);
         }

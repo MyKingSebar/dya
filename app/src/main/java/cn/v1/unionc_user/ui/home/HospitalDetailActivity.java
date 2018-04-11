@@ -303,7 +303,7 @@ private void initfragmentData(){
         }else{
             Glide.with(context)
                     .load(ImagePath)
-                    .placeholder(R.drawable.me_watching_hospital)
+                    .placeholder(R.drawable.me_watching_hospital).dontAnimate()
                     .error(R.drawable.me_watching_hospital)
                     .into(imgHospital);
 

@@ -49,7 +49,7 @@ public class RealNameAuthActivity extends BaseActivity {
     @BindView(R.id.tv_age)
     TextView tvAge;
 
-    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    InputMethodManager imm ;
 
 
     @Override
@@ -57,6 +57,7 @@ public class RealNameAuthActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_real_name_auth);
         ButterKnife.bind(this);
+        imm=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         initView();
     }
 

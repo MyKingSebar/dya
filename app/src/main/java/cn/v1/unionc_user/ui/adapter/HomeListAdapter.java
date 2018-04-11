@@ -71,7 +71,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             } else {
                 Glide.with(context)
                         .load(homeData.getImagePath())
-                        .placeholder(R.drawable.icon_doctor_default)
+                        .placeholder(R.drawable.icon_doctor_default).dontAnimate()
                         .error(R.drawable.icon_doctor_default)
                         .into(holder.imgMessageAvator);
 
@@ -90,7 +90,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             } else {
                 Glide.with(context)
                         .load(homeData.getImagePath())
-                        .placeholder(R.drawable.icon_doctor_default)
+                        .placeholder(R.drawable.icon_doctor_default).dontAnimate()
                         .error(R.drawable.icon_doctor_default)
                         .into(holder.imgMessageAvator);
             }
@@ -108,7 +108,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             } else {
                 Glide.with(context)
                         .load(homeData.getImagePath())
-                        .placeholder(R.drawable.icon_doctor_default)
+                        .placeholder(R.drawable.icon_doctor_default).dontAnimate()
                         .error(R.drawable.icon_doctor_default)
                         .into(holder.imgMessageAvator);
             }
@@ -183,7 +183,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             } else {
                 Glide.with(context)
                         .load(homeData.getImagePath2())
-                        .placeholder(R.drawable.icon_push)
+                        .placeholder(R.drawable.icon_push).dontAnimate()
                         .error(R.drawable.icon_push)
                         .into(holder.imgMessageAvator);
 
