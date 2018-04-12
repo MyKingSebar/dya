@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +53,7 @@ public class EditUserInfoActivity extends BaseActivity {
     @BindView(R.id.rl_bindphone)
     RelativeLayout rlBindphone;
 
+    boolean clickable=true;
 
     private UserInfoData.DataData userInfo;
     private String avator = "";
@@ -90,9 +92,12 @@ public class EditUserInfoActivity extends BaseActivity {
                 startActivityForResult(avatorIntent, AVATOR);
                 break;
             case R.id.rl_nickname:
-                Intent nicknameIntent = new Intent(context, UpdateNicknameActivity.class);
-                nicknameIntent.putExtra("nickname", nickname);
-                startActivityForResult(nicknameIntent, NICKNAME);
+
+                    Intent nicknameIntent = new Intent(context, UpdateNicknameActivity.class);
+                    nicknameIntent.putExtra("nickname", nickname);
+                    startActivityForResult(nicknameIntent, NICKNAME);
+
+
                 break;
             case R.id.rl_sex:
                 Intent sexIntent = new Intent(context, UpdateSexActivity.class);
@@ -100,8 +105,10 @@ public class EditUserInfoActivity extends BaseActivity {
                 startActivityForResult(sexIntent, SEX);
                 break;
             case R.id.rl_auth:
+        if(clickable){
                 Intent authIntent = new Intent(context, RealNameAuthActivity.class);
                 startActivityForResult(authIntent, AUTH);
+        }
                 break;
             case R.id.rl_bindphone:
                 break;
@@ -152,6 +159,7 @@ public class EditUserInfoActivity extends BaseActivity {
                     imgUserState.setImageResource(R.drawable.icon_no_passed);
                     tvState.setText("审核中");
                     tvState.setTextColor(R.color.red_rz);
+                    clickable=false;
                 } catch (Exception e) {
 
                 }
@@ -184,10 +192,12 @@ public class EditUserInfoActivity extends BaseActivity {
                 if (userInfo.getIsCertification() == 0) {
                     imgUserState.setImageResource(R.drawable.icon_no_passed);
                     tvState.setText("未认证");
+                    clickable=true;
                     tvState.setTextColor(R.color.red_rz);
                 } else {
                     imgUserState.setImageResource(R.drawable.icon_passed);
                     tvState.setText("已认证");
+                    clickable=false;
                     tvState.setTextColor(R.color.qm_blue);
                 }
                 tvBindphone.setText(userInfo.getTelphone() + "");

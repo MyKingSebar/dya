@@ -8,11 +8,14 @@ import android.widget.RadioGroup;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.squareup.otto.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.model.LogOutEventData;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment2;
@@ -23,6 +26,8 @@ import cn.v1.unionc_user.ui.home.MessageFragment;
 public class MainActivity extends BaseActivity {
 
     private Unbinder unbinder;
+
+    boolean logout=false;
 
     @BindView(R.id.rg)
     RadioGroup rg;
@@ -42,6 +47,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder=ButterKnife.bind(this);
+        BusProvider.getInstance().register(this);
 //        getRongToken();
 //        initLocation();
         initView();
@@ -50,7 +56,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         if (!isLogin()) {
+            mCurrentCheckedId=R.id.message;
             rg.check(mCurrentCheckedId);
+            Log.d("linshi","onresume");
         }
         super.onResume();
     }
@@ -84,7 +92,13 @@ public class MainActivity extends BaseActivity {
                         if (isLogin()) {
                             switchContent(personalFragment, 2);
                         } else {
-                            goNewActivity(LoginActivity.class);
+                            if(!logout){
+                                goNewActivity(LoginActivity.class);
+                            }else {
+                                logout=false;
+                            }
+                            Log.d("linshi","LoginActivity:Main");
+                            mCurrentCheckedId=R.id.message;
                             rg.check(mCurrentCheckedId);
                         }
                         break;
@@ -138,5 +152,14 @@ public class MainActivity extends BaseActivity {
         }
         mCurrentfragment = messageFragment;
     }
+    @Subscribe
+    public void logoutReturn(LogOutEventData data){
+        logout=true;
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BusProvider.getInstance().unregister(this);
+    }
 }

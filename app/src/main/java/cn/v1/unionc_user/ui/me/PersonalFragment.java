@@ -253,6 +253,9 @@ public class PersonalFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getUserInfo();
+        if(isLogin()){
+
+            getUserInfo();
+        }
     }
 }

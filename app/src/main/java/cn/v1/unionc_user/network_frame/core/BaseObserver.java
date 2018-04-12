@@ -3,6 +3,7 @@ package cn.v1.unionc_user.network_frame.core;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -48,6 +49,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
                 SPUtil.remove(context, Common.USER_TOKEN);
                 SPUtil.remove(context, Common.USER_ADD);
                 Intent intent = new Intent(context, LoginActivity.class);
+                Log.d("linshi","LoginActivity:BaseObserver");
                 context.startActivity(intent);
                 //登出
                 TIMManager.getInstance().logout(new TIMCallBack() {

@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.orhanobut.logger.Logger;
 import com.tencent.imsdk.TIMCallBack;
@@ -89,6 +90,7 @@ public class StartActivity extends BaseActivity {
                     Logger.e("login failed. code: " + code + " errmsg: " + desc);
                     //showTost(desc + "");
                     Intent intent = new Intent(context,LoginActivity.class);
+                    Log.d("linshi","LoginActivity:Start");
                     intent.putExtra("from","start");
                     startActivity(intent);
                     finish();

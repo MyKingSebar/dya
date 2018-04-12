@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/library/TIM_PRESENTATION/TIM_PRESENTATION.iml" filepath="$PROJECT_DIR$/library/TIM_PRESENTATION/TIM_PRESENTATION.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/TIM_SDK/TIM_SDK.iml" filepath="$PROJECT_DIR$/library/TIM_SDK/TIM_SDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/TIM_UI/TIM_UI.iml" filepath="$PROJECT_DIR$/library/TIM_UI/TIM_UI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/labels/labels.iml" filepath="$PROJECT_DIR$/library/labels/labels.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nuionc_new_user_android.iml" filepath="$PROJECT_DIR$/nuionc_new_user_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/wavesidebar/wavesidebar.iml" filepath="$PROJECT_DIR$/library/wavesidebar/wavesidebar.iml" />
+    </modules>
+  </component>
+</project>

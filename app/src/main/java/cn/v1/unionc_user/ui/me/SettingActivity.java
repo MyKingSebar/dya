@@ -1,6 +1,7 @@
 package cn.v1.unionc_user.ui.me;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,6 +63,8 @@ public class SettingActivity extends BaseActivity {
                     public void onConfirmClick() {
                         logout();
                         goNewActivity(LoginActivity.class);
+                        finish();
+                        Log.d("linshi","LoginActivity:Setting.logout");
                         LogOutEventData eventData = new LogOutEventData();
                         BusProvider.getInstance().post(eventData);
                     }

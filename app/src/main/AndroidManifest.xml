@@ -96,7 +96,9 @@
         <!-- 高德定位功能完 -->
         <activity android:name=".ui.home.CaptureActivity" />
         <activity android:name=".ui.ContactsActivity" />
-        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.LoginActivity"
+            android:launchMode="singleTask"
+            />
         <activity android:name=".ui.home.HealthClassActivity" />
         <activity android:name=".ui.home.HealthClassDetailActivity" />
         <activity android:name=".ui.home.HospitalDetailActivity" />

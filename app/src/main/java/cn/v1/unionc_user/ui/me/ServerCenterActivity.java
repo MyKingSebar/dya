@@ -58,7 +58,7 @@ public class ServerCenterActivity extends BaseActivity {
 
     private void initView() {
         tvTitle.setText("客服中心");
-        servicePhone="400-625-8851";
+        servicePhone="4000123789";
     }
 
 }

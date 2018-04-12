@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -199,6 +200,7 @@ public class HospitalDetailActivity extends BaseActivity {
                         isCertification(MESSAGE);
                     } else {
                         goNewActivity(LoginActivity.class);
+                        Log.d("linshi","LoginActivity:Hospital");
                     }
                 }
                 break;

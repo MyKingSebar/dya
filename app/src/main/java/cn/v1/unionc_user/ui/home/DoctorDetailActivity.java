@@ -162,6 +162,7 @@ public class DoctorDetailActivity extends BaseActivity {
                     isCertification(MESSAGE);
                 } else {
                     goNewActivity(LoginActivity.class);
+                    Log.d("linshi","LoginActivity:Doctorll_message");
                 }
                 break;
             case R.id.ll_phone:
@@ -169,6 +170,7 @@ public class DoctorDetailActivity extends BaseActivity {
                     isCertification(PHONE);
                 } else {
                     goNewActivity(LoginActivity.class);
+                    Log.d("linshi","LoginActivity:Doctorll_phone");
                 }
                 break;
             case R.id.rl_sign:
