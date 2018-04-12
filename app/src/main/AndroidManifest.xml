@@ -76,6 +76,7 @@
         </meta-data>
         <activity
             android:name=".ui.StartActivity"
+            android:launchMode="singleTask"
             android:theme="@style/Start_Theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

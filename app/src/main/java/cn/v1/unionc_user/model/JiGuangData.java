@@ -69,14 +69,14 @@ public class JiGuangData {
 private String activityId;
     private String title;
     private String digest;
-private String addr;
+private String actionAddr;
 
-    public String getAddr() {
-        return addr;
+    public String getActionAddr() {
+        return actionAddr;
     }
 
-    public void setAddr(String addr) {
-        this.addr = addr;
+    public void setActionAddr(String actionAddr) {
+        this.actionAddr = actionAddr;
     }
 
     private String publishTime;

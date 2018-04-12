@@ -1,7 +1,9 @@
 package cn.v1.unionc_user.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.RadioGroup;
@@ -40,7 +42,7 @@ public class MainActivity extends BaseActivity {
     private final String MESSAGE = "message";
     private final String DISCOVER = "discover";
     private final String PERSONAL = "personal";
-    private String[] tags = new String[]{MESSAGE, DISCOVER, PERSONAL};
+//    private String[] tags = new String[]{MESSAGE, DISCOVER, PERSONAL};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +66,21 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        rg.check(R.id.message);
+        // 在页面重启时，Fragment会被保存恢复，而此时再加载Fragment会重复加载，导致重叠 ;
+        if(outState == null){
+            // 或者 if(findFragmentByTag(mFragmentTag) == null)
+            // 正常情况下去 加载根Fragment
+            messageFragment = new MessageFragment();
+            mCurrentfragment = messageFragment;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.ll_fragment_container, messageFragment).commit();
+        }
         mCurrentCheckedId = R.id.message;
-        stateCheck(outState);
+//        stateCheck(outState);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.d("linshi","onCheckedChanged:"+checkedId);
                 switch (checkedId) {
                     case R.id.message:
                         mCurrentCheckedId = R.id.message;
@@ -105,6 +116,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+        rg.check(R.id.message);
     }
 
     /**
@@ -113,45 +125,48 @@ public class MainActivity extends BaseActivity {
      * @param to
      */
     public void switchContent(Fragment to, int position) {
+        Log.d("linshi","switchContent:"+position);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (mCurrentfragment != to) {
             if (!to.isAdded()) { // 先判断是否被add过
+                Log.d("linshi","!to.isAdded()");
                 transaction.hide(mCurrentfragment)
-                        .add(R.id.ll_fragment_container, to, tags[position]).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                        .add(R.id.ll_fragment_container, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
             } else {
+                Log.d("linshi","isAdded()");
                 transaction.hide(mCurrentfragment).show(to).commit(); // 隐藏当前的fragment，显示下一个
             }
         }
         mCurrentfragment = to;
     }
 
-    /**
-     * 状态检测 用于内存不足时的时候保证fragment不会重叠
-     */
-    private void stateCheck(Bundle saveInstanceState) {
-        Logger.i(new Gson().toJson(saveInstanceState));
-        if (null != saveInstanceState) {
-            Log.d("linshi","null != saveInstanceState");
-            //通过tag找回失去引用但是存在内存中的fragment.id相同
-            MessageFragment messageFragment = (MessageFragment) getSupportFragmentManager().findFragmentByTag(tags[0]);
-            DiscoverFragment discoverFragment = (DiscoverFragment) getSupportFragmentManager().findFragmentByTag(tags[1]);
-            PersonalFragment personalFragment = (PersonalFragment) getSupportFragmentManager().findFragmentByTag(tags[2]);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .show(messageFragment)
-                    .hide(discoverFragment)
-                    .hide(personalFragment)
-                    .commit();
-        } else {
-            Log.d("linshi","null == saveInstanceState");
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            if (null == messageFragment) {
-                messageFragment = new MessageFragment();
-            }
-            transaction.add(R.id.ll_fragment_container, messageFragment, tags[0]).commit();
-        }
-        mCurrentfragment = messageFragment;
-    }
+//    /**
+//     * 状态检测 用于内存不足时的时候保证fragment不会重叠
+//     */
+//    private void stateCheck(Bundle saveInstanceState) {
+//        Logger.i(new Gson().toJson(saveInstanceState));
+//        if (null != saveInstanceState) {
+//            Log.d("linshi","null != saveInstanceState");
+//            //通过tag找回失去引用但是存在内存中的fragment.id相同
+//            MessageFragment messageFragment = (MessageFragment) getSupportFragmentManager().findFragmentByTag(tags[0]);
+//            DiscoverFragment discoverFragment = (DiscoverFragment) getSupportFragmentManager().findFragmentByTag(tags[1]);
+//            PersonalFragment personalFragment = (PersonalFragment) getSupportFragmentManager().findFragmentByTag(tags[2]);
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .show(messageFragment)
+//                    .hide(discoverFragment)
+//                    .hide(personalFragment)
+//                    .commit();
+//        } else {
+//            Log.d("linshi","null == saveInstanceState");
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            if (null == messageFragment) {
+//                messageFragment = new MessageFragment();
+//            }
+//            transaction.add(R.id.ll_fragment_container, messageFragment, tags[0]).commit();
+//        }
+//        mCurrentfragment = messageFragment;
+//    }
     @Subscribe
     public void logoutReturn(LogOutEventData data){
         logout=true;
@@ -162,4 +177,18 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         BusProvider.getInstance().unregister(this);
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        if (messageFragment != null)
+//            transaction.remove(messageFragment);
+//        if (discoverFragment3 != null)
+//            transaction.remove(discoverFragment3);
+//        if (personalFragment != null)
+//            transaction.remove(personalFragment);
+        goNewActivity(StartActivity.class);
+        super.onSaveInstanceState(outState);
+    }
+
 }

@@ -628,7 +628,7 @@ Log.d("linshi","action():"+intent.getAction());
                     pushactivitydata.setName(child2.getTitle());
                     pushactivitydata.setStartTime(child2.getStartTime());
                     pushactivitydata.setEndTime(child2.getEndTime());
-                    pushactivitydata.setAddress(child2.getAddr());
+                    pushactivitydata.setAddress(child2.getActionAddr());
                     pushactivitydata.setCreatedTime(child2.getPublishTime());
                     pushactivitydata.setActivityId(child2.getActivityId());
                     pushactivitydata.setType(Common.ACTIVITY_PUSH);
