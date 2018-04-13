@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("linshi","onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder=ButterKnife.bind(this);
@@ -70,10 +71,25 @@ public class MainActivity extends BaseActivity {
         if(outState == null){
             // 或者 if(findFragmentByTag(mFragmentTag) == null)
             // 正常情况下去 加载根Fragment
+            Log.d("linshi","outState==null");
             messageFragment = new MessageFragment();
             mCurrentfragment = messageFragment;
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.ll_fragment_container, messageFragment).commit();
+        }else{
+//            Log.d("linshi","outState!=null");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        if (messageFragment != null)
+//            transaction.remove(messageFragment);
+//        if (discoverFragment3 != null)
+//            transaction.remove(discoverFragment3);
+//        if (personalFragment != null)
+//            transaction.remove(personalFragment);
+//
+            messageFragment = new MessageFragment();
+            mCurrentfragment = messageFragment;
+            transaction.add(R.id.ll_fragment_container, messageFragment).commit();
+
         }
         mCurrentCheckedId = R.id.message;
 //        stateCheck(outState);
@@ -180,14 +196,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (messageFragment != null)
-//            transaction.remove(messageFragment);
-//        if (discoverFragment3 != null)
-//            transaction.remove(discoverFragment3);
-//        if (personalFragment != null)
-//            transaction.remove(personalFragment);
-        goNewActivity(StartActivity.class);
+        Log.d("linshi","onSaveInstanceState");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (messageFragment != null)
+            transaction.remove(messageFragment);
+        if (discoverFragment3 != null)
+            transaction.remove(discoverFragment3);
+        if (personalFragment != null)
+            transaction.remove(personalFragment);
+//        goNewActivity(StartActivity.class);
         super.onSaveInstanceState(outState);
     }
 

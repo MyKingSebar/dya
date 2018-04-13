@@ -175,8 +175,20 @@ public class MessageFragment extends BaseFragment {
                 }
                 break;
             case R.id.tv_guahao:
-                //名医挂号
-//                goNewActivity(HospitalDetailActivity.class);
+                //心率检测
+                        if(isLogin()){
+//            if(TextUtils.isEmpty(healthInfoId)){
+//                showDialog();
+//            }else{
+//            Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
+//            String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//            intent.putExtra("userId", token);
+//            intent.putExtra("monitorId", "1");
+//            startActivity(intent);
+//            }
+        }else{
+                  goNewActivity(LoginActivity.class);
+        }
                 break;
             case R.id.tv_yihu:
                 //医护上门

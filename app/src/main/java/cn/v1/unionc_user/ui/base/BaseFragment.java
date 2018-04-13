@@ -36,6 +36,14 @@ public class BaseFragment extends Fragment {
         context = getActivity();
     }
 
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+    }
+
     /**
      * tusi
      *

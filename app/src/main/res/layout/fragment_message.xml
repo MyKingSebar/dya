@@ -110,10 +110,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="6dp"
-                android:drawableTop="@drawable/icon_guahao_preview"
+                android:drawableTop="@drawable/icon_xinlvjiance"
                 android:gravity="center"
-                android:text="名医挂号"
-                android:textColor="#FFB6B8BF"
+                android:text="心率检测"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
