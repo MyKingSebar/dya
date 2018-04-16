@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
@@ -20,12 +22,16 @@ import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
+import cn.v1.unionc_user.ui.home.health.HtmlFontUtil;
 
 /**
  * Created by qy on 2018/2/6.
  */
 
 public class BaseFragment extends Fragment {
+    float density;
+    public DisplayMetrics dm;
+    HtmlFontUtil mFontUtil;
 
     protected Context context;
     private ProgressDialog progressDialog;
@@ -36,7 +42,11 @@ public class BaseFragment extends Fragment {
         context = getActivity();
     }
 
-
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        initDensity();
+        super.onViewCreated(view, savedInstanceState);
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -126,5 +136,12 @@ public class BaseFragment extends Fragment {
             }
         });
     }
-
+    public int dip2px(float dipValue) {
+        return (int) (dipValue * density  + 0.5f);
+    }
+    private void initDensity() {
+        dm = getResources().getDisplayMetrics();
+        mFontUtil = new HtmlFontUtil();
+        density = dm.density;
+    }
 }

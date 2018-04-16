@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/library/labels/labels.iml" filepath="$PROJECT_DIR$/library/labels/labels.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/nuionc_new_user_android.iml" filepath="$PROJECT_DIR$/nuionc_new_user_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/photoview/photoview.iml" filepath="$PROJECT_DIR$/library/photoview/photoview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/wavesidebar/wavesidebar.iml" filepath="$PROJECT_DIR$/library/wavesidebar/wavesidebar.iml" />
     </modules>
   </component>

@@ -18,6 +18,7 @@ import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
+import cn.v1.unionc_user.model.HeartIndicationData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.HomeToHomeData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
@@ -574,4 +575,20 @@ public class UnionAPIPackage {
         params.put("token", token);
         return ConnectHttp.getUnionappAPI().getsongyao(dataProcess(params));
     }
+
+
+    /**
+     * 根据类型查询字典数据（type ：001-医生级别 002-客服电话 003-不适应症 004-心脏病类型）
+     *
+     * @return
+     */
+    public static Observable<HeartIndicationData> getIntelligentHardwareIndication(String type
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type", type);
+        return ConnectHttp.getUnionAPI().getIntelligentHardwareIndication(dataProcess(params));
+    }
+
+
+
 }

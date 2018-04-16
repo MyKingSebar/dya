@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/library/TIM_SDK" />
             <option value="$PROJECT_DIR$/library/TIM_UI" />
             <option value="$PROJECT_DIR$/library/labels" />
+            <option value="$PROJECT_DIR$/library/photoview" />
             <option value="$PROJECT_DIR$/library/wavesidebar" />
           </set>
         </option>

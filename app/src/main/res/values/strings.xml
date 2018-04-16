@@ -37,4 +37,25 @@
         千医健康是全国首家互联网医养服务试点平台，全国首家三甲护士集团、
         全国首家中医集团、目前已覆盖31个省280个城市数千万用户。
     </string>
+
+    <string name="password_same_number">密码不能为相同数字</string>
+    <string name="password_consecutive_number">密码不能为连续数字</string>
+    <string name="password_upper_case">密码不能含有大写字母</string>
+    <string name="password_char_limit">密码不符合要求</string>
+    <string name="password_feifa">您输入了非法字符</string>
+    <string name="password_allnum">密码不能为纯数字</string>
+    <string name="password_length_limit">密码请输入6-16位字符</string>
+    <string name="addcardnuminfo">提款最多可绑定5张银行卡</string>
+    <string name="addcard_yinlianalertinfo">您之前使用过银联回拨充值，所绑定的银行卡同时用于提款，不能添加或修改</string>
+    <string name="personal_feedtip">此页面用于产品反馈意见收集。如需咨询客服，请直接客服电话联系。</string>
+
+    <!-- zhixing -->
+    <string name="encode_qrcode">生成二维码</string>
+    <string name="dencode_qrcode">扫描二维码</string>
+    <string name="code_text">请输入生成二维码的文本信息</string>
+    <string name="qrcodetext">这里显示扫描结果</string>
+
+    <string name="heart_rate_times">购买声明\n1.购买读图次数属于服务消耗品\n2.读图次数请于慢病服务期内全部使用，服务结束时如有剩余，不退不存\n3.读图次数使用最终解释权归医护到家所有</string>
+    <string name="re_measure"><u>重新测量</u></string>
+
 </resources>

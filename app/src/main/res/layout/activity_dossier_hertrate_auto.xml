@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_toolbar_white" />
+
+        <TextView
+            android:id="@+id/tv_dossier_hert_rate_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:elevation="3dp"
+            android:text="历史记录"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_help"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/heart_help"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:textColor="#26282E"
+            android:text="设备使用帮助"
+            android:textSize="15sp"
+            android:gravity="center_vertical|left" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="50dp"
+            android:textColor="#9B9CA0"
+            android:text="点击查看帮助"
+            android:textSize="13sp"
+            android:gravity="center_vertical|left"
+             />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:background="#D3D4D8"
+        android:layout_height="0.5dp"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/heart_heart"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="12dp" />
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:textColor="#26282E"
+            android:text="心率"
+            android:textSize="15sp"
+            android:gravity="center_vertical|left" />
+
+        <TextView
+            android:id="@+id/last_time"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="50dp"
+            android:textColor="#9B9CA0"
+            android:gravity="center_vertical|left"
+            tools:text="3月20日  上午07:27"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/num2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="#9B9CA0"
+            android:text="次/分"
+            android:textSize="13sp"
+            />
+        <TextView
+            android:id="@+id/num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/num2"
+            android:layout_centerVertical="true"
+            android:textColor="#26282E"
+            tools:text="98"
+            android:textSize="18sp"
+            />
+
+    </RelativeLayout>
+</LinearLayout>

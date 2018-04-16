@@ -1,10 +1,18 @@
 package cn.v1.unionc_user;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.baidu.mapapi.SDKInitializer;
+import com.mhealth365.osdk.EcgOpenApiCallback;
+import com.mhealth365.osdk.EcgOpenApiHelper;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tencent.imsdk.TIMGroupReceiveMessageOpt;
@@ -14,16 +22,22 @@ import com.tencent.imsdk.TIMOfflinePushNotification;
 import com.tencent.qalsdk.sdk.MsfSdkUtils;
 import com.tencent.smtt.sdk.QbSdk;
 
+import java.io.IOException;
+
 import cn.jpush.android.api.JPushInterface;
 import cn.v1.unionc_user.tecent_qcloud.InitSDK;
 import cn.v1.unionc_user.tecent_qcloud.UserConfig;
 import cn.v1.unionc_user.tecent_qcloud.tim_util.Foreground;
+import cn.v1.unionc_user.ui.home.health.LogUtils;
 
 /**
  * Created by qy on 2018/2/1.
  */
 
 public class UnioncApp extends MultiDexApplication {
+
+    private SDKReceiver mReceiver;
+    public DisplayMetrics displayMetrics;
 
     private static UnioncApp app;
 
@@ -50,10 +64,21 @@ public class UnioncApp extends MultiDexApplication {
                 }
             });
         }
+        displayMetrics = getResources().getDisplayMetrics();
         initX5();
         initLog();
         initAndroidN();
         initJiGuang();
+
+        // 注册 SDK 广播监听者
+        IntentFilter iFilter = new IntentFilter();
+        iFilter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
+        iFilter.addAction(SDKInitializer.SDK_BROADCAST_ACTION_STRING_NETWORK_ERROR);
+        iFilter.addAction(SDKInitializer.SDK_BROADTCAST_INTENT_EXTRA_INFO_KEY_ERROR_CODE);
+        mReceiver = new SDKReceiver();
+        registerReceiver(mReceiver, iFilter);
+        //蓝牙心电记录仪SDK的初始化
+        initmHelath365SDK();
     }
 
     private void initJiGuang() {
@@ -98,5 +123,80 @@ public class UnioncApp extends MultiDexApplication {
                 return BuildConfig.DEBUG;
             }
         });
+    }
+
+
+    //蓝牙心电记录仪SDK的初始化
+    //************************************************************************************心电图***********************************************************************
+    EcgOpenApiCallback.OsdkCallback displayMessage;
+    public void setOsdkCallback(EcgOpenApiCallback.OsdkCallback osdkCallback) {
+        displayMessage = osdkCallback;
+    }
+    EcgOpenApiCallback.OsdkCallback mOsdkCallback = new EcgOpenApiCallback.OsdkCallback() {
+
+        @Override
+        public void deviceSocketLost() {
+            if (displayMessage != null)
+                displayMessage.deviceSocketLost();
+        }
+        @Override
+        public void deviceSocketConnect() {
+            if (displayMessage != null)
+                displayMessage.deviceSocketConnect();
+        }
+        @Override
+        public void devicePlugOut() {
+            if (displayMessage != null)
+                displayMessage.devicePlugOut();
+        }
+        @Override
+        public void devicePlugIn() {
+            if (displayMessage != null)
+                displayMessage.devicePlugIn();
+        }
+        @Override
+        public void deviceReady(int sample) {
+            if (displayMessage != null)
+                displayMessage.deviceReady(sample);
+        }
+        @Override
+        public void deviceNotReady(int msg) {
+            if (displayMessage != null)
+                displayMessage.deviceNotReady(msg);
+        }
+    };
+    private void initmHelath365SDK() {
+        EcgOpenApiHelper mHelper = EcgOpenApiHelper.getInstance();
+        String thirdPartyId = "9002e85acfc29e3687c849a88e46c40b";
+        String appId = "5d8cef316b20774d99ef76484b620005";
+        String appSecret = "";
+        String UserOrgName = "医巴士";
+        String pakageName = "cn.v1.unionc_user";
+        LogUtils.LOGD("心电thirdPartyId",thirdPartyId);
+        LogUtils.LOGD("心电appId",appId);
+        LogUtils.LOGD("心电UserOrgName",UserOrgName);
+        LogUtils.LOGD("心电pakageName",pakageName);
+        try {
+            mHelper.initOsdk(getApplicationContext(), thirdPartyId, appId, appSecret, UserOrgName, mOsdkCallback, pakageName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void finishSdk() throws IOException {
+        EcgOpenApiHelper mHelper = EcgOpenApiHelper.getInstance();
+        mHelper.finishSdk();
+    }
+    //蓝牙心电记录仪SDK的初始化完毕
+    //************************************************************************************心电图完毕***********************************************************************
+    public class SDKReceiver extends BroadcastReceiver {
+        public void onReceive(Context context, Intent intent) {
+            String s = intent.getAction();
+            Log.d("SDKReceiver", "action: " + s);
+            //Toast.makeText(CaiboApp.getContext(),s,Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static Context getContext() {
+        return getInstance().getBaseContext();
     }
 }

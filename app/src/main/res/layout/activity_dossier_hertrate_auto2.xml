@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoActivity">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_toolbar_white" />
+
+        <TextView
+            android:id="@+id/tv_dossier_hert_rate_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            android:textColor="@color/colorSearchGreen"
+            android:elevation="3dp"
+            android:text="历史记录"
+            android:visibility="visible"
+            />
+
+    </RelativeLayout>
+
+    <include layout="@layout/include_line" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup_dossier_heart_rate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_auto"
+            style="@style/style_radio_dossier"
+            android:drawableBottom="@drawable/radio_dossier_bg"
+            android:text="自动测量" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@color/black_10" />
+
+        <RadioButton
+            android:id="@+id/radio_hand"
+            style="@style/style_radio_dossier"
+            android:drawableBottom="@drawable/radio_dossier_bg"
+            android:text="手动测量" />
+
+    </RadioGroup>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/black_10" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+</LinearLayout>

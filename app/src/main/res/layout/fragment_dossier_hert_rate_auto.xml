@@ -1,0 +1,318 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    tools:context="cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <SurfaceView
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+        <FrameLayout
+            android:id="@+id/fl_ecg_browser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mhealth365.osdk.ecgbrowser.RealTimeEcgBrowser
+                android:id="@+id/ecg_browser"
+                android:layout_width="fill_parent"
+                android:layout_height="265dip"
+                android:background="@android:color/transparent"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_instant_heart_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                tools:text="89bmp"
+                android:textSize="14sp"
+                android:textColor="@color/black_34"
+                />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:textSize="14sp"
+                android:textColor="@color/black_34"
+                tools:text="00:00:60"
+                />
+
+            <ImageView
+                android:id="@+id/img_start_measure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/icon_measure"
+                />
+
+        </FrameLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_after_testing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/reward_tv_content_tip"
+            android:paddingBottom="25dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/grey_bg" />
+
+            <TextView
+                android:id="@+id/tv_hert_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white"
+                android:textSize="58dp"
+                tools:text="86" />
+
+            <TextView
+                android:id="@+id/tv_re_measure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="重新测量" />
+
+            <TextView
+                android:id="@+id/tv_rate_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_hert_rate"
+                android:layout_centerHorizontal="true"
+                android:text="次/分"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_view_ecg"
+                android:layout_width="195dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/tv_rate_unit"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/yellow_btn_bg"
+                android:gravity="center"
+                android:textColor="@color/nurse_order_detail_pay_text_color"
+                android:textSize="18dp"
+                android:text="查看心电图"
+                android:visibility="visible"
+                />
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_view_ecg"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="35dp"
+                android:lineSpacingExtra="3dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="心率结果,心率结果心率结果心率结果心率结果心率结果心率结果心率结果心率结果心率结果" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/grey_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测量时间"
+                android:textColor="@color/black_34"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_dossier_hert_rate_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:hint="测量后自动生成"
+                android:textColorHint="@color/c7c7cd"
+                android:textColor="@color/black_34"
+                android:textSize="18sp"
+                tools:text="" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-1dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不适应症"
+                android:textColor="@color/black_34"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_dossier_hert_rate_not_indications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/arrow_right_gray"
+                android:ellipsize="end"
+                android:hint="未填写"
+                android:lines="1"
+                android:maxWidth="200dp"
+                android:textColor="@color/black_34"
+                android:textColorHint="@color/c7c7cd"
+                android:textSize="18sp"
+                tools:text="rvdhthyjytjyk热火也让他今天要几天" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-1dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="治疗药物"
+                android:textColor="@color/black_34"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_dossier_hert_rate_medicine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/arrow_right_gray"
+                android:ellipsize="end"
+                android:hint="未填写"
+                android:lines="1"
+                android:maxWidth="200dp"
+                android:textColor="@color/black_34"
+                android:textColorHint="@color/c7c7cd"
+                android:textSize="18sp"
+                tools:text="d才能当快乐的那个看了个覅打不开来发的那个客服的" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-1dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="心脏病类型"
+                android:textColor="@color/black_34"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_dossier_hert_rate_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/arrow_right_gray"
+                android:hint="未填写"
+                android:textColor="@color/black_34"
+                android:textColorHint="@color/c7c7cd"
+                android:textSize="18sp"
+                tools:text="" />
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/grey_bg" />
+
+        <LinearLayout
+            android:id="@+id/ll_bottom_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/tv_dossier_hert_rate_save"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/green_btn_bg"
+                android:gravity="center"
+                android:maxWidth="350dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="保  存"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

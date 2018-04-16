@@ -18,6 +18,8 @@ import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
+import static cn.v1.unionc_user.network_frame.UnioncURL.Unionc_WEB_Host;
+
 public class LoginAgreementActivity extends BaseActivity {
 
     @BindView(R.id.webview_login_agreement)
@@ -80,7 +82,7 @@ public class LoginAgreementActivity extends BaseActivity {
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         //支持内容重新布局
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webviewLoginAgreement.loadUrl("https://192.168.21.93:8085/unionApp/H5/agreement.html");
+        webviewLoginAgreement.loadUrl(Unionc_WEB_Host+"pages/index.html#/agreement");
 
     }
 

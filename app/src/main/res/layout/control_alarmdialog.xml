@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 弹屏对话框 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/white_kuang"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/title_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="250dip"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/control_alarmdialog_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                tools:text="温馨提示"
+                android:textColor="@color/text_34"
+                android:textSize="17sp" />
+        </LinearLayout>
+        <View
+            android:id="@+id/title_line"
+            android:layout_width="fill_parent"
+            android:layout_height="3px"
+            android:visibility="gone"
+            android:background="@color/light_green"/>
+
+        <LinearLayout
+            android:id="@+id/control_content_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_weight="1.0"
+            android:minWidth="250dip"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:layout_marginTop="15dp"
+            >
+
+            <LinearLayout
+                android:id="@+id/control_alarmdialog_lin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ScrollView
+                    android:id="@+id/control_alarmdialog_scrollview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/control_alarmdialog_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:lineSpacingExtra="3dip"
+                        tools:text="就诊时间说明"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_34" />
+                </ScrollView>
+
+                <TextView
+                    android:id="@+id/control_alarmdialog_smallmessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="dfd"
+                    android:textColor="@color/text_34"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/line_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/control_alarmdialog_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:minHeight="44dp"
+            android:background="@drawable/newdialog_leftbtn_bg"
+            android:text="取消"
+            android:textSize="16sp"
+            android:textColor="@color/text_34" />
+
+        <TextView
+            android:id="@+id/xbp_view_line"
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/line_color" />
+
+        <Button
+            android:id="@+id/control_alarmdialog_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:minHeight="44dp"
+            android:background="@drawable/newdialog_rightbtn_bg"
+            android:text="确定"
+            android:textSize="16sp"
+            android:textColor="@color/light_green" />
+    </LinearLayout>
+
+</LinearLayout>

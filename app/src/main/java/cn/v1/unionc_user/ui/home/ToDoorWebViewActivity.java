@@ -113,6 +113,11 @@ public class ToDoorWebViewActivity extends BaseActivity {
                 iniactivity();
 
                 break;
+            case 4:
+                //心电图使用说明
+                initHelp();
+
+                break;
         }
 
 
@@ -176,6 +181,13 @@ public class ToDoorWebViewActivity extends BaseActivity {
         });
     }
 
+    private void initHelp() {
+        toplayout.setVisibility(View.GONE);
+        String url = UnioncURL.Unionc_WEB_Host + "pages/index.html#/help" ;
+        Log.d("linshi", "url" + url);
+        webviewSearch.loadUrl(url);
+
+    }
     private void initSongYao() {
             tvTitle.setText("送药上门");
 //            showDialog("加载中...");

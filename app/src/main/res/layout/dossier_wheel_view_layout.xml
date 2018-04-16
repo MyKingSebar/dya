@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pickerui="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#55000000"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_transparent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:orientation="vertical">-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="45dp"-->
+            <!--&gt;-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/cancle_tv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="取消"-->
+                <!--android:paddingLeft="30dp"-->
+                <!--android:paddingRight="30dp"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:textColor="@color/black_54"-->
+                <!--android:textSize="16sp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/desc_tv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="请选择"-->
+                <!--android:paddingLeft="30dp"-->
+                <!--android:paddingRight="30dp"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:textColor="@color/black_87"-->
+                <!--android:textSize="15sp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/yes_tv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingRight="30dp"-->
+                <!--android:paddingLeft="30dp"-->
+                <!--android:text="完成"-->
+                <!--android:textColor="@color/allcolor"-->
+                <!--android:textSize="16sp" />-->
+
+        <!--</RelativeLayout>-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/time_ll_default"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:visibility="gone"-->
+            <!--android:background="@color/white"-->
+            <!--android:paddingLeft="16dp">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/time_tv_default"-->
+                <!--android:layout_width="305px"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="立即预约"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:gravity="center_horizontal"/>-->
+        <!--</LinearLayout>-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="225dp">-->
+            <!--<com.vodone.cp365.customview.PickerUI.PickerUI-->
+                <!--android:id="@+id/picker_ui_view"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--pickerui:backgroundColor="#4cffa5"-->
+                <!--pickerui:linesCenterColor="#3941ff"-->
+                <!--pickerui:autoDismiss="false"-->
+                <!--pickerui:itemsClickables="true"-->
+                <!--pickerui:textCenterColor="#000000"-->
+                <!--pickerui:textNoCenterColor="#737373"-->
+                <!--pickerui:blur="true"-->
+                <!--pickerui:blur_downScaleFactor="1"-->
+                <!--pickerui:blur_FilterColor="#ff5e48"-->
+                <!--pickerui:blur_radius="1"-->
+                <!--pickerui:blur_use_renderscript="true"/>-->
+
+        <!--</RelativeLayout>-->
+
+    <!--</LinearLayout>-->
+
+</LinearLayout>

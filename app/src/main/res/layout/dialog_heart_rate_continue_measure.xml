@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 弹屏对话框 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_kuang"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="3dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/text_34"
+        android:textSize="14sp"
+        android:text="温馨提示：\n\n长时间测量容易造成连接中断，还请您注意以下几点\n\n1.请勿将手机远离心贴，防止蓝牙中断；\n2.请将手机主页保持当前窗口，防止后台测量被系统中止程序（您也可以设置允许后台运行此app）；\n3.请保持手机网络通畅；\n4.如果由于蓝牙断开、测量设备断电等导致测量中断，请耐心等待1-3分钟，会为您得出中断前的测量结果；\n5.如APP被强制关闭，则本次测量无法保存。" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/line_color" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newdialog_rightbtn_bg"
+        android:gravity="center"
+        android:minHeight="44dp"
+        android:text="知道了"
+        android:textColor="@color/light_green"
+        android:textSize="16sp" />
+
+
+</LinearLayout>

@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.v1.unionc_user.ui.home.health.DossierHeartrateAutoPreviewFragment">
+
+    <FrameLayout
+        android:id="@+id/fl_banner"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:orientation="vertical" >
+
+        <cn.v1.unionc_user.ui.home.health.autoscrollviewpager.AutoScrollViewPager
+            android:id="@+id/autoViewpager_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        </cn.v1.unionc_user.ui.home.health.autoscrollviewpager.AutoScrollViewPager>
+
+        <LinearLayout
+            android:id="@+id/ll_dots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="right"
+            android:paddingRight="25dp"
+            android:paddingBottom="17dp"
+            android:orientation="horizontal" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dossierheartrate_connect_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/black_34"
+            android:text="请打开手机蓝牙和设备电源"
+            />
+        
+        <TextView
+            android:id="@+id/dossierheartrate_disconnect_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/text_all_green"
+            android:text="断开连接"/>
+        
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_link_device"
+        android:layout_width="195dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:background="@drawable/green_btn_bg"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:text="连接设备"
+        />
+
+    <TextView
+        android:id="@+id/tv_bluetooth_state"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14sp"
+        android:textColor="@color/text_153"
+        tools:text="蓝牙状态：关闭"
+        />
+
+
+</LinearLayout>

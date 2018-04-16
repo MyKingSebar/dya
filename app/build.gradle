@@ -46,6 +46,8 @@ android {
         applicationId "cn.v1.unionc_user"
         minSdkVersion 16
         targetSdkVersion 26
+        renderscriptTargetApi 18
+        renderscriptSupportModeEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -120,6 +122,7 @@ dependencies {
     implementation project(':library:TIM_SDK')
     implementation project(':library:TIM_PRESENTATION')
     implementation project(':library:TIM_UI')
+    implementation project(':library:photoview')
     compile 'com.jaywei:compresstool:1.0.4'
     implementation files('libs/Amap_2DMap_V5.2.0_20170627.jar')
     implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1183_43604_sharewithdownload_withoutGame_obfs_20180211_105126.jar')
@@ -128,4 +131,8 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
+    implementation files('libs/mhealth365-osdk-v1.3.2.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
+    compile 'commons-io:commons-io:2.4'
+    implementation files('libs/universal-image-loader-1.9.1-SNAPSHOT-with-sources.jar')
 }

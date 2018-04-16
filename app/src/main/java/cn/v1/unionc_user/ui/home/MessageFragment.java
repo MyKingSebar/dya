@@ -66,6 +66,7 @@ import cn.v1.unionc_user.tecent_qcloud.tim_util.TimeUtil;
 import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.adapter.HomeListAdapter;
 import cn.v1.unionc_user.ui.base.BaseFragment;
+import cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoActivity;
 import cn.v1.unionc_user.utils.Location;
 import cn.v1.unionc_user.view.BannerView;
 import cn.v1.unionc_user.view.LocationDialog;
