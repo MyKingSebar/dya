@@ -51,4 +51,30 @@
     <color name="maptext">#999999</color>
     <color name="circle">#d0dcf2</color>
     <!--<color name="circle">#144E78F6</color>-->
+
+    <!-- PickerUI lines colors -->
+    <color name="lines_panel_pickerui">@color/line_color</color>
+
+    <!-- PickerUI panel colors -->
+    <color name="background_panel_pickerui">#fffafafa</color>
+
+    <!-- PickerUI items colors -->
+    <color name="text_center_pickerui">#1CC6A3</color>
+    <color name="text_no_center_pickerui">#aaa</color>
+    <drawable name="list_item_selected">#aaaaaa</drawable>
+
+    <!-- PickerUI shadow colors -->
+    <color name="grey1">#00CCCCCC</color>
+    <color name="grey2">#10CCCCCC</color>
+    <color name="grey3">#20CCCCCC</color>
+    <color name="grey4">#30CCCCCC</color>
+    <color name="grey5">#50747474</color>
+    <color name="grey_clicked">#CCCCCC</color>
+    <color name="background_picker">#ff579fff</color>
+    <color name="keshi">#e9efef</color>
+    <color name="color_yellow">#ffdd00</color>
+    <color name="drawmoney_yellow">#fffc0a</color>
+    <color name="sharebtn_yellow">#f8e72d</color>
+
+
 </resources>

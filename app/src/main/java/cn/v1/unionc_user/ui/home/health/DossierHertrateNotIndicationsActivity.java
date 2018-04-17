@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.donkingliang.labels.LabelsView;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
@@ -38,6 +39,10 @@ public class DossierHertrateNotIndicationsActivity extends BaseActivity {
     private MyAdapter mAdapter;
     private List<NoIndicationsModel> mListData = new ArrayList<>();
     private String nodicationId = "";
+
+    @BindView(R.id.labels)
+    LabelsView labelsView;
+
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.img_back)

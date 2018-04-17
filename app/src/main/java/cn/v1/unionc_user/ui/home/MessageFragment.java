@@ -25,6 +25,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.LocationSource;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
@@ -37,7 +42,9 @@ import com.tencent.imsdk.ext.message.TIMConversationExt;
 import com.tencent.imsdk.ext.message.TIMManagerExt;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,6 +65,7 @@ import cn.v1.unionc_user.model.JiGuangData;
 import cn.v1.unionc_user.model.LocationUpdateEventData;
 import cn.v1.unionc_user.model.LogOutEventData;
 import cn.v1.unionc_user.model.LoginUpdateEventData;
+import cn.v1.unionc_user.model.Position;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
@@ -76,7 +84,19 @@ import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MessageFragment extends BaseFragment {
+public class MessageFragment extends BaseFragment implements LocationSource,
+        AMapLocationListener {
+    //声明mLocationOption对象
+    public AMapLocationClientOption mLocationOption = null;
+    private double lat;
+    private double lon;
+    private String provider;//位置提供器
+    private Position position = new Position();
+    private AMap aMap;
+    private OnLocationChangedListener mListener;
+    private AMapLocationClient mlocationClient;
+
+
     private Unbinder unbinder;
 
     @BindView(R.id.banner)
@@ -127,12 +147,18 @@ public class MessageFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BusProvider.getInstance().register(this);
+        mlocationClient = new AMapLocationClient(context);
+        //设置定位回调监听
+        mlocationClient.setLocationListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         BusProvider.getInstance().unregister(this);
+        if (null != mlocationClient) {
+            mlocationClient.onDestroy();
+        }
     }
 
     @Override
@@ -149,7 +175,7 @@ public class MessageFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d("linshi", "MessageFragment.onViewCreated");
         initView();
-        initLocation();
+        initLocation2();
         registerMessageReceiver();  // used for receive msg
         getActivityPush();
     }
@@ -176,20 +202,20 @@ public class MessageFragment extends BaseFragment {
                 }
                 break;
             case R.id.tv_guahao:
-                //心率检测
-                        if(isLogin()){
-//            if(TextUtils.isEmpty(healthInfoId)){
-//                showDialog();
-//            }else{
+//                //心率检测
+//                        if(isLogin()){
+////            if(TextUtils.isEmpty(healthInfoId)){
+////                showDialog();
+////            }else{
 //            Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
 //            String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
 //            intent.putExtra("userId", token);
 //            intent.putExtra("monitorId", "1");
 //            startActivity(intent);
-//            }
-        }else{
-                  goNewActivity(LoginActivity.class);
-        }
+////            }
+//        }else{
+//                  goNewActivity(LoginActivity.class);
+//        }
                 break;
             case R.id.tv_yihu:
                 //医护上门
@@ -353,9 +379,9 @@ public class MessageFragment extends BaseFragment {
                     SPUtil.put(context, Common.ADDRESS, amapLocation.getPoiName());
                     SPUtil.put(context, Common.LONGITUDE, longitude);
                     SPUtil.put(context, Common.LATITUDE, latitude);
+                    closeDialog();
                     //请求数据
                     getHomeList(longitude, latitude);
-                    closeDialog();
                 }
 
                 @Override
@@ -393,6 +419,7 @@ public class MessageFragment extends BaseFragment {
 
 
     private void getHomeList(String longitude, String latitude) {
+        Log.d("linshi","getHomeList");
         showDialog("加载中...");
         dialogtime = 0;
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
@@ -623,6 +650,8 @@ public class MessageFragment extends BaseFragment {
         LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiver, filter);
     }
 
+
+
     public class MessageReceiver extends BroadcastReceiver {
 
         @Override
@@ -675,5 +704,135 @@ Log.d("linshi","action():"+intent.getAction());
             getHomeList(longitude, latitude);
             refrash=false;
         }
+    }
+
+    private void initLocation2(){
+        showDialog("定位中...");
+        //初始化定位参数
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否只定位一次,默认为false
+        mLocationOption.setOnceLocation(false);
+        //设置是否强制刷新WIFI，默认为强制刷新
+        mLocationOption.setWifiActiveScan(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        //设置定位间隔,单位毫秒,默认为2000ms
+        mLocationOption.setInterval(1800*1000);
+        //给定位客户端对象设置定位参数
+        mlocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mlocationClient.startLocation();
+
+    }
+    /**
+     * 定位成功后回调函数
+     */
+    @Override
+    public void onLocationChanged(AMapLocation amapLocation) {
+        Log.d("linshi","amapLocation.getPoiName()"+(amapLocation != null)+"amapLocation.getLongitude():"+(amapLocation.getErrorCode() == 0));
+        if (amapLocation != null) {
+            if (amapLocation.getErrorCode() == 0) {
+                    //定位成功回调信息，设置相关消息
+                    amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                    amapLocation.getLatitude();//获取纬度
+                    amapLocation.getLongitude();//获取经度
+                    amapLocation.getAccuracy();//获取精度信息
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date date = new Date(amapLocation.getTime());
+                    df.format(date);//定位时间
+                    amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                    amapLocation.getCountry();//国家信息
+                    amapLocation.getProvince();//省信息
+                    amapLocation.getCity();//城市信息
+                    amapLocation.getDistrict();//城区信息
+                    amapLocation.getStreet();//街道信息
+                    amapLocation.getStreetNum();//街道门牌号信息
+                    amapLocation.getCityCode();//城市编码
+                    amapLocation.getAdCode();//地区编码
+//                        amapLocation.getAOIName();//获取当前定位点的AOI信息
+                currentPoiname = amapLocation.getPoiName();
+//                    if (isLogin()&&!SPUtil.contains(context,Common.USER_ADD)) {
+//                        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//                        updateAdd(token, amapLocation.getPoiName(),latitude,longitude);
+//                        SPUtil.put(context, Common.USER_ADD, amapLocation.getPoiName());
+//                        return;
+//                    }else {
+//                        tvAddress.setText((String)SPUtil.get(context,Common.USER_ADD,""));
+//                    }
+                String add=(String)SPUtil.get(context,Common.USER_ADD,"");
+                Log.d("linshi","isLogin():"+isLogin());
+                Log.d("linshi","SPUtil.contains(context, Common.USER_ADD):"+SPUtil.contains(context, Common.USER_ADD));
+                Log.d("linshi","TextUtils.isEmpty(add):"+TextUtils.isEmpty(add));
+                if(isLogin()&&SPUtil.contains(context, Common.USER_ADD)&&!TextUtils.isEmpty(add)){
+                    tvAddress.setText(add);
+
+                }else{
+                    tvCity.setText(amapLocation.getCity());
+                    tvAddress.setText(amapLocation.getPoiName());
+                }
+                mlocationClient.stopLocation();
+                //位置确定弹框
+//                confirmLocationDialog();
+                //获取经纬度
+                longitude = amapLocation.getLongitude() + "";
+                latitude = amapLocation.getLatitude() + "";
+                SPUtil.put(context, Common.ADDRESS, amapLocation.getPoiName());
+                SPUtil.put(context, Common.LONGITUDE, longitude);
+                SPUtil.put(context, Common.LATITUDE, latitude);
+                //请求数据
+                getHomeList(longitude, latitude);
+                closeDialog();
+
+
+            } else {
+                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError", "location Error, ErrCode:"
+                        + amapLocation.getErrorCode() + ", errInfo:"
+                        + amapLocation.getErrorInfo());
+                tvAddress.setText("请选择");
+                mlocationClient.stopLocation();
+                closeDialog();
+            }
+        }
+    }
+    /**
+     * 激活定位
+     */
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        mListener = onLocationChangedListener;
+        if (mlocationClient == null) {
+            //初始化定位
+            mlocationClient = new AMapLocationClient(context);
+            //初始化定位参数
+            mLocationOption = new AMapLocationClientOption();
+            //设置定位回调监听
+            mlocationClient.setLocationListener(this);
+            //设置为高精度定位模式
+            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            //设置定位参数
+            mlocationClient.setLocationOption(mLocationOption);
+            // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
+            // 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用stopLocation()方法来取消定位请求
+            // 在定位结束后，在合适的生命周期调用onDestroy()方法
+            // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
+            mlocationClient.startLocation();//启动定位
+        }
+    }
+    /**
+     * 停止定位
+     */
+    @Override
+    public void deactivate() {
+        mListener = null;
+        if (mlocationClient != null) {
+            mlocationClient.stopLocation();
+            mlocationClient.onDestroy();
+        }
+        mlocationClient = null;
     }
 }

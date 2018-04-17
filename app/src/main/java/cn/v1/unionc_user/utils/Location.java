@@ -52,7 +52,7 @@ public abstract class Location {
             @Override
             public void onLocationChanged(AMapLocation amapLocation) {
                 if (amapLocation != null) {
-                    Logger.i(new Gson().toJson(amapLocation));
+//                    Logger.i(new Gson().toJson(amapLocation));
                     if (amapLocation.getErrorCode() == 0) {
                         //定位成功回调信息，设置相关消息
                         amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表

@@ -60,6 +60,7 @@
         android:icon="@mipmap/ic_launcher2"
         android:label="@string/app_name"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -76,7 +77,6 @@
         </meta-data>
         <activity
             android:name=".ui.StartActivity"
-            android:launchMode="singleTask"
             android:theme="@style/Start_Theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -191,6 +191,7 @@
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHertrateNotIndicationsActivity"></activity>
         <activity android:name="cn.v1.unionc_user.ui.home.health.EcgDataSourceReviewActivity"></activity>
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierDiabetesCureMedActivity"></activity>
+        <activity android:name="cn.v1.unionc_user.ui.home.health.DossierWheelViewActivity"></activity>
 
 
 

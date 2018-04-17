@@ -42,6 +42,10 @@ import butterknife.OnClick;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.HeartIndicationData;
+import cn.v1.unionc_user.network_frame.ConnectHttp;
+import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.health.file.EcgDataSource;
 import cn.v1.unionc_user.ui.home.health.file.EcgFile;
@@ -177,10 +181,8 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
             //心脏病类型
             case R.id.tv_dossier_hert_rate_type:
                 if(!mOsdkHelper.isRunningRecord()) {
-                    Intent intentNoIndications = new Intent(context, DossierHertrateNotIndicationsActivity.class);
-                    intentNoIndications.putExtra("type","2");
-                    intentNoIndications.putExtra("noIndication", tvDossierHertRateNotIndications.getText().toString().trim());
-                    startActivityForResult(intentNoIndications, 9990);
+                    Intent intentType = DossierWheelViewActivity.getPickViewActivityOne(context, DossierWheelViewActivity.TYPE_ONE, "", heartDisease);
+                    startActivityForResult(intentType, 9990);
                 }
 //                if(!mOsdkHelper.isRunningRecord()) {
 //                    Intent intentType = DossierWheelViewActivity.getPickViewActivityOne(context, DossierWheelViewActivity.TYPE_ONE, "", heartDisease);
@@ -239,7 +241,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
     private String userId = "";
     private String monitorId = "";
     private String healthInfoId = "";
-    private ArrayList<PsyDictionaryData.DataBean> hertDiseaseArray = new ArrayList<>();
+    private List<HeartIndicationData.DataData.HeartIndicationDataData> hertDiseaseArray = new ArrayList<>();
     private ArrayList<String> heartDisease = new ArrayList<>();
     private Context context;
     private String disId = "";
@@ -392,6 +394,27 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
      * 初始化心脏病类型
      */
     private void initHeartDiseaseData() {
+        //根据类型查询字典数据（type ：001-医生级别 002-客服电话 003-不适应症 004-心脏病类型）
+        ConnectHttp.connect(UnionAPIPackage.getIntelligentHardwareIndication("004"), new BaseObserver<HeartIndicationData>(context) {
+            @Override
+            public void onResponse(HeartIndicationData data) {
+                if (TextUtils.equals("4000", data.getCode())) {
+                    if(data.getData().getBasicDicts().size()>0) {
+                        heartDisease.clear();
+                        hertDiseaseArray.clear();
+                        hertDiseaseArray.addAll(data.getData().getBasicDicts());
+                        for (HeartIndicationData.DataData.HeartIndicationDataData mData : hertDiseaseArray){
+                            heartDisease.add(mData.getBasicName());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFail (Throwable e){
+                closeDialog();
+            }
+        });
 //        bindObservable(mAppClient.psyDictionary("9"), new Action1<PsyDictionaryData>() {
 //            @Override
 //            public void call(PsyDictionaryData psyDictionaryData) {
@@ -1111,9 +1134,9 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
             //心脏病类型
             tvDossierHertRateType.setText(data.getStringExtra("firstColum"));
             String disName = data.getStringExtra("firstColum");
-            for (PsyDictionaryData.DataBean mdatas : hertDiseaseArray){
-                if(mdatas.getPfsnlName().equals(disName)){
-                    disId = mdatas.getPfsnId();
+            for (HeartIndicationData.DataData.HeartIndicationDataData mdatas : hertDiseaseArray){
+                if(mdatas.getBasicName().equals(disName)){
+                    disId = mdatas.getBasicCode();
                 }
             }
         } else if (requestCode == 6666 && resultCode == RESULT_OK) {

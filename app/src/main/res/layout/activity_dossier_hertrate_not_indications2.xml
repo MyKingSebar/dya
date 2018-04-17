@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.v1.unionc_user.ui.home.health.DossierHertrateNotIndicationsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_toolbar" />
+
+        <TextView
+            android:id="@+id/title_save_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="#26282E"
+            android:elevation="3dp"
+            android:text="保存"
+            android:visibility="visible"
+            />
+
+    </RelativeLayout>
+    <include layout="@layout/include_line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/grey_bg"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_no_indications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black_34"
+            android:padding="15dp"
+            android:text="无症状"/>
+        <ImageView
+            android:id="@+id/img_selceted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="15dp"
+        android:textSize="14sp"
+        android:gravity="bottom"
+        android:textColor="@color/black_87"
+        android:text="不适应症（可多选）"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_not_indications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:background="@color/white"
+        android:paddingBottom="15dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

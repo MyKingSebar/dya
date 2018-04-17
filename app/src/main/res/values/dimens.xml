@@ -5,5 +5,22 @@
     <dimen name="header_width">50dp</dimen>
 
 
+    <!-- PickerUI items dimens-->
+    <dimen name="height_normal_item_pickerui">40dp</dimen>
+    <dimen name="textsize_center_pickerui_item">16sp</dimen>
+    <dimen name="textsize_near_center_pickerui_item">14sp</dimen>
+    <dimen name="textsize_far_center_pickerui_item">12sp</dimen>
+    <dimen name="textsize_small_pickerui_item">10sp</dimen>
 
+    <!-- PickerUI lines dimens -->
+    <dimen name="margin_top_line_top_pickerui">80dp</dimen>
+    <dimen name="margin_top_line_bottom_pickerui">120dp</dimen>
+    <dimen name="height_lines_center_pickerui">1dp</dimen>
+
+    <!-- PickerUI panel dimens -->
+    <dimen name="height_hidden_panel_pickerui">200dp</dimen>
+    <dimen name="height_hidden_panel_pickerui2">245dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="category_tab_text">15dip</dimen>
 </resources>
