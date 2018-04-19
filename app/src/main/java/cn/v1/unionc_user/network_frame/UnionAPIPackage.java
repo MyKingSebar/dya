@@ -532,11 +532,12 @@ public class UnionAPIPackage {
      * @return
      */
     public static Observable<ClinicActivityData> clinicActivities(String clinicId,
-                                                                  String token
+                                                                  String token, String source
     ) {
         HashMap<String, String> params = new HashMap<>();
         params.put("clinicId", clinicId);
         params.put("token", token);
+        params.put("source", source);
         return ConnectHttp.getUnionAPI().clinicActivities(dataProcess(params));
     }
 

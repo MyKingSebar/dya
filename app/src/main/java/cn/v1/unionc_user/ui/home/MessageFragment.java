@@ -135,7 +135,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     private LocationDialog locationDialog;
     private final int REQUEST_PHONE_PERMISSIONS = 0;
     private int dialogtime = 0;
-    private boolean refrash=false;
+    private boolean refrash = false;
 
     Gson gson = new Gson();
 
@@ -166,7 +166,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_message, container, false);
-        unbinder=ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -203,19 +203,19 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 break;
             case R.id.tv_guahao:
                 //心率检测
-                        if(isLogin()){
+                if (isLogin()) {
 //            if(TextUtils.isEmpty(healthInfoId)){
 //                showDialog();
 //            }else{
-            Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
-            String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-            intent.putExtra("userId", token);
-            intent.putExtra("monitorId", "1");
-            startActivity(intent);
+                    Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
+                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+                    intent.putExtra("userId", token);
+                    intent.putExtra("monitorId", "1");
+                    startActivity(intent);
 //            }
-        }else{
-                  goNewActivity(LoginActivity.class);
-        }
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
                 break;
             case R.id.tv_yihu:
                 //医护上门
@@ -304,10 +304,10 @@ public class MessageFragment extends BaseFragment implements LocationSource,
         SPUtil.put(context, Common.LATITUDE, latitude);
         getHomeList(longitude, latitude);
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        if(isLogin()&&!TextUtils.equals(Common.LOCATYPE_NET,data.getType())){
-            updateAdd(token, data.getPoiName(),latitude,longitude);
+        if (isLogin() && !TextUtils.equals(Common.LOCATYPE_NET, data.getType())) {
+            updateAdd(token, data.getPoiName(), latitude, longitude);
             SPUtil.put(context, Common.USER_ADD, data.getPoiName());
-            Log.d("linshi","put:"+data.getPoiName());
+            Log.d("linshi", "put:" + data.getPoiName());
             return;
         }
 
@@ -315,26 +315,27 @@ public class MessageFragment extends BaseFragment implements LocationSource,
 
     @Subscribe
     public void subscribeUpdate(LoginUpdateEventData data) {
-        refrash=true;
+        refrash = true;
         getHomeList(longitude, latitude);
     }
+
     @Subscribe
     public void logoutReturn(LogOutEventData data) {
         getHomeList(longitude, latitude);
     }
 
     @Subscribe
-    public void  activityListReturn(final ActivityListReturnEventData data) {
-        PromptOnebtnDialog promptOnebtnDialog = new PromptOnebtnDialog(context){
+    public void activityListReturn(final ActivityListReturnEventData data) {
+        PromptOnebtnDialog promptOnebtnDialog = new PromptOnebtnDialog(context) {
             @Override
             public void onClosed() {
-                Log.d("linshi","ActivityListReturnEventData"+data.getClinicId());
-                if(!TextUtils.isEmpty(data.getClinicId())){
+                Log.d("linshi", "ActivityListReturnEventData" + data.getClinicId());
+                if (!TextUtils.isEmpty(data.getClinicId())) {
                     Intent intent = new Intent(context, HospitalDetailActivity.class);
-                    intent.putExtra("clinicId", data.getClinicId()+ "");
+                    intent.putExtra("clinicId", data.getClinicId() + "");
                     startActivity(intent);
-                }else{
-                    Log.d("linshi","activityListReturn.data.getClinicId()isEmpty");
+                } else {
+                    Log.d("linshi", "activityListReturn.data.getClinicId()isEmpty");
                 }
 
             }
@@ -347,10 +348,10 @@ public class MessageFragment extends BaseFragment implements LocationSource,
 
     private void initLocation() {
         showDialog("定位中...");
-            new Location(context) {
-                @Override
-                protected void locationSuccess(AMapLocation amapLocation) {
-                    currentPoiname = amapLocation.getPoiName();
+        new Location(context) {
+            @Override
+            protected void locationSuccess(AMapLocation amapLocation) {
+                currentPoiname = amapLocation.getPoiName();
 //                    if (isLogin()&&!SPUtil.contains(context,Common.USER_ADD)) {
 //                        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
 //                        updateAdd(token, amapLocation.getPoiName(),latitude,longitude);
@@ -359,39 +360,38 @@ public class MessageFragment extends BaseFragment implements LocationSource,
 //                    }else {
 //                        tvAddress.setText((String)SPUtil.get(context,Common.USER_ADD,""));
 //                    }
-                    String add=(String)SPUtil.get(context,Common.USER_ADD,"");
-                    Log.d("linshi","isLogin():"+isLogin());
-                    Log.d("linshi","SPUtil.contains(context, Common.USER_ADD):"+SPUtil.contains(context, Common.USER_ADD));
-                    Log.d("linshi","TextUtils.isEmpty(add):"+TextUtils.isEmpty(add));
-                    if(isLogin()&&SPUtil.contains(context, Common.USER_ADD)&&!TextUtils.isEmpty(add)){
-                        tvAddress.setText(add);
+                String add = (String) SPUtil.get(context, Common.USER_ADD, "");
+                Log.d("linshi", "isLogin():" + isLogin());
+                Log.d("linshi", "SPUtil.contains(context, Common.USER_ADD):" + SPUtil.contains(context, Common.USER_ADD));
+                Log.d("linshi", "TextUtils.isEmpty(add):" + TextUtils.isEmpty(add));
+                if (isLogin() && SPUtil.contains(context, Common.USER_ADD) && !TextUtils.isEmpty(add)) {
+                    tvAddress.setText(add);
 
-                    }else{
-                        tvCity.setText(amapLocation.getCity());
-                        tvAddress.setText(amapLocation.getPoiName());
-                    }
-                    stopLocation();
-                    //位置确定弹框
+                } else {
+                    tvCity.setText(amapLocation.getCity());
+                    tvAddress.setText(amapLocation.getPoiName());
+                }
+                stopLocation();
+                //位置确定弹框
 //                confirmLocationDialog();
-                    //获取经纬度
-                    longitude = amapLocation.getLongitude() + "";
-                    latitude = amapLocation.getLatitude() + "";
-                    SPUtil.put(context, Common.ADDRESS, amapLocation.getPoiName());
-                    SPUtil.put(context, Common.LONGITUDE, longitude);
-                    SPUtil.put(context, Common.LATITUDE, latitude);
-                    closeDialog();
-                    //请求数据
-                    getHomeList(longitude, latitude);
-                }
+                //获取经纬度
+                longitude = amapLocation.getLongitude() + "";
+                latitude = amapLocation.getLatitude() + "";
+                SPUtil.put(context, Common.ADDRESS, amapLocation.getPoiName());
+                SPUtil.put(context, Common.LONGITUDE, longitude);
+                SPUtil.put(context, Common.LATITUDE, latitude);
+                closeDialog();
+                //请求数据
+                getHomeList(longitude, latitude);
+            }
 
-                @Override
-                protected void locationFailure() {
-                    tvAddress.setText("请选择");
-                    stopLocation();
-                    closeDialog();
-                }
-            };
-
+            @Override
+            protected void locationFailure() {
+                tvAddress.setText("请选择");
+                stopLocation();
+                closeDialog();
+            }
+        };
 
 
     }
@@ -419,7 +419,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
 
 
     private void getHomeList(String longitude, String latitude) {
-        Log.d("linshi","getHomeList");
+        Log.d("linshi", "getHomeList");
         showDialog("加载中...");
         dialogtime = 0;
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
@@ -443,7 +443,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                         int recommendDoctors = data.getData().getRecommendDoctors().size();
                         if (recommendDoctors == 0) {
                             rlRecommond.setVisibility(View.GONE);
-                        }else{
+                        } else {
                             rlRecommond.setVisibility(View.VISIBLE);
                         }
                         tvRecommond.setText("向您推荐附近" + recommendDoctors + "名家庭医生为您服务");
@@ -451,7 +451,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                             datas.add(data.getData().getRecommendDoctors().get(i));
                             datas.get(index + i).setType(Common.RECOMMEND_DOCTOR);
                         }
-                    }else{
+                    } else {
                         rlRecommond.setVisibility(View.GONE);
                     }
                     if (data.getData().getSignedDoctros().size() != 0) {
@@ -470,7 +470,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                             datas.get(index + i).setType(Common.ATTENDING_DOCTORS);
                         }
                     }
-                    if(isLogin()){
+                    if (isLogin()) {
 
                         getCoversationList();
                         for (int i = 0; i < newConversations.size(); i++) {
@@ -483,11 +483,11 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                                 }
                             }
                         }
-                        Log.d("linshi","Tim3:"+new Gson().toJson(newConversations));
+                        Log.d("linshi", "Tim3:" + new Gson().toJson(newConversations));
                         datas.addAll(newConversations);
                         getPushActivity();
-                        if (pushactivitydatas!=null&&pushactivitydatas.size() != 0) {
-                            datas.addAll((List<HomeListData.DataData.HomeData>)pushactivitydatas);
+                        if (pushactivitydatas != null && pushactivitydatas.size() != 0) {
+                            datas.addAll((List<HomeListData.DataData.HomeData>) pushactivitydatas);
                         }
                     }
 
@@ -516,16 +516,16 @@ public class MessageFragment extends BaseFragment implements LocationSource,
      * 获得本地活动列表
      */
 
-    private void getPushActivity(){
+    private void getPushActivity() {
 //        pushactivitydatas=(List<HomeListData.DataData.HomeData>) SPUtil.get(context,Common.PUSH_ACTIVITY_LOCAL,null);
-        pushactivitydatas=SPUtil.getDataList(context,Common.PUSH_ACTIVITY_LOCAL);
-        if(pushactivitydatas!=null){
-            Log.d("linshi","getPushActivity:"+pushactivitydatas.toString());
+        pushactivitydatas = SPUtil.getDataList(context, Common.PUSH_ACTIVITY_LOCAL);
+        if (pushactivitydatas != null) {
+            Log.d("linshi", "getPushActivity:" + pushactivitydatas.toString());
 
-        }else{
-            Log.d("linshi","getPushActivity:null");
+        } else {
+            Log.d("linshi", "getPushActivity:null");
         }
-}
+    }
 
 
     private void connectclosedialog() {
@@ -544,7 +544,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
         if (isLogin()) {
             newConversations.clear();
             List<TIMConversation> conversations = TIMManagerExt.getInstance().getConversationList();
-            Log.d("linshi","Tim:"+new Gson().toJson(conversations));
+            Log.d("linshi", "Tim:" + new Gson().toJson(conversations));
             Logger.e(new Gson().toJson(conversations));
             for (int i = 0; i < conversations.size(); i++) {
                 if (TIMConversationType.System != conversations.get(i).getType()) {
@@ -561,7 +561,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                     if (0 != num) {
                         homeData.setUnReadMessage(num + "");
                     }
-                    Log.d("linshi","Tim2:"+new Gson().toJson(homeData));
+                    Log.d("linshi", "Tim2:" + new Gson().toJson(homeData));
                     newConversations.add(homeData);
                 }
             }
@@ -582,9 +582,9 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                     Log.d("linshi", "size:" + data.getData().getActivities().size());
 
                     if (data.getData().getActivities().size() != 0) {
-                        Intent intent=new Intent(context,ActivityPopwindowActivity.class);
-                        Bundle bundle=new Bundle();
-                        bundle.putSerializable("list",(Serializable)data.getData().getActivities());//序列化,要注意转化(Serializable)
+                        Intent intent = new Intent(context, ActivityPopwindowActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("list", (Serializable) data.getData().getActivities());//序列化,要注意转化(Serializable)
                         intent.putExtras(bundle);//发送数据
                         startActivity(intent);//启动intent
                     }
@@ -656,20 +656,19 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     }
 
 
-
     public class MessageReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-Log.d("linshi","action():"+intent.getAction());
+            Log.d("linshi", "action():" + intent.getAction());
             if (Common.MESSAGE_JGPUSH_ACTION.equals(intent.getAction())) {
-                if(!isLogin()){
+                if (!isLogin()) {
                     return;
                 }
                 String extras = intent.getStringExtra(JPushInterface.EXTRA_EXTRA);
                 StringBuilder showMsg = new StringBuilder();
                 if (!ExampleUtil.isEmpty(extras)) {
-                    Log.d("linshi","extras():"+extras);
+                    Log.d("linshi", "extras():" + extras);
                     JiGuangData child2 = gson.fromJson(extras, JiGuangData.class);
                     pushactivitydata = new HomeListData.DataData.HomeData();
                     pushactivitydata.setName(child2.getTitle());
@@ -683,12 +682,12 @@ Log.d("linshi","action():"+intent.getAction());
                 }
                 if (pushactivitydata != null) {
 //                    pushactivitydatas=(List<HomeListData.DataData.HomeData>) SPUtil.get(context,Common.PUSH_ACTIVITY_LOCAL,null);
-                    pushactivitydatas=SPUtil.getDataList(context,Common.PUSH_ACTIVITY_LOCAL);
-                    if(pushactivitydatas!=null){
+                    pushactivitydatas = SPUtil.getDataList(context, Common.PUSH_ACTIVITY_LOCAL);
+                    if (pushactivitydatas != null) {
 
                         pushactivitydatas.add(pushactivitydata);
 //                        SPUtil.put(context,Common.PUSH_ACTIVITY_LOCAL,pushactivitydatas);
-                        SPUtil.setDataList(context,Common.PUSH_ACTIVITY_LOCAL,pushactivitydatas);
+                        SPUtil.setDataList(context, Common.PUSH_ACTIVITY_LOCAL, pushactivitydatas);
                     }
 //                    pushactivitydatas.clear();
 //                    pushactivitydatas.add(pushactivitydata);
@@ -705,13 +704,13 @@ Log.d("linshi","action():"+intent.getAction());
     @Override
     public void onResume() {
         super.onResume();
-        if(refrash){
+        if (refrash) {
             getHomeList(longitude, latitude);
-            refrash=false;
+            refrash = false;
         }
     }
 
-    private void initLocation2(){
+    private void initLocation2() {
         showDialog("定位中...");
         //初始化定位参数
         mLocationOption = new AMapLocationClientOption();
@@ -726,38 +725,39 @@ Log.d("linshi","action():"+intent.getAction());
         //设置是否允许模拟位置,默认为false，不允许模拟位置
         mLocationOption.setMockEnable(false);
         //设置定位间隔,单位毫秒,默认为2000ms
-        mLocationOption.setInterval(1800*1000);
+        mLocationOption.setInterval(1800 * 1000);
         //给定位客户端对象设置定位参数
         mlocationClient.setLocationOption(mLocationOption);
         //启动定位
         mlocationClient.startLocation();
 
     }
+
     /**
      * 定位成功后回调函数
      */
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
-        Log.d("linshi","amapLocation.getPoiName()"+(amapLocation != null)+"amapLocation.getLongitude():"+(amapLocation.getErrorCode() == 0));
+        Log.d("linshi", "amapLocation.getPoiName()" + (amapLocation != null) + "amapLocation.getLongitude():" + (amapLocation.getErrorCode() == 0));
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
-                    //定位成功回调信息，设置相关消息
-                    amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                    amapLocation.getLatitude();//获取纬度
-                    amapLocation.getLongitude();//获取经度
-                    amapLocation.getAccuracy();//获取精度信息
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date date = new Date(amapLocation.getTime());
-                    df.format(date);//定位时间
-                    amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
-                    amapLocation.getCountry();//国家信息
-                    amapLocation.getProvince();//省信息
-                    amapLocation.getCity();//城市信息
-                    amapLocation.getDistrict();//城区信息
-                    amapLocation.getStreet();//街道信息
-                    amapLocation.getStreetNum();//街道门牌号信息
-                    amapLocation.getCityCode();//城市编码
-                    amapLocation.getAdCode();//地区编码
+                //定位成功回调信息，设置相关消息
+                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                amapLocation.getLatitude();//获取纬度
+                amapLocation.getLongitude();//获取经度
+                amapLocation.getAccuracy();//获取精度信息
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(amapLocation.getTime());
+                df.format(date);//定位时间
+                amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                amapLocation.getCountry();//国家信息
+                amapLocation.getProvince();//省信息
+                amapLocation.getCity();//城市信息
+                amapLocation.getDistrict();//城区信息
+                amapLocation.getStreet();//街道信息
+                amapLocation.getStreetNum();//街道门牌号信息
+                amapLocation.getCityCode();//城市编码
+                amapLocation.getAdCode();//地区编码
 //                        amapLocation.getAOIName();//获取当前定位点的AOI信息
                 currentPoiname = amapLocation.getPoiName();
 //                    if (isLogin()&&!SPUtil.contains(context,Common.USER_ADD)) {
@@ -768,14 +768,14 @@ Log.d("linshi","action():"+intent.getAction());
 //                    }else {
 //                        tvAddress.setText((String)SPUtil.get(context,Common.USER_ADD,""));
 //                    }
-                String add=(String)SPUtil.get(context,Common.USER_ADD,"");
-                Log.d("linshi","isLogin():"+isLogin());
-                Log.d("linshi","SPUtil.contains(context, Common.USER_ADD):"+SPUtil.contains(context, Common.USER_ADD));
-                Log.d("linshi","TextUtils.isEmpty(add):"+TextUtils.isEmpty(add));
-                if(isLogin()&&SPUtil.contains(context, Common.USER_ADD)&&!TextUtils.isEmpty(add)){
+                String add = (String) SPUtil.get(context, Common.USER_ADD, "");
+                Log.d("linshi", "isLogin():" + isLogin());
+                Log.d("linshi", "SPUtil.contains(context, Common.USER_ADD):" + SPUtil.contains(context, Common.USER_ADD));
+                Log.d("linshi", "TextUtils.isEmpty(add):" + TextUtils.isEmpty(add));
+                if (isLogin() && SPUtil.contains(context, Common.USER_ADD) && !TextUtils.isEmpty(add)) {
                     tvAddress.setText(add);
 
-                }else{
+                } else {
                     tvCity.setText(amapLocation.getCity());
                     tvAddress.setText(amapLocation.getPoiName());
                 }
@@ -804,6 +804,7 @@ Log.d("linshi","action():"+intent.getAction());
             }
         }
     }
+
     /**
      * 激活定位
      */
@@ -828,6 +829,7 @@ Log.d("linshi","action():"+intent.getAction());
             mlocationClient.startLocation();//启动定位
         }
     }
+
     /**
      * 停止定位
      */

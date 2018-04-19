@@ -82,67 +82,130 @@ public class CaptureActivity extends BaseActivity {
                 Logger.d(new Gson().toJson(parsedResult));
                 Logger.d(new Gson().toJson(barcode));
                 String text = rawResult.getText();
-                if (rawResult.getText().contains("unionWeb/activity/clinic-activities")) {
-                    //医院二维码
-                    try {
-                        String[] splitText1 = text.split("clinicId=");
-                        Logger.d(Arrays.toString(splitText1));
-                        String clinicId = "";
-                        if (splitText1[splitText1.length - 1].contains("}")) {
-                            String[] splitText2 = splitText1[splitText1.length - 1].split("\\}");
-                            Logger.d(Arrays.toString(splitText2));
-                            clinicId = splitText2[0];
-                        } else if (splitText1[splitText1.length - 1].contains(",")) {
-                            String[] splitText2 = splitText1[splitText1.length - 1].split(",");
-                            Logger.d(Arrays.toString(splitText2));
-                            clinicId = splitText2[0];
-                        } else if (splitText1[splitText1.length - 1].contains("&")) {
-                            String[] splitText2 = splitText1[splitText1.length - 1].split("&");
-                            Logger.d(Arrays.toString(splitText2));
-                            clinicId = splitText2[0];
-                        } else {
-                            clinicId = splitText1[splitText1.length - 1];
-                        }
-                        if (clinicId.contains("\"")) {
-                            clinicId = clinicId.replaceAll("\"", "");
-                        }
-                        clinicActivities(clinicId);
+                if (rawResult.getText().contains("http://www.yibashi.cn/page/scan.html")) {
+
+
+                    if (rawResult.getText().contains("clinicId=")) {
+                        //医院二维码
+                        try {
+                            String clinicId;
+                            String[] splitText1 = text.split("clinicId=");
+                            Logger.d(Arrays.toString(splitText1));
+                            if (splitText1[1].contains("&")) {
+                                String[] splitText2 = splitText1[1].split("&");
+                                clinicId = splitText2[0];
+                            } else {
+                                clinicId = splitText1[1];
+                            }
+                            if (clinicId.contains("\"")) {
+                                clinicId = clinicId.replaceAll("\"", "");
+                            }
+
+                            clinicActivities(clinicId);
 //                        Intent intent = new Intent(context, SignactivityActivity.class);
 //                        intent.putExtra("clinicId", clinicId);
 //                        startActivityForResult(intent,1);
 //                        finish();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
-                }
-                if (rawResult.getText().contains("unionWeb/scanDoctQRCode.jsp")) {
-                    //医生二维码
-                    try {
-                        String doctId;
-                        String[] splitText1 = text.split("doctId=");
-                        Logger.d(Arrays.toString(splitText1));
-                        if (splitText1[1].contains("&")) {
-                            String[] splitText2 = splitText1[1].split("&");
-                            doctId = splitText2[0];
-                        } else {
-                            doctId = splitText1[1];
+                    }
+                    if (rawResult.getText().contains("doctId=")) {
+                        //医生二维码
+                        try {
+                            String doctId;
+                            String[] splitText1 = text.split("doctId=");
+                            Logger.d(Arrays.toString(splitText1));
+                            if (splitText1[1].contains("&")) {
+                                String[] splitText2 = splitText1[1].split("&");
+                                doctId = splitText2[0];
+                            } else {
+                                doctId = splitText1[1];
+                            }
+                            if (doctId.contains("\"")) {
+                                doctId = doctId.replaceAll("\"", "");
+                            }
+                            Intent intent = new Intent(context, DoctorDetailActivity.class);
+                            intent.putExtra("doctorId", doctId);
+                            intent.putExtra("source", 1 + "");
+                            startActivityForResult(intent,2);
+                            finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        if (doctId.contains("\"")) {
-                            doctId = doctId.replaceAll("\"", "");
-                        }
-                        Intent intent = new Intent(context, DoctorDetailActivity.class);
-                        intent.putExtra("doctorId", doctId);
-                        intent.putExtra("source", 1 + "");
-                        startActivityForResult(intent,2);
-                        finish();
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }
 
                 mScannerView.restartPreviewAfterDelay(1000);
             }
+//            public void onScannerCompletion(Result rawResult, ParsedResult parsedResult, Bitmap barcode) {
+//                Logger.d(new Gson().toJson(rawResult));
+//                Logger.d(new Gson().toJson(parsedResult));
+//                Logger.d(new Gson().toJson(barcode));
+//                String text = rawResult.getText();
+//                if (rawResult.getText().contains("unionWeb/activity/clinic-activities")) {
+//                    //医院二维码
+//                    try {
+//                        String[] splitText1 = text.split("clinicId=");
+//                        Logger.d(Arrays.toString(splitText1));
+//                        String clinicId = "";
+//                        if (splitText1[splitText1.length - 1].contains("}")) {
+//                            String[] splitText2 = splitText1[splitText1.length - 1].split("\\}");
+//                            Logger.d(Arrays.toString(splitText2));
+//                            clinicId = splitText2[0];
+//                        } else if (splitText1[splitText1.length - 1].contains(",")) {
+//                            String[] splitText2 = splitText1[splitText1.length - 1].split(",");
+//                            Logger.d(Arrays.toString(splitText2));
+//                            clinicId = splitText2[0];
+//                        } else if (splitText1[splitText1.length - 1].contains("&")) {
+//                            String[] splitText2 = splitText1[splitText1.length - 1].split("&");
+//                            Logger.d(Arrays.toString(splitText2));
+//                            clinicId = splitText2[0];
+//                        } else {
+//                            clinicId = splitText1[splitText1.length - 1];
+//                        }
+//                        if (clinicId.contains("\"")) {
+//                            clinicId = clinicId.replaceAll("\"", "");
+//                        }
+//                        clinicActivities(clinicId);
+////                        Intent intent = new Intent(context, SignactivityActivity.class);
+////                        intent.putExtra("clinicId", clinicId);
+////                        startActivityForResult(intent,1);
+////                        finish();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+////                if (rawResult.getText().contains("unionWeb/scanDoctQRCode.jsp")) {
+//                if (rawResult.getText().contains("page/scan.html")) {
+//                    //医生二维码
+//                    try {
+//                        String doctId;
+//                        String[] splitText1 = text.split("doctId=");
+//                        Logger.d(Arrays.toString(splitText1));
+//                        if (splitText1[1].contains("&")) {
+//                            String[] splitText2 = splitText1[1].split("&");
+//                            doctId = splitText2[0];
+//                        } else {
+//                            doctId = splitText1[1];
+//                        }
+//                        if (doctId.contains("\"")) {
+//                            doctId = doctId.replaceAll("\"", "");
+//                        }
+//                        Intent intent = new Intent(context, DoctorDetailActivity.class);
+//                        intent.putExtra("doctorId", doctId);
+//                        intent.putExtra("source", 1 + "");
+//                        startActivityForResult(intent,2);
+//                        finish();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                mScannerView.restartPreviewAfterDelay(1000);
+//            }
         });
     }
 
@@ -189,7 +252,7 @@ public class CaptureActivity extends BaseActivity {
     private void clinicActivities(final String clinicId) {
         showDialog("加载中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.clinicActivities(clinicId, token), new BaseObserver<ClinicActivityData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.clinicActivities(clinicId, token,"1"), new BaseObserver<ClinicActivityData>(context) {
             @Override
             public void onResponse(ClinicActivityData data) {
                 closeDialog();

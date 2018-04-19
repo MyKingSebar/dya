@@ -174,9 +174,14 @@ public class DoctorDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.rl_sign:
-                Intent signIntent = new Intent(context, SignDoctorAgreeMentWebViewActivity.class);
-                signIntent.putExtra("doctorId", doctorId);
-                startActivity(signIntent);
+                if(isLogin()){
+
+                    Intent signIntent = new Intent(context, SignDoctorAgreeMentWebViewActivity.class);
+                    signIntent.putExtra("doctorId", doctorId);
+                    startActivity(signIntent);
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
                 break;
             case R.id.ll_recommend:
                 if (!isLogin()) {
