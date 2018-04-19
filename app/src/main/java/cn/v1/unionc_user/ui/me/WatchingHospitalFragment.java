@@ -121,7 +121,10 @@ public class WatchingHospitalFragment extends BaseFragment {
     private void getHospitalList() {
         showDialog("加载中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.getMeWatchingHospitalList(token), new BaseObserver<MeWatchingHospitalListData>(context) {
+        String la=(String)SPUtil.get(context,Common.LATITUDE,"");
+        String lo=(String)SPUtil.get(context,Common.LONGITUDE,"");
+
+        ConnectHttp.connect(UnionAPIPackage.getMeWatchingHospitalList(token,lo,la), new BaseObserver<MeWatchingHospitalListData>(context) {
             @Override
             public void onResponse(MeWatchingHospitalListData data) {
                 Log.d("linshi","datas:"+new Gson().toJson(datas));

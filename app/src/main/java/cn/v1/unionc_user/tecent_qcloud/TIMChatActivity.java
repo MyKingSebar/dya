@@ -179,6 +179,7 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
         });
         registerForContextMenu(listView);
         //TODO
+        Log.d("linshi","homeData.setDoctorName3:"+doctoInfo.getDoctorName());
         title.setTitleText(doctoInfo.getDoctorName() + "");
         title.setMoreImg(R.drawable.btn_person);
         title.setMoreImgAction(new View.OnClickListener() {

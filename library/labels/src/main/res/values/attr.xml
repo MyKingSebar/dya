@@ -8,6 +8,8 @@
             <enum name="MULTI" value="4" />
         </attr>
         <attr name="maxSelect" format="integer"/>
+        <attr name="minWidth" format="dimension"/>
+        <attr name="minHeight" format="dimension"/>
         <attr name="labelTextColor" format="reference" />
         <attr name="labelTextSize" format="dimension" />
         <attr name="labelTextPaddingLeft" format="dimension" />

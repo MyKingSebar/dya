@@ -30,6 +30,8 @@ import cn.v1.unionc_user.view.PromptDialog;
 import cn.v1.unionc_user.view.PromptOnebtnDialog;
 import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
+import static cn.v1.unionc_user.network_frame.UnioncURL.Unionc_app_Host;
+
 public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
 
     @BindView(R.id.img_back)
@@ -87,6 +89,14 @@ public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
         isDoctorSign();
     }
 
+    /**
+     * 针对登录后不显示按钮
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isDoctorSign();
+    }
 
     private void initView() {
         tvTitle.setText("签约家庭医生");
@@ -133,7 +143,7 @@ public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         //支持内容重新布局
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webviewSignDoctor.loadUrl("http://192.168.21.93:8080/unionApp/H5/index.html");
+        webviewSignDoctor.loadUrl(Unionc_app_Host+"/H5/index.html");
     }
 
     /**

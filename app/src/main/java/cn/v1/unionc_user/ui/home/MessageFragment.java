@@ -202,20 +202,20 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 }
                 break;
             case R.id.tv_guahao:
-//                //心率检测
-//                        if(isLogin()){
-////            if(TextUtils.isEmpty(healthInfoId)){
-////                showDialog();
-////            }else{
-//            Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
-//            String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-//            intent.putExtra("userId", token);
-//            intent.putExtra("monitorId", "1");
-//            startActivity(intent);
-////            }
-//        }else{
-//                  goNewActivity(LoginActivity.class);
-//        }
+                //心率检测
+                        if(isLogin()){
+//            if(TextUtils.isEmpty(healthInfoId)){
+//                showDialog();
+//            }else{
+            Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
+            String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+            intent.putExtra("userId", token);
+            intent.putExtra("monitorId", "1");
+            startActivity(intent);
+//            }
+        }else{
+                  goNewActivity(LoginActivity.class);
+        }
                 break;
             case R.id.tv_yihu:
                 //医护上门
@@ -451,6 +451,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                             datas.add(data.getData().getRecommendDoctors().get(i));
                             datas.get(index + i).setType(Common.RECOMMEND_DOCTOR);
                         }
+                    }else{
+                        rlRecommond.setVisibility(View.GONE);
                     }
                     if (data.getData().getSignedDoctros().size() != 0) {
                         int index = datas.size();
@@ -481,6 +483,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                                 }
                             }
                         }
+                        Log.d("linshi","Tim3:"+new Gson().toJson(newConversations));
                         datas.addAll(newConversations);
                         getPushActivity();
                         if (pushactivitydatas!=null&&pushactivitydatas.size() != 0) {
@@ -541,6 +544,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
         if (isLogin()) {
             newConversations.clear();
             List<TIMConversation> conversations = TIMManagerExt.getInstance().getConversationList();
+            Log.d("linshi","Tim:"+new Gson().toJson(conversations));
             Logger.e(new Gson().toJson(conversations));
             for (int i = 0; i < conversations.size(); i++) {
                 if (TIMConversationType.System != conversations.get(i).getType()) {
@@ -557,6 +561,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                     if (0 != num) {
                         homeData.setUnReadMessage(num + "");
                     }
+                    Log.d("linshi","Tim2:"+new Gson().toJson(homeData));
                     newConversations.add(homeData);
                 }
             }

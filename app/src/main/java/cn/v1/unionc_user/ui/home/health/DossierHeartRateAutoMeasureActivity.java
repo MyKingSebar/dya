@@ -181,9 +181,13 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
             //心脏病类型
             case R.id.tv_dossier_hert_rate_type:
                 if(!mOsdkHelper.isRunningRecord()) {
-                    Intent intentType = DossierWheelViewActivity.getPickViewActivityOne(context, DossierWheelViewActivity.TYPE_ONE, "", heartDisease);
-                    startActivityForResult(intentType, 9990);
+                    Intent intentNoIndications = new Intent(context, DossierHertrateNotIndicationsActivitys.class);
+                    startActivityForResult(intentNoIndications, 9990);
                 }
+//                if(!mOsdkHelper.isRunningRecord()) {
+//                    Intent intentType = DossierWheelViewActivity.getPickViewActivityOne(context, DossierWheelViewActivity.TYPE_ONE, "", heartDisease);
+//                    startActivityForResult(intentType, 9990);
+//                }
 //                if(!mOsdkHelper.isRunningRecord()) {
 //                    Intent intentType = DossierWheelViewActivity.getPickViewActivityOne(context, DossierWheelViewActivity.TYPE_ONE, "", heartDisease);
 //                    startActivityForResult(intentType, 9990);

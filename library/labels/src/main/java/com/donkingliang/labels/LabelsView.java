@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,9 @@ public class LabelsView extends ViewGroup implements View.OnClickListener {
     private int mTextPaddingBottom;
     private int mWordMargin;
     private int mLineMargin;
+    private int mminWidth;
+    private int mminHeigh;
+
     private SelectType mSelectType;
     private int mMaxSelect;
 
@@ -117,6 +121,11 @@ public class LabelsView extends ViewGroup implements View.OnClickListener {
             mLineMargin = mTypedArray.getDimensionPixelOffset(R.styleable.labels_view_lineMargin, 0);
             mWordMargin = mTypedArray.getDimensionPixelOffset(R.styleable.labels_view_wordMargin, 0);
             mLabelBgResId = mTypedArray.getResourceId(R.styleable.labels_view_labelBackground, 0);
+            mminWidth = mTypedArray.getDimensionPixelOffset(R.styleable.labels_view_minWidth, 0);
+            mminHeigh = mTypedArray.getDimensionPixelOffset(R.styleable.labels_view_minHeight, 0);
+            Log.d("linshi","mminWidth:"+mminWidth);
+            Log.d("linshi","mminHeigh:"+mminHeigh);
+            Log.d("linshi","mLineMargin:"+mLineMargin);
             mTypedArray.recycle();
         }
     }
@@ -397,6 +406,15 @@ public class LabelsView extends ViewGroup implements View.OnClickListener {
         label.setTag(KEY_DATA,data);
         label.setTag(KEY_POSITION,position);
         label.setOnClickListener(this);
+        if(mminWidth==0||mminHeigh==0){
+
+        }else{
+
+            label.setWidth(mminWidth);
+            label.setHeight(mminHeigh);
+        }
+
+
         addView(label);
         label.setText(provider.getLabelText(label,position,data));
     }
@@ -670,6 +688,23 @@ public class LabelsView extends ViewGroup implements View.OnClickListener {
                 label.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
             }
         }
+    }
+    /**
+     * 设置标签大小（单位是px）
+     *
+     */
+    public void setLabelSize() {
+        Log.d("linshi","setLabelSize:"+mminWidth+","+mminHeigh);
+        if(mminWidth==0||mminHeigh==0){
+            return;
+        }
+            int count = getChildCount();
+            for (int i = 0; i < count; i++) {
+                TextView label = (TextView) getChildAt(i);
+                label.setWidth(mminWidth);
+                label.setHeight(mminHeigh);
+            }
+
     }
 
     public float getLabelTextSize() {

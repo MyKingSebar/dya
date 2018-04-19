@@ -124,7 +124,9 @@ public class WatchingDoctorFragment extends BaseFragment {
     private void getDoctorList() {
         showDialog("加载中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.getMeWatchingDoctorList(token), new BaseObserver<MeWatchingDoctorListData>(context) {
+        String la=(String)SPUtil.get(context,Common.LATITUDE,"");
+        String lo=(String)SPUtil.get(context,Common.LONGITUDE,"");
+        ConnectHttp.connect(UnionAPIPackage.getMeWatchingDoctorList(token,lo,la), new BaseObserver<MeWatchingDoctorListData>(context) {
             @Override
             public void onResponse(MeWatchingDoctorListData data) {
                 Log.d("linshi","datas:"+new Gson().toJson(datas));

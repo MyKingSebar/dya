@@ -506,7 +506,7 @@ public class DoctorDetailActivity extends BaseActivity {
         doctorName = doctorsData.getDoctorName();
         identifier = doctorsData.getIdentifier();
         doctorPhone = doctorsData.getDoctTelphone();
-        Log.d("linshi","bindData.doctorsData.getImagePath():"+doctorsData.getImagePath());
+        Log.d("linshi","bindData.doctorsData.doctorPhone:"+doctorPhone);
         if(TextUtils.isEmpty(doctorsData.getImagePath())){
 
             imgDoctorAvator.setImageResource(R.drawable.icon_doctor_default);
@@ -548,11 +548,13 @@ public class DoctorDetailActivity extends BaseActivity {
         if (TextUtils.equals("1", doctorsData.getIsRecom())) {
             cbNoRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_no_recommend_select);
+            llRecommend.setClickable(false);
 //            llComment.setClickable(false);
         }
         if (TextUtils.equals("5", doctorsData.getIsRecom())) {
             cbRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_recommend_select);
+            llRecommend.setClickable(false);
 //            llComment.setClickable(false);
         }
         attention = doctorsData.getIsAttention();

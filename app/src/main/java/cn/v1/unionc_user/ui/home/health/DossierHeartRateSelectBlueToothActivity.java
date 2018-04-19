@@ -261,7 +261,7 @@ public class DossierHeartRateSelectBlueToothActivity extends BaseActivity implem
             }
 //            mDeviceStatusTV.setText("准备就绪,设备号:" + mOsdkHelper.getDeviceSN());
             ecgSample = sample;
-            LogUtils.LOGD("DossierHeartRateSelectBlueToothActivity",sample+"");
+//            LogUtils.LOGD("DossierHeartRateSelectBlueToothActivity",sample+"");
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

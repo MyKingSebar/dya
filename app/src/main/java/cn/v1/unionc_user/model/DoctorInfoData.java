@@ -102,28 +102,28 @@ public class DoctorInfoData extends BaseData {
             private String RecommendCount;
             private String Remarks;
             //诊所电话
-            private String clinicTelphone;
+            private String ClinicTelphone;
             //个人电话
-            private String doctTelphone;
+            private String DoctTelPhone;
 
             private String Identifier;
 
 
 
             public String getClinicTelphone() {
-                return clinicTelphone;
+                return ClinicTelphone;
             }
 
             public void setClinicTelphone(String clinicTelphone) {
-                this.clinicTelphone = clinicTelphone;
+                this.ClinicTelphone = clinicTelphone;
             }
 
             public String getDoctTelphone() {
-                return doctTelphone;
+                return DoctTelPhone;
             }
 
             public void setDoctTelphone(String doctTelphone) {
-                this.doctTelphone = doctTelphone;
+                this.DoctTelPhone = doctTelphone;
             }
 
 

@@ -192,6 +192,7 @@
         <activity android:name="cn.v1.unionc_user.ui.home.health.EcgDataSourceReviewActivity"></activity>
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierDiabetesCureMedActivity"></activity>
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierWheelViewActivity"></activity>
+        <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHertrateNotIndicationsActivitys"></activity>
 
 
 

@@ -3,6 +3,7 @@ package cn.v1.unionc_user.tecent_qcloud;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -75,15 +79,23 @@ public class ChatAdapter extends ArrayAdapter<Message> {
         if (position < getCount()) {
             final Message data = getItem(position);
             data.showMessage(viewHolder, getContext());
-            Glide.with(context)
-                    .load(SPUtil.get(context, Common.USER_AVATOR, ""))
-                    .into(viewHolder.rightAvatar);
+            if(!TextUtils.isEmpty(SPUtil.get(context, Common.USER_AVATOR, "")+"")){
+
+                Glide.with(context)
+                        .load(SPUtil.get(context, Common.USER_AVATOR, ""))
+                        .placeholder(R.drawable.icon_doctor_default).dontAnimate().error(R.drawable.icon_doctor_default)
+                        .into(viewHolder.rightAvatar);
+            }else{
+                viewHolder.rightAvatar.setImageResource(R.drawable.icon_doctor_default);
+
+            }
             if (null != doctorInfo) {
                 if(TextUtils.isEmpty(doctorInfo.getImagePath())){
                     viewHolder.leftAvatar.setImageResource(R.drawable.icon_doctor_default);
                 }else{
                     Glide.with(context)
                             .load(doctorInfo.getImagePath())
+                            .placeholder(R.drawable.icon_doctor_default).dontAnimate().error(R.drawable.icon_doctor_default)
                             .into(viewHolder.leftAvatar);
                 }
                 viewHolder.leftAvatar.setOnClickListener(new View.OnClickListener() {

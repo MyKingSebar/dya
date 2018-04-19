@@ -10,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMFriendshipManager;
 import com.tencent.imsdk.TIMUserProfile;
@@ -57,6 +61,38 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     @Override
     public void onBindViewHolder(final HomeListAdapter.ViewHolder holder, final int position) {
         final HomeListData.DataData.HomeData homeData = datas.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String type = datas.get(position).getType();
+                String doctorId = datas.get(position).getDoctId() + "";
+                String identifier = datas.get(position).getIdentifier() + "";
+                if (TextUtils.equals(type, Common.RECOMMEND_DOCTOR) ||
+                        TextUtils.equals(type, Common.SIGNED_DOCTROS) ||
+                        TextUtils.equals(type, Common.ATTENDING_DOCTORS)) {
+                    Intent intent = new Intent(context, DoctorDetailActivity.class);
+                    intent.putExtra("doctorId", doctorId);
+                    context.startActivity(intent);
+                }
+                if (TextUtils.equals(type, Common.CONVERSATIONS)) {
+                    DoctorInfo doctorInfo = new DoctorInfo();
+                    doctorInfo.setDoctorName(homeData.getDoctorName() + "");
+                    doctorInfo.setIdentifier(homeData.getIdentifier() + "");
+                    doctorInfo.setImagePath(homeData.getImagePath() + "");
+                    Log.d("linshi","homeData.setDoctorName2:"+homeData.getDoctorName());
+                    TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
+                }
+                if (TextUtils.equals(type, Common.ACTIVITY_PUSH)) {
+                    //
+                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+                    intent.putExtra("type", 3);
+                    intent.putExtra("activityid", homeData.getActivityId());
+                    Log.d("linshi","activityid"+homeData.getActivityId());
+                    context.startActivity(intent);
+                }
+            }
+        });
+
         if (TextUtils.equals(homeData.getType(), Common.INQUIRY_RECORD)) {
             Glide.with(context).load(homeData.getImagePath()).into(holder.imgMessageAvator);
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
@@ -128,6 +164,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 //待获取用户资料的用户列表
                 List<String> users = new ArrayList<String>();
                 users.add(homeData.getIdentifier());
+
+                /**
+                 * 处理im标题有时为空的问题
+                 */
+                holder.itemView.setClickable(false);
+
                 //获取用户资料
                 TIMFriendshipManager.getInstance().getUsersProfile(users, new TIMValueCallBack<List<TIMUserProfile>>() {
                     @Override
@@ -137,6 +179,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         Log.e("tim", "getUsersProfile failed: " + code + " desc");
                         holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
                         holder.tvMessageName.setText(homeData.getIdentifier() + "");
+                        holder.itemView.setClickable(true);
                     }
 
                     @Override
@@ -148,16 +191,39 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                             if (!TextUtils.isEmpty(res.getNickName())) {
                                 holder.tvMessageName.setText(res.getNickName() + "");
                                 homeData.setDoctorName(res.getNickName() + "");
+                                Log.d("linshi","homeData.setDoctorName:"+res.getNickName());
                             } else {
                                 holder.tvMessageName.setText(homeData.getIdentifier() + "");
                             }
                             if (!TextUtils.isEmpty(res.getFaceUrl())) {
-                                Glide.with(context).load(res.getFaceUrl()).into(holder.imgMessageAvator);
+                                Glide.with(context)
+                                        .load(res.getFaceUrl())
+                                        .placeholder(R.drawable.icon_doctor_default).dontAnimate().listener(new RequestListener<String, GlideDrawable>() {
+                                    @Override
+                                    public boolean onException(Exception e, String model,
+                                                               Target<GlideDrawable> target,
+                                                               boolean isFirstResource) {
+                                        Log.d("linshi","onException:"+e.toString()+",model:"+model+",target:"+target+",isFirstResource:"+isFirstResource);
+                                        // 可替换成进度条
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(GlideDrawable resource, String model,
+                                                                   Target<GlideDrawable> target,
+                                                                   boolean isFromMemoryCache,
+                                                                   boolean isFirstResource) {
+                                        // 图片加载完成，取消进度条
+                                        return false;
+                                    }
+                                }).error(R.drawable.icon_doctor_default)
+                                        .into(holder.imgMessageAvator);
                                 homeData.setImagePath(res.getFaceUrl() + "");
                             } else {
                                 holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
                             }
                         }
+                        holder.itemView.setClickable(true);
                     }
                 });
 
@@ -203,36 +269,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 //            holder.tvDescribe.setText("最近的聊天记录");
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String type = datas.get(position).getType();
-                String doctorId = datas.get(position).getDoctId() + "";
-                String identifier = datas.get(position).getIdentifier() + "";
-                if (TextUtils.equals(type, Common.RECOMMEND_DOCTOR) ||
-                        TextUtils.equals(type, Common.SIGNED_DOCTROS) ||
-                        TextUtils.equals(type, Common.ATTENDING_DOCTORS)) {
-                    Intent intent = new Intent(context, DoctorDetailActivity.class);
-                    intent.putExtra("doctorId", doctorId);
-                    context.startActivity(intent);
-                }
-                if (TextUtils.equals(type, Common.CONVERSATIONS)) {
-                    DoctorInfo doctorInfo = new DoctorInfo();
-                    doctorInfo.setDoctorName(homeData.getDoctorName() + "");
-                    doctorInfo.setIdentifier(homeData.getIdentifier() + "");
-                    doctorInfo.setImagePath(homeData.getImagePath() + "");
-                    TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
-                }
-                if (TextUtils.equals(type, Common.ACTIVITY_PUSH)) {
-                    //
-                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
-                    intent.putExtra("type", 3);
-                    intent.putExtra("activityid", homeData.getActivityId());
-                    Log.d("linshi","activityid"+homeData.getActivityId());
-                    context.startActivity(intent);
-                }
-            }
-        });
+
 
     }
 

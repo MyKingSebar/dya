@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,6 @@ public class DossierHertrateNotIndicationsActivity extends BaseActivity {
     private ImageView img_selceted;
     private boolean isRLNoIndicationSelected = false;
     private RecyclerView notIndicationsRecycleView;
-    private MyAdapter mAdapter;
     private List<NoIndicationsModel> mListData = new ArrayList<>();
     private String nodicationId = "";
 
@@ -110,11 +110,18 @@ public class DossierHertrateNotIndicationsActivity extends BaseActivity {
                                 nodicationId = mData.getBasicCode();
                             }
                         }
+                        Log.d("linshi","mListData:"+mListData.size());
+                        labelsView.setLabels(mListData, new LabelsView.LabelTextProvider<NoIndicationsModel>() {
+                            @Override
+                            public CharSequence getLabelText(TextView label, int position, NoIndicationsModel data) {
+                                //根据data和position返回label需要显示的数据。
+                                return data.getTitle();
+                            }
+                        });
                     } else {
                         showTost(data.getMessage());
                     }
                 }
-                mAdapter.notifyDataSetChanged();
             }
 
                 @Override
@@ -142,7 +149,6 @@ public class DossierHertrateNotIndicationsActivity extends BaseActivity {
                 }
             }
 
-            mAdapter.notifyDataSetChanged();
         }
 
         private void initView () {
@@ -169,23 +175,29 @@ public class DossierHertrateNotIndicationsActivity extends BaseActivity {
                     } else {
                         img_selceted.setImageResource(R.drawable.icon_choice);
                         isRLNoIndicationSelected = true;
-                        for (int i = 0; i < mListData.size(); i++) {
-                            if (mListData.get(i).isState()) {
-                                mListData.get(i).setState(false);
-                            }
-                        }
-                        mAdapter.notifyDataSetChanged();
+                        labelsView.clearAllSelect();
                     }
                 }
             });
             img_selceted = (ImageView) findViewById(R.id.img_selceted);
-            //recycleView不适应症列表
-            notIndicationsRecycleView = (RecyclerView) findViewById(R.id.rv_not_indications);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            notIndicationsRecycleView.setLayoutManager(linearLayoutManager);
-            mAdapter = new MyAdapter();
-            notIndicationsRecycleView.setAdapter(mAdapter);
+
+            //标签的选中监听
+            labelsView.setOnLabelSelectChangeListener(new LabelsView.OnLabelSelectChangeListener() {
+                @Override
+                public void onLabelSelectChange(TextView label, Object data, boolean isSelect, int position) {
+                    //label是被选中的标签，data是标签所对应的数据，isSelect是是否选中，position是标签的位置。
+                    if (isRLNoIndicationSelected) {
+                        img_selceted.setImageResource(0);
+                        isRLNoIndicationSelected = false;
+                    }
+                    if (mListData.get(position).isState()) {
+                        mListData.get(position).setState(false);
+                    } else {
+                        mListData.get(position).setState(true);
+                    }
+                }
+            });
+            labelsView.setLabelSize();
 
         }
 
@@ -222,62 +234,7 @@ public class DossierHertrateNotIndicationsActivity extends BaseActivity {
             super.onBackPressed();
         }
 
-        private class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-            @Override
-            public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(DossierHertrateNotIndicationsActivity.this).inflate(R.layout.item_dossierhertrate_noindications, parent, false);
-                ViewHolder viewHolder = new ViewHolder(view);
-                return viewHolder;
-            }
-
-            @Override
-            public void onBindViewHolder(final ViewHolder holder, final int position) {
-
-                holder.tvTitle.setText(mListData.get(position).getTitle());
-                if (mListData.get(position).isState()) {
-                    holder.imgSelceted.setImageResource(R.drawable.icon_choice);
-                } else {
-                    holder.imgSelceted.setImageResource(0);
-                }
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (isRLNoIndicationSelected) {
-                            img_selceted.setImageResource(0);
-                            isRLNoIndicationSelected = false;
-                        }
-                        if (mListData.get(position).isState()) {
-                            holder.imgSelceted.setImageResource(0);
-                            mListData.get(position).setState(false);
-                        } else {
-                            holder.imgSelceted.setImageResource(R.drawable.icon_choice);
-                            mListData.get(position).setState(true);
-                        }
-                    }
-                });
-
-            }
-
-            @Override
-            public int getItemCount() {
-                return mListData.size();
-            }
-
-
-            class ViewHolder extends RecyclerView.ViewHolder {
-
-                TextView tvTitle;
-                ImageView imgSelceted;
-
-                public ViewHolder(View itemView) {
-                    super(itemView);
-                    tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-                    imgSelceted = (ImageView) itemView.findViewById(R.id.img_selceted);
-
-                }
-            }
-        }
 
         private class NoIndicationsModel {
             private String title;

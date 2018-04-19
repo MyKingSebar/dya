@@ -166,12 +166,14 @@ public class DossierHeartRateAutoFragment extends BaseFragment {
                 break;
             //治疗药物
             case R.id.tv_dossier_hert_rate_medicine:
-//                Intent intentMedicine = new Intent(getActivity(), DossierDiabetesCureMedActivity.class);
-//                intentMedicine.putExtra("content", tvDossierHertRateMedicine.getText().toString());
-//                startActivityForResult(intentMedicine, 8888);
+                Intent intentMedicine = new Intent(getActivity(), DossierDiabetesCureMedActivity.class);
+                intentMedicine.putExtra("content", tvDossierHertRateMedicine.getText().toString());
+                startActivityForResult(intentMedicine, 8888);
                 break;
             //心脏病类型
             case R.id.tv_dossier_hert_rate_type:
+                Intent intentType = new Intent(getActivity(), DossierHertrateNotIndicationsActivitys.class);
+                startActivityForResult(intentType, 9990);
 //                Intent intentType = DossierWheelViewActivity.getPickViewActivityOne(getActivity(), DossierWheelViewActivity.TYPE_ONE, "", heartDisease);
 //                startActivityForResult(intentType, 9990);
                 break;

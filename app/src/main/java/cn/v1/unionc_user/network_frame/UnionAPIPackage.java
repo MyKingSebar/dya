@@ -142,12 +142,14 @@ public class UnionAPIPackage {
      *
      * @return
      */
-    public static Observable<MeWatchingDoctorListData> getMeWatchingDoctorList(String token) {
+    public static Observable<MeWatchingDoctorListData> getMeWatchingDoctorList(String token, String longitude, String latitude) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("attentType", "1");//查询类型（1：查询关注的医生 2关注的医院)
         params.put("pageNo", "1");
         params.put("pageSize", "100");
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
         return ConnectHttp.getUnionAPI().getMeWatchingDoctorList(dataProcess(params));
     }
     /**
@@ -155,12 +157,15 @@ public class UnionAPIPackage {
      *
      * @return
      */
-    public static Observable<MeWatchingHospitalListData> getMeWatchingHospitalList(String token) {
+    public static Observable<MeWatchingHospitalListData> getMeWatchingHospitalList(String token, String longitude, String latitude) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("attentType", "2");//查询类型（1：查询关注的医生 2关注的医院)
         params.put("pageNo", "1");
         params.put("pageSize", "100");
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
+        Log.d("linshi","getHospitalList:"+latitude+","+longitude);
         return ConnectHttp.getUnionAPI().getMeWatchingHospitalList(dataProcess(params));
     }
     /**
