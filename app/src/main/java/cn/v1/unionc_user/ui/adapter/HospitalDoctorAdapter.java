@@ -83,14 +83,13 @@ public class HospitalDoctorAdapter extends NewBaseAdapter<List<ClinicInfoData.Da
         @Override
         public void setData(final int position, final List<ClinicInfoData.DataData.DoctorsData> data) {
             if(TextUtils.isEmpty(data.get(position).getImagePath())){
-imgMessageAvator.setImageResource(R.drawable.me_watching_hospital);
+imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
             }else{
                 Glide.with(context)
                         .load(data.get(position).getImagePath())
-                        .placeholder(R.drawable.me_watching_hospital).dontAnimate()
-                        .error(R.drawable.me_watching_hospital)
+                        .placeholder(R.drawable.icon_doctor_default).dontAnimate()
+                        .error(R.drawable.icon_doctor_default)
                         .into(imgMessageAvator);
-
             }
             tv_doctorname.setText(data.get(position).getDoctorName());
             tvRole.setText(data.get(position).getDepartName());

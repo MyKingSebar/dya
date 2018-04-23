@@ -1,6 +1,7 @@
 package cn.v1.unionc_user.ui.home;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -13,7 +14,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -390,28 +394,55 @@ public class DoctorDetailActivity extends BaseActivity {
     /**
      * 电话提示框
      */
+//    private void photoDialog() {
+//        PromptDialog signDoctor = new PromptDialog(context);
+//        signDoctor.show();
+//        signDoctor.setTitle("电话咨询");
+//        signDoctor.setMessage("是否要进行电话咨询");
+//        signDoctor.setTvCancel("确定");
+//        signDoctor.setTvConfirm("取消");
+//        signDoctor.setOnButtonClickListener(new OnButtonClickListener() {
+//            @Override
+//            public void onConfirmClick() {
+//            }
+//
+//            @Override
+//            public void onCancelClick() {
+//                Intent intent = new Intent(Intent.ACTION_DIAL);
+//                Uri uriData = Uri.parse("tel:" + doctorPhone);
+//                intent.setData(uriData);
+//                startActivity(intent);
+//            }
+//        });
+//    }
     private void photoDialog() {
-        PromptDialog signDoctor = new PromptDialog(context);
-        signDoctor.show();
-        signDoctor.setTitle("电话咨询");
-        signDoctor.setMessage("是否要进行电话咨询");
-        signDoctor.setTvCancel("确定");
-        signDoctor.setTvConfirm("取消");
-        signDoctor.setOnButtonClickListener(new OnButtonClickListener() {
+        final Dialog bottomDialog = new Dialog(this, R.style.BottomDialog);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_content_normal, null);
+        bottomDialog.setContentView(contentView);
+        TextView tvCall=contentView.findViewById(R.id.call);
+        TextView tvCancel=contentView.findViewById(R.id.cancel);
+        tvCall.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onConfirmClick() {
-            }
-
-            @Override
-            public void onCancelClick() {
+            public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 Uri uriData = Uri.parse("tel:" + doctorPhone);
                 intent.setData(uriData);
                 startActivity(intent);
             }
         });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomDialog.dismiss();
+            }
+        });
+        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+        layoutParams.width = getResources().getDisplayMetrics().widthPixels;
+        contentView.setLayoutParams(layoutParams);
+        bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+        bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+        bottomDialog.show();
     }
-
     /**
      * 推荐和不推荐医生
      */

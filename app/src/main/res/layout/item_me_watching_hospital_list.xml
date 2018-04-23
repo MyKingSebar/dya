@@ -50,7 +50,7 @@
                     android:background="@drawable/me_waching_hopital_tag"
                     android:padding="2dp"
                     android:textColor="@color/detail_text"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     tools:text="中医" />
 
                 <TextView
@@ -61,7 +61,7 @@
                     android:background="@drawable/me_waching_hopital_tag"
                     android:padding="2dp"
                     android:textColor="@color/detail_text"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     tools:text="慢性病" />
 
                 <TextView
@@ -72,7 +72,7 @@
                     android:background="@drawable/me_waching_hopital_tag"
                     android:padding="2dp"
                     android:textColor="@color/detail_text"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     tools:text="慢性病" />
 
                 <View

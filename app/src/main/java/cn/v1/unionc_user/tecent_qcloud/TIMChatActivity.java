@@ -129,6 +129,10 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
                         closeDialog();
                         if (TextUtils.equals("4000", data.getCode())) {
                             doctorOrClinicData=data;
+                            adapter.setType(data.getData().getRoleType());
+                            adapter.setCid(data.getData().getClinicId());
+                            adapter.setDid(data.getData().getDoctId());
+                            adapter.notifyDataSetChanged();
                         } else {
                             showTost(data.getMessage());
                         }

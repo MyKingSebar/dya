@@ -2,6 +2,7 @@ package cn.v1.unionc_user.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,15 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         holder.tvName.setText(evaluatesData.getUserName() + "");
         holder.tvTime.setText(evaluatesData.getCreatedTime() + "");
         holder.tvContent.setText(evaluatesData.getContent() + "");
-        Glide.with(context).load(evaluatesData.getHeadImage()).into(holder.imgUserAvator);
+        if (TextUtils.isEmpty(evaluatesData.getHeadImage())) {
+            holder.imgUserAvator.setImageResource(R.drawable.user_default);
+        } else {
+            Glide.with(context)
+                    .load(evaluatesData.getHeadImage())
+                    .placeholder(R.drawable.user_default).dontAnimate()
+                    .error(R.drawable.user_default)
+                    .into(holder.imgUserAvator);
+        }
 
     }
 

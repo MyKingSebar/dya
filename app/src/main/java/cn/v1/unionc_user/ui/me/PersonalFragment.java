@@ -116,7 +116,7 @@ public class PersonalFragment extends BaseFragment {
         getUserInfo();
     }
 
-    @OnClick({R.id.img_back, R.id.tv_right, R.id.tv_edit, R.id.tv_yaoqing, R.id.tv_my_activity, R.id.tv_kefu,
+    @OnClick({R.id.img_back, R.id.tv_right, R.id.tv_edit, R.id.tv_yaoqing, R.id.tv_my_activity, R.id.tv_kefu,R.id.tv_my_heart,
 //            R.id.tv_doctor_num,R.id.tv_hospital_num,R.id.tv_comment_num,
             R.id.ll_doctor_num,R.id.ll_hospital_num,R.id.ll_comment_num})
     public void onClick(View view) {
@@ -160,6 +160,10 @@ public class PersonalFragment extends BaseFragment {
             case R.id.tv_my_activity:
                 //我的活动
                 goNewActivity(MyactivityActivity.class);
+                break;
+            case R.id.tv_my_heart:
+                //心率
+//                goNewActivity(MyactivityActivity.class);
                 break;
             case R.id.tv_kefu:
                 //客服中心

@@ -26,6 +26,7 @@ import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.Message;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
+import cn.v1.unionc_user.ui.home.HospitalDetailActivity;
 
 /**
  * 聊天界面adapter
@@ -39,6 +40,21 @@ public class ChatAdapter extends ArrayAdapter<Message> {
     private View view;
     private ViewHolder viewHolder;
     private DoctorInfo doctorInfo;
+    private String doctorOrClinic;
+    private String did;
+    private String cid;
+
+    public void setDid(String did) {
+        this.did = did;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+
+    public void setType(String type){
+        doctorOrClinic=type;
+    }
 
     /**
      * Constructor
@@ -101,9 +117,22 @@ public class ChatAdapter extends ArrayAdapter<Message> {
                 viewHolder.leftAvatar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, DoctorDetailActivity.class);
-                        intent.putExtra("doctorIdentifier",doctorInfo.getIdentifier());
-                        context.startActivity(intent);
+                        if(TextUtils.equals(doctorOrClinic,"0")){
+//医院
+                            Intent intent = new Intent(context, HospitalDetailActivity.class);
+                            intent.putExtra("clinicId",cid);
+                            context.startActivity(intent);
+                        }else if(TextUtils.equals(doctorOrClinic,"1")|TextUtils.equals(doctorOrClinic,"2")){
+                            //医生
+                            Intent intent = new Intent(context, DoctorDetailActivity.class);
+                            intent.putExtra("doctorId",did);
+                            context.startActivity(intent);
+
+//                            Intent intent = new Intent(context, DoctorDetailActivity.class);
+//                            intent.putExtra("doctorIdentifier",doctorInfo.getIdentifier());
+//                            context.startActivity(intent);
+                        }
+
                     }
                 });
             }

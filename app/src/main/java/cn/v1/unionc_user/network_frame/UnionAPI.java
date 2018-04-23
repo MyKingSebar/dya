@@ -23,6 +23,7 @@ import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
 import cn.v1.unionc_user.model.WatchingActivityData;
+import cn.v1.unionc_user.model.WeiXinQRcodeData;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.FieldMap;
@@ -396,6 +397,28 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("basic/basic-dict")
     Observable<HeartIndicationData> getIntelligentHardwareIndication(@FieldMap Map<String, Object> params);
+
+
+
+    /**
+     * 微信二维码相关查询
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("doctor/query-qrcode-type")
+    Observable<WeiXinQRcodeData> getWeiXinQRcode(@FieldMap Map<String, Object> params);
+
+    /**
+     * 添加用户健康数据（monitorId：1-心率）
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/save-health-data")
+    Observable<BaseData> saveHealthData(@FieldMap Map<String, Object> params);
 
 
 }

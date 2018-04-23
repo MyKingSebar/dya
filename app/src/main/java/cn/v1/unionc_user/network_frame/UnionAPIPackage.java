@@ -30,6 +30,7 @@ import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
 import cn.v1.unionc_user.model.WatchingActivityData;
+import cn.v1.unionc_user.model.WeiXinQRcodeData;
 import cn.v1.unionc_user.utils.MobileConfigUtil;
 import io.reactivex.Observable;
 import okhttp3.MediaType;
@@ -593,6 +594,36 @@ public class UnionAPIPackage {
         HashMap<String, String> params = new HashMap<>();
         params.put("type", type);
         return ConnectHttp.getUnionAPI().getIntelligentHardwareIndication(dataProcess(params));
+    }
+    /**
+     * 微信二维码相关查询
+     *
+     * @return
+     */
+    public static Observable<WeiXinQRcodeData> getWeiXinQRcode(String qrCodeContentCode
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("qrCodeContentCode", qrCodeContentCode);
+        return ConnectHttp.getUnionAPI().getWeiXinQRcode(dataProcess(params));
+    }
+    /**
+     * 添加用户健康数据（monitorId：1-心率）
+     *
+     * @return
+     */
+    public static Observable<BaseData> saveHealthData(String token,String monitorId,String monitorDate,String heartRate,String heartRateImage,String cureMedicine,String diabetesType,
+                                                              String disorder,String reason) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("monitorId", monitorId);
+        params.put("monitorDate", monitorDate);
+        params.put("heartRate", heartRate);
+        params.put("heartRateImage", heartRateImage);
+        params.put("cureMedicine", cureMedicine);
+        params.put("diabetesType", diabetesType);
+        params.put("disorder", disorder);
+        params.put("reason", reason);
+        return ConnectHttp.getUnionAPI().saveHealthData(dataProcess(params));
     }
 
 

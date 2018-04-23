@@ -1,11 +1,15 @@
 package cn.v1.unionc_user.ui.home;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -148,10 +152,7 @@ public class HospitalDetailActivity extends BaseActivity {
             case R.id.img_share:
                 break;
             case R.id.img_dial:
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + Tel);
-                intent.setData(data);
-                startActivity(intent);
+                photoDialog();
                 break;
             case R.id.ll_recommend:
                 if (!isLogin()) {
@@ -329,10 +330,13 @@ private void initfragmentData(){
         if (TextUtils.equals("1", clinicData.getIsRecom())) {
             cbNoRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_no_recommend_select);
+            llRecommend.setClickable(false);
+
         }
         if (TextUtils.equals("5", clinicData.getIsRecom())) {
             cbRecommend.setChecked(true);
             imgRecommend.setImageResource(R.drawable.icon_upper_recommend_select);
+            llRecommend.setClickable(false);
         }
         attention = clinicData.getIsAttention();
         if (TextUtils.equals("0", clinicData.getIsAttention())) {
@@ -506,5 +510,32 @@ private void initfragmentData(){
                     }
                 });
     }
-
+    private void photoDialog() {
+        final Dialog bottomDialog = new Dialog(this, R.style.BottomDialog);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_content_normal, null);
+        bottomDialog.setContentView(contentView);
+        TextView tvCall=contentView.findViewById(R.id.call);
+        TextView tvCancel=contentView.findViewById(R.id.cancel);
+        tvCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + Tel);
+                intent.setData(data);
+                startActivity(intent);
+            }
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomDialog.dismiss();
+            }
+        });
+        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+        layoutParams.width = getResources().getDisplayMetrics().widthPixels;
+        contentView.setLayoutParams(layoutParams);
+        bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+        bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+        bottomDialog.show();
+    }
 }

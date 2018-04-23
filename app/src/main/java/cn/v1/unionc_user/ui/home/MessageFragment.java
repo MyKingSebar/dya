@@ -30,6 +30,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.LocationSource;
+import com.baoyz.widget.PullRefreshLayout;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
@@ -121,6 +122,10 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     TextView tvRecommond;
     @BindView(R.id.rl_recommond)
     RelativeLayout rlRecommond;
+    @BindView(R.id.swipeRefreshLayout)
+    PullRefreshLayout pullRefreshLayout;
+
+
 
     private int[] imgs = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
     private HomeListAdapter homeListAdapter;
@@ -255,6 +260,18 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     }
 
     private void initView() {
+        // listen refresh event
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // start refresh
+                getHomeList(longitude, latitude);
+            }
+        });
+
+
+
+
         rlRecommond.setVisibility(View.GONE);
         List<View> viewList = new ArrayList<>();
         for (int i = 0; i < imgs.length; i++) {
@@ -498,8 +515,12 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                     homeListAdapter.setData(datas);
 //                    homeListAdapter.setData(datas);
                     Logger.json(new Gson().toJson(datas));
+                    // refresh complete
+                    pullRefreshLayout.setRefreshing(false);
                 } else {
                     showTost(data.getMessage());
+                    // refresh complete
+                    pullRefreshLayout.setRefreshing(false);
                 }
             }
 
@@ -507,6 +528,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
             public void onFail(Throwable e) {
                 closeDialog();
 //                connectclosedialog();
+                // refresh complete
+                pullRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -544,7 +567,6 @@ public class MessageFragment extends BaseFragment implements LocationSource,
         if (isLogin()) {
             newConversations.clear();
             List<TIMConversation> conversations = TIMManagerExt.getInstance().getConversationList();
-            Log.d("linshi", "Tim:" + new Gson().toJson(conversations));
             Logger.e(new Gson().toJson(conversations));
             for (int i = 0; i < conversations.size(); i++) {
                 if (TIMConversationType.System != conversations.get(i).getType()) {
@@ -561,7 +583,6 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                     if (0 != num) {
                         homeData.setUnReadMessage(num + "");
                     }
-                    Log.d("linshi", "Tim2:" + new Gson().toJson(homeData));
                     newConversations.add(homeData);
                 }
             }

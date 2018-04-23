@@ -244,13 +244,20 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_recycleview"
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent">
 
-        />
+        <!-- ListView、ScrollView、RecyclerView、Other -->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+    </com.baoyz.widget.PullRefreshLayout>
 
 
 </LinearLayout>

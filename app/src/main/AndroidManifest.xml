@@ -77,7 +77,7 @@
         </meta-data>
         <activity
             android:name=".ui.StartActivity"
-            android:theme="@style/Start_Theme">
+            android:theme="@style/AppSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

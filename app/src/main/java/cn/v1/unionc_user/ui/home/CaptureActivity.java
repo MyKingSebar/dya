@@ -29,6 +29,7 @@ import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.ActivityListReturnEventData;
 import cn.v1.unionc_user.model.ClinicActivityData;
+import cn.v1.unionc_user.model.WeiXinQRcodeData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
@@ -82,59 +83,76 @@ public class CaptureActivity extends BaseActivity {
                 Logger.d(new Gson().toJson(parsedResult));
                 Logger.d(new Gson().toJson(barcode));
                 String text = rawResult.getText();
-                if (rawResult.getText().contains("http://www.yibashi.cn/page/scan.html")) {
-
-
-                    if (rawResult.getText().contains("clinicId=")) {
-                        //医院二维码
+                Log.d("linshi","rawResult.getText():"+rawResult.getText());
+                if (rawResult.getText().contains("weixin.qq.com/")) {
+                    if (rawResult.getText().contains("/q/")) {
                         try {
-                            String clinicId;
-                            String[] splitText1 = text.split("clinicId=");
+                            String qrCodeContentCode;
+                            String[] splitText1 = text.split("q/");
                             Logger.d(Arrays.toString(splitText1));
-                            if (splitText1[1].contains("&")) {
-                                String[] splitText2 = splitText1[1].split("&");
-                                clinicId = splitText2[0];
-                            } else {
-                                clinicId = splitText1[1];
-                            }
-                            if (clinicId.contains("\"")) {
-                                clinicId = clinicId.replaceAll("\"", "");
+                            if (!TextUtils.isEmpty(splitText1[1])) {
+                                qrCodeContentCode = splitText1[1];
+                                getweiXin(qrCodeContentCode);
+                            }else{
+                                Log.d("linshi","TextUtils.isEmpty(splitText1[1])");
                             }
 
-                            clinicActivities(clinicId);
-//                        Intent intent = new Intent(context, SignactivityActivity.class);
-//                        intent.putExtra("clinicId", clinicId);
-//                        startActivityForResult(intent,1);
-//                        finish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
 
-                    }
-                    if (rawResult.getText().contains("doctId=")) {
-                        //医生二维码
-                        try {
-                            String doctId;
-                            String[] splitText1 = text.split("doctId=");
-                            Logger.d(Arrays.toString(splitText1));
-                            if (splitText1[1].contains("&")) {
-                                String[] splitText2 = splitText1[1].split("&");
-                                doctId = splitText2[0];
-                            } else {
-                                doctId = splitText1[1];
-                            }
-                            if (doctId.contains("\"")) {
-                                doctId = doctId.replaceAll("\"", "");
-                            }
-                            Intent intent = new Intent(context, DoctorDetailActivity.class);
-                            intent.putExtra("doctorId", doctId);
-                            intent.putExtra("source", 1 + "");
-                            startActivityForResult(intent,2);
-                            finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
+
+//                    if (rawResult.getText().contains("clinicId=")) {
+//                        //医院二维码
+//                        try {
+//                            String clinicId;
+//                            String[] splitText1 = text.split("clinicId=");
+//                            Logger.d(Arrays.toString(splitText1));
+//                            if (splitText1[1].contains("&")) {
+//                                String[] splitText2 = splitText1[1].split("&");
+//                                clinicId = splitText2[0];
+//                            } else {
+//                                clinicId = splitText1[1];
+//                            }
+//                            if (clinicId.contains("\"")) {
+//                                clinicId = clinicId.replaceAll("\"", "");
+//                            }
+//
+//                            clinicActivities(clinicId);
+////                        Intent intent = new Intent(context, SignactivityActivity.class);
+////                        intent.putExtra("clinicId", clinicId);
+////                        startActivityForResult(intent,1);
+////                        finish();
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                    if (rawResult.getText().contains("doctId=")) {
+//                        //医生二维码
+//                        try {
+//                            String doctId;
+//                            String[] splitText1 = text.split("doctId=");
+//                            Logger.d(Arrays.toString(splitText1));
+//                            if (splitText1[1].contains("&")) {
+//                                String[] splitText2 = splitText1[1].split("&");
+//                                doctId = splitText2[0];
+//                            } else {
+//                                doctId = splitText1[1];
+//                            }
+//                            if (doctId.contains("\"")) {
+//                                doctId = doctId.replaceAll("\"", "");
+//                            }
+//                            Intent intent = new Intent(context, DoctorDetailActivity.class);
+//                            intent.putExtra("doctorId", doctId);
+//                            intent.putExtra("source", 1 + "");
+//                            startActivityForResult(intent,2);
+//                            finish();
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
                 }
 
                 mScannerView.restartPreviewAfterDelay(1000);
@@ -272,6 +290,44 @@ public class CaptureActivity extends BaseActivity {
                         ActivityListReturnEventData eventData = new ActivityListReturnEventData(clinicId);
                         BusProvider.getInstance().post(eventData);
                     }
+                } else {
+                    showTost(data.getMessage() + "");
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                closeDialog();
+            }
+        });
+    }
+    /**
+     * 查询微信二维码
+     */
+    private void getweiXin(final String qrCodeContentCode) {
+        showDialog("加载中...");
+        ConnectHttp.connect(UnionAPIPackage.getWeiXinQRcode(qrCodeContentCode), new BaseObserver<WeiXinQRcodeData>(context) {
+            @Override
+            public void onResponse(WeiXinQRcodeData data) {
+                closeDialog();
+                if (TextUtils.equals("4000", data.getCode())) {
+                    if(TextUtils.equals(data.getData().getType(),"0")){
+                        //医院
+                        if(!TextUtils.isEmpty(data.getData().getId())){
+                            clinicActivities(data.getData().getId());
+                        }
+                    }else if(TextUtils.equals(data.getData().getType(),"1")){
+                        //医生
+                        if(!TextUtils.isEmpty(data.getData().getId())){
+                            Intent intent = new Intent(context, DoctorDetailActivity.class);
+                            intent.putExtra("doctorId", data.getData().getId());
+                            intent.putExtra("source", 1 + "");
+                            startActivityForResult(intent,2);
+                            finish();
+                        }
+
+                    }
+
                 } else {
                     showTost(data.getMessage() + "");
                 }

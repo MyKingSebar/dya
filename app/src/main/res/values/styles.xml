@@ -1,19 +1,29 @@
 <resources>
-
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="BaseTheme" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="colorPrimary">@color/background</item>
+        <item name="colorPrimaryDark">@color/background</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+    <style name="AppTheme" parent="BaseTheme"></style>
+    <!-- Base application theme. -->
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
         <item name="colorPrimary">@color/tool_bar</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/windowbackground</item>
-    </style>
+    </style>-->
 
     <!-- 开屏页设置 -->
-    <style name="Start_Theme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Start_Theme" parent="android:Theme.Holo.Light.NoActionBar">
         <!-- Customize your theme here. -->
        <item name="android:windowBackground">@drawable/start2</item>
     </style>
-
+    <style name="AppSplash" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/start2</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
     <style name="Dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -38,5 +48,27 @@
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/trans</item>
+    </style>
+
+    <style name="MyDialog" parent="@android:style/Theme.Holo.Dialog">
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--阴影  -->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 还可以加入一些弹出和退出的动画 (lan)-->
+    </style>
+    <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="BottomDialog.Animation" parent="Animation.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/translate_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/translate_dialog_out</item>
     </style>
 </resources>
