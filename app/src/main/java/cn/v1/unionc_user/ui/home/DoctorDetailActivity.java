@@ -170,16 +170,20 @@ public class DoctorDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.ll_phone:
-                if (isLogin()) {
-                    isCertification(PHONE);
-                } else {
-                    goNewActivity(LoginActivity.class);
-                    Log.d("linshi","LoginActivity:Doctorll_phone");
+                if(rlSign.getVisibility()==View.GONE){
+                    showTost("暂无号码");
+                }else{
+
+                    if (isLogin()) {
+                        isCertification(PHONE);
+                    } else {
+                        goNewActivity(LoginActivity.class);
+                        Log.d("linshi","LoginActivity:Doctorll_phone");
+                    }
                 }
                 break;
             case R.id.rl_sign:
                 if(isLogin()){
-
                     Intent signIntent = new Intent(context, SignDoctorAgreeMentWebViewActivity.class);
                     signIntent.putExtra("doctorId", doctorId);
                     startActivity(signIntent);

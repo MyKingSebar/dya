@@ -3,6 +3,7 @@ package cn.v1.unionc_user.ui.home;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -216,16 +217,28 @@ public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
                             String signState = data.getData().getIsSigned();
                             if (TextUtils.equals("1", signState)) {
                                 //已签约
-                                showPromptDialog("恭喜您，已签约家庭医生！");
-                                tvSign.setVisibility(View.GONE);
+//                                showPromptDialog("恭喜您，已签约家庭医生！");
+//                                tvSign.setVisibility(View.GONE);
+                                tvSign.setVisibility(View.VISIBLE);
+                                tvSign.setText("已签约");
+                                tvSign.setBackgroundColor(ContextCompat.getColor(context, R.color.qy_gray));
+                                tvSign.setClickable(false);
                             } else if (TextUtils.equals("-1", signState)) {
                                 //审核
-                                showPromptDialog("申请已提交，审核结果将在信息提交成功后的48小时内反馈，" +
-                                "注意手机保持开机，当地医院会与您电话联系！");
+//                                showPromptDialog("申请已提交，审核结果将在信息提交成功后的48小时内反馈，" +
+//                                "注意手机保持开机，当地医院会与您电话联系！");
+                                tvSign.setVisibility(View.VISIBLE);
+                                tvSign.setText("审核中");
+                                tvSign.setBackgroundColor(ContextCompat.getColor(context, R.color.qy_yellow));
+                                tvSign.setClickable(false);
                             } else if (TextUtils.equals("0", signState)) {
                                 //可以签约
                                 tvSign.setVisibility(View.VISIBLE);
+                                tvSign.setText("签约");
+                                tvSign.setBackgroundColor(ContextCompat.getColor(context, R.color.qm_blue));
+                                tvSign.setClickable(true);
                             }
+
                         } else if (TextUtils.equals("4021", data.getCode())) {
                             gotoAuthDialog();
                         } else {

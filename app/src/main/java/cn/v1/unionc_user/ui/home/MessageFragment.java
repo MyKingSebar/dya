@@ -207,20 +207,20 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 }
                 break;
             case R.id.tv_guahao:
-                //心率检测
-                if (isLogin()) {
-//            if(TextUtils.isEmpty(healthInfoId)){
-//                showDialog();
-//            }else{
-                    Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
-                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-                    intent.putExtra("userId", token);
-                    intent.putExtra("monitorId", "1");
-                    startActivity(intent);
-//            }
-                } else {
-                    goNewActivity(LoginActivity.class);
-                }
+//                //心率检测
+//                if (isLogin()) {
+////            if(TextUtils.isEmpty(healthInfoId)){
+////                showDialog();
+////            }else{
+//                    Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
+//                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//                    intent.putExtra("userId", token);
+//                    intent.putExtra("monitorId", "1");
+//                    startActivity(intent);
+////            }
+//                } else {
+//                    goNewActivity(LoginActivity.class);
+//                }
                 break;
             case R.id.tv_yihu:
                 //医护上门
