@@ -32,6 +32,7 @@ import cn.v1.unionc_user.view.PromptOnebtnDialog;
 import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 
 import static cn.v1.unionc_user.network_frame.UnioncURL.Unionc_app_Host;
+import static cn.v1.unionc_user.network_frame.UnioncURL.Unionc_qianyue_Web;
 
 public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
 
@@ -40,7 +41,7 @@ public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.webview_sign_doctor)
-    WebView webviewSignDoctor;
+    cn.v1.unionc_user.view.X5WebView webviewSignDoctor;
     @BindView(R.id.tv_sign)
     TextView tvSign;
 
@@ -102,49 +103,23 @@ public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
     private void initView() {
         tvTitle.setText("签约家庭医生");
         showDialog("加载中...");
-        webviewSignDoctor.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                if (newProgress == 100) {
-                    closeDialog();
-                }
-            }
-        });
-        webviewSignDoctor.setWebViewClient(new WebViewClient() {
+        webviewSignDoctor.setWebViewClient(new com.tencent.smtt.sdk.WebViewClient() {
 
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();//设置支持https
+            public void onPageFinished(com.tencent.smtt.sdk.WebView webView, String s) {
+                super.onPageFinished(webView, s);
+                closeDialog();
+//                if (!TextUtils.isEmpty(activityId) && null != activityId) {
+//
+//                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//                    webviewSearch.loadUrl("javascript:app('" + token + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId + "')");
+//                    Log.d("linshi", "load:" + token + "," + (String) SPUtil.get(context, Common.LATITUDE, "") + "," + (String) SPUtil.get(context, Common.LONGITUDE, "") + "," + activityId);
+//                }
             }
         });
-        // android 5.0以上默认不支持Mixed Content
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webviewSignDoctor.getSettings().setMixedContentMode(
-                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        }
-        WebSettings webSettings = webviewSignDoctor.getSettings();
-        //多窗口
-        webSettings.supportMultipleWindows();
-        //获取触摸焦点
-        webviewSignDoctor.requestFocusFromTouch();
-        //允许访问文件
-        webSettings.setAllowFileAccess(true);
-        //开启javascript
-        webSettings.setJavaScriptEnabled(true);
-        //支持通过JS打开新窗口
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        //提高渲染的优先级
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        //支持内容重新布局
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webviewSignDoctor.loadUrl(Unionc_app_Host+"/H5/index.html");
+
+
+        webviewSignDoctor.loadUrl(Unionc_qianyue_Web);
     }
 
     /**

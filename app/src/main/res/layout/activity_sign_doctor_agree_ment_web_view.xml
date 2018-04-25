@@ -9,11 +9,11 @@
 
     <include layout="@layout/layout_toolbar" />
 
-    <WebView
+    <cn.v1.unionc_user.view.X5WebView
         android:id="@+id/webview_sign_doctor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"></WebView>
+        android:layout_weight="1"></cn.v1.unionc_user.view.X5WebView>
 
 
     <TextView
