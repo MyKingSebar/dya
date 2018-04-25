@@ -114,10 +114,12 @@ public class StartActivity extends BaseActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                goNewActivity(MainActivity.class);
+                goNewActivity(cn.v1.unionc_user.ui.welcome.StartActivity.class);
                 finish();
             }
-        }, 2000);
+        },
+//                2000
+        0);
     }
 
     @Override

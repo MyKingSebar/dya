@@ -18,6 +18,8 @@ import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
+import cn.v1.unionc_user.model.HeartHistoryData;
+import cn.v1.unionc_user.model.HeartHistoryListData;
 import cn.v1.unionc_user.model.HeartIndicationData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.HomeToHomeData;
@@ -624,6 +626,32 @@ public class UnionAPIPackage {
         params.put("disorder", disorder);
         params.put("reason", reason);
         return ConnectHttp.getUnionAPI().saveHealthData(dataProcess(params));
+    }
+    /**
+     * 用户健康信息列表（monitorId：1-心率）
+     *
+     * @return
+     */
+    public static Observable<HeartHistoryListData> getHeartListData(String token, String monitorId, String pageNo, String pageSize) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("monitorId", monitorId);
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
+        return ConnectHttp.getUnionAPI().getHeartListData(dataProcess(params));
+    }
+    /**
+     *
+     用户健康信息详细（monitorId：1-心率）
+     *
+     * @return
+     */
+    public static Observable<HeartHistoryData> getHeartData(String token, String monitorId, String dataId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("monitorId", monitorId);
+        params.put("dataId", dataId);
+        return ConnectHttp.getUnionAPI().getHeartData(dataProcess(params));
     }
 
 

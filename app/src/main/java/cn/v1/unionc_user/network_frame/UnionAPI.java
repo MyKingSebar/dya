@@ -11,6 +11,8 @@ import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
+import cn.v1.unionc_user.model.HeartHistoryData;
+import cn.v1.unionc_user.model.HeartHistoryListData;
 import cn.v1.unionc_user.model.HeartIndicationData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.HomeToHomeData;
@@ -419,6 +421,25 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("user/save-health-data")
     Observable<BaseData> saveHealthData(@FieldMap Map<String, Object> params);
+    /**
+     * 用户健康信息列表（monitorId：1-心率）
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/user-health-datas")
+    Observable<HeartHistoryListData> getHeartListData(@FieldMap Map<String, Object> params);
+    /**
+     *
+     用户健康信息详细（monitorId：1-心率）
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/user-health-data-info")
+    Observable<HeartHistoryData> getHeartData(@FieldMap Map<String, Object> params);
 
 
 }

@@ -196,6 +196,11 @@
 
 
 
+
+        <activity android:name="cn.v1.unionc_user.ui.welcome.StartActivity"></activity>
+
+
+
         <!-- Rich push 核心功能 since 2.0.6-->
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
