@@ -69,6 +69,7 @@ public class HeartHistoryListActivity extends BaseActivity {
         setContentView(R.layout.activity_dossier_hertrate_historylist);
         ButterKnife.bind(this);
         initView();
+        getlist();
     }
 
 
@@ -119,7 +120,11 @@ public class HeartHistoryListActivity extends BaseActivity {
             public void onResponse(HeartHistoryListData data) {
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
-
+                    if(data.getData().getHealthDatas().size()>0){
+                        last.setText(data.getData().getHealthDatas().get(0).getHeartRate());
+                        hhladapter.setData(data.getData().getHealthDatas());
+                        hhladapter.notifyDataSetChanged();
+                    }
                 } else {
 
                 }

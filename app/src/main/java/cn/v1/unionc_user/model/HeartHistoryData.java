@@ -32,13 +32,13 @@ public class HeartHistoryData extends BaseData {
 
     public static class DataData {
 
-        private List<Heartdata> healthData;
+        private Heartdata healthData;
 
-        public List<Heartdata> getHealthData() {
+        public Heartdata getHealthData() {
             return healthData;
         }
 
-        public void setHealthData(List<Heartdata> healthData) {
+        public void setHealthData(Heartdata healthData) {
             this.healthData = healthData;
         }
 

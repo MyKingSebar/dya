@@ -195,6 +195,9 @@
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHertrateNotIndicationsActivitys"></activity>
 
 
+        <activity android:name="cn.v1.unionc_user.ui.me.HeartHistoryListActivity"></activity>
+
+
 
 
         <activity android:name="cn.v1.unionc_user.ui.welcome.StartActivity"></activity>

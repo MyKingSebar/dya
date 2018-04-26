@@ -1,6 +1,7 @@
 package cn.v1.unionc_user.ui.home.health;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class DossierHeartRateECGPhotoActivity extends BaseActivity {
     private void initView() {
         tvTitle.setText("心电图");
         String fileName = getIntent().getStringExtra("pngFileName");
+        Log.d("linshi","pngFileName:"+fileName);
         if(fileName.startsWith("http")){
             GlideUtil.setNormalImage(this,fileName,photoview,0,0);
 //            Glide.with(this)

@@ -163,7 +163,7 @@ public class PersonalFragment extends BaseFragment {
                 break;
             case R.id.tv_my_heart:
                 //心率
-//                goNewActivity(MyactivityActivity.class);
+                goNewActivity(HeartHistoryListActivity.class);
                 break;
             case R.id.tv_kefu:
                 //客服中心

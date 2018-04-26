@@ -285,11 +285,15 @@ private void save(){
         if (null == mWaitDialog) {
             mWaitDialog = new ProgressDialog(this);
         }
+        tvTitle.setText("心率检测");
         initSdk();
         initData();
-        initView();
-        initEcg();
-        initHeartDiseaseData();
+        if(!getIntent().hasExtra("dataId")){
+
+            initView();
+            initEcg();
+            initHeartDiseaseData();
+        }
     }
 
     @Override
@@ -380,7 +384,7 @@ private void save(){
      * 初始化布局
      */
     private void initView() {
-        tvTitle.setText("心率检测");
+
         if (measureType == 1) {
             tvPropmt.setVisibility(View.GONE);
         }
@@ -459,7 +463,20 @@ private void save(){
         if(getIntent().hasExtra("dataId")){
             dataId=getIntent().getStringExtra("dataId");
             if(!TextUtils.isEmpty(dataId)){
-//                aaa
+                getDataById();
+                //开始记录的按钮
+                imgStartMeasure.setVisibility(View.VISIBLE);
+                //倒计时
+                tvTime.setText("");
+                //计时xinlv
+                tvInstantHeartRate.setText("");
+                //测完后的布局
+                rlAfterTesting.setVisibility(View.VISIBLE);
+                //查看心电图
+                tvViewEcg.setVisibility(View.VISIBLE);
+                //坐标纸布局
+                flEcgBrowser.setVisibility(View.GONE);
+                measureType= ONE_MINUTE_MEASURE;
             }
         }
     }
@@ -1354,7 +1371,13 @@ private void save(){
             @Override
             public void onResponse(HeartHistoryData data) {
                 if (TextUtils.equals("4000", data.getCode())) {
-
+                    tvDossierHertRateDate.setText(data.getData().getHealthData().getMonitorDate());
+                    tvHertRate.setText(data.getData().getHealthData().getHeartRate());
+                    tvDossierHertRateNotIndications.setText(data.getData().getHealthData().getDisorder());
+                    tvDossierHertRateMedicine.setText(data.getData().getHealthData().getCureMedicine());
+                    tvDossierHertRateType.setText(data.getData().getHealthData().getDiabetesType());
+                    tvResult.setText(data.getData().getHealthData().getReason());
+                    pngFileName=data.getData().getHealthData().getHeartRateImage();
                 } else {
 
                 }
