@@ -42,7 +42,11 @@ import butterknife.OnClick;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.BaseData;
+import cn.v1.unionc_user.model.HeartHistoryData;
+import cn.v1.unionc_user.model.HeartHistoryListData;
 import cn.v1.unionc_user.model.HeartIndicationData;
+import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
@@ -195,41 +199,44 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                 break;
             //保存
             case R.id.tv_dossier_hert_rate_save:
-                monitorDate = tvDossierHertRateDate.getText().toString().trim();
-                hertrate = tvHertRate.getText().toString().trim();
-                notIndications = tvDossierHertRateNotIndications.getText().toString().trim();
-                cureMedicine = tvDossierHertRateMedicine.getText().toString().trim();
-                hertDieaseType = tvDossierHertRateType.getText().toString().trim();
-                monitorResult = tvResult.getText().toString().trim();
-                try {
-                    if (!new File(pngFileName).exists()) {
-                        //对异常情况加判断
-                        if(measureType == CONTINUITY_MINUTE_MEASURE){
-                            String json = CaiboSetting.getStringAttr(context,tvDossierHertRateDate.getText().toString().trim());
-                            List<String> fileList = new Gson().fromJson(json, new TypeToken<List<String>>() {}.getType());
-                            if(null == fileList || fileList.size() == 0){
-                                showTost("心电图未生成,请重新测量");
-                                return;
-                            }
-                        }
-                        if(measureType == ONE_MINUTE_MEASURE){
-                            showTost("心电图未生成,请重新测量");
-                            return;
-                        }
-                        showDialog("保存中...");
-                        //按钮保护
-                        tvDossierHertRateSave.setEnabled(false);
-                        saveHertRateData("", cureMedicine, monitorDate, notIndications, hertrate, disId, monitorResult, "");
-                    } else {
-                        uploadPic(pngFileName);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                save();
                 break;
         }
     }
-
+private void save(){
+        Log.d("linshi","save");
+    monitorDate = tvDossierHertRateDate.getText().toString().trim();
+    hertrate = tvHertRate.getText().toString().trim();
+    notIndications = tvDossierHertRateNotIndications.getText().toString().trim();
+    cureMedicine = tvDossierHertRateMedicine.getText().toString().trim();
+    hertDieaseType = tvDossierHertRateType.getText().toString().trim();
+    monitorResult = tvResult.getText().toString().trim();
+    try {
+        if (!new File(pngFileName).exists()) {
+            //对异常情况加判断
+            if(measureType == CONTINUITY_MINUTE_MEASURE){
+                String json = CaiboSetting.getStringAttr(context,tvDossierHertRateDate.getText().toString().trim());
+                List<String> fileList = new Gson().fromJson(json, new TypeToken<List<String>>() {}.getType());
+                if(null == fileList || fileList.size() == 0){
+                    showTost("心电图未生成,请重新测量");
+                    return;
+                }
+            }
+            if(measureType == ONE_MINUTE_MEASURE){
+                showTost("心电图未生成,请重新测量");
+                return;
+            }
+            showDialog("保存中...");
+            //按钮保护
+            tvDossierHertRateSave.setEnabled(false);
+            saveHertRateData("", cureMedicine, monitorDate, notIndications, hertrate, disId, monitorResult, "");
+        } else {
+            uploadImage(pngFileName);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
     private EcgOpenApiHelper mOsdkHelper;
     private int countEcg;//心率测量计时
@@ -242,6 +249,10 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
     private String ecgFile;
     private List<String> cutFileList = new ArrayList<>();
     //数据变量
+    private String dataId = "";
+
+
+
     private String userId = "";
     private String monitorId = "";
     private String healthInfoId = "";
@@ -445,6 +456,12 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
         monitorId = getIntent().getStringExtra("monitorId");
         measureType = getIntent().getIntExtra("measureType", 0);
         ecgSample = getIntent().getIntExtra("ecgSample", 0);
+        if(getIntent().hasExtra("dataId")){
+            dataId=getIntent().getStringExtra("dataId");
+            if(!TextUtils.isEmpty(dataId)){
+//                aaa
+            }
+        }
     }
 
 
@@ -538,37 +555,61 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
         }
     };
 
-    /**
-     * 上传心电图
-     *
-     * @param imgPath
-     */
-    private void uploadPic(String imgPath) {
-        showDialog("保存中...");
-        //按钮保护
-        tvDossierHertRateSave.setEnabled(false);
-//        bindObservable(mAppClient.uploadHeartPic(imgPath, UpLoadServiceEnmu.UPLOADPIC.getName(), UpLoadServiceEnmu.UPLOADPIC.getId()),
-//                new Action1<UploadPicData>() {
-//                    @Override
-//                    public void call(UploadPicData uploadPicData) {
-//                        String imgUrl = uploadPicData.getUrl();
-//                        saveHertRateData("", cureMedicine, monitorDate, notIndications, hertrate, disId, monitorResult, imgUrl);
-//                    }
-//                }, new ErrorAction(this) {
-//                    @Override
-//                    public void call(Throwable throwable) {
-//                        closeDialog();
-//                        tvDossierHertRateSave.setEnabled(true);
-//                        super.call(throwable);
-//                    }
-//                });
-    }
 
     /**
-     * 保存心率数据
+     * 心电图上传
      */
-    private void saveHertRateData(String id, String cureMedicine, String monitorDate, String notIndications, String hertrate,
-                                  String hertDieaseType, String monitorResult, final String heartPicUrl) {
+    private void uploadImage(String imgPath) {
+        //按钮保护
+        tvDossierHertRateSave.setEnabled(false);
+        Log.d("linshi","uploadImage:"+imgPath);
+        showDialog("心电图上传中...");
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.uploadImge(token, new File(imgPath)), new BaseObserver<UpdateFileData>(context) {
+            @Override
+            public void onResponse(UpdateFileData data) {
+                Log.d("linshi","UpdateFileData:"+ new Gson().toJson(data));
+                closeDialog();
+                if (TextUtils.equals("4000", data.getCode())) {
+                    String imgUrl = data.getPath();
+                    //String token,String monitorId,String monitorDate,String heartRate,String heartRateImage,String cureMedicine,String diabetesType,
+                    //     String disorder,String reason
+                        saveHertRateData("1", monitorDate, hertrate, imgUrl,cureMedicine,hertDieaseType,notIndications,monitorResult);
+                } else {
+                    showTost(data.getMessage() + "");
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                closeDialog();
+            }
+        });
+    }
+    /**
+     * 保存心率数据
+     * String token,String monitorId,String monitorDate,String heartRate,String heartRateImage,String cureMedicine,String diabetesType,
+     String disorder,String reason
+     */
+    private void saveHertRateData(String monitorId, String monitorDate, String heartRate, String heartRateImage,
+                                  String cureMedicine, String diabetesType, String disorder,String reason) {
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.saveHealthData(token,monitorId,monitorDate,heartRate,heartRateImage,cureMedicine,diabetesType,disorder,reason), new BaseObserver<BaseData>(context) {
+            @Override
+            public void onResponse(BaseData data) {
+                closeDialog();
+                if (TextUtils.equals("4000", data.getCode())) {
+                    showTost("自动上传成功");
+                } else {
+                    showTost(data.getMessage() + "");
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                closeDialog();
+            }
+        });
 //        bindObservable(mAppClient.saveHealthInfoData(id, userId, cureMedicine, monitorId, healthInfoId, monitorDate, "",
 //                "", "", "", "", "", hertrate, "", hertDieaseType, monitorResult, heartPicUrl, notIndications),
 //                new Action1<SaveHealthInfoData>() {
@@ -948,6 +989,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             int what = msg.what;
+            Log.d("linshi","displayMessage:"+msg.what);
             switch (what) {
                 case ECG_HEART:
                     int hrValue = msg.arg1;
@@ -1058,6 +1100,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                     if (mWaitDialog != null && mWaitDialog.isShowing()) {
                         mWaitDialog.dismiss();
                     }
+                    save();
                     break;
                 //创建失败
                 case CREAT_PNG_FAIL:
@@ -1089,6 +1132,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                             tvDossierHertRateDate.getText().toString().trim(),
                             new Gson().toJson(cutFileList));
                     cutFileList.clear();
+
                     break;
                 //切割文件失败
                 case CUT_FILE_Faild:
@@ -1296,5 +1340,30 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
             ecgData[i] = packageList.get(i)[0];
         }
         return ecgData;
+    }
+
+
+    /**
+     * 获取资料
+     *
+     */
+    private void getDataById() {
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.getHeartData(token, "1",dataId), new BaseObserver<HeartHistoryData>(context) {
+
+            @Override
+            public void onResponse(HeartHistoryData data) {
+                if (TextUtils.equals("4000", data.getCode())) {
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                showTost("获取失败");
+            }
+        });
     }
 }
