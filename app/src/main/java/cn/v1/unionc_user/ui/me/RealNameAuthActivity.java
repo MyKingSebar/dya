@@ -29,6 +29,7 @@ import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
+import cn.v1.unionc_user.utils.IDCard;
 import cn.v1.unionc_user.view.TimePicker;
 
 public class RealNameAuthActivity extends BaseActivity {
@@ -49,6 +50,8 @@ public class RealNameAuthActivity extends BaseActivity {
     TextView tvConfirm;
     @BindView(R.id.tv_age)
     TextView tvAge;
+    @BindView(R.id.et_nameid)
+    TextView et_nameid;
 
     InputMethodManager imm ;
 
@@ -93,6 +96,7 @@ public class RealNameAuthActivity extends BaseActivity {
 
     private void initView() {
         etRealName.setText((String) SPUtil.get(context, "realName", ""));
+        et_nameid.setText((String) SPUtil.get(context, "nameid", ""));
         String sex = (String) SPUtil.get(context, "gender", "");
         //性别（0：男 1：女）
         if (TextUtils.equals("0", sex)) {
@@ -140,6 +144,15 @@ public class RealNameAuthActivity extends BaseActivity {
                 }
             }
         });
+        et_nameid.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    // 隐藏软键盘
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+                }
+            }
+        });
         etPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -158,6 +171,7 @@ public class RealNameAuthActivity extends BaseActivity {
     private void certification() {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         final String realName = etRealName.getText().toString().trim();
+        final String nameid = et_nameid.getText().toString().trim();
         String gender = "";
         if (cbMaile.isChecked()) {
             gender = "0";
@@ -170,6 +184,14 @@ public class RealNameAuthActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(realName)) {
             showTost("请输入真实姓名");
+            return;
+        }
+        if (TextUtils.isEmpty(nameid)) {
+            showTost("请输入身份证号");
+            return;
+        }
+        if(!TextUtils.equals(IDCard.validate_effective(nameid),nameid)){
+            showTost("身份证号不合法");
             return;
         }
         if (TextUtils.isEmpty(gender)) {
@@ -186,7 +208,7 @@ public class RealNameAuthActivity extends BaseActivity {
         }
         showDialog("提交中...");
         final String finalGender = gender;
-        ConnectHttp.connect(UnionAPIPackage.certification(token, realName, gender, birthDay, telephone),
+        ConnectHttp.connect(UnionAPIPackage.certification(token, realName, gender, birthDay, telephone,nameid),
                 new BaseObserver<BaseData>(context) {
                     @Override
                     public void onResponse(BaseData data) {

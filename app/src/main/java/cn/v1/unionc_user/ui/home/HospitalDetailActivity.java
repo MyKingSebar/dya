@@ -45,6 +45,7 @@ import cn.v1.unionc_user.ui.adapter.HospitalDoctorAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.welcome.DepthPageTransformer;
 import cn.v1.unionc_user.ui.welcome.ViewPagerAdatper;
+import cn.v1.unionc_user.utils.DP_PX;
 import cn.v1.unionc_user.view.ScrollListView;
 
 public class HospitalDetailActivity extends BaseActivity {
@@ -416,7 +417,9 @@ if(ImagePaths.size()>1){
 
 
 
-
+if(Name.length()>20){
+    tvHospitalName.setWidth(DP_PX.dp2px(context,300f));
+}
         tvHospitalName.setText(Name);
         tvSummary.setText("简介:"+Notes);
         tvAddress.setText(AUniress);

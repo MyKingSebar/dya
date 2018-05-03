@@ -65,7 +65,7 @@ import cn.v1.unionc_user.ui.home.MapClinicWebViewActivity;
  * A simple {@link Fragment} subclass.
  */
 public class DiscoverFragment3 extends BaseFragment implements LocationSource,
-        AMapLocationListener,AMap.OnMarkerClickListener ,AMap.OnCameraChangeListener {
+        AMapLocationListener, AMap.OnMarkerClickListener, AMap.OnCameraChangeListener {
     private Unbinder unbinder;
 
     @BindView(R.id.map)
@@ -157,13 +157,12 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover3, container, false);
-        unbinder=ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -213,7 +212,7 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
 
 
         setUpMap();
-        addMaker(null,null);
+        addMaker(null, null);
     }
 
 //myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);//只定位一次。
@@ -329,7 +328,7 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
             @Override
             public void onDrawerClosed(View drawerView) {
                 //失去焦点
-                addMaker(maplon+"",maplat+"");
+                addMaker(maplon + "", maplat + "");
 
 
                 refrash();
@@ -363,18 +362,19 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
         cb5.setChecked(true);
 
     }
-    private void addMaker(String lon,String lan){
+
+    private void addMaker(String lon, String lan) {
         showDialog("加载中");
-        if(TextUtils.isEmpty(lon)||null==lon){
-            lon=(String) SPUtil.get(context, Common.LONGITUDE, "");
+        if (TextUtils.isEmpty(lon) || null == lon) {
+            lon = (String) SPUtil.get(context, Common.LONGITUDE, "");
         }
-        if(TextUtils.isEmpty(lan)||null==lan){
-            lan=(String) SPUtil.get(context, Common.LATITUDE, "");
+        if (TextUtils.isEmpty(lan) || null == lan) {
+            lan = (String) SPUtil.get(context, Common.LATITUDE, "");
         }
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.getMapClinic(token,getTypeString(),
-                lon+"",
-                lan+""),
+        ConnectHttp.connect(UnionAPIPackage.getMapClinic(token, getTypeString(),
+                lon + "",
+                lan + ""),
                 new BaseObserver<MapClinicData>(context) {
                     @Override
                     public void onResponse(MapClinicData data) {
@@ -397,30 +397,30 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
                                     markerOptions.visible(true);
                                     BitmapDescriptor bitmapDescriptor;
                                     View view;
-                                    view= View.inflate(getActivity(),R.layout.map_maker_drawable2, null);
+                                    view = View.inflate(getActivity(), R.layout.map_maker_drawable2, null);
                                     TextView tv_price = (TextView) view.findViewById(R.id.marker);
-                                    ImageView iv=(ImageView) view.findViewById(R.id.iv);
+                                    ImageView iv = (ImageView) view.findViewById(R.id.iv);
                                     tv_price.setText(mapCliniclist.get(i).getName());
-                                    String SignedStatedata=mapCliniclist.get(i).getSignedState();
-                                    Boolean isSignedState=false;
+                                    String SignedStatedata = mapCliniclist.get(i).getSignedState();
+                                    Boolean isSignedState = false;
                                     /**
                                      * SignedState  签约状态（0:未签约 1：已签约 2: 待审核 3：驳回 默认：0'）
                                      */
 
-                                    if(TextUtils.equals(SignedStatedata,"1")){
-                                        isSignedState=true;
+                                    if (TextUtils.equals(SignedStatedata, "1")) {
+                                        isSignedState = true;
                                     }
-                                    Drawable drawable=null;
+                                    Drawable drawable = null;
                                     switch (Integer.parseInt(mapCliniclist.get(i).getParCategory())) {
                                         case 1:
 //                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic1));
 //                                                    markerOptions.icon(bitmapDescriptor);
 //                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic1),null,null);
-                                            if(isSignedState){
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic1);
-                                            }else {
+                                            if (isSignedState) {
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_1z);
+                                            } else {
 
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic1);
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_1);
                                             }
                                             break;
                                         case 2:
@@ -429,11 +429,11 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
 
 
 //                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic2),null,null);
-                                            if(isSignedState){
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic2);
-                                            }else {
+                                            if (isSignedState) {
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_2z);
+                                            } else {
 
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic2);
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_2);
                                             }
 //                                                    marker.setIcon(BitmapDescriptorFactory.fromView(view));
 //                                                    Bitmap bitmap = CommentActivity.convertViewToBitmap(view);
@@ -445,33 +445,33 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
                                         case 3:
 //                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic3));
 //                                                    markerOptions.icon(bitmapDescriptor);
-                                            if(isSignedState){
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic3);
-                                            }else {
+                                            if (isSignedState) {
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_3z);
+                                            } else {
 
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic3);
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_3);
                                             }
                                             break;
                                         case 4:
 //                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic4));
 //                                                    markerOptions.icon(bitmapDescriptor);
 //                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic4),null,null);
-                                            if(isSignedState){
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic4);
-                                            }else {
+                                            if (isSignedState) {
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_4z);
+                                            } else {
 
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic4);
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_4);
                                             }
                                             break;
                                         case 5:
 //                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic5));
 //                                                    markerOptions.icon(bitmapDescriptor);
 //                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic5),null,null);
-                                            if(isSignedState){
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic5);
-                                            }else {
+                                            if (isSignedState) {
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_5z);
+                                            } else {
 
-                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic5);
+                                                drawable = ContextCompat.getDrawable(context, R.drawable.clinic_5);
                                             }
                                             break;
 
@@ -498,32 +498,34 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
                     }
                 });
     }
-private String getTypeString(){
-    type = "";
-    if (cb1.isChecked()) {
-        type += "1";
-    }
-    if (cb2.isChecked()) {
-        type += "2";
-    }
-    if (cb3.isChecked()) {
-        type += "3";
-    }
-    if (cb4.isChecked()) {
-        type += "4";
-    }
-    if (cb5.isChecked()) {
-        type += "5";
-    }
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < type.length(); i++) {
-        if (i > 0) {
-            sb.append(",");
+
+    private String getTypeString() {
+        type = "";
+        if (cb1.isChecked()) {
+            type += "1";
         }
-        sb.append(type.charAt(i));
+        if (cb2.isChecked()) {
+            type += "2";
+        }
+        if (cb3.isChecked()) {
+            type += "3";
+        }
+        if (cb4.isChecked()) {
+            type += "4";
+        }
+        if (cb5.isChecked()) {
+            type += "5";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < type.length(); i++) {
+            if (i > 0) {
+                sb.append(",");
+            }
+            sb.append(type.charAt(i));
+        }
+        return sb.toString();
     }
-    return sb.toString();
-}
+
     /**
      * 配置定位参数
      */
@@ -571,7 +573,7 @@ private String getTypeString(){
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        if(null!=mapView){
+        if (null != mapView) {
 
             mapView.onDestroy();
         }
@@ -703,10 +705,10 @@ private String getTypeString(){
     @Override
     public boolean onMarkerClick(Marker marker) {
         // TODO Auto-generated method stub
-        for(int i=0;i<markerList.size();i++){
+        for (int i = 0; i < markerList.size(); i++) {
             if (marker.equals(markerList.get(i))) {
                 if (aMap != null) {
-                    if(mapCliniclist.get(i).getId()!=null){
+                    if (mapCliniclist.get(i).getId() != null) {
 
                         Intent intent = new Intent(context, HospitalDetailActivity.class);
                         intent.putExtra("clinicId", mapCliniclist.get(i).getId());
@@ -718,8 +720,6 @@ private String getTypeString(){
         }
         return false;
     }
-
-
 
 
     /**
@@ -735,9 +735,9 @@ private String getTypeString(){
      */
     @Override
     public void onCameraChangeFinish(CameraPosition cameraPosition) {
-maplon=cameraPosition.target.longitude;
-maplat=cameraPosition.target.latitude;
-        addMaker(maplon+"",maplat+"");
+        maplon = cameraPosition.target.longitude;
+        maplat = cameraPosition.target.latitude;
+        addMaker(maplon + "", maplat + "");
 
     }
 }

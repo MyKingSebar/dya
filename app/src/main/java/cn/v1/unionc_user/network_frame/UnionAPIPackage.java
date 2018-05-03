@@ -335,13 +335,13 @@ public class UnionAPIPackage {
      */
     public static Observable<BaseData> certification(String token, String realName,
                                                      String gender, String birthday,
-                                                     String telphone) {
+                                                     String telphone,String cardNo) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("realName", realName);
         params.put("gender", gender);
         params.put("birthday", birthday);
-        params.put("cardNo", "");
+        params.put("cardNo", cardNo);
         params.put("cardImagePath", "");
         params.put("telphone", telphone);
         return ConnectHttp.getUnionAPI().certification(dataProcess(params));

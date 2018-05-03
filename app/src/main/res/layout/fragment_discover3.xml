@@ -24,7 +24,7 @@
                 android:layout_centerInParent="true"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="发现周边"
+                android:text="周边"
                 android:textColor="@color/main_text"
                 android:textSize="18sp" />
 
