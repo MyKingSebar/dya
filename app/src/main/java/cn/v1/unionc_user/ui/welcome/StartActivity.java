@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class StartActivity extends BaseActivity {
     private ImageView mThree_dot;
     private ImageView mFour_dot;
     int position2;
-
+    String[] picture={"http://www.yibashi.cn/image/webServer/compress/31/2/14/1894cd28-4895-4a44-902f-87fde3f9830f_医生头像3.jpg","http://www.yibashi.cn/image/webServer/compress/43/5/14/289a3d5f-9ae1-460f-8d19-a16542ee613a_3.png","http://www.yibashi.cn/image/webServer/compress/43/7/3/98f81e77-96d7-4617-8050-96576cb1ee04_2.png"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,7 @@ public class StartActivity extends BaseActivity {
                                 Intent it = new Intent();
                                 it.setClass(context, MainActivity.class);
                                 startActivity(it);
+                                finish();
                             }
                         }
                         break;
@@ -122,10 +125,10 @@ public class StartActivity extends BaseActivity {
     }
 
     private void addDots() {
-        mOne_dot = new ImageView(this);
-        mOne_dot.setImageResource(R.drawable.gray_dot);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 0, 40, 0);
+        mOne_dot = new ImageView(this);
+        mOne_dot.setImageResource(R.drawable.gray_dot);
         mIn_ll.addView(mOne_dot, layoutParams);
         mTwo_dot = new ImageView(this);
         mTwo_dot.setImageResource(R.drawable.gray_dot);
@@ -180,6 +183,20 @@ public class StartActivity extends BaseActivity {
         mViewList.add(view2);
         mViewList.add(view3);
         mViewList.add(view4);
+//        if(picture.length>0){
+//            for(int i=0;i<picture.length;i++){
+//                View view1 = lf.inflate(R.layout.we_indicator1, null);
+//                mViewList.add(view1);
+//                ImageView im=view1.findViewById(R.id.im1);
+//                Glide.with(context)
+//                        .load(picture[i])
+//                        .placeholder(R.drawable.me_watching_hospital).dontAnimate()
+//                        .error(R.drawable.me_watching_hospital)
+//                        .into(im);
+//            }
+//        }
+
+
     }
 
     private void initView() {

@@ -195,10 +195,30 @@ public class ClinicInfoData extends BaseData {
              ]
              */
 
+            private String ParCategory;
+
+            public String getParCategory() {
+                return ParCategory;
+            }
+
+            public void setParCategory(String parCategory) {
+                ParCategory = parCategory;
+            }
+
             private String IsHaveContributing;
             private String AUniress;
             private String EvaCount;
             private String ImagePath;
+            private List<String> ImagePaths;
+
+            public List<String> getImagePaths() {
+                return ImagePaths;
+            }
+
+            public void setImagePaths(List<String> imagePaths) {
+                ImagePaths = imagePaths;
+            }
+
             private String Tel;
             private String Latitude;
             private String CollectionCount;

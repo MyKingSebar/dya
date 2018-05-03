@@ -137,4 +137,5 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     compile 'commons-io:commons-io:2.4'
     implementation files('libs/universal-image-loader-1.9.1-SNAPSHOT-with-sources.jar')
+    implementation files('libs/open_sdk_r5990_lite.jar')
 }

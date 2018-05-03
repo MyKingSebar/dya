@@ -3,11 +3,15 @@ package cn.v1.unionc_user.ui;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.orhanobut.logger.Logger;
@@ -114,7 +118,29 @@ public class StartActivity extends BaseActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                goNewActivity(cn.v1.unionc_user.ui.welcome.StartActivity.class);
+                //      根据版本号判断是不是第一次使用
+                PackageInfo info=null;
+                try {
+                    info=getPackageManager().getPackageInfo(getPackageName(),0);
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+                int currentVersion = info.versionCode;
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+
+                int lastVersion = sp.getInt("VERSION_KEY", 0);
+
+
+                if (currentVersion>lastVersion){
+//            第一次启动将当前版本进行存储
+                    sp.edit().putInt("VERSION_KEY",currentVersion).commit();
+                    goNewActivity(cn.v1.unionc_user.ui.welcome.StartActivity.class);
+                }else {
+//            非第一次启动直接跳转
+                    goNewActivity(MainActivity.class);
+                }
+//                goNewActivity(cn.v1.unionc_user.ui.welcome.StartActivity.class);
                 finish();
             }
         },

@@ -68,7 +68,8 @@ public interface UnionAPI {
      */
     @FormUrlEncoded
     @POST("login")
-    Observable<LoginData> login(@FieldMap Map<String, Object> params);
+    Observable<LoginData>
+    login(@FieldMap Map<String, Object> params);
 
     /**
      * 获取TIM sig

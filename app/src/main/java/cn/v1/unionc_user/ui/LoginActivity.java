@@ -33,6 +33,7 @@ import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
+import cn.v1.unionc_user.utils.PhoneCheck;
 
 import static cn.v1.unionc_user.data.Common.ADDRESS;
 
@@ -82,9 +83,12 @@ public class LoginActivity extends BaseActivity {
                 String phoneNumber = etPhone.getText().toString().trim();
                 if (runningThree) {
                 } else {
+                    boolean phonecheck=PhoneCheck.isMobileNO(phoneNumber);
                     if (TextUtils.isEmpty(phoneNumber)) {
                         showTost("请填写手机号码");
-                    } else {
+                    } else if(!phonecheck){
+                        showTost("请填写正确手机号码");
+                    }else {
                         downTimer.start();
                         getAuthCode(phoneNumber);
                     }
@@ -93,10 +97,15 @@ public class LoginActivity extends BaseActivity {
             case R.id.tv_login:
                 String phoneNumberlogin = etPhone.getText().toString().trim();
                 String authCode = etCode.getText().toString().trim();
+                boolean phonecheck=PhoneCheck.isMobileNO(phoneNumberlogin);
                 if (TextUtils.isEmpty(phoneNumberlogin)) {
                     showTost("请填写手机号码");
                     return;
+                } else if(!phonecheck){
+                    showTost("请填写正确手机号码");
+                    return;
                 }
+
                 if (TextUtils.isEmpty(authCode)) {
                     showTost("请填写验证码");
                     return;
@@ -173,6 +182,7 @@ public class LoginActivity extends BaseActivity {
                     SPUtil.put(context, Common.IDENTIFIER, identifier);
                     SPUtil.put(context, Common.USER_PHONE, phoneNumber);
                     Log.d("linshi","Add:"+data.getData().getAddr());
+                    Log.d("linshi","login:"+identifier);
                     if(!TextUtils.isEmpty(data.getData().getAddr())){
 
                         SPUtil.put(context, Common.USER_ADD, data.getData().getAddr());

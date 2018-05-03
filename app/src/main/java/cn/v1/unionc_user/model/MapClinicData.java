@@ -138,6 +138,18 @@ public class MapClinicData extends BaseData {
              */
 
 
+            /**
+             * SignedState  签约状态（0:未签约 1：已签约 2: 待审核 3：驳回 默认：0'）
+             */
+            private String SignedState;
+
+            public String getSignedState() {
+                return SignedState;
+            }
+
+            public void setSignedState(String signedState) {
+                SignedState = signedState;
+            }
 
             private String ParCategory;
             private String SubCategory;

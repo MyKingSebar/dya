@@ -157,8 +157,6 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
     }
 
 
-    private final String url = "https://192.168.21.93:8085/unionApp/page/index.html";
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -403,13 +401,27 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
                                     TextView tv_price = (TextView) view.findViewById(R.id.marker);
                                     ImageView iv=(ImageView) view.findViewById(R.id.iv);
                                     tv_price.setText(mapCliniclist.get(i).getName());
+                                    String SignedStatedata=mapCliniclist.get(i).getSignedState();
+                                    Boolean isSignedState=false;
+                                    /**
+                                     * SignedState  签约状态（0:未签约 1：已签约 2: 待审核 3：驳回 默认：0'）
+                                     */
+
+                                    if(TextUtils.equals(SignedStatedata,"1")){
+                                        isSignedState=true;
+                                    }
                                     Drawable drawable=null;
                                     switch (Integer.parseInt(mapCliniclist.get(i).getParCategory())) {
                                         case 1:
 //                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic1));
 //                                                    markerOptions.icon(bitmapDescriptor);
 //                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic1),null,null);
-                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic1);
+                                            if(isSignedState){
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic1);
+                                            }else {
+
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic1);
+                                            }
                                             break;
                                         case 2:
 //                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic2));
@@ -417,8 +429,12 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
 
 
 //                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic2),null,null);
+                                            if(isSignedState){
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic2);
+                                            }else {
 
-                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic2);
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic2);
+                                            }
 //                                                    marker.setIcon(BitmapDescriptorFactory.fromView(view));
 //                                                    Bitmap bitmap = CommentActivity.convertViewToBitmap(view);
 //
@@ -429,19 +445,34 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
                                         case 3:
 //                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic3));
 //                                                    markerOptions.icon(bitmapDescriptor);
-                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic3);
+                                            if(isSignedState){
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic3);
+                                            }else {
+
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic3);
+                                            }
                                             break;
                                         case 4:
 //                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic4));
 //                                                    markerOptions.icon(bitmapDescriptor);
 //                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic4),null,null);
-                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic4);
+                                            if(isSignedState){
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic4);
+                                            }else {
+
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic4);
+                                            }
                                             break;
                                         case 5:
 //                                                    bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clinic5));
 //                                                    markerOptions.icon(bitmapDescriptor);
 //                                                    tv_price.setCompoundDrawables(null, ContextCompat.getDrawable(context,R.drawable.clinic5),null,null);
-                                            drawable=ContextCompat.getDrawable(context,R.drawable.clinic5);
+                                            if(isSignedState){
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic5);
+                                            }else {
+
+                                                drawable=ContextCompat.getDrawable(context,R.drawable.clinic5);
+                                            }
                                             break;
 
 

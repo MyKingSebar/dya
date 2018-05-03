@@ -4,16 +4,19 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +24,7 @@ import com.donkingliang.labels.LabelsView;
 import com.orhanobut.logger.Logger;
 import com.tencent.imsdk.TIMConversationType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,9 +43,22 @@ import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
 import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.adapter.HospitalDoctorAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
+import cn.v1.unionc_user.ui.welcome.DepthPageTransformer;
+import cn.v1.unionc_user.ui.welcome.ViewPagerAdatper;
 import cn.v1.unionc_user.view.ScrollListView;
 
 public class HospitalDetailActivity extends BaseActivity {
+    @BindView(R.id.in_viewpager)
+    ViewPager mIn_vp;
+    @BindView(R.id.in_ll)
+    LinearLayout mIn_ll;
+    @BindView(R.id.iv_light_dots)
+    ImageView mLight_dots;
+    private List<View> mViewList;
+    private int mDistance;
+    int position2;
+
+private int clinicType=R.drawable.icon_hospital_zh;
 
     @BindView(R.id.tv_summary)
     TextView tvSummary;
@@ -55,8 +72,8 @@ public class HospitalDetailActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.img_share)
     ImageView imgShare;
-    @BindView(R.id.img_hospital)
-    ImageView imgHospital;
+//    @BindView(R.id.img_hospital)
+//    ImageView imgHospital;
     @BindView(R.id.tv_hospital_name)
     TextView tvHospitalName;
     @BindView(R.id.labels)
@@ -110,7 +127,7 @@ public class HospitalDetailActivity extends BaseActivity {
     private String IsHaveContributing;
     private String AUniress;
     private String EvaCount;
-    private String ImagePath;
+    private List<String> ImagePaths;
     private String Tel;
     private String Latitude;
     private String CollectionCount;
@@ -218,6 +235,9 @@ private void initData(){
 
 }
     private void initView() {
+
+        mIn_vp.setPageTransformer(true,new DepthPageTransformer());
+
         listView.setFocusable(false);
         tvSummary.post(new Runnable() {
             @Override
@@ -288,7 +308,7 @@ private void initfragmentData(){
         IsHaveContributing=clinicData.getIsHaveContributing();
         AUniress=clinicData.getAUniress();
         EvaCount=clinicData.getEvaCount();
-        ImagePath=clinicData.getImagePath();
+        ImagePaths =clinicData.getImagePaths();
         Tel=clinicData.getTel();
         Latitude=clinicData.getLatitude();
         CollectionCount=clinicData.getCollectionCount();
@@ -300,22 +320,105 @@ private void initfragmentData(){
         Tips=clinicData.getTips();
         IsDuty=clinicData.getIsDuty();
         Identifier=clinicData.getIdentifier();
-        if(TextUtils.isEmpty(ImagePath)){
-
-            imgHospital.setImageResource(R.drawable.me_watching_hospital);
-        }else{
-            Glide.with(context)
-                    .load(ImagePath)
-                    .placeholder(R.drawable.me_watching_hospital).dontAnimate()
-                    .error(R.drawable.me_watching_hospital)
-                    .into(imgHospital);
-
+        /**
+         *
+         1		综合医院
+         2		专科医院
+         3		诊所
+         4		动物医疗场所
+         5		卫生院
+         */
+        switch (Integer.parseInt(clinicData.getParCategory())){
+            case 1:
+                clinicType=R.drawable.icon_hospital_zh;
+                break;
+            case 2:
+                clinicType=R.drawable.icon_hospital_zk;
+                break;
+            case 3:
+                clinicType=R.drawable.icon_hospital_zs;
+                break;
+            case 4:
+                clinicType=R.drawable.icon_hospital_cw;
+                break;
+            case 5:
+                clinicType=R.drawable.icon_hospital_sq;
+                break;
         }
+
+            mViewList = new ArrayList<View>();
+            LayoutInflater lf = getLayoutInflater().from(HospitalDetailActivity.this);
+            if(ImagePaths ==null||!(ImagePaths.size()>0)){
+                View view1 = lf.inflate(R.layout.we_indicator1, null);
+                mViewList.add(view1);
+                ImageView im=view1.findViewById(R.id.im1);
+                Glide.with(context)
+                        .load(clinicType)
+                       .into(im);
+            }else{
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0, 0, 40, 0);
+
+                for(int i = 0; i< ImagePaths.size(); i++){
+                    View view1 = lf.inflate(R.layout.we_indicator1, null);
+                    mViewList.add(view1);
+                    ImageView im=view1.findViewById(R.id.im1);
+                    Glide.with(context)
+                            .load(ImagePaths.get(i))
+                            .placeholder(clinicType).dontAnimate()
+                            .error(clinicType)
+                            .into(im);
+if(ImagePaths.size()>1){
+
+    ImageView mOne_dot = new ImageView(this);
+    mOne_dot.setImageResource(R.drawable.gray_dot);
+    mIn_ll.addView(mOne_dot, layoutParams);
+}
+                }
+                mLight_dots.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        //获得两个圆点之间的距离
+                        mDistance = mIn_ll.getChildAt(1).getLeft() - mIn_ll.getChildAt(0).getLeft();
+                        mLight_dots.getViewTreeObserver()
+                                .removeGlobalOnLayoutListener(this);
+                    }
+                });
+                mIn_vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                        //页面滚动时小白点移动的距离，并通过setLayoutParams(params)不断更新其位置
+                        float leftMargin = mDistance * (position + positionOffset);
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mLight_dots.getLayoutParams();
+                        params.leftMargin = (int) leftMargin;
+                        mLight_dots.setLayoutParams(params);
+                    }
+
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        position2=position;
+                        //页面跳转时，设置小圆点的margin
+                        float leftMargin = mDistance * position;
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mLight_dots.getLayoutParams();
+                        params.leftMargin = (int) leftMargin;
+                        mLight_dots.setLayoutParams(params);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
+
+            }
+        mIn_vp.setAdapter(new ViewPagerAdatper(mViewList));
+
 
 
 
         tvHospitalName.setText(Name);
-        tvSummary.setText(Notes);
+        tvSummary.setText("简介:"+Notes);
         tvAddress.setText(AUniress);
         tvDistance.setText(Distance+"km");
         labels.setLabels(Tips);
@@ -493,7 +596,7 @@ private void initfragmentData(){
                                 DoctorInfo doctorInfo = new DoctorInfo();
                                 doctorInfo.setDoctorName(Name + "");
                                 doctorInfo.setIdentifier(Identifier + "");
-                                doctorInfo.setImagePath(ImagePath + "");
+                                doctorInfo.setImagePath(ImagePaths + "");
                                 TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
                             }
 

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="#F2F4F7"
+        android:layout_width="match_parent"
+        android:layout_height="116dp">
+
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+<RelativeLayout
+    android:id="@+id/im_weixin"
+    android:background="@drawable/bg_share_white"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="28dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/icon_weixin" />
+
+</RelativeLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="微信"
+                android:textColor="#4F5360"
+                android:textSize="11sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/im_pengyouquan"
+                android:background="@drawable/bg_share_white"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/icon_pengyouquan" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="朋友圈"
+                android:textColor="#4F5360"
+                android:textSize="11sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/im_qq"
+                android:background="@drawable/bg_share_white"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/icon_qq" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="QQ"
+                android:textColor="#4F5360"
+                android:textSize="11sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/im_weibo"
+                android:background="@drawable/bg_share_white"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="29dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/icon_weibo" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="微博"
+                android:textColor="#4F5360"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="#4E78F6"
+        android:textSize="17sp" />
+</LinearLayout>

@@ -346,9 +346,9 @@ private void save(){
                 }
                 return true;
             }
-        }, "", "是否放弃本次测量结果？");
+        }, "", "是否退出本次测量结果？");
         dialog.tvSmallMessage.setVisibility(View.GONE);
-        dialog.setStr_okbtn("是，放弃了");
+        dialog.setStr_okbtn("是，退出");
         dialog.setStr_cancelbtn("否，点错了");
         dialog.show();
     }
