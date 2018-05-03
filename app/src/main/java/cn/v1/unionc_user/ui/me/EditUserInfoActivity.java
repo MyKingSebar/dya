@@ -122,9 +122,10 @@ public class EditUserInfoActivity extends BaseActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == AVATOR) {
                 try {
-                    String avator = data.getStringExtra("avator");
+                     avator = data.getStringExtra("avator");
                     Log.d("linshi","onActivityResult:"+avator);
                     Glide.with(context).load( avator)
+
                             .placeholder(R.drawable.icon_default_avator).dontAnimate()
                             .error(R.drawable.icon_default_avator)
                             .into(imgAvator);

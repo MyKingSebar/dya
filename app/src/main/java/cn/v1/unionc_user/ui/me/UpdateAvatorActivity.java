@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
@@ -220,7 +221,9 @@ public class UpdateAvatorActivity extends BaseActivity {
         if (!parentPath.exists()) {
             parentPath.mkdirs();
         }
-        mHeadCacheFile = new File(parentPath, "head.png");
+        Date dt= new Date();
+        Long time= dt.getTime();
+        mHeadCacheFile = new File(parentPath, "head"+"_"+time+".png");
         if (!mHeadCacheFile.exists()) {
             try {
                 mHeadCacheFile.createNewFile();
@@ -271,7 +274,14 @@ public class UpdateAvatorActivity extends BaseActivity {
 //        }
         urlpath = "file://" + mHeadCacheFile.getAbsolutePath();
         Log.d("linshi","urlpath:"+urlpath);
+        Glide.get(context).clearMemory();
         Glide.with(context).load( urlpath).into(imgAvator);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 2000);
     }
 
 
@@ -334,6 +344,8 @@ public class UpdateAvatorActivity extends BaseActivity {
 
     private File createFile() throws IOException {
         photoFile = null;
+        Date dt= new Date();
+        Long time= dt.getTime();
         if (UploadAvatarUtil.hasSdcard()) {
             mHeadCachePath = Environment.getExternalStorageDirectory().getPath() + File.separator +  "headCache";
         } else {
@@ -344,7 +356,7 @@ public class UpdateAvatorActivity extends BaseActivity {
         if (!parentPath.exists()) {
             parentPath.mkdirs();
         }
-        mHeadCacheFile = new File(parentPath, "head.png");
+        mHeadCacheFile = new File(parentPath, "head"+"_"+time+".png");
         if (!mHeadCacheFile.exists()) {
             try {
                 mHeadCacheFile.createNewFile();
