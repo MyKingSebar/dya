@@ -11,6 +11,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -42,8 +44,11 @@ import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,11 +57,14 @@ import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.Position;
+import cn.v1.unionc_user.model.RecommendDoctorsData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
+import cn.v1.unionc_user.ui.adapter.RecommendDoctorsAdapter;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.home.HospitalDetailActivity;
 import cn.v1.unionc_user.ui.home.MapClinicWebViewActivity;
@@ -117,6 +125,12 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
     @BindView(R.id.cb5)
     CheckBox cb5;
 
+    @BindView(R.id.find_recycleview)
+    RecyclerView mainRecycleview;
+    @BindView(R.id.find_doctor)
+    LinearLayout findlinear;
+    RecommendDoctorsAdapter recommendDoctorAdapter;
+
     private double maplat;
     private double maplon;
 
@@ -173,6 +187,22 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
         initmap(savedInstanceState);
 
         init();
+        initrecommenddoctor();
+    }
+
+    private void initrecommenddoctor() {
+        ConnectHttp.connect(UnionAPIPackage.recommenddoctors((String)SPUtil.get(context,Common.LONGITUDE,""), (String)SPUtil.get(context,Common.LATITUDE,"")), new BaseObserver<RecommendDoctorsData>(context) {
+            @Override
+            public void onResponse(RecommendDoctorsData data) {
+recommendDoctorAdapter.setData(data.getData().getDoctors());
+                findlinear.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                findlinear.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void initmap(Bundle savedInstanceState) {
@@ -226,6 +256,19 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
 //myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE_NO_CENTER);//连续定位、蓝点不会移动到地图中心点，地图依照设备方向旋转，并且蓝点会跟随设备移动。
 
     private void init() {
+        //     LinearLayoutMannager 是一个布局排列 ， 管理的接口,子类都都需要按照接口的规范来实现。
+
+LinearLayoutManager ms= new LinearLayoutManager(context);
+
+ms.setOrientation(LinearLayoutManager.HORIZONTAL);// 设置 recyclerview 布局方式为横向布局
+
+
+        mainRecycleview.setLayoutManager(ms);
+
+        recommendDoctorAdapter = new RecommendDoctorsAdapter(context);
+        mainRecycleview.setAdapter(recommendDoctorAdapter);
+
+
 
         homeSearch.setOnClickListener(new View.OnClickListener() {
             @Override

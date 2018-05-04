@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="医生"
+                android:text="医护"
                 android:textColor="@color/detail_text"
                 android:textSize="14sp" />
 
@@ -197,7 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="医院"
+                android:text="医疗机构"
                 android:textColor="@color/detail_text"
                 android:textSize="14sp" />
         </LinearLayout>

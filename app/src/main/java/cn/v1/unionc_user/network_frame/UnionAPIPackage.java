@@ -28,6 +28,7 @@ import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
+import cn.v1.unionc_user.model.RecommendDoctorsData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
@@ -558,6 +559,19 @@ public class UnionAPIPackage {
         params.put("activityIds", activityIds);
         params.put("token", token);
         return ConnectHttp.getUnionAPI().signActivities(dataProcess(params));
+    }
+    /**
+     * 获取推荐医生列表
+     *
+     * @return
+     */
+    public static Observable<RecommendDoctorsData> recommenddoctors(String longitude,
+                                                                     String latitude
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
+        return ConnectHttp.getUnionAPI().recommenddoctors(dataProcess(params));
     }
 
     /**

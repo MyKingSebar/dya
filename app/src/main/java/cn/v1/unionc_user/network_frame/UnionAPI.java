@@ -21,6 +21,7 @@ import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
+import cn.v1.unionc_user.model.RecommendDoctorsData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
@@ -365,6 +366,15 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("activity/sign-activities")
     Observable<BaseData> signActivities(@FieldMap Map<String, Object> params);
+    /**
+     * 获取推荐医生列表
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("clinic/recommend-doctors")
+    Observable<RecommendDoctorsData> recommenddoctors(@FieldMap Map<String, Object> params);
 
 
     /**

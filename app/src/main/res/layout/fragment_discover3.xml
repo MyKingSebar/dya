@@ -94,17 +94,45 @@
 
                 <TextView
                     android:id="@+id/tv_location"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    android:layout_width="41dp"
+                    android:layout_height="45dp"
                     android:layout_below="@id/rel_activity_home_search"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="316dp"
                     android:background="@drawable/icon_point" />
+<LinearLayout
+    android:id="@+id/find_doctor"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="148dp"
+    android:background="@color/white"
+    android:visibility="gone"
+    >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:text="今日推荐"
+    android:textSize="13sp"
+    android:textColor="#9B9CA0"
 
+    />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/find_recycleview"
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
                 <WebView
                     android:id="@+id/webview"
                     android:layout_width="match_parent"
                     android:layout_height="148dp"
+
                     android:layout_alignParentBottom="true"
                     android:scrollbars="none"
                     android:visibility="gone"></WebView>

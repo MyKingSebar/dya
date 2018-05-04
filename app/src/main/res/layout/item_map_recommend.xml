@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <RelativeLayout
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="79dp"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+
+        <cn.v1.unionc_user.view.CircleImageView
+            android:id="@+id/img_message_avator"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            tools:src="@drawable/icon_tab_me_select" />
+        <TextView
+            android:id="@+id/tv_message_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_message_avator"
+            android:layout_centerHorizontal="true"
+            android:textColor="#4E78F6"
+            android:textSize="13sp"
+            tools:text="梦宪良" />
+        <TextView
+            android:id="@+id/tv_professlevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="44dp"
+            android:background="@drawable/professlevel_bg"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:paddingLeft="5sp"
+            android:paddingRight="5sp"
+            android:paddingTop="3sp"
+            android:paddingBottom="3sp"
+            tools:text="梦宪良" />
+    </RelativeLayout>
+
+
+
+</LinearLayout>
