@@ -819,7 +819,7 @@ public class DossierHeartRateAutoFragment extends BaseFragment {
                 case ECG_COUNTER:
                     //记录时间
                     if (parent.autoMeasureType == ONE_MINUTE_MEASURE) {
-                        tvTime.setText("00:00:" + StringUtil.getStrNumWithZero(60 - msg.arg1));
+                        tvTime.setText("00:" + StringUtil.getStrNumWithZero(60 - msg.arg1));
                     } else {
                         tvTime.setText(formatLongToTimeStr(msg.arg1) + "");
                     }

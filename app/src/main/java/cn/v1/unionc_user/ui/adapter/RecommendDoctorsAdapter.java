@@ -66,9 +66,9 @@ public class RecommendDoctorsAdapter extends RecyclerView.Adapter<RecommendDocto
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent=new Intent(context,DoctorDetailActivity.class);
-               intent.putExtra("doctorId",homeData.getDoctId());
-               context.startActivity(intent);
+                Intent intent = new Intent(context, DoctorDetailActivity.class);
+                intent.putExtra("doctorId", homeData.getDoctId());
+                context.startActivity(intent);
             }
         });
         if (TextUtils.isEmpty(homeData.getImagePath())) {
@@ -82,11 +82,8 @@ public class RecommendDoctorsAdapter extends RecyclerView.Adapter<RecommendDocto
                     .into(holder.imgMessageAvator);
 
         }
-holder.tvName.setText(homeData.getDoctName());
-holder.tvProfesslevel.setText(homeData.getProfessLevel());
-
-
-
+        holder.tvName.setText(homeData.getDoctName());
+        holder.tvProfesslevel.setText(homeData.getProfessLevel());
 
 
     }
@@ -105,7 +102,6 @@ holder.tvProfesslevel.setText(homeData.getProfessLevel());
 
         @BindView(R.id.tv_professlevel)
         TextView tvProfesslevel;
-
 
 
         ViewHolder(View view) {

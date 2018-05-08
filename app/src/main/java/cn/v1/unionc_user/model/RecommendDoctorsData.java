@@ -52,6 +52,8 @@ public class RecommendDoctorsData extends BaseData {
             private String DepartId;
             private String DoctId;
 
+
+
             public String getDoctId() {
                 return DoctId;
             }

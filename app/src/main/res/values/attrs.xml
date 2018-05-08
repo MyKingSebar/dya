@@ -32,4 +32,78 @@
         <attr name="blur_use_renderscript"  format="boolean"/>
 
     </declare-styleable>
+
+    <declare-styleable name="RegisterEditText">
+        <attr name="registerType" format="enum">
+            <enum name="UserName" value="1"/>
+            <enum name="PassWord" value="2"/>
+            <enum name="Confirm" value="3"/>
+        </attr>
+    </declare-styleable>
+
+
+
+    <declare-styleable name="SwitchGroup">
+        <attr name="orientation1">
+            <flag name="horizontal" value="0"></flag>
+            <flag name="vertical" value="1"></flag>
+        </attr>
+        <attr name="pinned_view1" format="reference" />
+        <attr name="pinned_item1" format="reference" />
+        <attr name="pinned_item_array1" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="PullLayout">
+        <attr name="pull_limit" format="dimension" />
+        <attr name="support_over" format="boolean" />
+        <attr name="hold_adjust_type">
+            <flag name="not_adjust" value="0"></flag>
+            <flag name="adjust_content" value="1"></flag>
+            <flag name="elasticity_adjust" value="2"></flag>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="IndentifyingCode">
+        <attr name="codeCount" format="integer|reference"></attr>
+        <attr name="textSize" format="dimension"></attr>
+    </declare-styleable>
+
+    <!--corner_color 边角颜色，
+       scanner_color 扫描线颜色
+       possible_result_color 扫描点颜色
+       frame_color 扫描框边线颜色
+       mask_color 模糊区域颜色
+       label_text  框上方提示
+   -->
+    <declare-styleable name="ViewfinderView">
+        <attr name="corner_color" format="color"/>
+        <attr name="laser_color" format="color"/>
+        <attr name="frame_color" format="color" />
+        <attr name="mask_color" format="color" />
+        <attr name="result_point_color" format="color"/>
+        <attr name="result_color" format="color" />
+        <attr name="label_text_color" format="color"/>
+        <attr name="label_text" format="string"/>
+        <attr name="label_text_size" format="float"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="ClockView">
+
+        <attr name="mRadius" format="dimension"/>
+        <attr name="mCircleColor" format="color"/>
+        <attr name="mCircleWidth" format="dimension"/>
+        <attr name="mTextSize" format="dimension"/>
+        <attr name="mTextColor" format="color"/>
+        <attr name="mBigScaleColor" format="color"/>
+        <attr name="mMiddlecaleColor" format="color"/>
+        <attr name="mSmallScaleColor" format="color"/>
+        <attr name="mHourHandColor" format="color"/>
+        <attr name="mMinuteHandColor" format="color"/>
+        <attr name="mSecondHandColor" format="color"/>
+        <attr name="mHourHandWidth" format="dimension"/>
+        <attr name="mMinuteHandWidth" format="dimension"/>
+        <attr name="mSecondHandWidth" format="dimension"/>
+
+    </declare-styleable>
+
 </resources>

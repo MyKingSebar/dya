@@ -88,14 +88,14 @@ public class DossierHeartrateAutoPreviewFragment extends BaseFragment {
                 showUploadDialog();
             }
         }else if(tvLinkDevice.getText().toString().equals("开始测量")){
-            gotoMeasure(ONE_MINUTE_MEASURE);
-//            new HeartRateContinueMeasureDialog(getActivity(), new HeartRateContinueMeasureDialog.MyDilogListener() {
-//                @Override
-//                public void btnConfirm(Dialog dialog) {
-//                    dialog.dismiss();
-//                    gotoMeasure(ONE_MINUTE_MEASURE);
-//                }
-//            });
+//            gotoMeasure(ONE_MINUTE_MEASURE);
+            new HeartRateContinueMeasureDialog(getActivity(), new HeartRateContinueMeasureDialog.MyDilogListener() {
+                @Override
+                public void btnConfirm(Dialog dialog) {
+                    dialog.dismiss();
+                    gotoMeasure(ONE_MINUTE_MEASURE);
+                }
+            });
         }
     }
 

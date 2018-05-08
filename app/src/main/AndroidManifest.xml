@@ -178,6 +178,11 @@
         <activity android:name=".ui.home.SearchWebViewActivity" />
         <activity android:name=".ui.home.MapClinicWebViewActivity" />
         <activity android:name=".ui.home.TeachWebViewActivity" />
+
+
+
+        <activity android:name="cn.v1.unionc_user.ui.find.HomeDocActivity" />
+
         <activity
             android:name=".ui.home.SignactivityActivity"
             android:theme="@style/Dialog" />
@@ -197,6 +202,7 @@
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierDiabetesCureMedActivity"></activity>
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierWheelViewActivity"></activity>
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHertrateNotIndicationsActivitys"></activity>
+        <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHertRateHistoryActivity"></activity>
 
 
         <activity android:name="cn.v1.unionc_user.ui.me.HeartHistoryListActivity"></activity>

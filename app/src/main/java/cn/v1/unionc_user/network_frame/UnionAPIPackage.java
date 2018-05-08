@@ -28,6 +28,7 @@ import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
+import cn.v1.unionc_user.model.MyRecommenDoctorsData;
 import cn.v1.unionc_user.model.RecommendDoctorsData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
@@ -566,12 +567,30 @@ public class UnionAPIPackage {
      * @return
      */
     public static Observable<RecommendDoctorsData> recommenddoctors(String longitude,
-                                                                     String latitude
+                                                                     String latitude,String pageSize,String pageNo
     ) {
         HashMap<String, String> params = new HashMap<>();
         params.put("longitude", longitude);
         params.put("latitude", latitude);
+        params.put("pageSize", pageSize);
+        params.put("pageNo", pageNo);
         return ConnectHttp.getUnionAPI().recommenddoctors(dataProcess(params));
+    }
+    /**
+     * 获取家庭医生列表
+     *
+     * @return
+     */
+    public static Observable<MyRecommenDoctorsData> myrecommenddoctors(String longitude,
+                                                                       String latitude, String pageSize, String pageNo, String token
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
+        params.put("pageSize", pageSize);
+        params.put("pageNo", pageNo);
+        params.put("token", token);
+        return ConnectHttp.getUnionAPI().myrecommenddoctors(dataProcess(params));
     }
 
     /**

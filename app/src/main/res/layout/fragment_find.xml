@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.v1.unionc_user.ui.me.PersonalFragment">
+
+<TextView
+    android:text="发现"
+    android:textColor="#26282E"
+    android:textSize="18sp"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="44dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="#F2F4F7"
+        />
+    <TextView
+        android:id="@+id/tv_my_healthcircle"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/find_circle"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="26dp"
+        android:text="健康圈"
+        android:textColor="#4F5360"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#F2F4F7"
+        />
+
+    <TextView
+        android:id="@+id/tv_homedoc"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/find_home_doc"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="26dp"
+        android:text="家庭医生"
+        android:textColor="#4F5360"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="-1dp"
+        android:background="@color/line" />
+    <TextView
+        android:id="@+id/tv_zbdoc"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/find_zb_doc"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="26dp"
+        android:text="值班医生"
+        android:textColor="#4F5360"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#F2F4F7"
+        />
+
+    <TextView
+        android:id="@+id/tv_healthlive"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/find_home_doc"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="26dp"
+        android:text="健康直播"
+        android:textColor="#4F5360"
+        android:textSize="17sp"
+        android:visibility="gone"/>
+
+
+</LinearLayout>

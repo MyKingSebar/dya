@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_marginRight="12dp"
+        android:layout_weight="1"
+
+        android:orientation="horizontal">
+
+        <cn.v1.unionc_user.view.CircleImageView
+            android:id="@+id/img_message_avator"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="15dp"
+            tools:src="@drawable/icon_tab_me_select" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
+                >
+
+                <TextView
+                    android:id="@+id/tv_message_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLength="8"
+                    android:textColor="@color/main_text"
+                    android:textSize="15sp"
+                    tools:text="李晓光" />
+
+                <TextView
+                    android:id="@+id/tv_role"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tv_message_name"
+                    android:layout_toRightOf="@id/tv_message_name"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/detail_text"
+                    android:textSize="14sp"
+                    tools:text="小儿内科" />
+                <TextView
+                    android:id="@+id/tv_identity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tv_message_name"
+                    android:layout_toRightOf="@id/tv_role"
+                    android:layout_alignParentTop="true"
+
+                    android:textColor="@color/detail_text"
+                    android:textSize="14sp"
+                    tools:text="主治医师" />
+
+                <TextView
+                    android:id="@+id/tv_describe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_message_name"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="3dp"
+                    android:maxLines="1"
+                    android:textColor="@color/detail_text"
+                    android:textSize="14dp"
+                    tools:text="北京协和医院广安门附属医院" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_describe"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:id="@+id/tv_major"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:lineSpacingExtra="3dp"
+                        android:maxLines="1"
+                        android:textColor="@color/detail_text"
+                        android:textSize="14dp"
+
+                        tools:text="擅长：生长发育、营养、咳嗽、腹痛啊啊啊啊啊啊啊啊啊啊啊啊啊" />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/sign"
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="签约"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:background="#7700"
+                        />
+
+                </LinearLayout>
+
+
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/color_location" />
+
+
+</LinearLayout>

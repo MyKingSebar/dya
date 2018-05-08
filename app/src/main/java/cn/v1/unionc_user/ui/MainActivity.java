@@ -24,6 +24,7 @@ import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment2;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment3;
+import cn.v1.unionc_user.ui.find.FindFragment;
 import cn.v1.unionc_user.ui.me.PersonalFragment;
 import cn.v1.unionc_user.ui.home.MessageFragment;
 
@@ -41,6 +42,7 @@ public class MainActivity extends BaseActivity {
     private MessageFragment messageFragment;
     private DiscoverFragment3 discoverFragment3;
     private PersonalFragment personalFragment;
+    private FindFragment findFragment;
     private final String MESSAGE = "message";
     private final String DISCOVER = "discover";
     private final String PERSONAL = "personal";
@@ -118,12 +120,20 @@ public class MainActivity extends BaseActivity {
                         }
                         switchContent(discoverFragment3, 1);
                         break;
+                    case R.id.find:
+                        mCurrentCheckedId = R.id.find;
+                        if (null == findFragment) {
+                            findFragment = new FindFragment();
+                        }
+                        switchContent(findFragment, 2);
+
+                        break;
                     case R.id.personal:
                         if (null == personalFragment) {
                             personalFragment = new PersonalFragment();
                         }
                         if (isLogin()) {
-                            switchContent(personalFragment, 2);
+                            switchContent(personalFragment, 3);
                         } else {
                             if(!logout){
                                 goNewActivity(LoginActivity.class);
@@ -208,6 +218,8 @@ public class MainActivity extends BaseActivity {
             transaction.remove(messageFragment);
         if (discoverFragment3 != null)
             transaction.remove(discoverFragment3);
+        if (findFragment != null)
+            transaction.remove(findFragment);
         if (personalFragment != null)
             transaction.remove(personalFragment);
 //        goNewActivity(StartActivity.class);
