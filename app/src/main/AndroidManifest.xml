@@ -193,7 +193,9 @@
         <activity android:name=".ui.me.AboutYIBASHIActivity"></activity>
 
 
-        <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoActivity"></activity>
+        <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            ></activity>
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoMeasureActivity"></activity>
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHeartRateECGPhotoActivity"></activity>
         <activity android:name="cn.v1.unionc_user.ui.home.health.DossierHeartRateSelectBlueToothActivity"></activity>

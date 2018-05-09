@@ -52,6 +52,7 @@ import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.MainActivity;
 import cn.v1.unionc_user.ui.base.BaseFragment;
+import cn.v1.unionc_user.ui.home.health.DossierHertRateHistoryActivity;
 import cn.v1.unionc_user.view.CircleImageView;
 
 /**
@@ -169,7 +170,7 @@ public class PersonalFragment extends BaseFragment {
 
             case R.id.tv_yaoqing:
                 //邀请好友
-                showButtonDialog();
+//                showButtonDialog();
 
 
 //                ShareListener myListener = new ShareListener();
@@ -188,7 +189,8 @@ public class PersonalFragment extends BaseFragment {
                 break;
             case R.id.tv_my_heart:
                 //心率
-                goNewActivity(HeartHistoryListActivity.class);
+//                goNewActivity(HeartHistoryListActivity.class);
+                goNewActivity(DossierHertRateHistoryActivity.class);
                 break;
             case R.id.tv_kefu:
                 //客服中心

@@ -4,10 +4,15 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dinuscxj.progressbar.CircleProgressBar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mhealth365.osdk.EcgOpenApiCallback;
@@ -53,6 +59,8 @@ import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.health.file.EcgDataSource;
 import cn.v1.unionc_user.ui.home.health.file.EcgFile;
+import cn.v1.unionc_user.view.FullDialog2;
+import cn.v1.unionc_user.view.FullScrreenDialog;
 
 import static com.mhealth365.osdk.EcgOpenApiCallback.EcgConstant.ECG_BATTERY;
 import static com.mhealth365.osdk.EcgOpenApiCallback.EcgConstant.ECG_HEART;
@@ -63,6 +71,26 @@ import static com.mhealth365.osdk.EcgOpenApiCallback.EcgConstant.ECG_RR;
  * 自动测量的页面
  */
 public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
+
+    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    FullDialog2 mdf;
+
+    @BindView(R.id.myProgress)
+    CircleProgressBar myProgress;
+    @BindView(R.id.countdown)
+    RelativeLayout countdown;
+    @BindView(R.id.ps)
+    TextView tvps;
+
+
+    @BindView(R.id.gou1)
+    TextView gou1;
+    @BindView(R.id.gou2)
+    TextView gou2;
+
+    @BindView(R.id.rl_during)
+    RelativeLayout rl_during;
+
 
     @BindView(R.id.ecg_browser)
     RealTimeEcgBrowser ecgBrowser;
@@ -105,8 +133,9 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.img_back)
     ImageView imBack;
+
     @OnClick(R.id.img_back)
-    public void back(){
+    public void back() {
         finish();
     }
 
@@ -124,6 +153,19 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                     imgStartMeasure.setVisibility(View.GONE);
                     showDialog("准备中...");
                     EcgOpenApiHelper.getInstance().login("8888", mLoginCallback);
+//                    myProgress.setOnCenterDraw(new ArcProgress.OnCenterDraw() {
+//                        @Override
+//                        public void draw(Canvas canvas, RectF rectF, float x, float y, float storkeWidth, int progress) {
+//                            Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//                            textPaint.setStrokeWidth(35);
+//                            textPaint.setColor(getResources().getColor(R.color.textColor));
+//                            String progressStr = String.valueOf("00:"+((60-progress*60/100)>9?(60-progress*60/100):"0"+(60-progress*60/100)));
+//                            float textX = x-(textPaint.measureText(progressStr)/2);
+//                            float textY = y-((textPaint.descent()+textPaint.ascent())/2);
+//                            canvas.drawText(progressStr,textX,textY,textPaint);
+//                        }
+//                    });
+//                    addProrgress(myProgress);
                 } else if (measureType == CONTINUITY_MINUTE_MEASURE) {
                     if (null != mOsdkHelper && mOsdkHelper.isRunningRecord()) {
                         try {
@@ -167,16 +209,16 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                 break;
             //不适应症
             case R.id.tv_dossier_hert_rate_not_indications:
-                if(!mOsdkHelper.isRunningRecord()) {
+                if (!mOsdkHelper.isRunningRecord()) {
                     Intent intentNoIndications = new Intent(context, DossierHertrateNotIndicationsActivity.class);
-                    intentNoIndications.putExtra("type","1");
+                    intentNoIndications.putExtra("type", "1");
                     intentNoIndications.putExtra("noIndication", tvDossierHertRateNotIndications.getText().toString().trim());
                     startActivityForResult(intentNoIndications, 6666);
                 }
                 break;
             //药物
             case R.id.tv_dossier_hert_rate_medicine:
-                if(!mOsdkHelper.isRunningRecord()) {
+                if (!mOsdkHelper.isRunningRecord()) {
                     Intent intentMedicine = new Intent(context, DossierDiabetesCureMedActivity.class);
                     intentMedicine.putExtra("content", tvDossierHertRateMedicine.getText().toString());
                     startActivityForResult(intentMedicine, 8888);
@@ -184,7 +226,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                 break;
             //心脏病类型
             case R.id.tv_dossier_hert_rate_type:
-                if(!mOsdkHelper.isRunningRecord()) {
+                if (!mOsdkHelper.isRunningRecord()) {
                     Intent intentNoIndications = new Intent(context, DossierHertrateNotIndicationsActivitys.class);
                     startActivityForResult(intentNoIndications, 9990);
                 }
@@ -203,40 +245,42 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                 break;
         }
     }
-private void save(){
-        Log.d("linshi","save");
-    monitorDate = tvDossierHertRateDate.getText().toString().trim();
-    hertrate = tvHertRate.getText().toString().trim();
-    notIndications = tvDossierHertRateNotIndications.getText().toString().trim();
-    cureMedicine = tvDossierHertRateMedicine.getText().toString().trim();
-    hertDieaseType = tvDossierHertRateType.getText().toString().trim();
-    monitorResult = tvResult.getText().toString().trim();
-    try {
-        if (!new File(pngFileName).exists()) {
-            //对异常情况加判断
-            if(measureType == CONTINUITY_MINUTE_MEASURE){
-                String json = CaiboSetting.getStringAttr(context,tvDossierHertRateDate.getText().toString().trim());
-                List<String> fileList = new Gson().fromJson(json, new TypeToken<List<String>>() {}.getType());
-                if(null == fileList || fileList.size() == 0){
+
+    private void save() {
+        Log.d("linshi", "save");
+        monitorDate = tvDossierHertRateDate.getText().toString().trim();
+        hertrate = tvHertRate.getText().toString().trim();
+        notIndications = tvDossierHertRateNotIndications.getText().toString().trim();
+        cureMedicine = tvDossierHertRateMedicine.getText().toString().trim();
+        hertDieaseType = tvDossierHertRateType.getText().toString().trim();
+        monitorResult = tvResult.getText().toString().trim();
+        try {
+            if (!new File(pngFileName).exists()) {
+                //对异常情况加判断
+                if (measureType == CONTINUITY_MINUTE_MEASURE) {
+                    String json = CaiboSetting.getStringAttr(context, tvDossierHertRateDate.getText().toString().trim());
+                    List<String> fileList = new Gson().fromJson(json, new TypeToken<List<String>>() {
+                    }.getType());
+                    if (null == fileList || fileList.size() == 0) {
+                        showTost("心电图未生成,请重新测量");
+                        return;
+                    }
+                }
+                if (measureType == ONE_MINUTE_MEASURE) {
                     showTost("心电图未生成,请重新测量");
                     return;
                 }
+                showDialog("保存中...");
+                //按钮保护
+                tvDossierHertRateSave.setEnabled(false);
+                saveHertRateData("", cureMedicine, monitorDate, notIndications, hertrate, disId, monitorResult, "");
+            } else {
+                uploadImage(pngFileName);
             }
-            if(measureType == ONE_MINUTE_MEASURE){
-                showTost("心电图未生成,请重新测量");
-                return;
-            }
-            showDialog("保存中...");
-            //按钮保护
-            tvDossierHertRateSave.setEnabled(false);
-            saveHertRateData("", cureMedicine, monitorDate, notIndications, hertrate, disId, monitorResult, "");
-        } else {
-            uploadImage(pngFileName);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
     private EcgOpenApiHelper mOsdkHelper;
     private int countEcg;//心率测量计时
@@ -250,7 +294,6 @@ private void save(){
     private List<String> cutFileList = new ArrayList<>();
     //数据变量
     private String dataId = "";
-
 
 
     private String userId = "";
@@ -267,6 +310,21 @@ private void save(){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dossier_heart_rate_auto_measure);
         ButterKnife.bind(this);
+//        FullDialog2 dialog=new FullDialog2();
+//        dialog.setOnFinishListener(new FullScrreenDialog.OnFinishListener() {
+//            @Override
+//            public void onFinish() {
+//                startdetection();
+//            }
+//        });
+        mdf=new FullDialog2();
+        mdf.setOnFinishListener(new FullScrreenDialog.OnFinishListener() {
+            @Override
+            public void onFinish() {
+                startdetection();
+            }
+        });
+        mdf.show(ft, "df");
 //        getactionBarToolbar().setNavigationOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -288,7 +346,7 @@ private void save(){
         tvTitle.setText("心率检测");
         initSdk();
         initData();
-        if(!getIntent().hasExtra("dataId")){
+        if (!getIntent().hasExtra("dataId")) {
 
             initView();
             initEcg();
@@ -337,6 +395,8 @@ private void save(){
                 if (callCode == AlarmDialog.ALARMDIALOGOK) {
                     //坐标纸布局
                     flEcgBrowser.setVisibility(View.VISIBLE);
+                    countdown.setVisibility(View.VISIBLE);
+
                     //测量完布局
                     rlAfterTesting.setVisibility(View.GONE);
                     //底部按钮影藏
@@ -393,6 +453,7 @@ private void save(){
         }
         //坐标纸布局
         flEcgBrowser.setVisibility(View.VISIBLE);
+        countdown.setVisibility(View.VISIBLE);
         //测量完布局
         rlAfterTesting.setVisibility(View.GONE);
         //底部按钮
@@ -418,11 +479,11 @@ private void save(){
             @Override
             public void onResponse(HeartIndicationData data) {
                 if (TextUtils.equals("4000", data.getCode())) {
-                    if(data.getData().getBasicDicts().size()>0) {
+                    if (data.getData().getBasicDicts().size() > 0) {
                         heartDisease.clear();
                         hertDiseaseArray.clear();
                         hertDiseaseArray.addAll(data.getData().getBasicDicts());
-                        for (HeartIndicationData.DataData.HeartIndicationDataData mData : hertDiseaseArray){
+                        for (HeartIndicationData.DataData.HeartIndicationDataData mData : hertDiseaseArray) {
                             heartDisease.add(mData.getBasicName());
                         }
                     }
@@ -430,7 +491,7 @@ private void save(){
             }
 
             @Override
-            public void onFail (Throwable e){
+            public void onFail(Throwable e) {
                 closeDialog();
             }
         });
@@ -460,9 +521,9 @@ private void save(){
         monitorId = getIntent().getStringExtra("monitorId");
         measureType = getIntent().getIntExtra("measureType", 0);
         ecgSample = getIntent().getIntExtra("ecgSample", 0);
-        if(getIntent().hasExtra("dataId")){
-            dataId=getIntent().getStringExtra("dataId");
-            if(!TextUtils.isEmpty(dataId)){
+        if (getIntent().hasExtra("dataId")) {
+            dataId = getIntent().getStringExtra("dataId");
+            if (!TextUtils.isEmpty(dataId)) {
                 getDataById();
                 //开始记录的按钮
                 imgStartMeasure.setVisibility(View.VISIBLE);
@@ -476,7 +537,8 @@ private void save(){
                 tvViewEcg.setVisibility(View.VISIBLE);
                 //坐标纸布局
                 flEcgBrowser.setVisibility(View.GONE);
-                measureType= ONE_MINUTE_MEASURE;
+//                countdown.setVisibility(View.GONE);
+                measureType = ONE_MINUTE_MEASURE;
             }
         }
     }
@@ -579,19 +641,19 @@ private void save(){
     private void uploadImage(String imgPath) {
         //按钮保护
         tvDossierHertRateSave.setEnabled(false);
-        Log.d("linshi","uploadImage:"+imgPath);
+        Log.d("linshi", "uploadImage:" + imgPath);
         showDialog("心电图上传中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         ConnectHttp.connect(UnionAPIPackage.uploadImge(token, new File(imgPath)), new BaseObserver<UpdateFileData>(context) {
             @Override
             public void onResponse(UpdateFileData data) {
-                Log.d("linshi","UpdateFileData:"+ new Gson().toJson(data));
+                Log.d("linshi", "UpdateFileData:" + new Gson().toJson(data));
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
                     String imgUrl = data.getPath();
                     //String token,String monitorId,String monitorDate,String heartRate,String heartRateImage,String cureMedicine,String diabetesType,
                     //     String disorder,String reason
-                        saveHertRateData("1", monitorDate, hertrate, imgUrl,cureMedicine,hertDieaseType,notIndications,monitorResult);
+                    saveHertRateData("1", monitorDate, hertrate, imgUrl, cureMedicine, hertDieaseType, notIndications, monitorResult);
                 } else {
                     showTost(data.getMessage() + "");
                 }
@@ -603,20 +665,22 @@ private void save(){
             }
         });
     }
+
     /**
      * 保存心率数据
      * String token,String monitorId,String monitorDate,String heartRate,String heartRateImage,String cureMedicine,String diabetesType,
-     String disorder,String reason
+     * String disorder,String reason
      */
     private void saveHertRateData(String monitorId, String monitorDate, String heartRate, String heartRateImage,
-                                  String cureMedicine, String diabetesType, String disorder,String reason) {
+                                  String cureMedicine, String diabetesType, String disorder, String reason) {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.saveHealthData(token,monitorId,monitorDate,heartRate,heartRateImage,cureMedicine,diabetesType,disorder,reason), new BaseObserver<BaseData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.saveHealthData(token, monitorId, monitorDate, heartRate, heartRateImage, cureMedicine, diabetesType, disorder, reason), new BaseObserver<BaseData>(context) {
             @Override
             public void onResponse(BaseData data) {
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
-                    showTost("自动上传成功");
+                    showTost("上传成功");
+                    finish();
                 } else {
                     showTost(data.getMessage() + "");
                 }
@@ -842,6 +906,7 @@ private void save(){
         public void battery(int value) {
             //电池电量
             displayMessage.obtainMessage(ECG_BATTERY, value, -1).sendToTarget();
+
         }
 
         @Override
@@ -1006,7 +1071,7 @@ private void save(){
         @Override
         public void handleMessage(Message msg) {
             int what = msg.what;
-            Log.d("linshi","displayMessage:"+msg.what);
+            Log.d("linshi", "displayMessage:" + msg.what);
             switch (what) {
                 case ECG_HEART:
                     int hrValue = msg.arg1;
@@ -1029,8 +1094,19 @@ private void save(){
                     //记录时间
                     if (measureType == ONE_MINUTE_MEASURE) {
                         tvTime.setText("00:00:" + StringUtil.getStrNumWithZero(60 - msg.arg1));
+
+                        Message msg1 = new Message();
+                        msg1.what = 5000;
+                        msg1.obj=StringUtil.getStrNumWithZero(60 - msg.arg1);
+//                        msg1.arg1=msg.arg1*100/60;
+                        msg1.arg1=msg.arg1;
+                        SystemClock.sleep(1000);
+                        handler.sendMessage(msg1);
+                        if(msg.arg1==60){
+                            countdown.setVisibility(View.GONE);
+                        }
                     } else {
-                        tvTime.setText(formatLongToTimeStr(msg.arg1) + "");
+//                        tvTime.setText(formatLongToTimeStr(msg.arg1) + "");
                     }
                     break;
                 case RECORD_END:
@@ -1046,28 +1122,39 @@ private void save(){
                     tvTime.setText("");
                     //计时xinlv
                     tvInstantHeartRate.setText("");
-                    //测完后的布局
-                    rlAfterTesting.setVisibility(View.VISIBLE);
+
+                    countdown.setVisibility(View.GONE);
                     //查看心电图
                     tvViewEcg.setVisibility(View.VISIBLE);
-                    //坐标纸布局
-                    flEcgBrowser.setVisibility(View.GONE);
-                    //底部保存按钮
+
+                    handlerButton.sendEmptyMessageDelayed(1, 3000);
+/**
+ * 延时
+ */
+//                    //坐标纸布局
+//                    flEcgBrowser.setVisibility(View.GONE);
+//
+//
+//                    //测完后的布局
+//                    rlAfterTesting.setVisibility(View.VISIBLE);
+//
+//                    //底部保存按钮
 //                    llBottomBtn.setVisibility(View.VISIBLE);
-                    //测量时间
-                    Calendar calendar = Calendar.getInstance();
-                    int currentYear = calendar.get(Calendar.YEAR);
-                    int currentMonth = calendar.get(Calendar.MONTH) + 1;
-                    int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-                    int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                    int currentMinute = calendar.get(Calendar.MINUTE);
-                    int currentSecond = calendar.get(Calendar.SECOND);
-                    tvDossierHertRateDate.setText(currentYear + "-" + StringUtil.getStrNumWithZero(currentMonth)
-                            + "-" + StringUtil.getStrNumWithZero(currentDay) + " " + StringUtil.getStrNumWithZero(currentHour)
-                            + ":" + StringUtil.getStrNumWithZero(currentMinute)
-                            + ":" + StringUtil.getStrNumWithZero(currentSecond)
-                    );
-                    ecgBrowser.clearEcg();
+//                    handlerButton.sendEmptyMessageDelayed(0, 1000);
+//                    //测量时间
+//                    Calendar calendar = Calendar.getInstance();
+//                    int currentYear = calendar.get(Calendar.YEAR);
+//                    int currentMonth = calendar.get(Calendar.MONTH) + 1;
+//                    int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+//                    int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+//                    int currentMinute = calendar.get(Calendar.MINUTE);
+//                    int currentSecond = calendar.get(Calendar.SECOND);
+//                    tvDossierHertRateDate.setText(currentYear + "-" + StringUtil.getStrNumWithZero(currentMonth)
+//                            + "-" + StringUtil.getStrNumWithZero(currentDay) + " " + StringUtil.getStrNumWithZero(currentHour)
+//                            + ":" + StringUtil.getStrNumWithZero(currentMinute)
+//                            + ":" + StringUtil.getStrNumWithZero(currentSecond)
+//                    );
+//                    ecgBrowser.clearEcg();
                     break;
                 case START_FAILED:
                     String textStartFailed = (String) msg.obj;
@@ -1076,27 +1163,27 @@ private void save(){
                 //分析结果
                 case ECG_STAISTICS_RESULT:
                     String text = (String) msg.obj;
-                    if (text != null){
+                    if (text != null) {
                         //分析结果
                         tvResult.setText(text);
-                    }else{
+                    } else {
                         tvResult.setText("-");
                     }
                     break;
                 //平均心率
                 case AVERAGE_HEART_RATE:
                     String averageHeartRate = (String) msg.obj;
-                    if(TextUtils.isEmpty(averageHeartRate)){
+                    if (TextUtils.isEmpty(averageHeartRate)) {
                         tvHertRate.setText("-");
-                    }else{
+                    } else {
                         tvHertRate.setText(averageHeartRate + "");
-                        SPUtil.put(context, Common.HEARTRATE, averageHeartRate+"");
+                        SPUtil.put(context, Common.HEARTRATE, averageHeartRate + "");
                     }
                     break;
                 //ECG文件生成成功，创建心电图和切割文件
                 case ECG_SHOW_DATA:
                     ecgFile = (String) msg.obj;
-                    if(measureType == ONE_MINUTE_MEASURE){
+                    if (measureType == ONE_MINUTE_MEASURE) {
                         mWaitDialog.setMessage("正在生成心电图");
                         mWaitDialog.setIndeterminate(true);
                         mWaitDialog.setCancelable(true);
@@ -1106,7 +1193,10 @@ private void save(){
                 //创建图片成功与否的提示
                 case CREATE_PNG:
                     String message = (String) msg.obj;
-                    showTost(message + "");
+                    /**
+                     * 暂时关闭toast
+                     */
+//                    showTost(message + "");
                     if (mWaitDialog != null && mWaitDialog.isShowing()) {
                         mWaitDialog.dismiss();
                     }
@@ -1117,7 +1207,10 @@ private void save(){
                     if (mWaitDialog != null && mWaitDialog.isShowing()) {
                         mWaitDialog.dismiss();
                     }
-                    save();
+                    /**
+                     * 自动保存位置
+                     */
+//                    save();
                     break;
                 //创建失败
                 case CREAT_PNG_FAIL:
@@ -1133,7 +1226,7 @@ private void save(){
                     break;
                 //开始切割
                 case CUT_FILE_START:
-                    if(measureType == CONTINUITY_MINUTE_MEASURE){
+                    if (measureType == CONTINUITY_MINUTE_MEASURE) {
                         mWaitDialog.setMessage("正在生成心电图");
                         mWaitDialog.setIndeterminate(true);
                         mWaitDialog.setCancelable(true);
@@ -1174,6 +1267,9 @@ private void save(){
                 case ECG_BATTERY:
                     if (msg.arg1 == 0) {
                         showTost("电量不足");
+                        tvps.setVisibility(View.VISIBLE);
+                    }else {
+                        tvps.setVisibility(View.INVISIBLE);
                     }
                     break;
                 case ECG_ACC:
@@ -1188,6 +1284,54 @@ private void save(){
             }
         }
     };
+    private Handler handlerButton = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 0:
+                    // 移除所有的msg.what为0等消息，保证只有一个循环消息队列再跑
+                    handlerButton.removeMessages(0);
+                    tvDossierHertRateSave.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    gou1.setVisibility(View.VISIBLE);
+                    handlerButton.sendEmptyMessageDelayed(2, 3000);
+                    break;
+                case 2:
+                    gou2.setVisibility(View.VISIBLE);
+                    handlerButton.sendEmptyMessageDelayed(3, 1000);
+                    break;
+                case 3:
+                    //坐标纸布局
+                    flEcgBrowser.setVisibility(View.GONE);
+                    rl_during.setVisibility(View.GONE);
+
+                    //测完后的布局
+                    rlAfterTesting.setVisibility(View.VISIBLE);
+
+                    //底部保存按钮
+                    llBottomBtn.setVisibility(View.VISIBLE);
+                    handlerButton.sendEmptyMessageDelayed(0, 1000);
+                    //测量时间
+                    Calendar calendar = Calendar.getInstance();
+                    int currentYear = calendar.get(Calendar.YEAR);
+                    int currentMonth = calendar.get(Calendar.MONTH) + 1;
+                    int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+                    int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                    int currentMinute = calendar.get(Calendar.MINUTE);
+                    int currentSecond = calendar.get(Calendar.SECOND);
+                    tvDossierHertRateDate.setText(currentYear + "-" + StringUtil.getStrNumWithZero(currentMonth)
+                            + "-" + StringUtil.getStrNumWithZero(currentDay) + " " + StringUtil.getStrNumWithZero(currentHour)
+                            + ":" + StringUtil.getStrNumWithZero(currentMinute)
+                            + ":" + StringUtil.getStrNumWithZero(currentSecond)
+                    );
+                    ecgBrowser.clearEcg();
+                    break;
+                default:
+                    break;
+            }
+        };
+    };
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -1199,8 +1343,8 @@ private void save(){
             //心脏病类型
             tvDossierHertRateType.setText(data.getStringExtra("firstColum"));
             String disName = data.getStringExtra("firstColum");
-            for (HeartIndicationData.DataData.HeartIndicationDataData mdatas : hertDiseaseArray){
-                if(mdatas.getBasicName().equals(disName)){
+            for (HeartIndicationData.DataData.HeartIndicationDataData mdatas : hertDiseaseArray) {
+                if (mdatas.getBasicName().equals(disName)) {
                     disId = mdatas.getBasicCode();
                 }
             }
@@ -1362,11 +1506,10 @@ private void save(){
 
     /**
      * 获取资料
-     *
      */
     private void getDataById() {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.getHeartData(token, "1",dataId), new BaseObserver<HeartHistoryData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.getHeartData(token, "1", dataId), new BaseObserver<HeartHistoryData>(context) {
 
             @Override
             public void onResponse(HeartHistoryData data) {
@@ -1377,7 +1520,7 @@ private void save(){
                     tvDossierHertRateMedicine.setText(data.getData().getHealthData().getCureMedicine());
                     tvDossierHertRateType.setText(data.getData().getHealthData().getDiabetesType());
                     tvResult.setText(data.getData().getHealthData().getReason());
-                    pngFileName=data.getData().getHealthData().getHeartRateImage();
+                    pngFileName = data.getData().getHealthData().getHeartRateImage();
                 } else {
 
                 }
@@ -1388,5 +1531,65 @@ private void save(){
                 showTost("获取失败");
             }
         });
+    }
+
+
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+//            ArcProgress progressBar = (ArcProgress) msg.obj;
+//            progressBar.setProgress(msg.what);
+            if(msg.what==5000){
+                handlerButton.removeMessages(5000);
+                myProgress.setProgress(msg.arg1);
+                if(msg.arg1<60){
+                    myProgress.setProgressTextFormatPattern("00:"+StringUtil.getStrNumWithZero(60 - msg.arg1-1));
+                }else{
+                    myProgress.setProgressTextFormatPattern("00:"+StringUtil.getStrNumWithZero(60 - msg.arg1));
+                }
+            }
+
+        }
+    };
+    private void startdetection(){
+        //坐标纸布局
+        //flEcgBrowser.setVisibility(View.GONE);
+        //测量完布局
+        //rlAfterTesting.setVisibility(View.VISIBLE);
+        if (measureType == ONE_MINUTE_MEASURE) {
+            imgStartMeasure.setVisibility(View.GONE);
+            showDialog("准备中...");
+            EcgOpenApiHelper.getInstance().login("8888", mLoginCallback);
+            myProgress.setProgressTextFormatPattern("00:60");
+//            setOnCenterDraw(new ArcProgress.OnCenterDraw() {
+//                @Override
+//                public void draw(Canvas canvas, RectF rectF, float x, float y, float storkeWidth, int progress) {
+//                    Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//                    textPaint.setStrokeWidth(35);
+//                    textPaint.setColor(getResources().getColor(R.color.textColor));
+////                    String progressStr = String.valueOf("00:"+((60-progress*60/100)>9?(60-progress*60/100):"0"+(60-progress*60/100)));
+//                    String progressStr = String.valueOf("00:"+((60-progress)>9?(60-progress):"0"+(60-progress)));
+//                    float textX = x-(textPaint.measureText(progressStr)/2);
+//                    float textY = y-((textPaint.descent()+textPaint.ascent())/2);
+//                    canvas.drawText(progressStr,textX,textY,textPaint);
+//                }
+//            });
+//                    addProrgress(myProgress);
+        } else if (measureType == CONTINUITY_MINUTE_MEASURE) {
+            if (null != mOsdkHelper && mOsdkHelper.isRunningRecord()) {
+                try {
+                    mOsdkHelper.stopRecord();
+                    imgStartMeasure.setImageResource(R.drawable.icon_measure);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                imgStartMeasure.setImageResource(R.drawable.icon_measure_stop);
+                showDialog("准备中...");
+                EcgOpenApiHelper.getInstance().login("8888", mLoginCallback);
+            }
+        }
     }
 }

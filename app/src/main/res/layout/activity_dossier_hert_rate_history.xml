@@ -6,7 +6,8 @@
     android:orientation="vertical"
     >
 
-    <include layout="@layout/include_toolbar_actionbar" />
+<!--    <include layout="@layout/include_toolbar_actionbar" />-->
+    <include layout="@layout/layout_toolbar" />
 
     <include layout="@layout/include_line" />
 

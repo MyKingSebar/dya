@@ -194,8 +194,14 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
         ConnectHttp.connect(UnionAPIPackage.recommenddoctors((String)SPUtil.get(context,Common.LONGITUDE,""), (String)SPUtil.get(context,Common.LATITUDE,""),"",""), new BaseObserver<RecommendDoctorsData>(context) {
             @Override
             public void onResponse(RecommendDoctorsData data) {
-recommendDoctorAdapter.setData(data.getData().getDoctors());
-                findlinear.setVisibility(View.VISIBLE);
+                if(TextUtils.equals(data.getCode(),"4000")){
+
+                    recommendDoctorAdapter.setData(data.getData().getDoctors());
+                    findlinear.setVisibility(View.VISIBLE);
+                }else {
+                    findlinear.setVisibility(View.GONE);
+
+                }
             }
 
             @Override

@@ -40,6 +40,7 @@ public class DossierHeartRateAutoActivity extends BaseActivity {
 
 
 
+
     @BindView(R.id.tv_dossier_hert_rate_history)
     TextView tvDossierHertRateHistory;
     @BindView(R.id.fragment_container)

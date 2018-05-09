@@ -73,8 +73,7 @@
                     android:layout_width="28dp"
                     android:layout_height="53dp"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/icon_maptoken"
-                    />
+                    android:background="@drawable/icon_maptoken" />
 
                 <TextView
                     android:id="@+id/tv_more"
@@ -98,36 +97,39 @@
                     android:layout_height="45dp"
                     android:layout_below="@id/rel_activity_home_search"
                     android:layout_marginLeft="4dp"
-                    android:layout_marginTop="316dp"
+                    android:layout_marginTop="250dp"
                     android:background="@drawable/icon_point" />
-<LinearLayout
-    android:id="@+id/find_doctor"
-    android:layout_alignParentBottom="true"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="148dp"
-    android:background="@color/white"
-    android:visibility="gone"
-    >
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginLeft="10dp"
-    android:text="今日推荐"
-    android:textSize="13sp"
-    android:textColor="#9B9CA0"
 
-    />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/find_recycleview"
-        android:layout_marginTop="18dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/find_doctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="148dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-    </android.support.v7.widget.RecyclerView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="今日推荐"
+                        android:textColor="#9B9CA0"
+                        android:textSize="13sp"
 
-</LinearLayout>
+                        />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/find_recycleview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="18dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
                 <WebView
                     android:id="@+id/webview"
                     android:layout_width="match_parent"
@@ -187,15 +189,15 @@
 
             <CheckBox
                 android:id="@+id/cb1"
-                android:clickable="false"
+                style="@drawable/choose_checkbox_style"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginRight="20dp"
-                style="@drawable/choose_checkbox_style"
-                 />
+                android:clickable="false" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll2"
             android:layout_width="match_parent"
@@ -222,14 +224,15 @@
 
             <CheckBox
                 android:id="@+id/cb2"
-                android:clickable="false"
+                style="@drawable/choose_checkbox_style"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginRight="20dp"
-                style="@drawable/choose_checkbox_style" />
+                android:clickable="false" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll3"
             android:layout_width="match_parent"
@@ -256,14 +259,15 @@
 
             <CheckBox
                 android:id="@+id/cb3"
-                android:clickable="false"
+                style="@drawable/choose_checkbox_style"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginRight="20dp"
-                style="@drawable/choose_checkbox_style" />
+                android:clickable="false" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll4"
             android:layout_width="match_parent"
@@ -290,14 +294,15 @@
 
             <CheckBox
                 android:id="@+id/cb4"
-                android:clickable="false"
+                style="@drawable/choose_checkbox_style"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginRight="20dp"
-                style="@drawable/choose_checkbox_style" />
+                android:clickable="false" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll5"
             android:layout_width="match_parent"
@@ -324,17 +329,16 @@
 
             <CheckBox
                 android:id="@+id/cb5"
-                android:clickable="false"
+                style="@drawable/choose_checkbox_style"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginRight="20dp"
-                style="@drawable/choose_checkbox_style"/>
+                android:clickable="false" />
 
 
         </LinearLayout>
 
     </RelativeLayout>
-
 
 
 </android.support.v4.widget.DrawerLayout>

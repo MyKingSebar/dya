@@ -25,8 +25,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.UnioncApp;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.HeartHistoryListData;
+import cn.v1.unionc_user.model.RecommendDoctorsData;
+import cn.v1.unionc_user.network_frame.ConnectHttp;
+import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -40,6 +48,16 @@ public class DossierHertRateHistoryActivity extends BaseActivity {
     @Nullable
     PtrFrameLayout mPtrFrameLayout;
 
+    @BindView(R.id.tv_title)
+    TextView tv_title;
+
+    @BindView(R.id.img_back)
+    ImageView img_back;
+    @OnClick(R.id.img_back)
+void back(){
+        finish();
+    }
+
     private LinearLayout mChatContainer;
     private ChartView chat;
     private ImageView imgLeftBtn, imgRightBtn;
@@ -48,7 +66,7 @@ public class DossierHertRateHistoryActivity extends BaseActivity {
             tvHertRateHigh, tvHertRateSerious;
     private RecyclerView rvHertRateHistory;
     private HistoryAdapter mHistoryAdapter;
-    private List<DosseierBloodFatHistoryData.DataBean.ResultListBean> mListData = new ArrayList<>();
+    private List<HeartHistoryListData.DataData.Heartdata> mListData = new ArrayList<>();
     private String userId;
     private String monitorId;
     private String healthInfoId;
@@ -72,13 +90,14 @@ public class DossierHertRateHistoryActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-//        mListData.clear();
+        mListData.clear();
+        getlist();
 //        gethertRateHistoryData(startTime, endTime);
         super.onResume();
     }
 
     private void initView() {
-
+        tv_title.setText("历史记录");
         //初始化图表
         // chat = new ChartView(this);
         //左边选择时间按钮
@@ -138,7 +157,8 @@ public class DossierHertRateHistoryActivity extends BaseActivity {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-//                mListData.clear();
+                mListData.clear();
+                getlist();
 //                gethertRateHistoryData(startTime, endTime);
             }
         });
@@ -153,9 +173,58 @@ public class DossierHertRateHistoryActivity extends BaseActivity {
         nowTime = new Date().getTime();
         endTime = sdf.format(new Date(nowTime));
         startTime = sdf.format(new Date(nowTime - 7 * 24 * 3600 * 1000));
+        getlist();
 //        gethertRateHistoryData(startTime, endTime);
     }
+    /**
+     * 获取列表
+     *
+     */
+    private void getlist() {
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.getHeartListData(token, "1","1","200"), new BaseObserver<HeartHistoryListData>(context) {
 
+            @Override
+            public void onResponse(HeartHistoryListData data) {
+//                closeDialog();
+//                if (TextUtils.equals("4000", data.getCode())) {
+//                    if(data.getData().getHealthDatas().size()>0){
+//                        last.setText(data.getData().getHealthDatas().get(0).getHeartRate());
+//                        hhladapter.setData(data.getData().getHealthDatas());
+//                        hhladapter.notifyDataSetChanged();
+//                    }
+//                } else {
+//
+//                }
+                    if (TextUtils.equals("4000", data.getCode())) {
+                    //历史记录集合
+                    mListData.addAll(data.getData().getHealthDatas());
+                    //图表数据处理
+                    AssignmentChat(data.getData().getHealthDatas());
+                    //控件赋值
+                    AssignView(data.getData());
+                    mHistoryAdapter.notifyDataSetChanged();
+                    if(data.getData().getHealthDatas()!=null&&data.getData().getHealthDatas().size()>0){
+                        historySc.setVisibility(View.VISIBLE);
+                    }else{
+                        historySc.setVisibility(View.GONE);
+                    }
+
+                } else {
+                    showTost(data.getMessage() + "");
+                }
+                mPtrFrameLayout.refreshComplete();
+                closeDialog();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                showTost("获取历史记录失败");
+                                mPtrFrameLayout.refreshComplete();
+                closeDialog();
+            }
+        });
+    }
 //    /**
 //     * 获取服务器数据
 //     *
@@ -200,138 +269,138 @@ public class DossierHertRateHistoryActivity extends BaseActivity {
 //        });
 //    }
 
-//    /**
-//     * 控件赋值
-//     *
-//     * @param data
-//     */
-//    private void AssignView(DosseierBloodFatHistoryData.DataBean data) {
-//
-//        if (mListData.size() == 0) {
-//            //心率最低值
-//            tvHeatRateMin.setText("无");
-//            //心率均值
-//            tvHeatRateMiddle.setText("无");
-//            //心率最高值
-//            tvHeatRateMax.setText("无");
-//            //记录总数
-//            tvHertRateTotal.setText("共" + 0 + "次");
-//            //记录偏低次数
-//            tvHertRateLow.setText("偏低" + 0 + "次");
-//            //记录正常次数
-//            tvHertRateNormal.setText("正常" + 0 + "次");
-//            //记录偏高次数
-//            tvHertRateHigh.setText("偏高" + 0 + "次");
-//            //记录严重次数
-//            tvHertRateSerious.setText("严重" + 0 + "次");
-//            //
-//            tvBottom.setVisibility(View.GONE);
-//        } else {
-//            //心率最低值
-//            tvHeatRateMin.setText(data.getMinData() + "次/分");
-//            //心率均值
-//            tvHeatRateMiddle.setText(data.getAvgData() + "次/分");
-//            //心率最高值
-//            tvHeatRateMax.setText(data.getMaxData() + "次/分");
-//            //记录总数
-//            tvHertRateTotal.setText("共" + data.getTotalRecord() + "次");
-//            //记录偏低次数
-//            tvHertRateLow.setText("偏低" + data.getRecord1() + "次");
-//            //记录正常次数
-//            tvHertRateNormal.setText("正常" + data.getRecord2() + "次");
-//            //记录偏高次数
-//            tvHertRateHigh.setText("偏高" + data.getRecord3() + "次");
-//            //记录严重次数
-//            tvHertRateSerious.setText("严重" + data.getRecord4() + "次");
-//            //
-//            tvBottom.setVisibility(View.VISIBLE);
-//            tvBottom.setText("以上数据是最新的" + mListData.size() + "条数据");
-//        }
-//
-//    }
+    /**
+     * 控件赋值
+     *
+     * @param data
+     */
+    private void AssignView(HeartHistoryListData.DataData data) {
 
-//    /**
-//     * 图表数据
-//     *
-//     * @param resultList
-//     */
-//    private void AssignmentChat(List<DosseierBloodFatHistoryData.DataBean.ResultListBean> resultList) {
-//
-//        String[] noDataTime = {endTime,
-//                sdf.format(new Date(nowTime - 1 * 24 * 3600 * 1000)),
-//                sdf.format(new Date(nowTime - 2 * 24 * 3600 * 1000)),
-//                sdf.format(new Date(nowTime - 3 * 24 * 3600 * 1000)),
-//                sdf.format(new Date(nowTime - 4 * 24 * 3600 * 1000)),
-//                sdf.format(new Date(nowTime - 5 * 24 * 3600 * 1000)),
-//                sdf.format(new Date(nowTime - 6 * 24 * 3600 * 1000)),
-//                startTime};
-//        String[] XLabels = new String[noDataTime.length];
-//        for (int i = 0; i < noDataTime.length; i++) {
-//            if (i == 0) {
-//                String[] xData = noDataTime[noDataTime.length - 1].split("-");
-//                LogUtils.LOGD("noDataTime_7", Arrays.toString(xData) + "");
-//                XLabels[i] = xData[1] + "-" + xData[2];
-//            } else {
-//                XLabels[i] = noDataTime[noDataTime.length - 1 - i].split("-")[2];
-//            }
-//        }
-//        if (mListData.size() == 0) {
-//            //无数据时的显示
-//            try {
-//                //左边时间
-//                tvStartTime.setText(startTime + "");
-//                //右边时间
-//                tvStopTime.setText(endTime + "");
-//
-//                LogUtils.LOGD("noDataTime", Arrays.toString(noDataTime));
-//                String[] AllData = new String[noDataTime.length];
-//                for (int i = 0; i < noDataTime.length; i++) {
-//                    AllData[i] = "";
-//                }
-//                LogUtils.LOGD("ChatData", Arrays.toString(XLabels));
-//                LogUtils.LOGD("AllData", Arrays.toString(AllData));
-//                if (XLabels.length == 0 || AllData.length == 0) {
-//                    return;
-//                }
-//                //TODO
-//                //初始化图表
-//                chat = new ChartView(this);
-//                mChatContainer.removeAllViews();
-//                mChatContainer.addView(chat);
-//                chat.setInfo(noDataTime.length, XLabels, // X轴刻度
-//                        AllData);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            String[] AllData = new String[resultList.size()];
-//            try {
-//                //左边时间
-//                tvStartTime.setText(startTime + "");
-//                //右边时间
-//                tvStopTime.setText(endTime + "");
-//                for (int i = 0; i < resultList.size(); i++) {
-//                    AllData[i] = resultList.get(resultList.size() - 1 - i).getData7();
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            LogUtils.LOGD("ChatData", Arrays.toString(XLabels));
-//            LogUtils.LOGD("AllData", Arrays.toString(AllData));
-//            if (XLabels.length == 0 || AllData.length == 0) {
-//                return;
-//            }
-//            //TODO
-//            //初始化图表
-//            chat = new ChartView(this);
-//            mChatContainer.removeAllViews();
-//            mChatContainer.addView(chat);
-//            chat.setInfo(resultList.size(), XLabels, // X轴刻度
-//                    AllData // 数据
-//            );
-//        }
-//
-//    }
+        if (mListData.size() == 0) {
+            //心率最低值
+            tvHeatRateMin.setText("无");
+            //心率均值
+            tvHeatRateMiddle.setText("无");
+            //心率最高值
+            tvHeatRateMax.setText("无");
+            //记录总数
+            tvHertRateTotal.setText("共" + 0 + "次");
+            //记录偏低次数
+            tvHertRateLow.setText("偏低" + 0 + "次");
+            //记录正常次数
+            tvHertRateNormal.setText("正常" + 0 + "次");
+            //记录偏高次数
+            tvHertRateHigh.setText("偏高" + 0 + "次");
+            //记录严重次数
+            tvHertRateSerious.setText("严重" + 0 + "次");
+            //
+            tvBottom.setVisibility(View.GONE);
+        } else {
+            //心率最低值
+            tvHeatRateMin.setText(data.getMinData() + "次/分");
+            //心率均值
+            tvHeatRateMiddle.setText(data.getAvgData() + "次/分");
+            //心率最高值
+            tvHeatRateMax.setText(data.getMaxData() + "次/分");
+            //记录总数
+            tvHertRateTotal.setText("共" + data.getTotalCount() + "次");
+            //记录偏低次数
+            tvHertRateLow.setText("偏低" + data.getRecord1() + "次");
+            //记录正常次数
+            tvHertRateNormal.setText("正常" + data.getRecord2() + "次");
+            //记录偏高次数
+            tvHertRateHigh.setText("偏高" + data.getRecord3() + "次");
+            //记录严重次数
+            tvHertRateSerious.setText("严重" + data.getRecord4() + "次");
+            //
+            tvBottom.setVisibility(View.VISIBLE);
+            tvBottom.setText("以上数据是最新的" + mListData.size() + "条数据");
+        }
+
+    }
+
+    /**
+     * 图表数据
+     *
+     * @param resultList
+     */
+    private void AssignmentChat(List<HeartHistoryListData.DataData.Heartdata> resultList) {
+
+        String[] noDataTime = {endTime,
+                sdf.format(new Date(nowTime - 1 * 24 * 3600 * 1000)),
+                sdf.format(new Date(nowTime - 2 * 24 * 3600 * 1000)),
+                sdf.format(new Date(nowTime - 3 * 24 * 3600 * 1000)),
+                sdf.format(new Date(nowTime - 4 * 24 * 3600 * 1000)),
+                sdf.format(new Date(nowTime - 5 * 24 * 3600 * 1000)),
+                sdf.format(new Date(nowTime - 6 * 24 * 3600 * 1000)),
+                startTime};
+        String[] XLabels = new String[noDataTime.length];
+        for (int i = 0; i < noDataTime.length; i++) {
+            if (i == 0) {
+                String[] xData = noDataTime[noDataTime.length - 1].split("-");
+                LogUtils.LOGD("noDataTime_7", Arrays.toString(xData) + "");
+                XLabels[i] = xData[1] + "-" + xData[2];
+            } else {
+                XLabels[i] = noDataTime[noDataTime.length - 1 - i].split("-")[2];
+            }
+        }
+        if (mListData.size() == 0) {
+            //无数据时的显示
+            try {
+                //左边时间
+                tvStartTime.setText(startTime + "");
+                //右边时间
+                tvStopTime.setText(endTime + "");
+
+                LogUtils.LOGD("noDataTime", Arrays.toString(noDataTime));
+                String[] AllData = new String[noDataTime.length];
+                for (int i = 0; i < noDataTime.length; i++) {
+                    AllData[i] = "";
+                }
+                LogUtils.LOGD("ChatData", Arrays.toString(XLabels));
+                LogUtils.LOGD("AllData", Arrays.toString(AllData));
+                if (XLabels.length == 0 || AllData.length == 0) {
+                    return;
+                }
+                //TODO
+                //初始化图表
+                chat = new ChartView(this);
+                mChatContainer.removeAllViews();
+                mChatContainer.addView(chat);
+                chat.setInfo(noDataTime.length, XLabels, // X轴刻度
+                        AllData);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            String[] AllData = new String[resultList.size()];
+            try {
+                //左边时间
+                tvStartTime.setText(startTime + "");
+                //右边时间
+                tvStopTime.setText(endTime + "");
+                for (int i = 0; i < resultList.size(); i++) {
+                    AllData[i] = resultList.get(resultList.size() - 1 - i).getHeartRate();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            LogUtils.LOGD("ChatData", Arrays.toString(XLabels));
+            LogUtils.LOGD("AllData", Arrays.toString(AllData));
+            if (XLabels.length == 0 || AllData.length == 0) {
+                return;
+            }
+            //TODO
+            //初始化图表
+            chat = new ChartView(this);
+            mChatContainer.removeAllViews();
+            mChatContainer.addView(chat);
+            chat.setInfo(resultList.size(), XLabels, // X轴刻度
+                    AllData // 数据
+            );
+        }
+
+    }
 
     private class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
 
@@ -347,7 +416,7 @@ public class DossierHertRateHistoryActivity extends BaseActivity {
         public void onBindViewHolder(HistoryViewHolder holder, final int position) {
             holder.tvTime.setText(mListData.get(position).getMonitorDate() + "");
             //一分钟测量
-            if (!TextUtils.isEmpty(mListData.get(position).getPic1())) {
+            if (!TextUtils.isEmpty(mListData.get(position).getHeartRateImagePath())) {
                 //查看心电图
                 holder.tvLookEcg.setVisibility(View.VISIBLE);
             }else{
@@ -356,9 +425,9 @@ public class DossierHertRateHistoryActivity extends BaseActivity {
             holder.tvHeartImg.setVisibility(View.GONE);
             holder.imgRedDot.setVisibility(View.GONE);
             //心率之
-            holder.tvHeartRate.setText(mListData.get(position).getData7() + "次/分");
+            holder.tvHeartRate.setText(mListData.get(position).getHeartRate() + "次/分");
             try {
-                int valueAfter = Integer.parseInt(mListData.get(position).getData7());
+                int valueAfter = Integer.parseInt(mListData.get(position).getHeartRate());
                 //心率值    60～100 正常 低于60 心率偏低 高于100 小于160 偏高 大于160 严重
                 if (valueAfter < 60) {
                     holder.tv_heart_rate_state.setVisibility(View.VISIBLE);
@@ -398,7 +467,7 @@ public class DossierHertRateHistoryActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intentECGPhoto = new Intent(DossierHertRateHistoryActivity.this, DossierHeartRateECGPhotoActivity.class);
-                    intentECGPhoto.putExtra("pngFileName", mListData.get(position).getPic1());
+                    intentECGPhoto.putExtra("pngFileName", mListData.get(position).getHeartRateImagePath());
                     startActivity(intentECGPhoto);
                 }
             });

@@ -24,4 +24,19 @@
         android:textColor="@color/white"
         android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/ps"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@drawable/dianliang"
+        android:drawablePadding="4dp"
+        android:layout_marginRight="12dp"
+        android:text="设备电量低"
+        android:textColor="#FD6F83"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+android:visibility="invisible"
+        />
+
 </RelativeLayout>
