@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <include layout="@layout/layout_toolbar" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <TextView
+        android:layout_marginTop="112dp"
+        android:layout_width="140dp"
+        android:layout_height="110dp"
+        android:background="@drawable/dutybackground"
+        android:layout_gravity="center_horizontal"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您附近，当前时段没有值班医生"
+        android:textColor="#FF9B9CA0"
+        android:textSize="17sp"
+        android:layout_marginTop="45dp"
+        android:layout_gravity="center_horizontal"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="预计09:00
+有值班医生在线"
+        android:gravity="center_horizontal"
+        android:textColor="#FF25C191"
+        android:textSize="17sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        />
+</LinearLayout>

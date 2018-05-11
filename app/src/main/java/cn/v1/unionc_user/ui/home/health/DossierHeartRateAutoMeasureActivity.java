@@ -1,5 +1,7 @@
 package cn.v1.unionc_user.ui.home.health;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,12 +16,15 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
@@ -29,6 +34,7 @@ import com.mhealth365.osdk.EcgOpenApiCallback;
 import com.mhealth365.osdk.EcgOpenApiHelper;
 import com.mhealth365.osdk.ecgbrowser.RealTimeEcgBrowser;
 import com.mhealth365.osdk.ecgbrowser.Scale;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -71,6 +77,13 @@ import static com.mhealth365.osdk.EcgOpenApiCallback.EcgConstant.ECG_RR;
  * 自动测量的页面
  */
 public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
+    int countdownhight;
+    int rl_duringhight;
+    int flEcgBrowserhight;
+    int toplayouthight;
+    int h_screen;
+    int result;
+    boolean test = false;
 
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
     FullDialog2 mdf;
@@ -81,6 +94,15 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
     RelativeLayout countdown;
     @BindView(R.id.ps)
     TextView tvps;
+    @BindView(R.id.avi1)
+    AVLoadingIndicatorView avi1;
+    @BindView(R.id.avi2)
+    AVLoadingIndicatorView avi2;
+    @BindView(R.id.scrollview)
+    ScrollView scrollview;
+
+    @BindView(R.id.toplayout)
+    RelativeLayout toplayout;
 
 
     @BindView(R.id.gou1)
@@ -128,8 +150,8 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
     LinearLayout llBottomBtn;
     @BindView(R.id.tv_propmt)
     TextView tvPropmt;
-    @BindView(R.id.tv_title)
 
+    @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.img_back)
     ImageView imBack;
@@ -139,6 +161,28 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
         finish();
     }
 
+    @OnClick(R.id.tv_title)
+    public void test() {
+        if (!test) {
+            return;
+        }
+        //开始记录的按钮
+        imgStartMeasure.setVisibility(View.VISIBLE);
+        //倒计时
+        tvTime.setText("");
+        //计时xinlv
+        tvInstantHeartRate.setText("");
+
+//                    countdown.setVisibility(View.GONE);
+    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, -countdownhight).setDuration(1500).start();
+    ObjectAnimator.ofFloat(rl_during, "translationY", 0, -countdownhight).setDuration(1500).start();
+    ObjectAnimator.ofFloat(countdown, "translationY", 0, -countdownhight).setDuration(1500).start();
+//        performAnim2(1);
+        //查看心电图
+        tvViewEcg.setVisibility(View.VISIBLE);
+
+        handlerButton.sendEmptyMessageDelayed(10, 1500);
+    }
 
     @OnClick({R.id.img_start_measure, R.id.tv_re_measure, R.id.tv_view_ecg, R.id.tv_dossier_hert_rate_not_indications, R.id.tv_dossier_hert_rate_medicine, R.id.tv_dossier_hert_rate_type, R.id.tv_dossier_hert_rate_save})
     public void onClick(View view) {
@@ -250,6 +294,8 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
         Log.d("linshi", "save");
         monitorDate = tvDossierHertRateDate.getText().toString().trim();
         hertrate = tvHertRate.getText().toString().trim();
+        SPUtil.put(context, Common.HEARTRATETIME, monitorDate + "");
+        SPUtil.put(context, Common.HEARTRATE, hertrate + "");
         notIndications = tvDossierHertRateNotIndications.getText().toString().trim();
         cureMedicine = tvDossierHertRateMedicine.getText().toString().trim();
         hertDieaseType = tvDossierHertRateType.getText().toString().trim();
@@ -308,7 +354,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dossier_heart_rate_auto_measure);
+        setContentView(R.layout.activity_dossier_heart_rate_auto_measure2);
         ButterKnife.bind(this);
 //        FullDialog2 dialog=new FullDialog2();
 //        dialog.setOnFinishListener(new FullScrreenDialog.OnFinishListener() {
@@ -317,14 +363,19 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
 //                startdetection();
 //            }
 //        });
-        mdf=new FullDialog2();
-        mdf.setOnFinishListener(new FullScrreenDialog.OnFinishListener() {
-            @Override
-            public void onFinish() {
-                startdetection();
-            }
-        });
-        mdf.show(ft, "df");
+        if (test) {
+
+        } else {
+            mdf = new FullDialog2();
+            mdf.setOnFinishListener(new FullScrreenDialog.OnFinishListener() {
+                @Override
+                public void onFinish() {
+                    startdetection();
+                }
+            });
+            mdf.show(ft, "df");
+        }
+
 //        getactionBarToolbar().setNavigationOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -398,7 +449,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                     countdown.setVisibility(View.VISIBLE);
 
                     //测量完布局
-                    rlAfterTesting.setVisibility(View.GONE);
+//                    rlAfterTesting.setVisibility(View.GONE);
                     //底部按钮影藏
                     llBottomBtn.setVisibility(View.GONE);
                     //测量时间初始化
@@ -455,7 +506,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
         flEcgBrowser.setVisibility(View.VISIBLE);
         countdown.setVisibility(View.VISIBLE);
         //测量完布局
-        rlAfterTesting.setVisibility(View.GONE);
+//        rlAfterTesting.setVisibility(View.GONE);
         //底部按钮
         llBottomBtn.setVisibility(View.GONE);
         //测量时间初始化
@@ -1097,12 +1148,12 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
 
                         Message msg1 = new Message();
                         msg1.what = 5000;
-                        msg1.obj=StringUtil.getStrNumWithZero(60 - msg.arg1);
+                        msg1.obj = StringUtil.getStrNumWithZero(60 - msg.arg1);
 //                        msg1.arg1=msg.arg1*100/60;
-                        msg1.arg1=msg.arg1;
+                        msg1.arg1 = msg.arg1;
                         SystemClock.sleep(1000);
                         handler.sendMessage(msg1);
-                        if(msg.arg1==60){
+                        if (msg.arg1 == 60) {
                             countdown.setVisibility(View.GONE);
                         }
                     } else {
@@ -1123,11 +1174,15 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                     //计时xinlv
                     tvInstantHeartRate.setText("");
 
-                    countdown.setVisibility(View.GONE);
+//                    countdown.setVisibility(View.GONE);
+                    ObjectAnimator.ofFloat(rl_during, "translationY", 0, -countdownhight).setDuration(1500).start();
+                    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, -countdownhight).setDuration(1500).start();
+                    ObjectAnimator.ofFloat(countdown, "translationY", 0, -countdownhight).setDuration(1500).start();
+//                    performAnim2(1);
                     //查看心电图
                     tvViewEcg.setVisibility(View.VISIBLE);
 
-                    handlerButton.sendEmptyMessageDelayed(1, 3000);
+                    handlerButton.sendEmptyMessageDelayed(10, 1500);
 /**
  * 延时
  */
@@ -1177,7 +1232,8 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                         tvHertRate.setText("-");
                     } else {
                         tvHertRate.setText(averageHeartRate + "");
-                        SPUtil.put(context, Common.HEARTRATE, averageHeartRate + "");
+//                        SPUtil.put(context, Common.HEARTRATE, averageHeartRate + "");
+
                     }
                     break;
                 //ECG文件生成成功，创建心电图和切割文件
@@ -1268,7 +1324,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                     if (msg.arg1 == 0) {
                         showTost("电量不足");
                         tvps.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         tvps.setVisibility(View.INVISIBLE);
                     }
                     break;
@@ -1293,17 +1349,25 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                     tvDossierHertRateSave.setVisibility(View.VISIBLE);
                     break;
                 case 1:
+
+                    avi1.setVisibility(View.GONE);
                     gou1.setVisibility(View.VISIBLE);
-                    handlerButton.sendEmptyMessageDelayed(2, 3000);
+                    avi2.setVisibility(View.VISIBLE);
+                    handlerButton.sendEmptyMessageDelayed(2, 1500);
                     break;
                 case 2:
+                    avi2.setVisibility(View.GONE);
                     gou2.setVisibility(View.VISIBLE);
-                    handlerButton.sendEmptyMessageDelayed(3, 1000);
+//                    performAnim2(2);
+                    ObjectAnimator.ofFloat(rl_during, "translationY", 0, -h_screen+toplayouthight+result).setDuration(1500).start();
+                    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, -h_screen+toplayouthight+result).setDuration(1500).start();
+                    ObjectAnimator.ofFloat(scrollview, "translationY", 0, -h_screen+toplayouthight+result).setDuration(1500).start();
+                    handlerButton.sendEmptyMessageDelayed(11, 1500);
                     break;
                 case 3:
                     //坐标纸布局
-                    flEcgBrowser.setVisibility(View.GONE);
-                    rl_during.setVisibility(View.GONE);
+//                    flEcgBrowser.setVisibility(View.GONE);
+//                    rl_during.setVisibility(View.GONE);
 
                     //测完后的布局
                     rlAfterTesting.setVisibility(View.VISIBLE);
@@ -1326,10 +1390,32 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                     );
                     ecgBrowser.clearEcg();
                     break;
+                case 10:
+                    countdown.setVisibility(View.GONE);
+                    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, 0).setDuration(0).start();
+                    ObjectAnimator.ofFloat(rl_during, "translationY", 0, 0).setDuration(0).start();
+                    ObjectAnimator.ofFloat(countdown, "translationY", 0, 0).setDuration(0).start();
+                    handlerButton.sendEmptyMessageDelayed(1, 1500);
+                    break;
+                case 11:
+                    rl_during.setVisibility(View.GONE);
+                    flEcgBrowser.setVisibility(View.GONE);
+//                    ObjectAnimator.ofFloat(scrollview, "translationY", 0, 0).setDuration(0).start();
+                    ObjectAnimator.ofFloat(rl_during, "translationY", 0, 0).setDuration(0).start();
+                    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, 0).setDuration(0).start();
+                    ObjectAnimator.ofFloat(scrollview, "translationY", 0, 0).setDuration(0).start();
+                    handlerButton.sendEmptyMessageDelayed(3, 0);
+                    break;
+
+                case 20:
+                    handlerButton.sendEmptyMessageDelayed(1, 1500);
+                    break;
                 default:
                     break;
             }
-        };
+        }
+
+        ;
     };
 
 
@@ -1534,26 +1620,26 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
     }
 
 
-
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 //            ArcProgress progressBar = (ArcProgress) msg.obj;
 //            progressBar.setProgress(msg.what);
-            if(msg.what==5000){
+            if (msg.what == 5000) {
                 handlerButton.removeMessages(5000);
                 myProgress.setProgress(msg.arg1);
-                if(msg.arg1<60){
-                    myProgress.setProgressTextFormatPattern("00:"+StringUtil.getStrNumWithZero(60 - msg.arg1-1));
-                }else{
-                    myProgress.setProgressTextFormatPattern("00:"+StringUtil.getStrNumWithZero(60 - msg.arg1));
+                if (msg.arg1 < 60) {
+                    myProgress.setProgressTextFormatPattern("00:" + StringUtil.getStrNumWithZero(60 - msg.arg1 - 1));
+                } else {
+                    myProgress.setProgressTextFormatPattern("00:" + StringUtil.getStrNumWithZero(60 - msg.arg1));
                 }
             }
 
         }
     };
-    private void startdetection(){
+
+    private void startdetection() {
         //坐标纸布局
         //flEcgBrowser.setVisibility(View.GONE);
         //测量完布局
@@ -1591,5 +1677,91 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                 EcgOpenApiHelper.getInstance().login("8888", mLoginCallback);
             }
         }
+
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        countdownhight = countdown.getHeight();
+        rl_duringhight = rl_during.getHeight();
+        flEcgBrowserhight = flEcgBrowser.getHeight();
+        toplayouthight = toplayout.getHeight();
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        h_screen = dm.heightPixels;
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) scrollview.getLayoutParams(); //取控件textView当前的布局参数
+        linearParams.height = h_screen-toplayouthight+result;// 控件的高强制设成20
+
+
+        scrollview.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+
+         result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height","dimen","android");
+        if(resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+
+    }
+
+    private void performAnim2(int type) {
+        ValueAnimator va;
+        ValueAnimator va2;
+        switch (type) {
+            case 1:
+                //显示view，高度从0变到height值
+                va = ValueAnimator.ofInt(countdownhight, 0);
+                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        //获取当前的height值
+                        int h = (Integer) valueAnimator.getAnimatedValue();
+                        //动态更新view的高度
+                        countdown.getLayoutParams().height = h;
+                        countdown.requestLayout();
+                    }
+                });
+                va.setDuration(1500);
+                //开始动画
+                va.start();
+                break;
+            case 2:
+//                rl_during.setVisibility(View.GONE);
+//                flEcgBrowser.setVisibility(View.GONE);
+                //显示view，高度从0变到height值
+                va = ValueAnimator.ofInt(flEcgBrowserhight, 0);
+                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        //获取当前的height值
+                        int h = (Integer) valueAnimator.getAnimatedValue();
+                        //动态更新view的高度
+                        flEcgBrowser.getLayoutParams().height = h;
+                        flEcgBrowser.requestLayout();
+                    }
+                });
+                va.setDuration(1500);
+                //开始动画
+                va.start();
+                va2 = ValueAnimator.ofInt(rl_duringhight, 0);
+                va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        //获取当前的height值
+                        int h = (Integer) valueAnimator.getAnimatedValue();
+                        //动态更新view的高度
+                        rl_during.getLayoutParams().height = h;
+                        rl_during.requestLayout();
+                    }
+                });
+                va2.setDuration(1500);
+                //开始动画
+                va2.start();
+                break;
+
+        }
+        //属性动画对象
+
+
     }
 }

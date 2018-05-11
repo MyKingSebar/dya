@@ -10,4 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+
+    <TextView
+        android:layout_marginTop="112dp"
+        android:layout_width="140dp"
+        android:layout_height="110dp"
+        android:background="@drawable/dutybackground"
+        android:layout_gravity="center_horizontal"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您附近的家庭医生尚未入驻"
+        android:textColor="#9B9CA0"
+        android:textSize="17sp"
+        android:layout_marginTop="45dp"
+        android:layout_gravity="center_horizontal"
+
+        />
+
 </LinearLayout>

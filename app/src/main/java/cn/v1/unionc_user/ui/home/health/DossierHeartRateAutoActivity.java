@@ -41,6 +41,8 @@ public class DossierHeartRateAutoActivity extends BaseActivity {
 
 
 
+    @BindView(R.id.history)
+    RelativeLayout history;
     @BindView(R.id.tv_dossier_hert_rate_history)
     TextView tvDossierHertRateHistory;
     @BindView(R.id.fragment_container)
@@ -62,6 +64,10 @@ public class DossierHeartRateAutoActivity extends BaseActivity {
     @BindView(R.id.rl_help)
     public RelativeLayout rlHelp;
 
+    @OnClick(R.id.history)
+        public void history(){
+        goNewActivity(DossierHertRateHistoryActivity.class);
+    }
     @OnClick(R.id.rl_help)
     public void rhelp(){
 //        new HeartRateContinueMeasureDialog(this, new HeartRateContinueMeasureDialog.MyDilogListener() {
@@ -191,7 +197,9 @@ public class DossierHeartRateAutoActivity extends BaseActivity {
         tvTitle.setText("心率检测");
         replaceFragment(0);
         String HEARTRATE = (String) SPUtil.get(context, Common.HEARTRATE, "");
+        String HEARTRATETIME = (String) SPUtil.get(context, Common.HEARTRATETIME, "");
         num.setText(HEARTRATE);
+        time.setText(HEARTRATETIME);
     }
 
     private void initData() {

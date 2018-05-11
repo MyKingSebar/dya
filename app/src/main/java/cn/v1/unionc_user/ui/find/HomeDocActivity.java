@@ -78,11 +78,17 @@ public class HomeDocActivity extends BaseActivity {
         ConnectHttp.connect(UnionAPIPackage.myrecommenddoctors((String)SPUtil.get(context,Common.LONGITUDE,""), (String)SPUtil.get(context,Common.LATITUDE,""),"50","1",token), new BaseObserver<MyRecommenDoctorsData>(context) {
             @Override
             public void onResponse(MyRecommenDoctorsData data) {
-                findHomeDoctorListAdapter.setData(data.getData().getRecommendDoctors());
+                if(data.getData().getRecommendDoctors().size()>0){
+
+                    findHomeDoctorListAdapter.setData(data.getData().getRecommendDoctors());
+                }else{
+                    mainRecycleview.setVisibility(View.GONE);
+                }
             }
 
             @Override
             public void onFail(Throwable e) {
+                mainRecycleview.setVisibility(View.GONE);
             }
         });
     }

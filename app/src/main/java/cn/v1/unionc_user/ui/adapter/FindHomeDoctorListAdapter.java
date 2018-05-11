@@ -64,10 +64,12 @@ public class FindHomeDoctorListAdapter extends RecyclerView.Adapter<FindHomeDoct
 
             }
             holder.tv_doctorname.setText(doctorData.getDoctorName());
+            holder.distance.setText(doctorData.getDistance()+"km");
+            holder.commendnum.setText("0关注");
             holder.tvRole.setText(doctorData.getDepartName());
             holder.tvIdentity.setText(doctorData.getProfessLevel());
             holder.tvDescribe.setText(doctorData.getClinicName());
-            holder.tvMajor.setText(doctorData.getMajor());
+            holder.tvMajor.setText("擅长："+doctorData.getMajor());
         holder.sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +117,10 @@ public class FindHomeDoctorListAdapter extends RecyclerView.Adapter<FindHomeDoct
         TextView tvMajor;
         @BindView(R.id.sign)
         TextView sign;
+        @BindView(R.id.commendnum)
+        TextView commendnum;
+        @BindView(R.id.distance)
+        TextView distance;
 
 
         ViewHolder(View view) {

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ import cn.v1.unionc_user.model.UserInfoData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.me.EditUserInfoActivity;
 import cn.v1.unionc_user.ui.me.HeartHistoryListActivity;
@@ -108,6 +110,12 @@ public class FindFragment extends BaseFragment {
                 break;
             case R.id.tv_zbdoc:
                 //值班医生
+                if (isLogin()) {
+                    goNewActivity(DutyDocActivity.class);
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
+
                 break;
 
 

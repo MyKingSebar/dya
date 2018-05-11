@@ -554,6 +554,7 @@ ms.setOrientation(LinearLayoutManager.HORIZONTAL);// 设置 recyclerview 布局�
             type += "1";
         }
         if (cb2.isChecked()) {
+
             type += "2";
         }
         if (cb3.isChecked()) {

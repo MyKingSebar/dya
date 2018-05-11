@@ -23,6 +23,7 @@ public class Common {
     public static final String TIM_SIG = "timSig";
     public static final String IDENTIFIER = "identifier";
     public static final String HEARTRATE = "HeartRate";
+    public static final String HEARTRATETIME = "HEARTRATETIME";
     public static final String USER_PHONE = "userPhone";
     public static final String USER_AVATOR = "userAvator";
     public static final String USER_ADD= "USER_ADD";

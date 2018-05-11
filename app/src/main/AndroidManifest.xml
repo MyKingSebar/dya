@@ -182,6 +182,7 @@
 
 
         <activity android:name="cn.v1.unionc_user.ui.find.HomeDocActivity" />
+        <activity android:name="cn.v1.unionc_user.ui.find.DutyDocActivity" />
 
         <activity
             android:name=".ui.home.SignactivityActivity"

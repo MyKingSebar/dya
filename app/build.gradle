@@ -141,4 +141,5 @@ dependencies {
     implementation files('libs/universal-image-loader-1.9.1-SNAPSHOT-with-sources.jar')
     implementation files('libs/open_sdk_r5990_lite.jar')
     compile 'com.dinuscxj:circleprogressbar:1.1.1'
+    compile 'com.wang.avi:library:2.1.3'
 }

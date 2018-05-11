@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginRight="12dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="91dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            >
+
+
+            <ImageView
+                android:id="@+id/img_message_avator"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:layout_marginLeft="11.5dp"
+                android:layout_marginTop="15dp"
+                tools:src="@drawable/icon_hospital_zh" />
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8.5dp"
+                android:gravity="center_horizontal"
+                android:textColor="#9B9CA0"
+                android:textSize="13sp"
+                tools:text="3.9km" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="9.5dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:id="@+id/tv_message_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLength="14"
+                    android:textColor="@color/main_text"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    tools:text="李晓光李晓光李晓光李晓光李晓光" />
+
+                <TextView
+                    android:id="@+id/sign"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/bg_button_find_qianyue"
+                    android:gravity="center"
+                    android:text="咨询"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+                <cn.v1.unionc_user.view.CircleImageView
+                    android:id="@+id/img_avator"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="30dp"
+                    tools:src="@drawable/icon_tab_me_select" />
+
+                <TextView
+                    android:id="@+id/dutyname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:textColor="#9B9CA0"
+                    android:textSize="15sp"
+                    tools:text="值班医生：孟宪良" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:textColor="#25C191"
+                    android:textSize="14sp"
+                    tools:text="09:00-10:00" />
+
+
+                <ProgressBar
+                    android:id="@+id/progressBar1"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="76dp"
+                    android:layout_height="4dp"
+                    android:layout_marginLeft="41dp"
+                    android:layout_marginTop="75dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/progress_bar" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/color_location" />
+
+
+</LinearLayout>

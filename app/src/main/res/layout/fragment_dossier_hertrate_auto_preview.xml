@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/heart_main_background"
     android:orientation="vertical"
     tools:context="cn.v1.unionc_user.ui.home.health.DossierHeartrateAutoPreviewFragment">
@@ -48,10 +48,10 @@
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="19dp"
-        android:background="@drawable/status_btn"
+        android:background="@drawable/green_btn_bg2"
         android:gravity="center"
         android:text="连接设备"
-        android:textColor="#4E78F6"
+        android:textColor="@color/white"
         android:textSize="14dp" />
 
 

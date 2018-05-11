@@ -13,11 +13,11 @@
         android:layout_height="0dp" />
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/countdown"
         android:layout_width="match_parent"
         android:layout_height="256dp"
-        android:background="#4E78F6"
-        android:visibility="gone">
+        android:background="#4E78F6">
 
         <com.dinuscxj.progressbar.CircleProgressBar
             android:id="@+id/myProgress"
@@ -104,8 +104,7 @@
         android:id="@+id/rl_during"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        >
+        android:gravity="center_vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,8 +116,19 @@
                 android:layout_width="22dp"
                 android:layout_height="17.6dp"
                 android:layout_marginLeft="75dp"
-                android:background="@drawable/zhineng_gou" />
+                android:background="@drawable/zhineng_gou"
+                android:visibility="gone" />
+<com.wang.avi.AVLoadingIndicatorView
 
+    android:layout_marginLeft="75dp"
+    android:id="@+id/avi1"
+    android:layout_width="22dp"
+    android:layout_height="22dp"
+    style="@style/AVLoadingIndicatorView"
+    android:visibility="visible"
+    app:indicatorName="BallClipRotatePulseIndicator"
+    app:indicatorColor="#0000ff"
+    />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -140,8 +150,22 @@
                 android:layout_width="22dp"
                 android:layout_height="17.6dp"
                 android:layout_marginLeft="75dp"
-                android:background="@drawable/zhineng_gou" />
 
+
+                android:background="@drawable/zhineng_gou"
+                android:visibility="gone" />
+            <com.wang.avi.AVLoadingIndicatorView
+
+                android:layout_marginLeft="75dp"
+                android:id="@+id/avi2"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                style="@style/AVLoadingIndicatorView"
+                android:visibility="invisible"
+                app:indicatorName="BallClipRotatePulseIndicator"
+                app:indicatorColor="#0000ff"
+
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -154,7 +178,7 @@
     </RelativeLayout>
 
     <ScrollView
-        android:id="@+id/scrollVIew"
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -171,8 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#4E78F6"
-                android:paddingBottom="25dp"
-                android:visibility="gone">
+                android:paddingBottom="25dp">
 
                 <LinearLayout
                     android:id="@+id/ll"
