@@ -167,21 +167,21 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
             return;
         }
         //开始记录的按钮
-        imgStartMeasure.setVisibility(View.VISIBLE);
+//        imgStartMeasure.setVisibility(View.VISIBLE);
         //倒计时
         tvTime.setText("");
         //计时xinlv
         tvInstantHeartRate.setText("");
 
 //                    countdown.setVisibility(View.GONE);
-    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, -countdownhight).setDuration(1500).start();
-    ObjectAnimator.ofFloat(rl_during, "translationY", 0, -countdownhight).setDuration(1500).start();
-    ObjectAnimator.ofFloat(countdown, "translationY", 0, -countdownhight).setDuration(1500).start();
+    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, -countdownhight).setDuration(500).start();
+    ObjectAnimator.ofFloat(rl_during, "translationY", 0, -countdownhight).setDuration(500).start();
+    ObjectAnimator.ofFloat(countdown, "translationY", 0, -countdownhight).setDuration(500).start();
 //        performAnim2(1);
         //查看心电图
         tvViewEcg.setVisibility(View.VISIBLE);
 
-        handlerButton.sendEmptyMessageDelayed(10, 1500);
+        handlerButton.sendEmptyMessageDelayed(10, 500);
     }
 
     @OnClick({R.id.img_start_measure, R.id.tv_re_measure, R.id.tv_view_ecg, R.id.tv_dossier_hert_rate_not_indications, R.id.tv_dossier_hert_rate_medicine, R.id.tv_dossier_hert_rate_type, R.id.tv_dossier_hert_rate_save})
@@ -495,7 +495,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
      * 初始化布局
      */
     private void initView() {
-
+        myProgress.setProgressTextFormatPattern("00:60");
         if (measureType == 1) {
             tvPropmt.setVisibility(View.GONE);
         }
@@ -577,7 +577,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
             if (!TextUtils.isEmpty(dataId)) {
                 getDataById();
                 //开始记录的按钮
-                imgStartMeasure.setVisibility(View.VISIBLE);
+//                imgStartMeasure.setVisibility(View.VISIBLE);
                 //倒计时
                 tvTime.setText("");
                 //计时xinlv
@@ -693,7 +693,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
         //按钮保护
         tvDossierHertRateSave.setEnabled(false);
         Log.d("linshi", "uploadImage:" + imgPath);
-        showDialog("心电图上传中...");
+//        showDialog("心电图上传中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         ConnectHttp.connect(UnionAPIPackage.uploadImge(token, new File(imgPath)), new BaseObserver<UpdateFileData>(context) {
             @Override
@@ -788,11 +788,11 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
             countEcg = 0;
             mOsdkHelper.startRecord(mode, mRecordCallback);
         } catch (IllegalArgumentException e) {
-            imgStartMeasure.setVisibility(View.VISIBLE);
+//            imgStartMeasure.setVisibility(View.VISIBLE);
             e.printStackTrace();
             showTost("【开始记录】文件异常,开始记录失败！");
         } catch (Exception e) {
-            imgStartMeasure.setVisibility(View.VISIBLE);
+//            imgStartMeasure.setVisibility(View.VISIBLE);
             e.printStackTrace();
             showTost("【开始记录】文件异常,开始记录失败！");
         }
@@ -1153,9 +1153,9 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                         msg1.arg1 = msg.arg1;
                         SystemClock.sleep(1000);
                         handler.sendMessage(msg1);
-                        if (msg.arg1 == 60) {
-                            countdown.setVisibility(View.GONE);
-                        }
+//                        if (msg.arg1 == 60) {
+//                            countdown.setVisibility(View.GONE);
+//                        }
                     } else {
 //                        tvTime.setText(formatLongToTimeStr(msg.arg1) + "");
                     }
@@ -1163,26 +1163,26 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                 case RECORD_END:
                     String id = (String) msg.obj;
                     if (id == null) {
-                        showTost("关闭记录，未生成有效数据");
+//                        showTost("关闭记录，未生成有效数据");
                     } else {
-                        showTost("记录结束，开始统计分析");
+//                        showTost("记录结束，开始统计分析");
                     }
                     //开始记录的按钮
-                    imgStartMeasure.setVisibility(View.VISIBLE);
+//                    imgStartMeasure.setVisibility(View.VISIBLE);
                     //倒计时
                     tvTime.setText("");
                     //计时xinlv
                     tvInstantHeartRate.setText("");
 
 //                    countdown.setVisibility(View.GONE);
-                    ObjectAnimator.ofFloat(rl_during, "translationY", 0, -countdownhight).setDuration(1500).start();
-                    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, -countdownhight).setDuration(1500).start();
-                    ObjectAnimator.ofFloat(countdown, "translationY", 0, -countdownhight).setDuration(1500).start();
+                    ObjectAnimator.ofFloat(rl_during, "translationY", 0, -countdownhight).setDuration(500).start();
+                    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, -countdownhight).setDuration(500).start();
+                    ObjectAnimator.ofFloat(countdown, "translationY", 0, -countdownhight).setDuration(500).start();
 //                    performAnim2(1);
                     //查看心电图
                     tvViewEcg.setVisibility(View.VISIBLE);
 
-                    handlerButton.sendEmptyMessageDelayed(10, 1500);
+                    handlerButton.sendEmptyMessageDelayed(10, 500);
 /**
  * 延时
  */
@@ -1239,12 +1239,12 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                 //ECG文件生成成功，创建心电图和切割文件
                 case ECG_SHOW_DATA:
                     ecgFile = (String) msg.obj;
-                    if (measureType == ONE_MINUTE_MEASURE) {
-                        mWaitDialog.setMessage("正在生成心电图");
-                        mWaitDialog.setIndeterminate(true);
-                        mWaitDialog.setCancelable(true);
-                        mWaitDialog.show();
-                    }
+//                    if (measureType == ONE_MINUTE_MEASURE) {
+//                        mWaitDialog.setMessage("正在生成心电图");
+//                        mWaitDialog.setIndeterminate(true);
+//                        mWaitDialog.setCancelable(true);
+//                        mWaitDialog.show();
+//                    }
                     break;
                 //创建图片成功与否的提示
                 case CREATE_PNG:
@@ -1277,16 +1277,16 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                 //登录失败
                 case LOGIN_FAILED:
                     String loginFailedText = (String) msg.obj;
-                    imgStartMeasure.setVisibility(View.VISIBLE);
+//                    imgStartMeasure.setVisibility(View.VISIBLE);
                     showTost("登录失败 " + loginFailedText);
                     break;
                 //开始切割
                 case CUT_FILE_START:
                     if (measureType == CONTINUITY_MINUTE_MEASURE) {
-                        mWaitDialog.setMessage("正在生成心电图");
-                        mWaitDialog.setIndeterminate(true);
-                        mWaitDialog.setCancelable(true);
-                        mWaitDialog.show();
+//                        mWaitDialog.setMessage("正在生成心电图");
+//                        mWaitDialog.setIndeterminate(true);
+//                        mWaitDialog.setCancelable(true);
+//                        mWaitDialog.show();
                     }
                     break;
                 //切割文件成功
@@ -1322,7 +1322,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
 
                 case ECG_BATTERY:
                     if (msg.arg1 == 0) {
-                        showTost("电量不足");
+//                        showTost("电量不足");
                         tvps.setVisibility(View.VISIBLE);
                     } else {
                         tvps.setVisibility(View.INVISIBLE);
@@ -1359,10 +1359,10 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                     avi2.setVisibility(View.GONE);
                     gou2.setVisibility(View.VISIBLE);
 //                    performAnim2(2);
-                    ObjectAnimator.ofFloat(rl_during, "translationY", 0, -h_screen+toplayouthight+result).setDuration(1500).start();
-                    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, -h_screen+toplayouthight+result).setDuration(1500).start();
-                    ObjectAnimator.ofFloat(scrollview, "translationY", 0, -h_screen+toplayouthight+result).setDuration(1500).start();
-                    handlerButton.sendEmptyMessageDelayed(11, 1500);
+                    ObjectAnimator.ofFloat(rl_during, "translationY", 0, -h_screen+toplayouthight+result).setDuration(1000).start();
+                    ObjectAnimator.ofFloat(flEcgBrowser, "translationY", 0, -h_screen+toplayouthight+result).setDuration(1000).start();
+                    ObjectAnimator.ofFloat(scrollview, "translationY", 0, -h_screen+toplayouthight+result).setDuration(1000).start();
+                    handlerButton.sendEmptyMessageDelayed(11, 1000);
                     break;
                 case 3:
                     //坐标纸布局
@@ -1374,7 +1374,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
 
                     //底部保存按钮
                     llBottomBtn.setVisibility(View.VISIBLE);
-                    handlerButton.sendEmptyMessageDelayed(0, 1000);
+                    handlerButton.sendEmptyMessageDelayed(0, 2000);
                     //测量时间
                     Calendar calendar = Calendar.getInstance();
                     int currentYear = calendar.get(Calendar.YEAR);
@@ -1646,7 +1646,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
         //rlAfterTesting.setVisibility(View.VISIBLE);
         if (measureType == ONE_MINUTE_MEASURE) {
             imgStartMeasure.setVisibility(View.GONE);
-            showDialog("准备中...");
+//            showDialog("准备中...");
             EcgOpenApiHelper.getInstance().login("8888", mLoginCallback);
             myProgress.setProgressTextFormatPattern("00:60");
 //            setOnCenterDraw(new ArcProgress.OnCenterDraw() {
@@ -1673,7 +1673,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
                 }
             } else {
                 imgStartMeasure.setImageResource(R.drawable.icon_measure_stop);
-                showDialog("准备中...");
+//                showDialog("准备中...");
                 EcgOpenApiHelper.getInstance().login("8888", mLoginCallback);
             }
         }

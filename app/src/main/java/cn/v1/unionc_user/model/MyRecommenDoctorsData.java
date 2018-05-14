@@ -69,6 +69,15 @@ public class MyRecommenDoctorsData extends BaseData {
             private String imagePath;
             private String doctId;
             private String departName;
+            private String atteCount;
+
+            public String getAtteCount() {
+                return atteCount;
+            }
+
+            public void setAtteCount(String atteCount) {
+                this.atteCount = atteCount;
+            }
 
             public String getClinicName() {
                 return clinicName;

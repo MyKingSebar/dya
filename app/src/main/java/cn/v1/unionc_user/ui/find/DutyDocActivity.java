@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,7 +47,6 @@ public class DutyDocActivity extends BaseActivity {
 
 
     private FindDutyDoctorListAdapter findDutyDoctorListAdapter;
-    private List<MyRecommenDoctorsData.DataData.DoctorsData> datas = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class DutyDocActivity extends BaseActivity {
             @Override
             public void onResponse(MyDutyDoctorsData data) {
                 if(data.getData().getDutyDoctors().size()>0){
-
+                    Log.d("linshi","doctorsdata:"+data.getData().getDutyDoctors().get(0).toString());
                     findDutyDoctorListAdapter.setData(data.getData().getDutyDoctors());
                 }else{
                     mainRecycleview.setVisibility(View.GONE);

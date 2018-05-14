@@ -79,6 +79,7 @@
             tools:text="89bmp" />
 
         <TextView
+            android:visibility="invisible"
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,6 +91,7 @@
             tools:text="00:00:60" />
 
         <ImageView
+            android:visibility="invisible"
             android:id="@+id/img_start_measure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -282,10 +284,10 @@
                     android:layout_below="@id/tv_result"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/status_btn"
+                    android:background="@drawable/green_btn_bg2"
                     android:gravity="center"
                     android:text="查看心电图"
-                    android:textColor="#4E78F6"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
                     android:visibility="visible" />
 
@@ -312,6 +314,7 @@
                 android:background="@color/grey_bg" />
 
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="@color/white"
@@ -340,6 +343,7 @@
             </RelativeLayout>
 
             <View
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="15dp"
@@ -474,7 +478,7 @@
                 <TextView
                     android:id="@+id/tv_dossier_hert_rate_save"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/green_btn_bg"
                     android:gravity="center"
                     android:maxWidth="350dp"
@@ -482,7 +486,7 @@
                     android:paddingTop="15dp"
                     android:text="保  存"
                     android:textColor="@color/white"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:visibility="invisible" />
 
             </LinearLayout>

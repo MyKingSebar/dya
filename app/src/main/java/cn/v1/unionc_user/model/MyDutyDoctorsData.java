@@ -93,6 +93,26 @@ public class MyDutyDoctorsData extends BaseData {
             private String StartTime;
             private String ClinicImagePath;
             private String DoctImagePath;
+
+            @Override
+            public String toString() {
+                return "DoctorsData{" +
+                        "ClinicName='" + ClinicName + '\'' +
+                        ", Identifier='" + Identifier + '\'' +
+                        ", DutyName='" + DutyName + '\'' +
+                        ", DutyTime='" + DutyTime + '\'' +
+                        ", Distance='" + Distance + '\'' +
+                        ", DoctId='" + DoctId + '\'' +
+                        ", ClinicId='" + ClinicId + '\'' +
+                        ", DifferenceTime='" + DifferenceTime + '\'' +
+                        ", EndTime='" + EndTime + '\'' +
+                        ", StartTime='" + StartTime + '\'' +
+                        ", ClinicImagePath='" + ClinicImagePath + '\'' +
+                        ", DoctImagePath='" + DoctImagePath + '\'' +
+                        ", DoctName='" + DoctName + '\'' +
+                        '}';
+            }
+
             private String DoctName;
 
             public String getClinicName() {

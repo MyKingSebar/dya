@@ -56,6 +56,7 @@ public class FindDutyDoctorListAdapter extends RecyclerView.Adapter<FindDutyDoct
     @Override
     public void onBindViewHolder(final FindDutyDoctorListAdapter.ViewHolder holder, final int position) {
         final MyDutyDoctorsData.DataData.DoctorsData doctorData = datas.get(position);
+        Log.d("linshi","doctorsdata:"+doctorData.toString());
             if(TextUtils.isEmpty(doctorData.getClinicImagePath())){
 
                 holder.imgHospitalAvator.setImageResource(R.drawable.icon_hospital_zh);
@@ -103,7 +104,7 @@ private void goIm(MyDutyDoctorsData.DataData.DoctorsData doctorData){
     doctorInfo.setDoctorName( ""+doctorData.getDoctName());
     doctorInfo.setIdentifier(""+doctorData.getIdentifier());
     doctorInfo.setImagePath(""+doctorData.getDoctImagePath());
-    Log.d("linshi","homeData.setDoctorName2:");
+    Log.d("linshi","homeData.getIdentifier:"+doctorData.getIdentifier());
     TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
 }
     @Override

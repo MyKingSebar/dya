@@ -137,6 +137,8 @@ private int clinicType=R.drawable.icon_hospital_zh;
     private String Distance;
     private String Notes;
     private String Name;
+    private String docName;
+    private String DoctImagePath;
 
     //0否 1是
     private String IsDuty;
@@ -318,6 +320,8 @@ private void initfragmentData(){
         Distance=clinicData.getDistance();
         Notes=clinicData.getNotes();
         Name=clinicData.getName();
+        docName=clinicData.getDoctName();
+        DoctImagePath=clinicData.getDoctImagePath();
         Tips=clinicData.getTips();
         IsDuty=clinicData.getIsDuty();
         Identifier=clinicData.getIdentifier();
@@ -597,9 +601,9 @@ if(Name.length()>20){
                         if (TextUtils.equals("4000", data.getCode())) {
                             if (MESSAGE == type) {
                                 DoctorInfo doctorInfo = new DoctorInfo();
-                                doctorInfo.setDoctorName(Name + "");
+                                doctorInfo.setDoctorName(docName + "");
                                 doctorInfo.setIdentifier(Identifier + "");
-                                doctorInfo.setImagePath(ImagePaths + "");
+                                doctorInfo.setImagePath(DoctImagePath + "");
                                 TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
                             }
 

@@ -193,9 +193,31 @@ public class ClinicInfoData extends BaseData {
              "发烧",
              "口腔"
              ]
+
+             新家俩字段：clinicData.put("DoctName", "");
+             clinicData.put("DoctImagePath", "");
              */
 
             private String ParCategory;
+            private String DoctName;
+
+            public String getDoctName() {
+                return DoctName;
+            }
+
+            public void setDoctName(String doctName) {
+                DoctName = doctName;
+            }
+
+            public String getDoctImagePath() {
+                return DoctImagePath;
+            }
+
+            public void setDoctImagePath(String doctImagePath) {
+                DoctImagePath = doctImagePath;
+            }
+
+            private String DoctImagePath;
 
             public String getParCategory() {
                 return ParCategory;

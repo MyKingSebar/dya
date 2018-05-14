@@ -65,7 +65,7 @@ public class FindHomeDoctorListAdapter extends RecyclerView.Adapter<FindHomeDoct
             }
             holder.tv_doctorname.setText(doctorData.getDoctorName());
             holder.distance.setText(doctorData.getDistance()+"km");
-            holder.commendnum.setText("0关注");
+            holder.commendnum.setText(doctorData.getAtteCount()+"关注");
             holder.tvRole.setText(doctorData.getDepartName());
             holder.tvIdentity.setText(doctorData.getProfessLevel());
             holder.tvDescribe.setText(doctorData.getClinicName());
