@@ -194,14 +194,14 @@ public class RealNameAuthActivity extends BaseActivity {
             showTost("身份证号不合法");
             return;
         }
-        if (TextUtils.isEmpty(gender)) {
-            showTost("请选择性别");
-            return;
-        }
-        if (TextUtils.isEmpty(birthDay)) {
-            showTost("请选择生日");
-            return;
-        }
+//        if (TextUtils.isEmpty(gender)) {
+//            showTost("请选择性别");
+//            return;
+//        }
+//        if (TextUtils.isEmpty(birthDay)) {
+//            showTost("请选择生日");
+//            return;
+//        }
         if (TextUtils.isEmpty(telephone)) {
             showTost("请填写电话");
             return;
@@ -210,6 +210,8 @@ public class RealNameAuthActivity extends BaseActivity {
         final String finalGender = gender;
         ConnectHttp.connect(UnionAPIPackage.certification(token, realName, gender, birthDay, telephone,nameid),
                 new BaseObserver<BaseData>(context) {
+
+
                     @Override
                     public void onResponse(BaseData data) {
                         closeDialog();

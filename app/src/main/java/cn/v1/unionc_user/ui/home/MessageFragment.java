@@ -36,6 +36,7 @@ import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
 import com.tencent.imsdk.TIMConversation;
 import com.tencent.imsdk.TIMConversationType;
+import com.tencent.imsdk.TIMFriendshipManager;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMMessage;
 import com.tencent.imsdk.TIMMessageListener;

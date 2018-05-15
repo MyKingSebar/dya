@@ -122,6 +122,7 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         showDialog("加载中...");
         Log.d("linshi","doctorIdentifier:"+doctoInfo.getIdentifier());
+        Log.d("linshi","头像:"+doctoInfo.getImagePath());
         ConnectHttp.connect(UnionAPIPackage.doctorOrclinicByParam(token, doctorIdentifier),
                 new BaseObserver<DoctorOrClinicData>(context) {
                     @Override

@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -52,6 +53,8 @@ public class DossierHeartRateAutoActivity extends BaseActivity {
     TextView time;
     @BindView(R.id.num)
     TextView num;
+    @BindView(R.id.num2)
+    TextView num2;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.img_back)
@@ -177,7 +180,14 @@ public class DossierHeartRateAutoActivity extends BaseActivity {
         super.onResume();
             resumeViewSet();
         String HEARTRATE = (String) SPUtil.get(context, Common.HEARTRATE, "");
-        num.setText(HEARTRATE);
+        String HEARTRATETIME = (String) SPUtil.get(context, Common.HEARTRATETIME, "");
+        if(!TextUtils.isEmpty(HEARTRATETIME)){
+            num.setText(HEARTRATE);
+            time.setText(HEARTRATETIME);
+            num2.setVisibility(View.VISIBLE);
+        }else{
+            num2.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**
@@ -198,8 +208,14 @@ public class DossierHeartRateAutoActivity extends BaseActivity {
         replaceFragment(0);
         String HEARTRATE = (String) SPUtil.get(context, Common.HEARTRATE, "");
         String HEARTRATETIME = (String) SPUtil.get(context, Common.HEARTRATETIME, "");
-        num.setText(HEARTRATE);
-        time.setText(HEARTRATETIME);
+        if(!TextUtils.isEmpty(HEARTRATETIME)){
+
+            num.setText(HEARTRATE);
+            time.setText(HEARTRATETIME);
+            num2.setVisibility(View.VISIBLE);
+        }else{
+            num2.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void initData() {

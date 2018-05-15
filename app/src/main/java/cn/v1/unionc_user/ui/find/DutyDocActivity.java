@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,6 +40,8 @@ public class DutyDocActivity extends BaseActivity {
     ImageView bakc;
     @BindView(R.id.tv_title)
     TextView title;
+    @BindView(R.id.time)
+    TextView time;
 
     @OnClick(R.id.img_back)
      void back(){
@@ -74,9 +77,14 @@ public class DutyDocActivity extends BaseActivity {
                     findDutyDoctorListAdapter.setData(data.getData().getDutyDoctors());
                 }else{
                     mainRecycleview.setVisibility(View.GONE);
+                    if(!TextUtils.isEmpty(data.getData().getNearTime())){
+                        time.setText("预计"+data.getData().getNearTime()+"\n" + "有值班医生在线");
+                    }else {
+                        time.setVisibility(View.INVISIBLE);
+                    }
                 }
-            }
 
+            }
             @Override
             public void onFail(Throwable e) {
                 mainRecycleview.setVisibility(View.GONE);

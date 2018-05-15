@@ -170,7 +170,7 @@ public class DoctorDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.ll_phone:
-                if(rlSign.getVisibility()==View.GONE){
+                if(rlSign.getVisibility()==View.GONE|TextUtils.isEmpty(doctorPhone)){
                     showTost("暂无号码");
                 }else{
 
@@ -432,6 +432,7 @@ public class DoctorDetailActivity extends BaseActivity {
                 Uri uriData = Uri.parse("tel:" + doctorPhone);
                 intent.setData(uriData);
                 startActivity(intent);
+                bottomDialog.dismiss();
             }
         });
         tvCancel.setOnClickListener(new View.OnClickListener() {

@@ -83,7 +83,8 @@ public class StartActivity extends BaseActivity {
                         break;
                     case MotionEvent.ACTION_UP:
                         if (touchFlag == 0) {
-                            if(position2==3){
+//                            if(position2==3){
+                            if(position2==2){
 
                                 Intent it = new Intent();
                                 it.setClass(context, MainActivity.class);
@@ -132,7 +133,7 @@ public class StartActivity extends BaseActivity {
         mIn_ll.addView(mOne_dot, layoutParams);
         mTwo_dot = new ImageView(this);
         mTwo_dot.setImageResource(R.drawable.gray_dot);
-        mIn_ll.addView(mTwo_dot, layoutParams);
+//        mIn_ll.addView(mTwo_dot, layoutParams);
         mThree_dot = new ImageView(this);
         mThree_dot.setImageResource(R.drawable.gray_dot);
         mIn_ll.addView(mThree_dot, layoutParams);
@@ -180,7 +181,7 @@ public class StartActivity extends BaseActivity {
         View view3 = lf.inflate(R.layout.we_indicator3, null);
         View view4 = lf.inflate(R.layout.we_indicator4, null);
         mViewList.add(view1);
-        mViewList.add(view2);
+//        mViewList.add(view2);
         mViewList.add(view3);
         mViewList.add(view4);
 //        if(picture.length>0){

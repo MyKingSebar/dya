@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -111,6 +112,27 @@ public class ChatAdapter extends ArrayAdapter<Message> {
                 }else{
                     Glide.with(context)
                             .load(doctorInfo.getImagePath())
+
+//                            .listener(new RequestListener<String, GlideDrawable>() {
+//                        @Override
+//                        public boolean onException(Exception e, String model,
+//                                                   Target<GlideDrawable> target,
+//                                                   boolean isFirstResource) {
+//                            // 可替换成进度条
+//                            Toast.makeText(context, "图片加载失败"+doctorInfo.getImagePath(), Toast.LENGTH_SHORT).show();
+//                            Log.d("linshi","图片加载失败:"+doctorInfo.getImagePath());
+//                            return false;
+//                        }
+//                        @Override
+//                        public boolean onResourceReady(GlideDrawable resource, String model,
+//                                                       Target<GlideDrawable> target,
+//                                                       boolean isFromMemoryCache,
+//                                                       boolean isFirstResource) {
+//                            // 图片加载完成，取消进度条
+//                            Toast.makeText(context, "图片加载成功", Toast.LENGTH_SHORT).show();
+//                            return false;
+//                        }
+//                    })
                             .placeholder(R.drawable.icon_doctor_default).dontAnimate().error(R.drawable.icon_doctor_default)
                             .into(viewHolder.leftAvatar);
                 }

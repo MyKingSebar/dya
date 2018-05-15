@@ -49,6 +49,15 @@ public class MyDutyDoctorsData extends BaseData {
 
 
         private List<DoctorsData> dutyDoctors;
+        private String nearTime;
+
+        public String getNearTime() {
+            return nearTime;
+        }
+
+        public void setNearTime(String nearTime) {
+            this.nearTime = nearTime;
+        }
 
         public List<DoctorsData> getDutyDoctors() {
             return dutyDoctors;

@@ -91,6 +91,10 @@ public class LoginActivity extends BaseActivity {
                     }else {
                         downTimer.start();
                         getAuthCode(phoneNumber);
+                        etCode.setFocusable(true);
+                        etCode.setFocusableInTouchMode(true);
+                        etCode.requestFocus();
+                        etCode.requestFocusFromTouch();
                     }
                 }
                 break;

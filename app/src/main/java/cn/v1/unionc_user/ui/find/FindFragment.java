@@ -110,11 +110,12 @@ public class FindFragment extends BaseFragment {
                 break;
             case R.id.tv_zbdoc:
                 //值班医生
-                if (isLogin()) {
-                    goNewActivity(DutyDocActivity.class);
-                } else {
-                    goNewActivity(LoginActivity.class);
-                }
+                goNewActivity(DutyDocActivity.class);
+//                if (isLogin()) {
+//                    goNewActivity(DutyDocActivity.class);
+//                } else {
+//                    goNewActivity(LoginActivity.class);
+//                }
 
                 break;
 

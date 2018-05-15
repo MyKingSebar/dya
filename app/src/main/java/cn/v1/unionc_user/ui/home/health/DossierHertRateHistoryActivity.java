@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -173,6 +174,7 @@ void back(){
         nowTime = new Date().getTime();
         endTime = sdf.format(new Date(nowTime));
         startTime = sdf.format(new Date(nowTime - 7 * 24 * 3600 * 1000));
+        mListData.clear();
         getlist();
 //        gethertRateHistoryData(startTime, endTime);
     }
@@ -198,6 +200,8 @@ void back(){
 //                }
                     if (TextUtils.equals("4000", data.getCode())) {
                     //历史记录集合
+                        Log.d("linshi","data.getData().getHealthDatas():"+data.getData().getHealthDatas().size());
+                        mListData.clear();
                     mListData.addAll(data.getData().getHealthDatas());
                     //图表数据处理
                     AssignmentChat(data.getData().getHealthDatas());

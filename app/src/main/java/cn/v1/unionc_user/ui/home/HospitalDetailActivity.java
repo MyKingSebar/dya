@@ -59,7 +59,7 @@ public class HospitalDetailActivity extends BaseActivity {
     private int mDistance;
     int position2;
 
-private int clinicType=R.drawable.icon_hospital_zh;
+    private int clinicType = R.drawable.icon_hospital_zh;
 
     @BindView(R.id.tv_summary)
     TextView tvSummary;
@@ -73,7 +73,7 @@ private int clinicType=R.drawable.icon_hospital_zh;
     TextView tvTitle;
     @BindView(R.id.img_share)
     ImageView imgShare;
-//    @BindView(R.id.img_hospital)
+    //    @BindView(R.id.img_hospital)
 //    ImageView imgHospital;
     @BindView(R.id.tv_hospital_name)
     TextView tvHospitalName;
@@ -110,7 +110,7 @@ private int clinicType=R.drawable.icon_hospital_zh;
     CheckBox cbRecommend;
     @BindView(R.id.cb_no_recommend)
     CheckBox cbNoRecommend;
-//    @BindView(R.id.tv_kefu)
+    //    @BindView(R.id.tv_kefu)
 //    FloatingActionButton tv_kefu;
     @BindView(R.id.kefu2)
     ImageView kefu2;
@@ -158,7 +158,7 @@ private int clinicType=R.drawable.icon_hospital_zh;
         initBottomSheet();
     }
 
-    @OnClick({R.id.img_back, R.id.img_share, R.id.img_dial,R.id.ll_recommend,R.id.ll_follow,R.id.ll_comment,
+    @OnClick({R.id.img_back, R.id.img_share, R.id.img_dial, R.id.ll_recommend, R.id.ll_follow, R.id.ll_comment,
 
 //            R.id.tv_kefu,
             R.id.kefu2
@@ -172,7 +172,12 @@ private int clinicType=R.drawable.icon_hospital_zh;
             case R.id.img_share:
                 break;
             case R.id.img_dial:
-                photoDialog();
+                if(!TextUtils.isEmpty(Tel)){
+
+                    photoDialog();
+                }else{
+                    showTost("暂无号码");
+                }
                 break;
             case R.id.ll_recommend:
                 if (!isLogin()) {
@@ -214,32 +219,33 @@ private int clinicType=R.drawable.icon_hospital_zh;
 //                    }
 //                }
 //                break;
-            case  R.id.kefu2:
-                if(TextUtils.equals(IsDuty,"1")){
+            case R.id.kefu2:
+                if (TextUtils.equals(IsDuty, "1")) {
 
                     if (isLogin()) {
                         isCertification(MESSAGE);
                     } else {
                         goNewActivity(LoginActivity.class);
-                        Log.d("linshi","LoginActivity:Hospital");
+                        Log.d("linshi", "LoginActivity:Hospital");
                     }
                 }
                 break;
         }
     }
-private void initData(){
-    if (getIntent().hasExtra("clinicId")) {
-        clinicId = getIntent().getStringExtra("clinicId");
-        initfragmentData();
-        Logger.d(clinicId);
+
+    private void initData() {
+        if (getIntent().hasExtra("clinicId")) {
+            clinicId = getIntent().getStringExtra("clinicId");
+            initfragmentData();
+            Logger.d(clinicId);
+        }
+
+
     }
 
-
-
-}
     private void initView() {
 
-        mIn_vp.setPageTransformer(true,new DepthPageTransformer());
+        mIn_vp.setPageTransformer(true, new DepthPageTransformer());
 
         listView.setFocusable(false);
         tvSummary.post(new Runnable() {
@@ -250,7 +256,7 @@ private void initData(){
                     tvSummary.setMaxLines(2);
                     tvSummary.setEllipsize(TextUtils.TruncateAt.END);
                     tvOpen.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     tvOpen.setVisibility(View.GONE);
                 }
                 tvOpen.setOnClickListener(new View.OnClickListener() {
@@ -268,9 +274,9 @@ private void initData(){
         listView.setAdapter(hospitalDoctorAdapter);
     }
 
-private void initfragmentData(){
+    private void initfragmentData() {
 
-}
+    }
 
     @Override
     protected void onResume() {
@@ -280,7 +286,7 @@ private void initfragmentData(){
         }
     }
 
-    private void getCliniInfo(){
+    private void getCliniInfo() {
         showDialog("加载中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         ConnectHttp.connect(UnionAPIPackage.getClinicInfo(token, clinicId,
@@ -308,23 +314,23 @@ private void initfragmentData(){
         ClinicInfoData.DataData.ClinicData clinicData = data.getData().getClinicInfo();
         List<ClinicInfoData.DataData.DoctorsData> doctorData = data.getData().getDoctors();
 
-        IsHaveContributing=clinicData.getIsHaveContributing();
-        AUniress=clinicData.getAUniress();
-        EvaCount=clinicData.getEvaCount();
-        ImagePaths =clinicData.getImagePaths();
-        Tel=clinicData.getTel();
-        Latitude=clinicData.getLatitude();
-        CollectionCount=clinicData.getCollectionCount();
-        RecommendCount=clinicData.getRecommendCount();
-        Longitude=clinicData.getLongitude();
-        Distance=clinicData.getDistance();
-        Notes=clinicData.getNotes();
-        Name=clinicData.getName();
-        docName=clinicData.getDoctName();
-        DoctImagePath=clinicData.getDoctImagePath();
-        Tips=clinicData.getTips();
-        IsDuty=clinicData.getIsDuty();
-        Identifier=clinicData.getIdentifier();
+        IsHaveContributing = clinicData.getIsHaveContributing();
+        AUniress = clinicData.getAUniress();
+        EvaCount = clinicData.getEvaCount();
+        ImagePaths = clinicData.getImagePaths();
+        Tel = clinicData.getTel();
+        Latitude = clinicData.getLatitude();
+        CollectionCount = clinicData.getCollectionCount();
+        RecommendCount = clinicData.getRecommendCount();
+        Longitude = clinicData.getLongitude();
+        Distance = clinicData.getDistance();
+        Notes = clinicData.getNotes();
+        Name = clinicData.getName();
+        docName = clinicData.getDoctName();
+        DoctImagePath = clinicData.getDoctImagePath();
+        Tips = clinicData.getTips();
+        IsDuty = clinicData.getIsDuty();
+        Identifier = clinicData.getIdentifier();
         /**
          *
          1		综合医院
@@ -333,101 +339,103 @@ private void initfragmentData(){
          4		动物医疗场所
          5		卫生院
          */
-        switch (Integer.parseInt(clinicData.getParCategory())){
+        switch (Integer.parseInt(clinicData.getParCategory())) {
             case 1:
-                clinicType=R.drawable.icon_hospital_zh;
+                clinicType = R.drawable.icon_hospital_zh;
                 break;
             case 2:
-                clinicType=R.drawable.icon_hospital_zk;
+                clinicType = R.drawable.icon_hospital_zk;
                 break;
             case 3:
-                clinicType=R.drawable.icon_hospital_zs;
+                clinicType = R.drawable.icon_hospital_zs;
                 break;
             case 4:
-                clinicType=R.drawable.icon_hospital_cw;
+                clinicType = R.drawable.icon_hospital_cw;
                 break;
             case 5:
-                clinicType=R.drawable.icon_hospital_sq;
+                clinicType = R.drawable.icon_hospital_sq;
                 break;
         }
 
-            mViewList = new ArrayList<View>();
-            LayoutInflater lf = getLayoutInflater().from(HospitalDetailActivity.this);
-            if(ImagePaths ==null||!(ImagePaths.size()>0)){
+        mViewList = new ArrayList<View>();
+        LayoutInflater lf = getLayoutInflater().from(HospitalDetailActivity.this);
+        if (ImagePaths == null || !(ImagePaths.size() > 0)) {
+            View view1 = lf.inflate(R.layout.we_indicator1, null);
+            mViewList.add(view1);
+            ImageView im = view1.findViewById(R.id.im1);
+            Glide.with(context)
+                    .load(clinicType)
+                    .into(im);
+        } else {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 0, 40, 0);
+
+            for (int i = 0; i < ImagePaths.size(); i++) {
                 View view1 = lf.inflate(R.layout.we_indicator1, null);
                 mViewList.add(view1);
-                ImageView im=view1.findViewById(R.id.im1);
+                ImageView im = view1.findViewById(R.id.im1);
                 Glide.with(context)
-                        .load(clinicType)
-                       .into(im);
-            }else{
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 0, 40, 0);
+                        .load(ImagePaths.get(i))
+                        .placeholder(clinicType).dontAnimate()
+                        .error(clinicType)
+                        .into(im);
+                if (ImagePaths.size() > 1) {
 
-                for(int i = 0; i< ImagePaths.size(); i++){
-                    View view1 = lf.inflate(R.layout.we_indicator1, null);
-                    mViewList.add(view1);
-                    ImageView im=view1.findViewById(R.id.im1);
-                    Glide.with(context)
-                            .load(ImagePaths.get(i))
-                            .placeholder(clinicType).dontAnimate()
-                            .error(clinicType)
-                            .into(im);
-if(ImagePaths.size()>1){
-
-    ImageView mOne_dot = new ImageView(this);
-    mOne_dot.setImageResource(R.drawable.gray_dot);
-    mIn_ll.addView(mOne_dot, layoutParams);
-}
+                    ImageView mOne_dot = new ImageView(this);
+                    mOne_dot.setImageResource(R.drawable.gray_dot);
+                    mIn_ll.addView(mOne_dot, layoutParams);
                 }
-                mLight_dots.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        //获得两个圆点之间的距离
-                        mDistance = mIn_ll.getChildAt(1).getLeft() - mIn_ll.getChildAt(0).getLeft();
-                        mLight_dots.getViewTreeObserver()
-                                .removeGlobalOnLayoutListener(this);
-                    }
-                });
-                mIn_vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                        //页面滚动时小白点移动的距离，并通过setLayoutParams(params)不断更新其位置
-                        float leftMargin = mDistance * (position + positionOffset);
-                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mLight_dots.getLayoutParams();
-                        params.leftMargin = (int) leftMargin;
-                        mLight_dots.setLayoutParams(params);
-                    }
-
-
-                    @Override
-                    public void onPageSelected(int position) {
-                        position2=position;
-                        //页面跳转时，设置小圆点的margin
-                        float leftMargin = mDistance * position;
-                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mLight_dots.getLayoutParams();
-                        params.leftMargin = (int) leftMargin;
-                        mLight_dots.setLayoutParams(params);
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
-
-                    }
-                });
-
             }
+            mLight_dots.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    //获得两个圆点之间的距离
+                    if(ImagePaths.size()>1){
+
+                        mDistance = mIn_ll.getChildAt(1).getLeft() - mIn_ll.getChildAt(0).getLeft();
+                    }
+                    mLight_dots.getViewTreeObserver()
+                            .removeGlobalOnLayoutListener(this);
+                }
+            });
+            mIn_vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    //页面滚动时小白点移动的距离，并通过setLayoutParams(params)不断更新其位置
+                    float leftMargin = mDistance * (position + positionOffset);
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mLight_dots.getLayoutParams();
+                    params.leftMargin = (int) leftMargin;
+                    mLight_dots.setLayoutParams(params);
+                }
+
+
+                @Override
+                public void onPageSelected(int position) {
+                    position2 = position;
+                    //页面跳转时，设置小圆点的margin
+                    float leftMargin = mDistance * position;
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mLight_dots.getLayoutParams();
+                    params.leftMargin = (int) leftMargin;
+                    mLight_dots.setLayoutParams(params);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+
+        }
         mIn_vp.setAdapter(new ViewPagerAdatper(mViewList));
 
 
-
-if(Name.length()>20){
-    tvHospitalName.setWidth(DP_PX.dp2px(context,300f));
-}
+        if (Name.length() > 20) {
+            tvHospitalName.setWidth(DP_PX.dp2px(context, 300f));
+        }
         tvHospitalName.setText(Name);
-        tvSummary.setText("简介:"+Notes);
+        tvSummary.setText("简介:" + Notes);
         tvAddress.setText(AUniress);
-        tvDistance.setText(Distance+"km");
+        tvDistance.setText(Distance + "km");
         labels.setLabels(Tips);
 
         hospitalDoctorAdapter.setData(doctorData);
@@ -462,9 +470,9 @@ if(Name.length()>20){
 //        }else{
 //            tv_kefu.setVisibility(View.GONE);
 //        }
-        if(TextUtils.equals(IsDuty,"1")){
+        if (TextUtils.equals(IsDuty, "1")) {
             kefu2.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             kefu2.setVisibility(View.GONE);
         }
 //        tvDoctorName.setText(doctorsData.getDoctorName() + "");
@@ -604,6 +612,7 @@ if(Name.length()>20){
                                 doctorInfo.setDoctorName(docName + "");
                                 doctorInfo.setIdentifier(Identifier + "");
                                 doctorInfo.setImagePath(DoctImagePath + "");
+                                Log.d("linshi", "DoctImagePath:" + DoctImagePath);
                                 TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
                             }
 
@@ -620,12 +629,13 @@ if(Name.length()>20){
                     }
                 });
     }
+
     private void photoDialog() {
         final Dialog bottomDialog = new Dialog(this, R.style.BottomDialog);
         View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_content_normal, null);
         bottomDialog.setContentView(contentView);
-        TextView tvCall=contentView.findViewById(R.id.call);
-        TextView tvCancel=contentView.findViewById(R.id.cancel);
+        TextView tvCall = contentView.findViewById(R.id.call);
+        TextView tvCancel = contentView.findViewById(R.id.cancel);
         tvCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -633,6 +643,7 @@ if(Name.length()>20){
                 Uri data = Uri.parse("tel:" + Tel);
                 intent.setData(data);
                 startActivity(intent);
+                bottomDialog.dismiss();
             }
         });
         tvCancel.setOnClickListener(new View.OnClickListener() {

@@ -79,7 +79,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     doctorInfo.setDoctorName(homeData.getDoctorName() + "");
                     doctorInfo.setIdentifier(homeData.getIdentifier() + "");
                     doctorInfo.setImagePath(homeData.getImagePath() + "");
-                    Log.d("linshi","homeData.setDoctorName2:"+homeData.getDoctorName());
+                    Log.d("linshi","homeData.getImagePath:"+homeData.getImagePath());
                     TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
                 }
                 if (TextUtils.equals(type, Common.ACTIVITY_PUSH)) {
