@@ -36,7 +36,7 @@
         android:paddingBottom="10dp"
         android:paddingLeft="12dp"
         android:paddingTop="20dp"
-        android:text="关于我们："
+        android:text="关于我们"
         android:textColor="#FF26282E"
         android:textSize="16sp" />
 

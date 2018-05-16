@@ -1,6 +1,7 @@
 package cn.v1.unionc_user.ui.me;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ public class AboutYIBASHIActivity extends BaseActivity {
     private void initView() {
         tvTitle.setText("关于医巴士");
         tvVersion.setText("医巴士"+ MobileConfigUtil.getVersionName());
+//        tvVersion.setText("医巴士"+ MobileConfigUtil.getVersionName());
+        Log.d("linshi","医巴士:"+MobileConfigUtil.getVersionName());
     }
 
 }

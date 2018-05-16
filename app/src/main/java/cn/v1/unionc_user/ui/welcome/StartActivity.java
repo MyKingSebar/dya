@@ -84,7 +84,7 @@ public class StartActivity extends BaseActivity {
                     case MotionEvent.ACTION_UP:
                         if (touchFlag == 0) {
 //                            if(position2==3){
-                            if(position2==2){
+                            if(position2==3){
 
                                 Intent it = new Intent();
                                 it.setClass(context, MainActivity.class);

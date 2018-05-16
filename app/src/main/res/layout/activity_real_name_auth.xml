@@ -89,6 +89,7 @@
             android:background="@color/transparent"
             android:gravity="center_vertical"
             android:hint="请输入您的身份证号"
+            android:inputType="phone"
             android:text=""
             android:textColor="@color/main_text"
             android:textColorHint="@color/detail_text"

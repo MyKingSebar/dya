@@ -172,10 +172,10 @@ public class HospitalDetailActivity extends BaseActivity {
             case R.id.img_share:
                 break;
             case R.id.img_dial:
-                if(!TextUtils.isEmpty(Tel)){
+                if (!TextUtils.isEmpty(Tel)) {
 
                     photoDialog();
-                }else{
+                } else {
                     showTost("暂无号码");
                 }
                 break;
@@ -367,9 +367,11 @@ public class HospitalDetailActivity extends BaseActivity {
                     .load(clinicType)
                     .into(im);
         } else {
+            mViewList.clear();
+            mIn_ll.removeAllViews();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0, 0, 40, 0);
-
+            Log.d("linshi", "ImagePaths.size():" + ImagePaths.size());
             for (int i = 0; i < ImagePaths.size(); i++) {
                 View view1 = lf.inflate(R.layout.we_indicator1, null);
                 mViewList.add(view1);
@@ -380,7 +382,7 @@ public class HospitalDetailActivity extends BaseActivity {
                         .error(clinicType)
                         .into(im);
                 if (ImagePaths.size() > 1) {
-
+                    Log.d("linshi", "ImagePaths.addView:" + i);
                     ImageView mOne_dot = new ImageView(this);
                     mOne_dot.setImageResource(R.drawable.gray_dot);
                     mIn_ll.addView(mOne_dot, layoutParams);
@@ -390,7 +392,7 @@ public class HospitalDetailActivity extends BaseActivity {
                 @Override
                 public void onGlobalLayout() {
                     //获得两个圆点之间的距离
-                    if(ImagePaths.size()>1){
+                    if (ImagePaths.size() > 1) {
 
                         mDistance = mIn_ll.getChildAt(1).getLeft() - mIn_ll.getChildAt(0).getLeft();
                     }
