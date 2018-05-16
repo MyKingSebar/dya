@@ -24,6 +24,7 @@ import java.util.List;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.MainActivity;
 import cn.v1.unionc_user.ui.base.BaseActivity;
+import cn.v1.unionc_user.utils.DP_PX;
 
 public class StartActivity extends BaseActivity {
 
@@ -84,7 +85,7 @@ public class StartActivity extends BaseActivity {
                     case MotionEvent.ACTION_UP:
                         if (touchFlag == 0) {
 //                            if(position2==3){
-                            if(position2==3){
+                            if(position2==2){
 
                                 Intent it = new Intent();
                                 it.setClass(context, MainActivity.class);
@@ -103,7 +104,7 @@ public class StartActivity extends BaseActivity {
                 //页面滚动时小白点移动的距离，并通过setLayoutParams(params)不断更新其位置
                 float leftMargin = mDistance * (position + positionOffset);
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mLight_dots.getLayoutParams();
-                params.leftMargin = (int) leftMargin;
+                params.leftMargin = (int) leftMargin+ 20;
                 mLight_dots.setLayoutParams(params);
             }
 
@@ -114,6 +115,7 @@ public class StartActivity extends BaseActivity {
                 //页面跳转时，设置小圆点的margin
                 float leftMargin = mDistance * position;
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mLight_dots.getLayoutParams();
+
                 params.leftMargin = (int) leftMargin;
                 mLight_dots.setLayoutParams(params);
             }
@@ -127,7 +129,7 @@ public class StartActivity extends BaseActivity {
 
     private void addDots() {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0, 0, 40, 0);
+        layoutParams.setMargins(20, 0, 20, 0);
         mOne_dot = new ImageView(this);
         mOne_dot.setImageResource(R.drawable.gray_dot);
         mIn_ll.addView(mOne_dot, layoutParams);
@@ -204,6 +206,9 @@ public class StartActivity extends BaseActivity {
         mIn_vp = (ViewPager) findViewById(R.id.in_viewpager);
         mIn_ll = (LinearLayout) findViewById(R.id.in_ll);
         mLight_dots = (ImageView) findViewById(R.id.iv_light_dots);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mLight_dots.getLayoutParams();
+        params.leftMargin = 20;
+        mLight_dots.setLayoutParams(params);
     }
 
 }
