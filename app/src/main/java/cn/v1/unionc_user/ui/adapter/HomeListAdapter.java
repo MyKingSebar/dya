@@ -195,6 +195,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                             } else {
                                 holder.tvMessageName.setText(homeData.getIdentifier() + "");
                             }
+                            Log.d("linshi","TextUtils.isEmpty(res.getFaceUrl()"+TextUtils.isEmpty(res.getFaceUrl()));
                             if (!TextUtils.isEmpty(res.getFaceUrl())) {
                                 Glide.with(context)
                                         .load(res.getFaceUrl())

@@ -1,5 +1,6 @@
 package cn.v1.unionc_user.ui.adapter;
 
+import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,16 @@ public class BannerAdapter extends PagerAdapter {
     private List<View> viewList;
     private int size;
     private final int cacheCount = 3;
-
+    private Context mContext;
     public BannerAdapter(List<View> viewList) {
         this.viewList = viewList;
         size = viewList.size();
     }
-
+    public BannerAdapter(Context mContext, List<View> viewList) {
+        this.viewList = viewList;
+        this.mContext = mContext;
+        size = viewList.size();
+    }
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         if (viewList.size() > cacheCount){

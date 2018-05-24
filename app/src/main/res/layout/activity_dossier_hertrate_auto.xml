@@ -133,4 +133,9 @@
             />
 
     </RelativeLayout>
+    <View
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:background="#D3D4D8"
+        android:layout_height="0.5dp"></View>
 </LinearLayout>

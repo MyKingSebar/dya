@@ -195,9 +195,13 @@ public class DiscoverFragment3 extends BaseFragment implements LocationSource,
             @Override
             public void onResponse(RecommendDoctorsData data) {
                 if(TextUtils.equals(data.getCode(),"4000")){
+if(data.getData().getDoctors().size()>0){
+    recommendDoctorAdapter.setData(data.getData().getDoctors());
+    findlinear.setVisibility(View.VISIBLE);
 
-                    recommendDoctorAdapter.setData(data.getData().getDoctors());
-                    findlinear.setVisibility(View.VISIBLE);
+}else{
+    findlinear.setVisibility(View.GONE);
+}
                 }else {
                     findlinear.setVisibility(View.GONE);
 

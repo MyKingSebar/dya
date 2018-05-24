@@ -53,6 +53,7 @@ import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.MainActivity;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.home.health.DossierHertRateHistoryActivity;
+import cn.v1.unionc_user.utils.WXShare;
 import cn.v1.unionc_user.view.CircleImageView;
 
 /**
@@ -96,6 +97,7 @@ public class PersonalFragment extends BaseFragment {
     private UserInfoData.DataData userInfo;
 
     private Intent intent;
+    private WXShare wxShare;
 
     public PersonalFragment() {
         // Required empty public constructor
@@ -106,10 +108,35 @@ public class PersonalFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         BusProvider.getInstance().register(this);
         mTencent = Tencent.createInstance("1106239874", context.getApplicationContext());
+        wxShare = new WXShare(context);
+        wxShare.setListener(new WXShare.OnResponseListener() {
+            @Override
+            public void onSuccess() {
+                // 分享成功
+            }
+
+            @Override
+            public void onCancel() {
+                // 分享取消
+            }
+
+            @Override
+            public void onFail(String message) {
+                // 分享失败
+            }
+        });
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        wxShare.register();
+    }
+
+
+    @Override
     public void onDestroy() {
+        wxShare.unregister();
         super.onDestroy();
         BusProvider.getInstance().unregister(this);
     }
@@ -171,7 +198,7 @@ public class PersonalFragment extends BaseFragment {
             case R.id.tv_yaoqing:
                 //邀请好友
 //                showButtonDialog();
-
+//                wxShare.share("这是要分享的文字");
 
 //                ShareListener myListener = new ShareListener();
 //

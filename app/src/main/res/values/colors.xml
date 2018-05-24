@@ -83,4 +83,16 @@
     <color name="sign_red">#ef6666</color>
     <color name="appoint_green_color">#70ED3A</color>
     <color name="green_146">#92E23A</color>
+
+    <color name="green_pressed_text">#8ee3d1</color>
+    <color name="linearlayout_pressed_color">#DFE3E8</color>
+    <color name="colorCommonBlack">#000000</color>
+    <color name="colorSearchGray">#23000000</color>
+    <color name="grey_line">#e5e5e5</color>
+    <color name="blue_elven">#13a3ff</color>
+    <color name="green_pressed">#117762</color>
+
+
+
+
 </resources>

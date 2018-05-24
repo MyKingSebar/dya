@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/include_toolbar_actionbar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:background="#F0F2F5"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="请选择设备，按照引导完成添加设备操作"
+        android:textColor="#ff666666"
+        android:textSize="13dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem = "@layout/item_bluetooth_device"
+        ></android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

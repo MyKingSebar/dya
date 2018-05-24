@@ -1,5 +1,6 @@
 package cn.v1.unionc_user;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.mhealth365.osdk.EcgOpenApiCallback;
@@ -23,6 +25,8 @@ import com.tencent.qalsdk.sdk.MsfSdkUtils;
 import com.tencent.smtt.sdk.QbSdk;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.v1.unionc_user.tecent_qcloud.InitSDK;
@@ -198,5 +202,40 @@ public class UnioncApp extends MultiDexApplication {
 
     public static Context getContext() {
         return getInstance().getBaseContext();
+    }
+
+
+
+
+    //===========================关闭activity==============================
+    private List<Activity> activityLists = new ArrayList<>();
+
+
+    public void addActivity(Activity activity) {
+        activityLists.add(activity);
+    }
+
+    public void closeActivity() {
+        if (activityLists!=null&&activityLists.size()>0) {
+            for (Activity activity : activityLists) {
+                activity.finish();
+            }
+            activityLists.clear();
+        }
+    }
+
+    /**
+     * 获得屏幕宽度
+     *
+     * @param context
+     * @return
+     */
+    public static int getScreenWidth(Context context)
+    {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE );
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics .widthPixels ;
     }
 }

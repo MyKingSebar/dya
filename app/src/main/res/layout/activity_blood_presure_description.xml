@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.v1.unionc_user.ui.home.BloodPressure.BloodPresureDescriptionActivity">
+
+
+    <include layout="@layout/include_toolbar_actionbar" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="3dp"
+                android:text="1.确保手机在血压计2米范围内，且蓝牙已开启，并进入‘开始测量’页面"
+                android:textColor="#ff222222"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginTop="30dp"
+                android:text="2.按下血压计的“开始/停止”按钮，开始测量，并等待测量结束"
+                android:textColor="#ff222222"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                android:src="@drawable/img_measure_descrtption_1"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="3dp"
+                android:text="3.血压仪测量完毕后，等待2-3分钟后，手机将接收到来自设备的测量数据，同时通知栏将出现一条接收成功的提醒"
+                android:textColor="#ff222222"
+                android:textSize="14dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                android:src="@drawable/img_measure_description_2"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="3dp"
+                android:text="4.数据上传后，您可以将上传的数据归属到账号中某一个健康档案，该健康档案的“高血压健康管理”历史记录中会记录相应数据，未归属的测量数据将保存在设备的数据记录中。 "
+                android:textColor="#ff222222"
+                android:textSize="14dp"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_done"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/green_btn_bg"
+        android:gravity="center"
+        android:text="知道了"
+        android:textColor="#ffffff"
+        android:textSize="19dp" />
+
+</LinearLayout>

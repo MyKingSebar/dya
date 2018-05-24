@@ -199,7 +199,14 @@ public class BannerView extends FrameLayout {
             }
         }
     }
-
+    public void setViewList(Context mContext, List<View> viewList) {
+        this.viewList = viewList;
+        if (viewList != null && viewList.size() != 0) {
+            viewSize = viewList.size();
+            BannerAdapter bannerAdapter = new BannerAdapter(mContext, viewList);
+            setAdapter(bannerAdapter);
+        }
+    }
     public void setViewList(List<View> viewList) {
         this.viewList = viewList;
         if (viewList != null && viewList.size() != 0) {

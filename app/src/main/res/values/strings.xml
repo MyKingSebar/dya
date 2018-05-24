@@ -30,12 +30,7 @@
         和缩小，我们看看效果吧~
     </string>
 
-    <string name="about_yibashi" >医巴士，针对患者看病难、看病贵、
-        等待时间长的问题，提供了一个以医患沟通为主，护士康复、送药上门、
-        名医挂号为辅的医疗服务平台；\n\n
-        医巴士，是千医健康管理有限公司旗下产品，千医健康旗下拥有“医护到家”产品，
-        千医健康是全国首家互联网医养服务试点平台，全国首家三甲护士集团、
-        全国首家中医集团、目前已覆盖31个省280个城市数千万用户。
+    <string name="about_yibashi" >医巴士，针对患者看病难、看病贵、等待时间长的问题，提供了一个以医患沟通为主，护士康复、送药上门、名医挂号为辅的医疗服务平台；\n\n医巴士，是千医健康管理有限公司旗下产品，千医健康旗下拥有“医护到家”产品，千医健康是全国首家互联网医养服务试点平台，全国首家三甲护士集团、全国首家中医集团、目前已覆盖31个省280个城市数千万用户。
     </string>
 
     <string name="password_same_number">密码不能为相同数字</string>
@@ -58,4 +53,18 @@
     <string name="heart_rate_times">购买声明\n1.购买读图次数属于服务消耗品\n2.读图次数请于慢病服务期内全部使用，服务结束时如有剩余，不退不存\n3.读图次数使用最终解释权归医护到家所有</string>
     <string name="re_measure"><u>重新测量</u></string>
 
+    <string name="inloading">正在加载,请稍后</string>
+    <string name="loadmore_retry">点击重试</string>
+    <string name="loadmore_complete">没有更多</string>
+
+    <string name="title_homeendowment">居家养老</string>
+    <string name="title_homeendowment_new">上传报告</string>
+    <string name="title_healcare_manage">健康管理</string>
+    <string name="title_healcare_dossier">健康档案</string>
+    <string name="title_healcare_dossierdiabetes">血糖周统计</string>
+    <string name="title_healcare_dossierhypertension">血压周统计</string>
+    <string name="title_my_attention_list">我的关注</string>
+    <string name="title_healcare_dossiercuremidicine">治疗药物</string>
+    <string name="title_healcare_doctorwords">健康指导</string>
+    <string name="title_healcare_uploadpic">检查资料</string>
 </resources>

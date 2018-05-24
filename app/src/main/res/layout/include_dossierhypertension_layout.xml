@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e9e9e9"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1px"
+                android:layout_weight="1"
+                android:background="@color/grey_bg"
+                android:gravity="center"
+                android:text="日期"
+                android:textColor="#b2010101"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#e9e9e9"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:visibility="visible" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1px"
+                android:layout_marginTop="1px"
+                android:layout_weight="3">
+
+                <LinearLayout
+                    android:id="@+id/rl_tv_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="1px"
+                    android:background="#ffffff"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical|right"
+                        android:text="上"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical|left"
+                        android:text="午"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_below="@+id/rl_tv_1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="1px"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:text="收缩压"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:text="舒张压"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#e9e9e9"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1px"
+                android:layout_marginTop="1px"
+                android:layout_weight="3">
+
+                <LinearLayout
+                    android:id="@+id/rl_tv_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="1px"
+                    android:background="#ffffff"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical|right"
+                        android:text="下"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical|left"
+                        android:text="午"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_below="@+id/rl_tv_2"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="1px"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:text="收缩压"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:text="舒张压"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#e9e9e9"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1px"
+                android:layout_marginTop="1px"
+                android:layout_weight="3">
+
+                <LinearLayout
+                    android:id="@+id/rl_tv_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="1px"
+                    android:background="#ffffff"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical|right"
+                        android:text="晚"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical|left"
+                        android:text="上"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_below="@+id/rl_tv_3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="1px"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:text="收缩压"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:text="舒张压"
+                        android:textColor="@color/black_87"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#e9e9e9"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1px"
+                android:layout_marginRight="1px"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dossierdiabetes_week1"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="1px"
+                    android:background="@color/grey_bg"
+                    android:gravity="center"
+                    tools:text="9.5\n周一"
+                    android:textColor="@color/black_87"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/dossierdiabetes_week2"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="1px"
+                    android:background="@color/grey_bg"
+                    android:gravity="center"
+                    tools:text="9.5\n周一"
+                    android:textColor="@color/black_87"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/dossierdiabetes_week3"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="1px"
+                    android:background="@color/grey_bg"
+                    android:gravity="center"
+                    tools:text="9.5\n周一"
+                    android:textColor="@color/black_87"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/dossierdiabetes_week4"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="1px"
+                    android:background="@color/grey_bg"
+                    android:gravity="center"
+                    tools:text="9.5\n周一"
+                    android:textColor="@color/black_87"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/dossierdiabetes_week5"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="1px"
+                    android:background="@color/grey_bg"
+                    android:gravity="center"
+                    tools:text="9.5\n周一"
+                    android:textColor="@color/black_87"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/dossierdiabetes_week6"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="1px"
+                    android:background="@color/grey_bg"
+                    android:gravity="center"
+                    tools:text="9.5\n周一"
+                    android:textColor="@color/black_87"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/dossierdiabetes_week7"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="1px"
+                    android:background="@color/grey_bg"
+                    android:gravity="center"
+                    tools:text="9.5\n周一"
+                    android:textColor="@color/black_87"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_dossierdiabetes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:scrollbars="none"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

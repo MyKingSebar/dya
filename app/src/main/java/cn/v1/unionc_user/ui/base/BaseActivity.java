@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.tecent_qcloud.UserConfig;
+import cn.v1.unionc_user.ui.home.BloodPressure.views.MDProgressGifDialog;
 import cn.v1.unionc_user.ui.me.RealNameAuthActivity;
 import cn.v1.unionc_user.view.PromptDialog;
 import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
@@ -35,9 +37,10 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  */
 
 public class BaseActivity extends FragmentActivity {
-
     protected Context context;
     private ProgressDialog progressDialog;
+
+    private Toolbar mActionBarToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -209,4 +212,29 @@ public class BaseActivity extends FragmentActivity {
             }
         });
     }
+    /**
+     * startActivity
+     *
+     * @param clazz
+     */
+    public void readyGo(Class<?> clazz) {
+        Intent intent = new Intent(this, clazz);
+        startActivity(intent);
+    }
+    /**
+     * startActivity with bundle
+     *
+     * @param clazz
+     * @param bundle
+     */
+    public void readyGo(Class<?> clazz, Bundle bundle) {
+        Intent intent = new Intent(this, clazz);
+        if (null != bundle) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
+
+
+
 }

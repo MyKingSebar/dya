@@ -58,6 +58,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+
+
     <application
         android:name=".UnioncApp"
         android:allowBackup="true"
@@ -212,9 +214,50 @@
 
 
 
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BaseActivity2"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BindOMRONStepActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BloodPresureDescriptionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BloodPresureHandMeasureActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BloodPresureHistoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BloodPresureHistoryRecordDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BloodPresureMeasureActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BlueToothClassfyListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BlueToothDeviceActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.BlueToothMeasureActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.DossierHypertensionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.DossierPhotoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.DossierUploadReportActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.OmrLoseCoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.OMRONBannerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.v1.unionc_user.ui.home.BloodPressure.TzOmRonBlueToothActivity"
+            android:screenOrientation="portrait"/>
+
+
+
 
         <activity android:name="cn.v1.unionc_user.ui.welcome.StartActivity"></activity>
 
+        <activity
+            android:name="cn.v1.unionc_user.ui.me.WXEntryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen.Translucent"/>
 
 
         <!-- Rich push 核心功能 since 2.0.6-->
@@ -343,6 +386,15 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
+
+        <receiver
+            android:name="cn.v1.unionc_user.utils.AppRegister"
+            android:permission="com.tencent.mm.plugin.permission.SEND">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

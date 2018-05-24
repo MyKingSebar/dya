@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.tencent.imsdk.TIMCallBack;
+import com.tencent.imsdk.TIMFriendshipManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -299,6 +301,22 @@ public class UpdateAvatorActivity extends BaseActivity {
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
                     updateUserInfo(data.getPath() + "");
+                    TIMFriendshipManager.ModifyUserProfileParam param = new TIMFriendshipManager.ModifyUserProfileParam();
+                    param.setFaceUrl(data.getPath() + "");
+
+//                    TIMFriendshipManager.getInstance().modifyProfile(param, new TIMCallBack() {
+//                        @Override
+//                        public void onError(int code, String desc) {
+//                            //错误码 code 和错误描述 desc，可用于定位请求失败原因
+//                            //错误码 code 列表请参见错误码表
+//                            Log.e("linshi", "modifyProfile failed: " + code + " desc" + desc);
+//                        }
+//
+//                        @Override
+//                        public void onSuccess() {
+//                            Log.e("linshi", "modifyProfile succ");
+//                        }
+//                    });
                 } else {
                     showTost(data.getMessage() + "");
                 }
@@ -309,6 +327,8 @@ public class UpdateAvatorActivity extends BaseActivity {
                 closeDialog();
             }
         });
+
+
     }
 
     /**

@@ -184,7 +184,7 @@ void back(){
      */
     private void getlist() {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.getHeartListData(token, "1","1","200"), new BaseObserver<HeartHistoryListData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.getHeartListData(token, "1","1","30"), new BaseObserver<HeartHistoryListData>(context) {
 
             @Override
             public void onResponse(HeartHistoryListData data) {

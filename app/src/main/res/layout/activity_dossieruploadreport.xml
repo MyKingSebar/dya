@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_toolbar_actionbar" />
+
+        <include layout="@layout/include_line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="上传相关检查资料"
+            android:textColor="@color/black_87"
+            android:textSize="18sp" />
+
+        <include layout="@layout/include_line" />
+
+
+        <LinearLayout
+            android:id="@+id/upload_ll1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp">
+
+            <RelativeLayout
+                android:id="@+id/upload_rl1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:paddingRight="5dp">
+
+                <ImageView
+                    android:id="@+id/upload_img1"
+                    android:layout_width="95dp"
+                    android:layout_height="95dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/upload_report_bg" />
+
+                <ImageView
+                    android:id="@+id/delete_img1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:src="@drawable/upload_report_delete"
+                    android:tag="0"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/upload_rl2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/upload_img2"
+                    android:layout_width="95dp"
+                    android:layout_height="95dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/upload_report_bg" />
+
+                <ImageView
+                    android:id="@+id/delete_img2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:src="@drawable/upload_report_delete"
+                    android:tag="1"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/upload_rl3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/upload_img3"
+                    android:layout_width="95dp"
+                    android:layout_height="95dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/upload_report_bg" />
+
+                <ImageView
+                    android:id="@+id/delete_img3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:src="@drawable/upload_report_delete"
+                    android:tag="2"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/upload_ll2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/upload_rl4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:paddingRight="5dp">
+
+                <ImageView
+                    android:id="@+id/upload_img4"
+                    android:layout_width="95dp"
+                    android:layout_height="95dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/upload_report_bg" />
+
+                <ImageView
+                    android:id="@+id/delete_img4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:src="@drawable/upload_report_delete"
+                    android:tag="3"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/upload_rl5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/upload_img5"
+                    android:layout_width="95dp"
+                    android:layout_height="95dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/upload_report_bg" />
+
+                <ImageView
+                    android:id="@+id/delete_img5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:src="@drawable/upload_report_delete"
+                    android:tag="4"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/upload_rl6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/upload_img6"
+                    android:layout_width="95dp"
+                    android:layout_height="95dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/upload_report_bg" />
+
+                <ImageView
+                    android:id="@+id/delete_img6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:src="@drawable/upload_report_delete"
+                    android:tag="5"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/upload_save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:background="@drawable/green_pressandnormal"
+        android:textColor="@color/text_green_pressandnormal"
+        android:text="保存"
+        android:textSize="18sp" />
+
+</RelativeLayout>

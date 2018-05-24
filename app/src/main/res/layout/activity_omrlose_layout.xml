@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_actionbar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:drawablePadding="11dp"
+        android:drawableTop="@drawable/sssb_icon_ljsb"
+        android:gravity="center_horizontal"
+        android:text="连接失败"
+        android:textColor="@color/text_34"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="61dp"
+        android:lineSpacingExtra="6dp"
+        android:text="如绑定失败，请检查：\n1.测量设备是否在1米以内；\n2.测量设备是否已开启。"
+        android:textColor="@color/text_34"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/omr_lose_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:text="我知道了"
+        android:textSize="19sp"
+        android:background="@drawable/green_pressandnormal"
+        android:textColor="@color/text_green_pressandnormal"/>
+
+</LinearLayout>

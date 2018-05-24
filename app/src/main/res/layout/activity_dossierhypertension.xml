@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.vodone.cp365.customview.TzShowHideTitleScrollView
+        android:id="@+id/tzscrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bg_dossier_hypertension" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#60000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:orientation="vertical"
+                    android:gravity="bottom"
+                    android:paddingLeft="15dp"
+                    app:layout_collapseMode="parallax">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="血压周统计"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/dossierdiabetes_left_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/icon_left_s" />
+
+                    <ImageView
+                        android:id="@+id/dossierdiabetes_right_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/icon_right_s" />
+
+                    <TextView
+                        android:id="@+id/dossierdiabetes_week_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="本周"
+                        android:textColor="@color/black_87"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:id="@+id/dossierdiabetes_content_fr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:drawableLeft="@drawable/icon_blue_point"
+                        android:gravity="center"
+                        android:text="偏低"
+                        android:textColor="@color/black_54"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:drawableLeft="@drawable/icon_red_point"
+                        android:gravity="center"
+                        android:text="偏高"
+                        android:textColor="@color/black_54"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:drawableLeft="@drawable/icon_black_point"
+                        android:gravity="center"
+                        android:text="正常"
+                        android:textColor="@color/black_70"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/icon_add_dossier"
+                        android:gravity="center"
+                        android:text="可选监测点"
+                        android:textColor="@color/black_70"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/black_10" />
+
+                <include layout="@layout/include_line" />
+
+                <RelativeLayout
+                    android:id="@+id/dossierdiabetes_medicine_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:paddingLeft="15dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/black_10" />
+
+                    <TextView
+                        android:id="@+id/dossierdiabetes_medicine_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="30dp"
+                        android:text="治疗药物"
+                        android:textColor="@color/black_87"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/dossierdiabetes_medicine_tv"
+                        android:layout_toRightOf="@+id/dossierdiabetes_medicine_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/arrow_right_gray"
+                        android:gravity="right"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:hint="请输入正在服用的药物"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/black_54"
+                        android:textColorHint="@color/black_26"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/dossierdiabetes_messagecount_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:paddingLeft="15dp">
+
+                    <TextView
+                        android:id="@+id/dossierdiabetes_messagecount_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="医生留言"
+                        android:textColor="@color/black_87"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/arrow_right_gray"
+                        android:gravity="right"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/black_54"
+                        android:textColorHint="@color/black_26"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/black_10" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.vodone.cp365.customview.TzShowHideTitleScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:theme="@style/Toobar_Theme"
+        app:popupTheme="@style/Toobar_PopupTheme">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize">
+
+            <TextView
+                android:id="@+id/dossierdiabetes_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="@color/black_87"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/dossierdiabetes_titleupload_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="15dp"
+                android:text="上传报告"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+</FrameLayout>

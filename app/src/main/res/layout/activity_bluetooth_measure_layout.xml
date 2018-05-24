@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_actionbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/bluetooth_measure_topname_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:drawableTop="@drawable/omr_measure_bg"
+                android:gravity="center"
+                android:paddingBottom="15dp"
+                android:textColor="@color/text_34"
+                android:textSize="18sp" />
+
+            <include layout="@layout/include_divider" />
+
+            <TextView
+                android:id="@+id/bluetooth_measure_name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingTop="12dp"
+                android:textColor="@color/text_34"
+                android:textSize="15sp"
+                tools:text="欧姆龙HEM-9200T" />
+
+            <TextView
+                android:id="@+id/bluetooth_measure_bda_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingBottom="12dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/text_34"
+                android:textSize="13sp"
+                tools:text="BDA码:******2323" />
+
+            <include layout="@layout/include_divider" />
+
+            <TextView
+                android:id="@+id/bluetooth_measure_history_tv"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/linearlayout_press_grey_selector"
+                android:drawableRight="@drawable/arrow_right_gray"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/text_34"
+                android:textSize="15sp"
+                android:text="数据记录" />
+
+            <include layout="@layout/include_divider" />
+
+            <TextView
+                android:id="@+id/bluetooth_measure_useway_tv"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/linearlayout_press_grey_selector"
+                android:drawableRight="@drawable/arrow_right_gray"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/text_34"
+                android:textSize="15sp"
+                android:text="使用说明" />
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/include_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/bluetooth_measure_start_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/green_pressandnormal"
+            android:text="开始测量"
+            android:textSize="18sp"
+            android:textColor="@color/text_green_pressandnormal" />
+
+    </LinearLayout>
+
+</LinearLayout>

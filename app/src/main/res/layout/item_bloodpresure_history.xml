@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/tv_measure_date"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#F0F2F5"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="2018-05-09"
+        android:textColor="#222222"
+        android:textSize="15dp"
+        android:visibility="gone"
+        />
+
+
+    <com.vodone.cp365.customview.SlidingButtonView
+        android:id="@+id/sbt_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_delete"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/ll_history_record"
+                    android:layout_alignTop="@+id/ll_history_record"
+                    android:layout_toRightOf="@+id/ll_history_record"
+                    android:background="@drawable/btn_click_red_havebackground"
+                    android:gravity="center"
+                    android:text="删除数据"
+                    android:textColor="#DDFFFFFF" />
+
+                <LinearLayout
+                    android:id="@+id/ll_history_record"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="13dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="13dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="血压"
+                                android:textColor="#999999"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/tv_blood_presure"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="#000000"
+                                android:textSize="18dp"
+                                tools:text="107/61" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="mmHg"
+                                android:textColor="#999999"
+                                android:textSize="15dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="13dp"
+                            android:layout_marginTop="13dp"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="心率"
+                                android:textColor="#999999"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/tv_heart_rate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="#000000"
+                                android:textSize="18dp"
+                                tools:text="65" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="次/分钟"
+                                android:textColor="#999999"
+                                android:textSize="15dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="13dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="13dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="时间"
+                                android:textColor="#999999"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/tv_measure_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="#000000"
+                                android:textSize="18dp"
+                                tools:text="09:36" />
+
+                            <TextView
+                                android:id="@+id/tv_measure_way"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/bg_bloodpresure_measure_way"
+                                android:gravity="center"
+                                android:text="血压计测量"
+                                android:textColor="#999999"
+                                android:textSize="15dp" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#E6E6E6" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </com.vodone.cp365.customview.SlidingButtonView>
+</LinearLayout>

@@ -156,9 +156,39 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
     @BindView(R.id.img_back)
     ImageView imBack;
 
+    AlarmDialog dialog;
+
     @OnClick(R.id.img_back)
     public void back() {
+        if (null != mOsdkHelper && mOsdkHelper.isRunningRecord()) {
+            dialog = new AlarmDialog(DossierHeartRateAutoMeasureActivity.this,
+                    AlarmDialog.CANCELANDOK, new IRespCallBack() {
+                @Override
+                public boolean callback(int callCode, Object... param) {
+                    if (callCode == AlarmDialog.ALARMDIALOGOK) {
+                        try {
+                            mOsdkHelper.stopRecord();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        displayMessage.removeCallbacksAndMessages(null);
+                        dialog.dismiss();
+                        finish();
+                    }
+                    return true;
+                }
+            }, "", "当前正在进行心率测量,返回后将终止本次测量,您是否要返回？");
+            dialog.setStr_okbtn("是,不测了");
+            dialog.setStr_cancelbtn("否,点错了");
+            dialog.show();
+            return;
+        }
+        if (rlAfterTesting.getVisibility() == View.VISIBLE) {
+            showCancelMeasureDialog();
+            return;
+        }
         finish();
+
     }
 
     @OnClick(R.id.tv_title)
@@ -422,18 +452,49 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (null != mOsdkHelper && mOsdkHelper.isRunningRecord()) {
-            showTost("记录进行中，请先等待记录完成后操作");
-            return;
-        }
-        if (rlAfterTesting.getVisibility() == View.VISIBLE) {
-            showCancelMeasureDialog();
-            return;
-        }
-        super.onBackPressed();
+//    @Override
+//    public void onBackPressed() {
+//        if (null != mOsdkHelper && mOsdkHelper.isRunningRecord()) {
+//            showTost("记录进行中，请先等待记录完成后操作");
+//            return;
+//        }
+//        if (rlAfterTesting.getVisibility() == View.VISIBLE) {
+//            showCancelMeasureDialog();
+//            return;
+//        }
+//        super.onBackPressed();
+//    }
+@Override
+public void onBackPressed() {
+    if (null != mOsdkHelper && mOsdkHelper.isRunningRecord()) {
+        dialog = new AlarmDialog(DossierHeartRateAutoMeasureActivity.this,
+                AlarmDialog.CANCELANDOK, new IRespCallBack() {
+            @Override
+            public boolean callback(int callCode, Object... param) {
+                if (callCode == AlarmDialog.ALARMDIALOGOK) {
+                    try {
+                        mOsdkHelper.stopRecord();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    displayMessage.removeCallbacksAndMessages(null);
+                    dialog.dismiss();
+                    finish();
+                }
+                return true;
+            }
+        }, "", "当前正在进行心率测量,返回后将终止本次测量,您是否要返回？");
+        dialog.setStr_okbtn("是,不测了");
+        dialog.setStr_cancelbtn("否,点错了");
+        dialog.show();
+        return;
     }
+    if (rlAfterTesting.getVisibility() == View.VISIBLE) {
+        showCancelMeasureDialog();
+        return;
+    }
+    super.onBackPressed();
+}
 
     /**
      * 按重新测量弹框
@@ -1764,4 +1825,7 @@ public class DossierHeartRateAutoMeasureActivity extends BaseActivity {
 
 
     }
+
+
+
 }

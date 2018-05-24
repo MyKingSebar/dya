@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/linearlayout_press_grey_selector"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/discovery_header_view_iv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/icon_discovery_first"/>
+
+    <TextView
+        android:id="@+id/discovery_header_view_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="护士上门"
+        android:layout_marginBottom="20dp"/>
+</LinearLayout>

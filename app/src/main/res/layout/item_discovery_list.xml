@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/linearlayout_press_grey_selector"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/doctordetails_view_line"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="1px"
+        android:background="@color/colorSearchGray" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="95dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip">
+
+
+        <RelativeLayout
+            android:id="@+id/doctordetails_ll_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dip"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!--<FrameLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--&gt;-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/doctordetails_img_head"-->
+                    <!--android:layout_width="55dp"-->
+                    <!--android:layout_height="55dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:src="@drawable/icon_intell_doctor_default" />-->
+                <!--<ImageView-->
+                    <!--android:layout_width="56dp"-->
+                    <!--android:layout_height="56dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:background="@drawable/common_circle_bg"/>-->
+
+            <!--</FrameLayout>-->
+
+            <com.vodone.cp365.customview.CircleImageView
+                android:id="@+id/doctordetails_img_head"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/icon_intell_doctor_default" />
+            <TextView
+                android:id="@+id/doctordetails_tv_headzan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/icon_search_item_love_bg"
+                android:drawableLeft="@drawable/icon_search_item_love"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="12"
+                android:textColor="@color/white"
+                android:textSize="9sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/doctordetails_ll_middle_top"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/doctordetails_ll_left"
+            android:layout_toRightOf="@+id/doctordetails_ll_left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/doctordetails_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="10dip"
+                android:textColor="@color/colorCommonBlack"
+                android:textSize="15sp"
+                tools:text="玛丽" />
+
+            <TextView
+                android:id="@+id/doctordetails_tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_153"
+                android:textSize="13sp"
+                tools:text="3年工作经验" />
+
+            <!--<ImageView-->
+                <!--android:id="@+id/doctordetails_img_attention"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:layout_marginBottom="1dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:src="@drawable/icon_search_item_attention"-->
+                <!--android:visibility="gone" />-->
+
+            <ImageView
+                android:id="@+id/doctordetails_img_appoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="1dp"
+                android:src="@drawable/icon_item_appoint_grey"
+                android:visibility="gone" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/doctordetails_tv_distance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:drawablePadding="5dip"
+                android:gravity="bottom|right"
+                android:text="300m"
+                android:textColor="@color/text_153"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/doctordetails_ll_middle_bottom"
+            android:layout_toRightOf="@+id/doctordetails_ll_left"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/doctordetails_tv_greed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dip"
+                android:singleLine="true"
+                android:textColor="@color/text_153"
+                android:textSize="12sp"
+                android:gravity="center_vertical"
+                tools:text="高级护理" />
+
+            <!--<view-->
+                <!--android:layout_width="1px"-->
+                <!--android:layout_height="10dp"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/doctordetails_tv_keshi"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="8dp"-->
+                <!--android:textColor="@color/text_153"-->
+                <!--android:textSize="12sp"-->
+                <!--android:singleLine="true"-->
+                <!--tools:text="高级护理"/>-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/doctordetails_ll_middle_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/doctordetails_ll_left"
+            android:layout_toRightOf="@+id/doctordetails_ll_left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/doctordetails_tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:layout_marginRight="20dip"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/text_153"
+                android:textSize="12sp"
+                tools:text="糖尿病及其血管并发症，骨质疏松症,甲亢沙坑的是滴" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
