@@ -76,6 +76,7 @@ import cn.v1.unionc_user.tecent_qcloud.tim_util.TimeUtil;
 import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.adapter.HomeListAdapter;
 import cn.v1.unionc_user.ui.base.BaseFragment;
+import cn.v1.unionc_user.ui.home.BloodPressure.BlueToothDeviceActivity;
 import cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoActivity;
 import cn.v1.unionc_user.utils.Location;
 import cn.v1.unionc_user.view.BannerView;
@@ -210,14 +211,16 @@ public class MessageFragment extends BaseFragment implements LocationSource,
             case R.id.tv_guahao:
 //                //心率检测
                 if (isLogin()) {
+                    Intent intent = new Intent(getActivity(), BlueToothDeviceActivity.class);
+                    startActivity(intent);
 //            if(TextUtils.isEmpty(healthInfoId)){
 //                showDialog();
 //            }else{
-                    Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
-                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-                    intent.putExtra("userId", token);
-                    intent.putExtra("monitorId", "1");
-                    startActivity(intent);
+//                    Intent intent = new Intent(getActivity(), DossierHeartRateAutoActivity.class);
+//                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//                    intent.putExtra("userId", token);
+//                    intent.putExtra("monitorId", "1");
+//                    startActivity(intent);
 //            }
                 } else {
                     goNewActivity(LoginActivity.class);

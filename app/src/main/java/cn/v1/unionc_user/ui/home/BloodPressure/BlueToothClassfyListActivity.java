@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.BloodPressure.adapter.BlueToothClassfyAdapter;
@@ -26,6 +27,7 @@ public class BlueToothClassfyListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blue_tooth_classfy_list);
+        ButterKnife.bind(this);
         initData();
         initView();
     }

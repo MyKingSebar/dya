@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.UnioncApp;
@@ -34,6 +35,7 @@ public class BindOMRONStepActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bind_omronstep);
+        ButterKnife.bind(this);
         initData();
         initView();
         UnioncApp.getInstance().addActivity(BindOMRONStepActivity.this);

@@ -348,6 +348,13 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     }
 
     private void bindDevice() {
+        Intent intent = new Intent(TzOmRonBlueToothActivity.this, BlueToothMeasureActivity.class);
+        intent.putExtra("deviceName", deviceName);
+        intent.putExtra("deviceBDA", bdCode);
+        intent.putExtra("goHome",true);
+        setResult(RESULT_OK);
+        startActivity(intent);
+        TzOmRonBlueToothActivity.this.finish();
 ////        closeDialog();
 //        bindObservable(mAppClient.saveUserDeviceData("欧姆龙BLEsmart_00000116",bdCode,"1",getUserId()), new Action1<BaseData>() {
 //            @Override

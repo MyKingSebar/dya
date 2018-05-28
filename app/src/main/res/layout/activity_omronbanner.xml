@@ -7,14 +7,14 @@
 
     <include layout="@layout/include_toolbar_actionbar"/>
 
-    <com.vodone.cp365.customview.BannerView
+    <cn.v1.unionc_user.view.BannerView
         android:id="@+id/bannerview"
         android:layout_width="match_parent"
         android:layout_height="352dp"
         android:background="#ffffff"
         >
 
-    </com.vodone.cp365.customview.BannerView>
+    </cn.v1.unionc_user.view.BannerView>
 
 
     <LinearLayout

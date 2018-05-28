@@ -7,7 +7,7 @@
     android:orientation="vertical"
     >
 
-    <include layout="@layout/include_toolbar_actionbar"/>
+    <include layout="@layout/layout_toolbar_white"/>
 
     <TextView
         android:layout_width="match_parent"

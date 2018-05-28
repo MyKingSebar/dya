@@ -3,6 +3,7 @@ package cn.v1.unionc_user.ui.home.BloodPressure.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.ui.home.BloodPressure.BlueToothClassfyListActivity;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.DeviceData;
+import cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoActivity;
 
 /**
  * Created by qy on 2018/5/11.
@@ -45,9 +49,20 @@ public class BlueToothDeviceAdapter extends RecyclerView.Adapter<BlueToothDevice
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,BlueToothClassfyListActivity.class);
+                if(TextUtils.equals(devicedatas.get(position).getDevice(),"1")){
+                                    Intent intent = new Intent(context,BlueToothClassfyListActivity.class);
                 intent.putExtra("device",devicedatas.get(position).getDevice());
                 context.startActivity(intent);
+                }else if(TextUtils.equals(devicedatas.get(position).getDevice(),"2")){
+                    Intent intent = new Intent(context, DossierHeartRateAutoActivity.class);
+                    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+                    intent.putExtra("userId", token);
+                    intent.putExtra("monitorId", "1");
+                    context.startActivity(intent);
+                }
+//                Intent intent = new Intent(context,BlueToothClassfyListActivity.class);
+//                intent.putExtra("device",devicedatas.get(position).getDevice());
+//                context.startActivity(intent);
             }
         });
     }

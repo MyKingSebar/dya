@@ -27,6 +27,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +38,7 @@ import java.util.List;
 import java.util.UUID;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
@@ -74,6 +77,7 @@ public class BlueToothMeasureActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth_measure_layout);
+        ButterKnife.bind(this);
         initData();
         initView();
         // 使用此检查确定BLE是否支持在设备上，然后你可以有选择性禁用BLE相关的功能
@@ -382,7 +386,11 @@ public class BlueToothMeasureActivity extends BaseActivity {
 //        });
     }
 
-    private void uploadMeasureData() {
+    /**
+     *  uploadMeasureData:[{"avgMeasure":"81","bdaCode":"B0495F034800","deviceModel":"欧姆龙HEM-9200T","deviceType":"0","highPressure":"99","lowPressure":"72","measureDate":"2018-05-28 15:49:03","measureWay":"0","patientInfoId":"","pluseRate":"89"}]
+     *
+     */
+    private void uploadMeasureData() {Log.d("linshi","uploadMeasureData:"+new Gson().toJson(mResults));
 //        if(mResults.size()>0){
 //            bindObservable(mAppClient.saveBloodPressureData(new Gson().toJson(mResults), getUserId()), new Action1<BaseData>() {
 //                @Override
