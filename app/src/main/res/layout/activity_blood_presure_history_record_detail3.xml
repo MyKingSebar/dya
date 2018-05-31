@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar_white" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="256dp"
+    android:orientation="vertical"
+    android:background="@drawable/omlbackground"
+    >
+    <TextView
+        android:id="@+id/tv_measure_time"
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:text="2018-05-09 10:18"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp">
+
+        <LinearLayout
+            android:id="@+id/ll_high_presure"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/oml_circle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="高压 "
+                android:textColor="#ff333333"
+                android:textSize="15dp" />
+
+
+            <TextView
+                android:id="@+id/tv_high_presure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="160"
+                android:textColor="#4F5360"
+                android:textSize="34sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mmHg"
+                android:textColor="#4F5360"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_low_presure"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/oml_circle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="低压 "
+                android:textColor="#ff333333"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tv_low_presure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="65"
+                android:textColor="#4F5360"
+                android:textSize="34sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mmHg"
+                android:textColor="#4F5360"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/oml_circle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="心率"
+                android:textColor="#4F5360"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tv_heart_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="82"
+                android:textColor="#4F5360"
+                android:textSize="34sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bmp"
+                android:textColor="#4F5360"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+<TextView
+    android:layout_width="90dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:text="低压"
+    android:textSize="17sp"
+    android:textColor="@color/white"
+    android:gravity="center" />
+<TextView
+    android:layout_width="90dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:text="心率"
+    android:textSize="17sp"
+    android:textColor="@color/white"
+    android:gravity="center" />
+<TextView
+    android:layout_width="90dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:text="高压"
+    android:textSize="17sp"
+    android:textColor="@color/white"
+    android:gravity="center" />
+
+    </LinearLayout>
+</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_presure_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="血压正常"
+                android:textColor="#25C191"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/img_green_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/icon_green_arrow_down" />
+
+            <ImageView
+                android:id="@+id/img_presure_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_gyr_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="偏低"
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="正常"
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="偏高"
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
+
+
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/im_qr"
+                android:layout_marginTop="10dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="#e6e6e6" />
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llmeasure_date"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="日期"
+                    android:textColor="#ff333333"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_update_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="10dp"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    tools:hint="2018-05-09"
+                    android:paddingRight="15dp"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:drawableRight="@drawable/arrow_right_gray"
+                    android:text=""
+                    android:textColor="#796638"
+                    android:textSize="16dp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e6e6e6" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_measure_time"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="测量时间"
+                    android:textColor="#ff333333"
+                    android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/tv_update_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="10dp"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    tools:hint="13:34"
+                    android:paddingRight="15dp"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:drawableRight="@drawable/arrow_right_gray"
+                    android:text=""
+                    android:textColor="#796638"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e6e6e6" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_belong_to"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="归属档案"
+                    android:textColor="#ff333333"
+                    android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/tv_patient_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="10dp"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    tools:hint="王六  哥哥  男  28岁"
+                    android:paddingRight="15dp"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:drawableRight="@drawable/arrow_right_gray"
+                    android:text=""
+                    android:textColor="#796638"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e6e6e6" />
+
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="您可以将数据指定某一个健康档案，记录在健康档案里。"
+                android:textColor="#999999"
+                android:textSize="13dp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/green_btn_bg"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="#ffffff"
+        android:textSize="18dp" />
+
+
+</LinearLayout>

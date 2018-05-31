@@ -30,6 +30,7 @@ import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.MyDutyDoctorsData;
 import cn.v1.unionc_user.model.MyRecommenDoctorsData;
+import cn.v1.unionc_user.model.OMLHistoryData;
 import cn.v1.unionc_user.model.RecommendDoctorsData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
@@ -701,6 +702,69 @@ public class UnionAPIPackage {
         params.put("monitorId", monitorId);
         params.put("dataId", dataId);
         return ConnectHttp.getUnionAPI().getHeartData(dataProcess(params));
+    }
+    /**
+     *
+     删除数据（monitorId：2-oml）
+     *
+     * @return
+     */
+    public static Observable<BaseData> deleteOMLData(String token, String monitorId, String dataId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("monitorId", monitorId);
+        params.put("dataId", dataId);
+        return ConnectHttp.getUnionAPI().deleteOMLData(dataProcess(params));
+    }
+    /**
+     *
+     保存血压数据
+     *token:"yGGSVMEtTZdpdw8zSJJlpzhUgzeBRuKAyrOmdTw4OdQ\u003d",
+     * monitorId:"2",
+     * heartRate:"65",
+     * monitorDate:"2018-05-29 10:38:00",
+     * avgMeasure:"0",
+     * bdaCode:"resgresgresres",
+     * deviceModel:"欧姆龙血压仪",
+     * highPressure:"100",
+     * lowPressure:"65",
+     * deviceType:"0",
+     * measureWay:"0",
+     * patientInfoId:""
+     * @return
+     */
+    public static Observable<BaseData> saveOMLData(String token, String monitorId, String heartRate,
+                                                   String monitorDate,String avgMeasure,String bdaCode,
+                                                   String deviceModel,String highPressure,String lowPressure,
+                                                   String deviceType,String measureWay,String patientInfoId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("monitorId", monitorId);
+        params.put("heartRate", heartRate);
+        params.put("monitorDate", monitorDate);
+        params.put("avgMeasure", avgMeasure);
+        params.put("bdaCode", bdaCode);
+        params.put("deviceModel", deviceModel);
+        params.put("highPressure", highPressure);
+        params.put("lowPressure", lowPressure);
+        params.put("deviceType", deviceType);
+        params.put("measureWay", measureWay);
+        params.put("patientInfoId", patientInfoId);
+        return ConnectHttp.getUnionAPI().saveOMLData(dataProcess(params));
+    }
+    /**
+     *
+     获取血压数据
+     *token:"yGGSVMEtTZdpdw8zSJJlpzhUgzeBRuKAyrOmdTw4OdQ\u003d",monitorId:"2",pageNo:"1",pageSize:"10"
+     */
+    public static Observable<OMLHistoryData> getOMLData(String token, String monitorId, String pageNo,
+                                                        String pageSize) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("monitorId", monitorId);
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
+        return ConnectHttp.getUnionAPI().getOMLData(dataProcess(params));
     }
 
 

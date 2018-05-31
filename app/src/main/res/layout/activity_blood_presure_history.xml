@@ -7,7 +7,7 @@
     android:orientation="vertical"
     >
 
-    <include layout="@layout/include_toolbar_actionbar"/>
+    <include layout="@layout/layout_toolbar"/>
     <LinearLayout
         android:id="@+id/ll_no_record"
         android:layout_width="match_parent"

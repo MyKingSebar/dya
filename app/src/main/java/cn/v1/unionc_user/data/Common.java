@@ -54,6 +54,7 @@ public class Common {
     public static final int WEB_SONGYAOSHANGMEN = 2;
     public static final int WEB_ACTICITY = 3;
     public static final int WEB_HELP =4;
+    public static final int WEB_OMLHELP =5;
 
 
 

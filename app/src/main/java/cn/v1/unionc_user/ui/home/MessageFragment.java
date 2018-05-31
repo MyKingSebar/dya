@@ -36,7 +36,6 @@ import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
 import com.tencent.imsdk.TIMConversation;
 import com.tencent.imsdk.TIMConversationType;
-import com.tencent.imsdk.TIMFriendshipManager;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMMessage;
 import com.tencent.imsdk.TIMMessageListener;
@@ -76,8 +75,7 @@ import cn.v1.unionc_user.tecent_qcloud.tim_util.TimeUtil;
 import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.adapter.HomeListAdapter;
 import cn.v1.unionc_user.ui.base.BaseFragment;
-import cn.v1.unionc_user.ui.home.BloodPressure.BlueToothDeviceActivity;
-import cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoActivity;
+import cn.v1.unionc_user.ui.home.BloodPressure.BlueToothDeviceActivity2;
 import cn.v1.unionc_user.utils.Location;
 import cn.v1.unionc_user.view.BannerView;
 import cn.v1.unionc_user.view.LocationDialog;
@@ -211,7 +209,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
             case R.id.tv_guahao:
 //                //心率检测
                 if (isLogin()) {
-                    Intent intent = new Intent(getActivity(), BlueToothDeviceActivity.class);
+                    Intent intent = new Intent(getActivity(), BlueToothDeviceActivity2.class);
                     startActivity(intent);
 //            if(TextUtils.isEmpty(healthInfoId)){
 //                showDialog();

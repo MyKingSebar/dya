@@ -64,6 +64,7 @@ public class OMRONBannerActivity extends BaseActivity {
         if(getIntent().hasExtra("deviceName")){
             deviceName = getIntent().getStringExtra("deviceName");
         }
+        deviceName="血压仪";
     }
 
     private void initView() {

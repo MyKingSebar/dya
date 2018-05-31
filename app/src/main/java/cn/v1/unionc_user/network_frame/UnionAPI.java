@@ -23,6 +23,7 @@ import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.MyDutyDoctorsData;
 import cn.v1.unionc_user.model.MyRecommenDoctorsData;
+import cn.v1.unionc_user.model.OMLHistoryData;
 import cn.v1.unionc_user.model.RecommendDoctorsData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
@@ -472,6 +473,34 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("user/user-health-data-info")
     Observable<HeartHistoryData> getHeartData(@FieldMap Map<String, Object> params);
+
+    /**
+     * 删除数据（monitorId：2-oml）
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/delete-user-health-data")
+    Observable<BaseData> deleteOMLData(@FieldMap Map<String, Object> params);
+    /**
+     * 保存血压数据
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/save-health-data")
+    Observable<BaseData> saveOMLData(@FieldMap Map<String, Object> params);
+    /**
+     * 获取血压数据
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/user-health-datas")
+    Observable<OMLHistoryData> getOMLData(@FieldMap Map<String, Object> params);
 
 
 }

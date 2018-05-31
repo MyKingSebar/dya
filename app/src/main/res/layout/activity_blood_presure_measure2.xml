@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_toolbar_white"/>
+
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_history_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="历史记录"
+            android:textColor="#222222"
+            android:textSize="15dp"
+            />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_top_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FCF1C0"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+
+            <TextView
+                android:id="@+id/tv_top_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:text="快去绑定设备，自动测量吧！"
+                android:textColor="#796638"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:drawableLeft="@drawable/arrow_right_gray"
+                android:text=""
+                android:textColor="#796638"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_measure_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="2018-05-09 10:18"
+            android:textColor="#333333"
+            android:textSize="15dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp">
+
+            <LinearLayout
+                android:id="@+id/ll_high_presure"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/img_green_dot_line_circle"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="高压 "
+                    android:textColor="#ff333333"
+                    android:textSize="15dp" />
+
+
+                <TextView
+                    android:id="@+id/tv_high_presure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="160mmHg"
+                    android:textColor="#ffed1b24"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_low_presure"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/img_green_dot_line_circle"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="低压 "
+                    android:textColor="#ff333333"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_low_presure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="65mmHg"
+                    android:textColor="#ff1cc6a3"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_heart_rate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/img_green_dot_line_circle"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="心率"
+                    android:textColor="#ff333333"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_heart_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="82BPM"
+                    android:textColor="#ff1cc6a3"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="#e6e6e6" />
+
+
+        <TextView
+            android:id="@+id/tv_presure_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            tools:text="血压正常"
+            android:textColor="#ffffcc1f"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:id="@+id/img_green_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/icon_green_arrow_down" />
+
+        <ImageView
+            android:id="@+id/img_presture_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_gyr_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="偏低"
+                android:textColor="#333333"
+                android:textSize="15dp" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="正常"
+                android:textColor="#333333"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="偏高"
+                android:textColor="#333333"
+                android:textSize="15dp" />
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="#e6e6e6" />
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_drugs"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:text="治疗药物"
+                android:textColor="#ff333333"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tv_drug"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="10dp"
+                android:gravity="right"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:hint="请输入正在服用的药物"
+                android:paddingRight="15dp"
+                android:textColor="@color/black_54"
+                android:textColorHint="@color/black_26"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/arrow_right_gray"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textColor="#796638"
+                android:textSize="16dp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e6e6e6" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_reports"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:text="上传报告"
+                android:textColor="#ff333333"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/arrow_right_gray"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textColor="#796638"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e6e6e6" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_hand_in"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/green_line_light_green_stroke_btn_bg"
+            android:gravity="center"
+            android:text="手动录入"
+            android:textColor="#ff1cc6a3"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/tv_omron_in"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/green_btn_bg"
+            android:gravity="center"
+            android:text="血压计测量"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

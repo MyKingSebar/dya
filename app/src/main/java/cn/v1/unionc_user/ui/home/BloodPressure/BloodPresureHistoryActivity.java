@@ -7,16 +7,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.BaseData;
+import cn.v1.unionc_user.model.HeartHistoryData;
+import cn.v1.unionc_user.model.OMLHistoryData;
+import cn.v1.unionc_user.network_frame.ConnectHttp;
+import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.BloodPressure.adapter.BloodPresureHistoryAdapter;
+import cn.v1.unionc_user.ui.home.BloodPressure.adapter.BloodPresureHistoryAdapter2;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.BloodPresureHistoryData;
 import cn.v1.unionc_user.ui.home.BloodPressure.utils.RecyclerViewUtil;
 import cn.v1.unionc_user.ui.home.health.AlarmDialog;
@@ -28,11 +40,20 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
     RecyclerView recycleview;
     @BindView(R.id.ll_no_record)
     LinearLayout llNoRecord;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.img_back)
+    ImageView imBack;
+    @OnClick(R.id.img_back)
+    public void back(){
+        finish();
+    }
 
-    private BloodPresureHistoryAdapter bloodPresureHistoryAdapter;
+    private BloodPresureHistoryAdapter2 bloodPresureHistoryAdapter;
     private String patientInfoId = "";
-    private List<BloodPresureHistoryData.DataData.BloodPressureData> listDatas = new ArrayList<>();
-    private String fromWhere = "";//0从健康档案跳历史默认，1从血压计绑定的设备详情页面跳转到数据记录;
+//    private List<BloodPresureHistoryData.DataData.BloodPressureData> listDatas = new ArrayList<>();
+    private List<OMLHistoryData.DataData.OMLdatta> listDatas = new ArrayList<>();
+//    private String fromWhere = "";//0从健康档案跳历史默认，1从血压计绑定的设备详情页面跳转到数据记录;
     private String BdaCode = "";
     private RecyclerViewUtil mRecyclerViewUtil;
     private boolean isRefresh = false;
@@ -45,40 +66,32 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
         ButterKnife.bind(this);
         initView();
         initData();
-        if (fromWhere.equals("1")) {
-            getBloodPressureData(1);
-        } else {
-            getHealthBindBloodPressureData(1);
-        }
+        getBloodPressureData(1);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         isRefresh = true;
-        if (fromWhere.equals("1")) {
-            getBloodPressureData(1);
-        } else {
-            getHealthBindBloodPressureData(1);
-        }
+        getBloodPressureData(1);
     }
 
     private void initData() {
         if (getIntent().hasExtra("patientInfoId")) {
             patientInfoId = getIntent().getStringExtra("patientInfoId");
         }
-        if (getIntent().hasExtra("fromWhere")) {
-            fromWhere = getIntent().getStringExtra("fromWhere");
-        }
+//        if (getIntent().hasExtra("fromWhere")) {
+//            fromWhere = getIntent().getStringExtra("fromWhere");
+//        }
         if (getIntent().hasExtra("BdaCode")) {
             BdaCode = getIntent().getStringExtra("BdaCode");
         }
     }
 
     private void initView() {
-        setTitle("历史记录");
+        tvTitle.setText("历史记录");
         recycleview.setLayoutManager(new LinearLayoutManager(this));
-        bloodPresureHistoryAdapter = new BloodPresureHistoryAdapter(this);
+        bloodPresureHistoryAdapter = new BloodPresureHistoryAdapter2(this);
         recycleview.setAdapter(bloodPresureHistoryAdapter);
         mRecyclerViewUtil = new RecyclerViewUtil(new RecyclerViewUtil.RecyclerCallBack() {
             @Override
@@ -89,11 +102,7 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
             @Override
             public void doLoadMore() {
                 isRefresh = false;
-                if (fromWhere.equals("1")) {
-                    getBloodPressureData(getpageNum());
-                } else {
-                    getHealthBindBloodPressureData(getpageNum());
-                }
+                getBloodPressureData(getpageNum());
             }
         }, recycleview, bloodPresureHistoryAdapter, true);
     }
@@ -105,29 +114,8 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
 
     @Override
     public void onDeleteBtnCilck(View view, final int position) {
-        if (TextUtils.isEmpty(fromWhere)) {
-            deleteRecord(listDatas.get(position).getRecordId() + "", position);
-        } else {
-            if (TextUtils.isEmpty(listDatas.get(position).getPatientInfoId())) {
-                deleteRecord(listDatas.get(position).getRecordId() + "", position);
-            } else {
-                //TODO 删除弹窗提醒
-                new AlarmDialog(BloodPresureHistoryActivity.this, 1, new IRespCallBack() {
-                    @Override
-                    public boolean callback(int callCode, Object... param) {
-                        if (callCode == 0) {
-                            deleteRecord(listDatas.get(position).getRecordId() + "", position);
-                        }
-                        return true;
-                    }
-                }, "", "这条数据已归属于\n" +
-                        "健康档案：" + listDatas.get(position).getRealName() + "  " + listDatas.get(position).getRelationShip() + "  "
-                        + listDatas.get(position).getSex() + "  " + listDatas.get(position).getAge() + "岁" +
-                        "\n" +
-                        "您确定删除这条数据吗？\n" +
-                        "如果删除这条数据，该档案中这条数据也会随之删除。").show();
-            }
-        }
+            deleteRecord(listDatas.get(position).getDataId() + "", position);
+
 
     }
 
@@ -137,7 +125,35 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
     }
 
 
-    private void deleteRecord(String recordId, final int position) {
+    private void deleteRecord(String dataId, final int position) {
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.deleteOMLData(token, "2", dataId), new BaseObserver<BaseData>(context) {
+
+            @Override
+            public void onResponse(BaseData data) {
+                if (TextUtils.equals("4000", data.getCode())) {
+                    showTost("删除成功");
+                    listDatas.remove(position);
+                    bloodPresureHistoryAdapter.notifyItemRemoved(position);
+                    if (0 == listDatas.size()) {
+                        llNoRecord.setVisibility(View.VISIBLE);
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dataBind(listDatas);
+                        }
+                    }, 500);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                showTost("删除失败");
+            }
+        });
 //        showDialog("删除中...");
 //        bindObservable(mAppClient.deleteBloodPressureData(recordId, getUserId()), new Action1<BaseData>() {
 //            @Override
@@ -174,34 +190,31 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
     /**
      * 获取血压数据
      */
-    private void getHealthBindBloodPressureData(int pageNum) {
-//        showDialog("加载中...");
-//        bindObservable(mAppClient.getHealthBindBloodPressureData(patientInfoId, pageNum + "", getUserId()), new Action1<BloodPresureHistoryData>() {
-//            @Override
-//            public void call(BloodPresureHistoryData data) {
-//                closeDialog();
-//                if (TextUtils.equals("0000", data.getCode())) {
-//                    if (isRefresh) {
-//                        listDatas.clear();
-//                    }
-//                    listDatas.addAll(data.getData().getBloodPressure());
-//                    dataBind(listDatas);
-//                    mRecyclerViewUtil.onLoadComplete(data.getData().getBloodPressure().size() < CommonContract.TIMELINE_PAGE_SIZE);
-//                } else {
-//                    showToast(data.getCode());
-//                }
-//            }
-//        }, new ErrorAction(this) {
-//            @Override
-//            public void call(Throwable throwable) {
-//                super.call(throwable);
-//                mRecyclerViewUtil.onLoadMoreFailed();
-//                closeDialog();
-//            }
-//        });
-    }
-
     private void getBloodPressureData(int pagenum) {
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.getOMLData(token, "2", "1","20"), new BaseObserver<OMLHistoryData>(context) {
+
+            @Override
+            public void onResponse(OMLHistoryData data) {
+                if (TextUtils.equals("4000", data.getCode())) {
+                    showTost("获取成功");
+                                        if (isRefresh) {
+                        listDatas.clear();
+                    }
+                    listDatas.addAll(data.getData().getHealthDatas());
+                    dataBind(listDatas);
+                    mRecyclerViewUtil.onLoadComplete(data.getData().getHealthDatas().size() < CommonContract.TIMELINE_PAGE_SIZE);
+                    }
+                 else {
+showTost(data.getMessage());
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                showTost("删除失败");
+            }
+        });
 //        showDialog("加载中...");
 //        bindObservable(mAppClient.getBloodPressureData("0", pagenum + "", getUserId(), BdaCode), new Action1<BlueBloodHistoryData>() {
 //            @Override
@@ -230,8 +243,10 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
 
 
     private String measureData = "";
-    private List<BloodPresureHistoryData.DataData.BloodPressureData> originalDatas = new ArrayList<>();
-    private List<BloodPresureHistoryData.DataData.BloodPressureData> binddatas = new ArrayList<>();
+    private List<OMLHistoryData.DataData.OMLdatta> originalDatas = new ArrayList<>();
+    private List<OMLHistoryData.DataData.OMLdatta> binddatas = new ArrayList<>();
+//    private List<BloodPresureHistoryData.DataData.BloodPressureData> originalDatas = new ArrayList<>();
+//    private List<BloodPresureHistoryData.DataData.BloodPressureData> binddatas = new ArrayList<>();
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -248,7 +263,7 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
         }
     };
 
-    private void dataBind(final List<BloodPresureHistoryData.DataData.BloodPressureData> listDatas) {
+    private void dataBind(final List<OMLHistoryData.DataData.OMLdatta> listDatas) {
         showDialog("数据加载中...");
         new Thread() {
             @Override
@@ -267,13 +282,13 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
                         originalDatas.remove(i);
                         break ok;
                     }
-                    if (TextUtils.equals(measureData, originalDatas.get(i).getMeasureDate())) {
-                        originalDatas.get(i).setHead(false);
-                    } else {
-                        measureData = originalDatas.get(i).getMeasureDate();
-                        originalDatas.get(i).setHead(true);
-                        originalDatas.get(i).setHeadText(measureData);
-                    }
+//                    if (TextUtils.equals(measureData, originalDatas.get(i).getMonitorDate())) {
+//                        originalDatas.get(i).setHead(false);
+//                    } else {
+//                        measureData = originalDatas.get(i).getMonitorDate();
+//                        originalDatas.get(i).setHead(true);
+//                        originalDatas.get(i).setHeadText(measureData);
+//                    }
                 }
                 binddatas.clear();
                 binddatas.addAll(originalDatas);
@@ -281,6 +296,39 @@ public class BloodPresureHistoryActivity extends BaseActivity implements IonSlid
             }
         }.start();
     }
+//    private void dataBind(final List<BloodPresureHistoryData.DataData.BloodPressureData> listDatas) {
+//        showDialog("数据加载中...");
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                super.run();
+//                measureData = null;
+//                originalDatas.clear();
+//                originalDatas.addAll(listDatas);
+//                ok:
+//                for (int i = 0; i < originalDatas.size(); i++) {
+//                    if (TextUtils.equals("0", originalDatas.get(i).getHighPressure()) &&
+//                            TextUtils.equals("0", originalDatas.get(i).getLowPressure()) ||
+//                            TextUtils.isEmpty(originalDatas.get(i).getHighPressure()) &&
+//                                    TextUtils.isEmpty(originalDatas.get(i).getLowPressure())
+//                            ) {
+//                        originalDatas.remove(i);
+//                        break ok;
+//                    }
+//                    if (TextUtils.equals(measureData, originalDatas.get(i).getMeasureDate())) {
+//                        originalDatas.get(i).setHead(false);
+//                    } else {
+//                        measureData = originalDatas.get(i).getMeasureDate();
+//                        originalDatas.get(i).setHead(true);
+//                        originalDatas.get(i).setHeadText(measureData);
+//                    }
+//                }
+//                binddatas.clear();
+//                binddatas.addAll(originalDatas);
+//                handler.sendEmptyMessage(0);//handler发送消息
+//            }
+//        }.start();
+//    }
 
 
     /**

@@ -9,14 +9,13 @@
     <TextView
         android:id="@+id/tv_measure_date"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#F0F2F5"
+        android:layout_height="40dp"
+        android:background="#F2F4F7"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
+        android:paddingLeft="12dp"
         android:text="2018-05-09"
-        android:textColor="#222222"
-        android:textSize="15dp"
-        android:visibility="gone"
+        android:textColor="#9B9CA0"
+        android:textSize="13sp"
         />
 
 
@@ -74,16 +73,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="血压"
-                                android:textColor="#999999"
-                                android:textSize="15dp" />
+                                android:textColor="#9B9CA0"
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/tv_blood_presure"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:textColor="#000000"
-                                android:textSize="18dp"
+                                android:textColor="#26282E"
+                                android:textSize="15sp"
                                 tools:text="107/61" />
 
                             <TextView
@@ -110,16 +109,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="心率"
-                                android:textColor="#999999"
-                                android:textSize="15dp" />
+                                android:textColor="#9B9CA0"
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/tv_heart_rate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:textColor="#000000"
-                                android:textSize="18dp"
+                                android:textColor="#26282E"
+                                android:textSize="15sp"
                                 tools:text="65" />
 
                             <TextView
@@ -146,16 +145,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="时间"
-                                android:textColor="#999999"
-                                android:textSize="15dp" />
+                                android:textColor="#9B9CA0"
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/tv_measure_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:textColor="#000000"
-                                android:textSize="18dp"
+                                android:textColor="#26282E"
+                                android:textSize="15sp"
                                 tools:text="09:36" />
 
                             <TextView

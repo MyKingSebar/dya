@@ -46,8 +46,12 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
+import cn.v1.unionc_user.ui.home.BloodPressure.data.OMLLostData;
+import cn.v1.unionc_user.ui.home.BloodPressure.data.OMLSuccessData;
 
 /**
  * Created by An4 on 2018/5/9.
@@ -65,6 +69,19 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     @BindView(R.id.omron_blue_search_img)
     ImageView topSearchImg;
 
+    @BindView(R.id.tv_specification)
+    TextView tv_specification;
+
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.img_back)
+    ImageView imBack;
+    @OnClick(R.id.img_back)
+    public void back(){
+        finish();
+    }
+
+
     private Handler mHandler;
     private List<BluetoothDevice> deviceList = new ArrayList<>();
     public static final int REQUEST_PERMISSION_ACCESS_LOCATION = 1234;
@@ -77,7 +94,7 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
         setContentView(R.layout.activity_omron_blue_tooth);
         ButterKnife.bind(this);
         initView();
-        setTitle("欧姆龙HEM-9200T");
+        tvTitle.setText("欧姆龙HEM-9200T");
         // 使用此检查确定BLE是否支持在设备上，然后你可以有选择性禁用BLE相关的功能
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             showTost("您的手机版本过低，暂不支持本设备使用");
@@ -88,6 +105,7 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     }
 
     private void initView() {
+        tv_specification.setBackground(getResources().getDrawable(R.drawable.oml_bz1));
         ObjectAnimator icon_anim = ObjectAnimator.ofFloat(topSearchImg, "rotation", 0.0F, 359.0F);
         icon_anim.setRepeatCount(-1);
         icon_anim.setDuration(1500);
@@ -126,8 +144,11 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     private Handler timeTaskHadler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            Intent intents = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
-            startActivity(intents);
+//            Intent intents = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
+//            startActivity(intents);
+            Log.d("linshi","OMLLostData2");
+            OMLLostData eventData = new OMLLostData();
+            BusProvider.getInstance().post(eventData);
             TzOmRonBlueToothActivity.this.finish();
             super.handleMessage(msg);
         }
@@ -261,6 +282,7 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
                     case BluetoothDevice.BOND_BONDING://正在配对
                         isFirstMatch = true;
                         Log.d("BlueToothTestActivity", "正在配对......");
+                        tv_specification.setBackground(getResources().getDrawable(R.drawable.oml_bz2));
                         break;
                     case BluetoothDevice.BOND_BONDED://配对结束
                         Log.d("BlueToothTestActivity", "完成配对");
@@ -269,8 +291,12 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
                         break;
                     case BluetoothDevice.BOND_NONE://取消配对/未配对
                         Log.d("BlueToothTestActivity", "取消配对");
-                        Intent intents = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
-                        startActivity(intents);
+//                        Intent intents = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
+//                        startActivity(intents);
+                        Log.d("linshi","OMLLostData3");
+                        OMLLostData eventData = new OMLLostData();
+                        BusProvider.getInstance().post(eventData);
+
                         TzOmRonBlueToothActivity.this.finish();
                     default:
                         break;
@@ -348,12 +374,19 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     }
 
     private void bindDevice() {
-        Intent intent = new Intent(TzOmRonBlueToothActivity.this, BlueToothMeasureActivity.class);
-        intent.putExtra("deviceName", deviceName);
-        intent.putExtra("deviceBDA", bdCode);
-        intent.putExtra("goHome",true);
-        setResult(RESULT_OK);
-        startActivity(intent);
+//        Intent intent = new Intent(TzOmRonBlueToothActivity.this, BlueToothMeasureActivity.class);
+//        intent.putExtra("deviceName", deviceName);
+//        intent.putExtra("deviceBDA", bdCode);
+//        intent.putExtra("goHome",true);
+//        setResult(RESULT_OK);
+//        startActivity(intent);
+
+        OMLSuccessData eventData = new OMLSuccessData();
+        eventData.setDeviceName(deviceName);
+        eventData.setDeviceBDA(bdCode);
+        eventData.setGoHome("true");
+        BusProvider.getInstance().post(eventData);
+
         TzOmRonBlueToothActivity.this.finish();
 ////        closeDialog();
 //        bindObservable(mAppClient.saveUserDeviceData("欧姆龙BLEsmart_00000116",bdCode,"1",getUserId()), new Action1<BaseData>() {
@@ -570,8 +603,11 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     public void findService(List<BluetoothGattService> gattServices) {
         Log.i(TAG, "Count is:" + gattServices.size());
         if(gattServices.size()==0){
-            Intent intent = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
+//            startActivity(intent);
+            Log.d("linshi","OMLLostData1");
+            OMLLostData eventData = new OMLLostData();
+            BusProvider.getInstance().post(eventData);
             TzOmRonBlueToothActivity.this.finish();
         }
         for (BluetoothGattService gattService : gattServices) {

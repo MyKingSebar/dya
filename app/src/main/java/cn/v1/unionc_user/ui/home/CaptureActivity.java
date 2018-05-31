@@ -19,6 +19,7 @@ import com.orhanobut.logger.Logger;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,12 +29,17 @@ import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.ActivityListReturnEventData;
+import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicActivityData;
 import cn.v1.unionc_user.model.WeiXinQRcodeData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
+import cn.v1.unionc_user.ui.home.BloodPressure.BloodPresureHistoryRecordDetailActivity2;
+import cn.v1.unionc_user.ui.home.BloodPressure.data.BloodPresuresaveData;
+import cn.v1.unionc_user.ui.home.BloodPressure.utils.BloodPresure;
+import cn.v1.unionc_user.ui.home.health.StringUtil;
 
 public class CaptureActivity extends BaseActivity {
 
@@ -154,6 +160,33 @@ public class CaptureActivity extends BaseActivity {
 //                        }
 //                    }
                 }
+                /**
+                 * "医巴士血压二维码"+heartrate+","+lowPresure+","+heartrate+","+savedata.getRate()+","+savedata.getRateName()+","+savedata.getMeasureDate() + " " + savedata.getMeasureTime()
+                 */
+                else if(rawResult.getText().contains("医巴士血压二维码")){
+                    try {
+                        String qrCodeContentCode;
+                        String[] splitText1 = text.split("医巴士血压二维码");
+                        Logger.d(Arrays.toString(splitText1));
+                        if (!TextUtils.isEmpty(splitText1[1])) {
+                            qrCodeContentCode = splitText1[1];
+                            String[] splitText2 = qrCodeContentCode.split(",");
+                            if(splitText2.length==6){
+
+                                getOMLqr(splitText2);
+                            }else{
+                                Log.d("linshi","splitText2:"+splitText2.toString());
+                            }
+                        }else{
+                            Log.d("linshi","TextUtils.isEmpty(splitText1[1])");
+                        }
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
 
                 mScannerView.restartPreviewAfterDelay(1000);
             }
@@ -338,6 +371,49 @@ public class CaptureActivity extends BaseActivity {
                 closeDialog();
             }
         });
+    }
+
+    /**
+     * 欧姆龙分享
+     * @param qrCodeContentCode
+     */
+    private void getOMLqr(final String[] qrCodeContentCode) {
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        if(TextUtils.isEmpty(token)){
+            showTost("请先登录！");
+            finish();
+            return;
+        }
+        Intent intent=new Intent(this,BloodPresureHistoryRecordDetailActivity2.class);
+        BloodPresuresaveData data=new BloodPresuresaveData();
+        data.setHighPressure(qrCodeContentCode[0]);
+        data.setLowPressure(qrCodeContentCode[1]);
+        data.setPluseRate(qrCodeContentCode[2]);
+        data.setMeasureDate(qrCodeContentCode[5]);
+        Map map=  BloodPresure.computeRate(qrCodeContentCode[0],qrCodeContentCode[1]);
+        data.setRate((int)map.get("rate"));
+        data.setRateName((String)map.get("rateName"));
+        intent.putExtra("savedata",data);
+        startActivity(intent);
+finish();
+
+//        ConnectHttp.connect(UnionAPIPackage.saveOMLData(token, "2", qrCodeContentCode[2], savedata.getMeasureTime(),"0",savedata.getBdaCode(),"欧姆龙血压仪", qrCodeContentCode[0], qrCodeContentCode[1],
+//                "0","0",""), new BaseObserver<BaseData>(context) {
+//
+//            @Override
+//            public void onResponse(BaseData data) {
+//                if (TextUtils.equals("4000", data.getCode())) {
+//                    showTost("保存成功");
+//                } else {
+//                    showTost(data.getMessage());
+//                }
+//            }
+//
+//            @Override
+//            public void onFail(Throwable e) {
+//                showTost("保存失败");
+//            }
+//        });
     }
 
 

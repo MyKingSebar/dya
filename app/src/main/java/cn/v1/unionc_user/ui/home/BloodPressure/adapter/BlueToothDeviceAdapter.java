@@ -19,6 +19,8 @@ import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.ui.home.BloodPressure.BlueToothClassfyListActivity;
+import cn.v1.unionc_user.ui.home.BloodPressure.OMRONBannerActivity;
+import cn.v1.unionc_user.ui.home.BloodPressure.OMRONBannerActivity2;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.DeviceData;
 import cn.v1.unionc_user.ui.home.health.DossierHeartRateAutoActivity;
 
@@ -50,7 +52,7 @@ public class BlueToothDeviceAdapter extends RecyclerView.Adapter<BlueToothDevice
             @Override
             public void onClick(View v) {
                 if(TextUtils.equals(devicedatas.get(position).getDevice(),"1")){
-                                    Intent intent = new Intent(context,BlueToothClassfyListActivity.class);
+                                    Intent intent = new Intent(context,OMRONBannerActivity2.class);
                 intent.putExtra("device",devicedatas.get(position).getDevice());
                 context.startActivity(intent);
                 }else if(TextUtils.equals(devicedatas.get(position).getDevice(),"2")){

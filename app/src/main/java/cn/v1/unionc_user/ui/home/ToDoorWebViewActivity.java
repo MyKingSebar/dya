@@ -118,6 +118,11 @@ public class ToDoorWebViewActivity extends BaseActivity {
                 initHelp();
 
                 break;
+            case 5:
+                //oml使用说明
+                initOMPHelp();
+
+                break;
         }
 
 
@@ -184,6 +189,14 @@ public class ToDoorWebViewActivity extends BaseActivity {
     private void initHelp() {
         toplayout.setVisibility(View.GONE);
         String url = UnioncURL.Unionc_WEB_Host + "pages/index.html#/help" ;
+        Log.d("linshi", "url" + url);
+        webviewSearch.loadUrl(url);
+
+    }
+    private void initOMPHelp() {
+        tvTitle.setText("使用说明");
+//        toplayout.setVisibility(View.GONE);
+        String url = "http://m.yihu365.com/hzb/message/oumul.shtml" ;
         Log.d("linshi", "url" + url);
         webviewSearch.loadUrl(url);
 

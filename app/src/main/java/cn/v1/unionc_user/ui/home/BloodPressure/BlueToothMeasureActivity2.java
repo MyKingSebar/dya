@@ -42,16 +42,18 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.BloodPresuresaveData;
+import cn.v1.unionc_user.ui.home.BloodPressure.data.OMLLostData;
 import cn.v1.unionc_user.ui.home.BloodPressure.utils.BloodPresure;
 
 /**
  * Created by An4 on 2018/5/12.
  */
 @SuppressLint("NewApi")
-public class BlueToothMeasureActivity extends BaseActivity {
+public class BlueToothMeasureActivity2 extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -63,23 +65,7 @@ public class BlueToothMeasureActivity extends BaseActivity {
     }
 
 
-    @BindView(R.id.bluetooth_measure_history_tv)
-    TextView bluetoothMeasureHistoryTv;
-    @BindView(R.id.bluetooth_measure_start_btn)
-    Button bluetoothMeasureStartBtn;
-    @BindView(R.id.bluetooth_measure_topname_tv)
-    TextView bluetoothMeasureTopnameTv;
-    @BindView(R.id.bluetooth_measure_name_tv)
-    TextView bluetoothMeasureNameTv;
-    @BindView(R.id.bluetooth_measure_bda_tv)
-    TextView bluetoothMeasureBdaTv;
-    @OnClick(R.id.bluetooth_measure_useway_tv)
-    void jumpToUserWay(){
-//        Intent intent = new Intent(BlueToothMeasureActivity.this,WebviewCanNotGoBackActivity.class);
-//        intent.putExtra("h5_url","http://m.yihu365.com/hzb/message/oumul.shtml");
-//        intent.putExtra("title","使用说明");
-//        startActivity(intent);
-    }
+
 
     String deviceName = "";
     String deviceBda = "";
@@ -90,7 +76,7 @@ public class BlueToothMeasureActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetooth_measure_layout);
+        setContentView(R.layout.activity_bluetooth_measure_layout2);
         ButterKnife.bind(this);
         initData();
         initView();
@@ -105,6 +91,8 @@ public class BlueToothMeasureActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        OMLLostData eventData = new OMLLostData();
+        BusProvider.getInstance().post(eventData);
         unregisterReceiver(searchDevices);
         disconnect();
         getmHandler.removeCallbacksAndMessages(null);
@@ -134,33 +122,12 @@ public class BlueToothMeasureActivity extends BaseActivity {
         if(getIntent().hasExtra("goHome")){
             isGoHome = getIntent().getBooleanExtra("goHome",false);
         }
-        if(!TextUtils.isEmpty(deviceName)) {
-            bluetoothMeasureTopnameTv.setText(deviceName);
-            bluetoothMeasureNameTv.setText(deviceName);
-        }
-        if(!TextUtils.isEmpty(deviceBda)) {
-            bluetoothMeasureBdaTv.setText("BDA码:" + "******" + deviceBda.substring(deviceBda.length() - 4));
-        }
     }
 
     private void initView() {
         tvTitle.setText("欧姆龙HEM-9200T");
     }
 
-    @OnClick({R.id.bluetooth_measure_history_tv, R.id.bluetooth_measure_start_btn})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bluetooth_measure_history_tv:
-                Bundle bundle = new Bundle();
-                bundle.putString("fromWhere","1");
-                bundle.putString("BdaCode",deviceBda);
-                readyGo(BloodPresureHistoryActivity.class,bundle);
-                break;
-            case R.id.bluetooth_measure_start_btn:
-                readyGo(BloodPresureDescriptionActivity.class);
-                break;
-        }
-    }
 
 
     private void requestPermission() {
@@ -348,7 +315,7 @@ public class BlueToothMeasureActivity extends BaseActivity {
                 Log.e(TAG, "Only gatt, just wait");
             } else if (ACTION_GATT_DISCONNECTED.equals(action)) { //连接失败
                 Log.e(TAG, "lose");
-                new Handler(BlueToothMeasureActivity.this.getMainLooper()).post(new Runnable() {
+                new Handler(BlueToothMeasureActivity2.this.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
                         uploadMeasureData();
@@ -362,7 +329,7 @@ public class BlueToothMeasureActivity extends BaseActivity {
                 Log.e(TAG, "RECV DATA");
                 String data = intent.getStringExtra(EXTRA_DATA);
                 Log.e(TAG, "RECV DATA:"+data);
-                new Handler(BlueToothMeasureActivity.this.getMainLooper()).postDelayed(new Runnable() {
+                new Handler(BlueToothMeasureActivity2.this.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         uploadMeasureData();
@@ -466,7 +433,7 @@ public class BlueToothMeasureActivity extends BaseActivity {
                         Log.i(TAG, "in  "+UUID_NOTIFY.toString());
                         setCharacteristicIndication(gattCharacteristic, true);
                         broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
-                        new Handler(BlueToothMeasureActivity.this.getMainLooper()).postDelayed(new Runnable() {
+                        new Handler(BlueToothMeasureActivity2.this.getMainLooper()).postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 broadcastUpdate(ACTION_DATA_AVAILABLE,gattCharacteristic);

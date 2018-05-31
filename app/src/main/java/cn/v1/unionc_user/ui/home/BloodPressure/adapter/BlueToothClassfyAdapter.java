@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.ui.home.BloodPressure.OMRONBannerActivity;
+import cn.v1.unionc_user.ui.home.BloodPressure.OMRONBannerActivity2;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.DeviceData;
 
 /**
@@ -47,7 +48,7 @@ public class BlueToothClassfyAdapter extends RecyclerView.Adapter<BlueToothClass
             @Override
             public void onClick(View v) {
                 if(TextUtils.equals("1",devicedatas.get(position).getDevice())){
-                    Intent intent = new Intent(context,OMRONBannerActivity.class);
+                    Intent intent = new Intent(context,OMRONBannerActivity2.class);
                     intent.putExtra("deviceName",devicedatas.get(position).getDeviceName());
                     context.startActivity(intent);
                 }

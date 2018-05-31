@@ -115,7 +115,7 @@
                 android:drawablePadding="6dp"
                 android:drawableTop="@drawable/icon_xinlvjiance"
                 android:gravity="center"
-                android:text="心率检测"
+                android:text="智能监测"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 

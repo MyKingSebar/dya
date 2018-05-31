@@ -14,8 +14,8 @@ public class OmrLoseCoActivity extends BaseActivity {
 
     @OnClick(R.id.omr_lose_btn)
     void closeOmrLoseActivity(){
-        OmrLoseCoActivity.this.finish();
-        UnioncApp.getInstance().closeActivity();
+        finish();
+//        UnioncApp.getInstance().closeActivity();
     }
 
     @Override
