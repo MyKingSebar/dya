@@ -195,58 +195,66 @@
                 android:text="血压正常"
                 android:textColor="#25C191"
                 android:textSize="15sp" />
-
-            <ImageView
-                android:id="@+id/img_green_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/icon_green_arrow_down" />
-
-            <ImageView
-                android:id="@+id/img_presure_state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_gyr_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="偏低"
-                    android:textColor="#333333"
-                    android:textSize="15dp" />
+<LinearLayout
+    android:id="@+id/ll_grogress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
 
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="正常"
-                    android:textColor="#333333"
-                    android:textSize="15dp" />
+    <ImageView
+        android:id="@+id/img_green_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/icon_green_arrow_down" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="偏高"
-                    android:textColor="#333333"
-                    android:textSize="15dp" />
+    <ImageView
+        android:id="@+id/img_presure_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_gyr_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="偏低"
+            android:textColor="#333333"
+            android:textSize="15dp" />
 
 
-            </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="正常"
+            android:textColor="#333333"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="偏高"
+            android:textColor="#333333"
+            android:textSize="15dp" />
+
+
+    </LinearLayout>
+</LinearLayout>
             <ImageView
                 android:id="@+id/im_qr"
                 android:layout_marginTop="10dp"

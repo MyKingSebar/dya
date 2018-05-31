@@ -89,7 +89,7 @@ public class CaptureActivity extends BaseActivity {
                 Logger.d(new Gson().toJson(parsedResult));
                 Logger.d(new Gson().toJson(barcode));
                 String text = rawResult.getText();
-                Log.d("linshi","rawResult.getText():"+rawResult.getText());
+                Log.d("linshi", "rawResult.getText():" + rawResult.getText());
                 if (rawResult.getText().contains("weixin.qq.com/")) {
                     if (rawResult.getText().contains("/q/")) {
                         try {
@@ -99,8 +99,8 @@ public class CaptureActivity extends BaseActivity {
                             if (!TextUtils.isEmpty(splitText1[1])) {
                                 qrCodeContentCode = splitText1[1];
                                 getweiXin(qrCodeContentCode);
-                            }else{
-                                Log.d("linshi","TextUtils.isEmpty(splitText1[1])");
+                            } else {
+                                Log.d("linshi", "TextUtils.isEmpty(splitText1[1])");
                             }
 
 
@@ -163,7 +163,7 @@ public class CaptureActivity extends BaseActivity {
                 /**
                  * "医巴士血压二维码"+heartrate+","+lowPresure+","+heartrate+","+savedata.getRate()+","+savedata.getRateName()+","+savedata.getMeasureDate() + " " + savedata.getMeasureTime()
                  */
-                else if(rawResult.getText().contains("医巴士血压二维码")){
+                else if (rawResult.getText().contains("医巴士血压二维码")) {
                     try {
                         String qrCodeContentCode;
                         String[] splitText1 = text.split("医巴士血压二维码");
@@ -171,14 +171,14 @@ public class CaptureActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(splitText1[1])) {
                             qrCodeContentCode = splitText1[1];
                             String[] splitText2 = qrCodeContentCode.split(",");
-                            if(splitText2.length==6){
+                            if (splitText2.length == 6) {
 
                                 getOMLqr(splitText2);
-                            }else{
-                                Log.d("linshi","splitText2:"+splitText2.toString());
+                            } else {
+                                Log.d("linshi", "splitText2:" + splitText2.toString());
                             }
-                        }else{
-                            Log.d("linshi","TextUtils.isEmpty(splitText1[1])");
+                        } else {
+                            Log.d("linshi", "TextUtils.isEmpty(splitText1[1])");
                         }
 
 
@@ -291,7 +291,7 @@ public class CaptureActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==1){
+        if (resultCode == 1) {
             finish();
         }
     }
@@ -303,23 +303,23 @@ public class CaptureActivity extends BaseActivity {
     private void clinicActivities(final String clinicId) {
         showDialog("加载中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.clinicActivities(clinicId, token,"1"), new BaseObserver<ClinicActivityData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.clinicActivities(clinicId, token, "1"), new BaseObserver<ClinicActivityData>(context) {
             @Override
             public void onResponse(ClinicActivityData data) {
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
-                    if(data.getData().getActivities().size()>0){
+                    if (data.getData().getActivities().size() > 0) {
 
                         Intent intent = new Intent(context, SignactivityActivity.class);
-                        Bundle bundle=new Bundle();
-                        bundle.putSerializable("activities",(Serializable) data.getData().getActivities());
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("activities", (Serializable) data.getData().getActivities());
                         intent.putExtra("clinicId", clinicId);
                         intent.putExtras(bundle);
-                        startActivityForResult(intent,1);
+                        startActivityForResult(intent, 1);
                         finish();
-                    }else{
+                    } else {
                         finish();
-                        Log.d("linshi","ActivityListReturnEventData"+clinicId);
+                        Log.d("linshi", "ActivityListReturnEventData" + clinicId);
                         ActivityListReturnEventData eventData = new ActivityListReturnEventData(clinicId);
                         BusProvider.getInstance().post(eventData);
                     }
@@ -334,6 +334,7 @@ public class CaptureActivity extends BaseActivity {
             }
         });
     }
+
     /**
      * 查询微信二维码
      */
@@ -344,18 +345,18 @@ public class CaptureActivity extends BaseActivity {
             public void onResponse(WeiXinQRcodeData data) {
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
-                    if(TextUtils.equals(data.getData().getType(),"0")){
+                    if (TextUtils.equals(data.getData().getType(), "0")) {
                         //医院
-                        if(!TextUtils.isEmpty(data.getData().getId())){
+                        if (!TextUtils.isEmpty(data.getData().getId())) {
                             clinicActivities(data.getData().getId());
                         }
-                    }else if(TextUtils.equals(data.getData().getType(),"1")){
+                    } else if (TextUtils.equals(data.getData().getType(), "1")) {
                         //医生
-                        if(!TextUtils.isEmpty(data.getData().getId())){
+                        if (!TextUtils.isEmpty(data.getData().getId())) {
                             Intent intent = new Intent(context, DoctorDetailActivity.class);
                             intent.putExtra("doctorId", data.getData().getId());
                             intent.putExtra("source", 1 + "");
-                            startActivityForResult(intent,2);
+                            startActivityForResult(intent, 2);
                             finish();
                         }
 
@@ -375,27 +376,29 @@ public class CaptureActivity extends BaseActivity {
 
     /**
      * 欧姆龙分享
+     *
      * @param qrCodeContentCode
      */
     private void getOMLqr(final String[] qrCodeContentCode) {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        if(TextUtils.isEmpty(token)){
+        if (TextUtils.isEmpty(token)) {
             showTost("请先登录！");
             finish();
             return;
         }
-        Intent intent=new Intent(this,BloodPresureHistoryRecordDetailActivity2.class);
-        BloodPresuresaveData data=new BloodPresuresaveData();
+        Intent intent = new Intent(this, BloodPresureHistoryRecordDetailActivity2.class);
+        BloodPresuresaveData data = new BloodPresuresaveData();
         data.setHighPressure(qrCodeContentCode[0]);
         data.setLowPressure(qrCodeContentCode[1]);
         data.setPluseRate(qrCodeContentCode[2]);
         data.setMeasureDate(qrCodeContentCode[5]);
-        Map map=  BloodPresure.computeRate(qrCodeContentCode[0],qrCodeContentCode[1]);
-        data.setRate((int)map.get("rate"));
-        data.setRateName((String)map.get("rateName"));
-        intent.putExtra("savedata",data);
+        Map map = BloodPresure.computeRate(qrCodeContentCode[0], qrCodeContentCode[1]);
+        data.setRate((int) map.get("rate"));
+        data.setRateName((String) map.get("rateName"));
+        intent.putExtra("savedata", data);
+        intent.putExtra("first", "first");
         startActivity(intent);
-finish();
+        finish();
 
 //        ConnectHttp.connect(UnionAPIPackage.saveOMLData(token, "2", qrCodeContentCode[2], savedata.getMeasureTime(),"0",savedata.getBdaCode(),"欧姆龙血压仪", qrCodeContentCode[0], qrCodeContentCode[1],
 //                "0","0",""), new BaseObserver<BaseData>(context) {

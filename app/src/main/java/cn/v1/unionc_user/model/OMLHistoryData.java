@@ -104,6 +104,16 @@ public class OMLHistoryData extends BaseData {
             private String HighPressure;
             private String DeviceModel;
 
+            public String getIsHead() {
+                return isHead;
+            }
+
+            public void setIsHead(String isHead) {
+                this.isHead = isHead;
+            }
+
+            private String isHead;
+
             public String getPatientInfoId() {
                 return PatientInfoId;
             }

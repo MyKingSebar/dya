@@ -16,6 +16,7 @@ import cn.v1.unionc_user.model.HeartHistoryListData;
 import cn.v1.unionc_user.model.HeartIndicationData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.HomeToHomeData;
+import cn.v1.unionc_user.model.IsDoctorData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
@@ -501,6 +502,15 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("user/user-health-datas")
     Observable<OMLHistoryData> getOMLData(@FieldMap Map<String, Object> params);
+    /**
+     * 获取血压数据
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("doctor/is-medical")
+    Observable<IsDoctorData> getIsDoctor(@FieldMap Map<String, Object> params);
 
 
 }

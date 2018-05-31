@@ -72,6 +72,8 @@ public class BloodPresureHistoryRecordDetailActivity2 extends BaseActivity {
     TextView tvSave;
     @BindView(R.id.ll_high_presure)
     LinearLayout llHighPresure;
+    @BindView(R.id.ll_grogress)
+    LinearLayout ll_grogress;
     @BindView(R.id.ll_low_presure)
     LinearLayout llLowPresure;
     @BindView(R.id.img_presure_state)
@@ -102,6 +104,9 @@ void back(){
     private DossierListData.ListBean patientData;
     private String patientInfoId = "";
     private boolean istextChanged = false;
+    private boolean isDoctor = false;
+    private boolean isFirst = false;
+
 
 //    private Toolbar mActionBarToolbar;
 
@@ -169,6 +174,12 @@ void back(){
         if (getIntent().hasExtra("savedata")) {
             savedata = (BloodPresuresaveData) getIntent().getSerializableExtra("savedata");
         }
+        if (getIntent().hasExtra("isDoctor")) {
+            isDoctor = true;
+        }
+        if (getIntent().hasExtra("first")) {
+            isFirst = true;
+        }
     }
 
     private void initView() {
@@ -179,7 +190,11 @@ void back(){
 //                onBackPressed();
 //            }
 //        });
-
+if(isFirst){
+    tvSave.setVisibility(View.VISIBLE);
+}else{
+    tvSave.setVisibility(View.GONE);
+}
         tv_title.setText("测量详情");
         if(null!=savedata){
 
@@ -284,9 +299,15 @@ void back(){
             } else {
                 tvPatientInfo.setText("");
             }
-
-            Bitmap bitmap = ZXingUtils.createQRImage("医巴士血压二维码"+highPresure+","+lowPresure+","+heartrate+","+savedata.getRate()+","+savedata.getRateName()+","+savedata.getMeasureDate(), 500, 500);
-            im_qr.setImageBitmap(bitmap);
+if(isDoctor){
+    im_qr.setVisibility(View.VISIBLE);
+    Bitmap bitmap = ZXingUtils.createQRImage("医巴士血压二维码"+highPresure+","+lowPresure+","+heartrate+","+savedata.getRate()+","+savedata.getRateName()+","+savedata.getMeasureDate(), 500, 500);
+    im_qr.setImageBitmap(bitmap);
+    ll_grogress.setVisibility(View.GONE);
+}else{
+    im_qr.setVisibility(View.GONE);
+    ll_grogress.setVisibility(View.VISIBLE);
+}
         }
 
         tvUpdateDate.addTextChangedListener(new TextWatcher() {
@@ -366,6 +387,7 @@ void back(){
             public void onResponse(BaseData data) {
                 if (TextUtils.equals("4000", data.getCode())) {
                     showTost("保存成功");
+                    finish();
                 } else {
                     showTost(data.getMessage());
                 }

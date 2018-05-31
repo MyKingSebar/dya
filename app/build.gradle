@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 
 android {
 
-    // 添加插件
-    apply plugin: "com.mob.sdk"
+//    // 添加插件
+//    apply plugin: "com.mob.sdk"
 
 //// 在MobSDK的扩展中注册ShareSDK的相关信息
 //    MobSDK {

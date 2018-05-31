@@ -60,12 +60,12 @@ public class BloodPresureHistoryAdapter2 extends RecyclerView.Adapter<BloodPresu
         holder.sbtView.setSlidingButtonListener(BloodPresureHistoryAdapter2.this);
 
         final OMLHistoryData.DataData.OMLdatta data = listDatas.get(position);
-//        if (listDatas.get(position).isHead()) {
-//            holder.tvMeasureDate.setVisibility(View.VISIBLE);
-//            holder.tvMeasureDate.setText(listDatas.get(position).getHeadText() + "");
-//        } else {
-//            holder.tvMeasureDate.setVisibility(View.GONE);
-//        }
+        if (TextUtils.equals(listDatas.get(position).getIsHead(),"1")) {
+            holder.tvMeasureDate.setVisibility(View.VISIBLE);
+            holder.tvMeasureDate.setText(listDatas.get(position).getMonitorDate() + "");
+        } else {
+            holder.tvMeasureDate.setVisibility(View.GONE);
+        }
         holder.tvBloodPresure.setText(data.getHighPressure() + "/" + data.getLowPressure());
         holder.tvHeartRate.setText(data.getHeartRate() + "");
         holder.tvMeasureTime.setText(data.getMonitorTime() + "");

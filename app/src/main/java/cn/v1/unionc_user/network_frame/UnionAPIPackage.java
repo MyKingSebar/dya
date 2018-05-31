@@ -23,6 +23,7 @@ import cn.v1.unionc_user.model.HeartHistoryListData;
 import cn.v1.unionc_user.model.HeartIndicationData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.HomeToHomeData;
+import cn.v1.unionc_user.model.IsDoctorData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
@@ -765,6 +766,16 @@ public class UnionAPIPackage {
         params.put("pageNo", pageNo);
         params.put("pageSize", pageSize);
         return ConnectHttp.getUnionAPI().getOMLData(dataProcess(params));
+    }
+    /**
+     *
+     是否是医护
+     *localhost:8080/unionWeb/doctor/is-medical?data={token:"tiLJBvWdRjTaq7VPJcswTThUgzeBRuKAyrOmdTw4OdQ\u003d"}&encryption=false
+     */
+    public static Observable<IsDoctorData> getIsDoctor(String token) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        return ConnectHttp.getUnionAPI().getIsDoctor(dataProcess(params));
     }
 
 

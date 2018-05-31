@@ -60,23 +60,26 @@ public class OMRONBannerActivity2 extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.img_back)
     ImageView imBack;
+
     @OnClick(R.id.img_back)
-    public void back(){
+    public void back() {
         finish();
     }
 
     @BindView(R.id.rl_help)
     public RelativeLayout rlHelp;
+
     @OnClick(R.id.rl_help)
-void help(){
+    void help() {
         Intent intent = new Intent(context, ToDoorWebViewActivity.class);
         intent.putExtra("type", Common.WEB_OMLHELP);
         startActivity(intent);
     }
-    @OnClick(R.id.history)
-    public void history(){
 
-goNewActivity(BloodPresureHistoryActivity.class);
+    @OnClick(R.id.history)
+    public void history() {
+
+        goNewActivity(BloodPresureHistoryActivity.class);
     }
 
 
@@ -98,7 +101,7 @@ goNewActivity(BloodPresureHistoryActivity.class);
     //连接设备
     @OnClick(R.id.tv_link_device)
     public void onClick() {
-        if(tvLinkDevice.getText().toString().equals("连接设备")) {
+        if (tvLinkDevice.getText().toString().equals("连接设备")) {
             if (Build.VERSION.SDK_INT < 18) {
                 showTost("手机系统版本过低，不支持心电设备");
                 return;
@@ -109,35 +112,38 @@ goNewActivity(BloodPresureHistoryActivity.class);
             } else {
                 showUploadDialog();
             }
-        }else if(tvLinkDevice.getText().toString().equals("开始测量")){
-                    Intent intent = new Intent(context, BlueToothMeasureActivity2.class);
-        intent.putExtra("deviceName", omldata.getDeviceName());
-        intent.putExtra("deviceBDA", omldata.getDeviceBDA()
+        } else if (tvLinkDevice.getText().toString().equals("开始测量")) {
+            Intent intent = new Intent(context, BlueToothMeasureActivity2.class);
+            intent.putExtra("deviceName", omldata.getDeviceName());
+            intent.putExtra("deviceBDA", omldata.getDeviceBDA()
 
-        );
-        intent.putExtra("goHome",true);
-        setResult(RESULT_OK);
-        startActivity(intent);
+            );
+            intent.putExtra("goHome", true);
+            setResult(RESULT_OK);
+            startActivity(intent);
 
         }
     }
+
     /**
      * 判断蓝牙是否打开
+     *
      * @return
      */
     public boolean isBTConnected() {
         boolean BLEState = false;
         BluetoothAdapter blueadapter = BluetoothAdapter.getDefaultAdapter();
         //adapter也有getState(), 可获取ON/OFF...其它状态
-        int state =  blueadapter.getState();
-        if(state == BluetoothAdapter.STATE_ON){
+        int state = blueadapter.getState();
+        if (state == BluetoothAdapter.STATE_ON) {
             BLEState = true;
         }
-        if(state == BluetoothAdapter.STATE_OFF){
+        if (state == BluetoothAdapter.STATE_OFF) {
             BLEState = false;
         }
-        return  BLEState;
+        return BLEState;
     }
+
     /**
      * 打开蓝牙的弹框
      */
@@ -160,28 +166,30 @@ goNewActivity(BloodPresureHistoryActivity.class);
         dialog.setStr_cancelbtn("设置");
         dialog.show();
     }
+
     /**
      * 设置蓝牙
+     *
      * @return
      */
-    private void openSetting(){
+    private void openSetting() {
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_BLUETOOTH_SETTINGS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        try{
+        try {
             startActivity(intent);
-        } catch(ActivityNotFoundException ex){
+        } catch (ActivityNotFoundException ex) {
             ex.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void initData() {
-        if(getIntent().hasExtra("deviceName")){
+        if (getIntent().hasExtra("deviceName")) {
             deviceName = getIntent().getStringExtra("deviceName");
         }
-        deviceName="血压仪";
+        deviceName = "血压仪";
     }
 
     private void initView() {
@@ -191,19 +199,20 @@ goNewActivity(BloodPresureHistoryActivity.class);
 
     @Subscribe
     public void omllost(OMLLostData data) {
-        Log.d("linshi","OMLLostData");
+        Log.d("linshi", "OMLLostData");
         tvLinkDevice.setText("连接设备");
         connectTv.setText("请绑定设备");
+        imStatus.setBackground(getResources().getDrawable(R.drawable.im_status_no));
     }
+
     @Subscribe
     public void omlsuccess(OMLSuccessData data) {
-Log.d("linshi","OMLSuccessData");
+        Log.d("linshi", "OMLSuccessData");
         tvLinkDevice.setText("开始测量");
         connectTv.setText("绑定成功");
-
-        omldata=data;
+        imStatus.setBackground(getResources().getDrawable(R.drawable.im_status_ok));
+        omldata = data;
     }
-
 
 
     @Override

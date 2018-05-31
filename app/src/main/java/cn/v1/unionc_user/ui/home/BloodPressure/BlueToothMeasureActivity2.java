@@ -44,6 +44,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.BaseData;
+import cn.v1.unionc_user.model.IsDoctorData;
+import cn.v1.unionc_user.network_frame.ConnectHttp;
+import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.BloodPresuresaveData;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.OMLLostData;
@@ -375,19 +382,50 @@ public class BlueToothMeasureActivity2 extends BaseActivity {
         /**
          * 判断是医生还是病人
          */
-        if(mResults.size()>0){
 
-            Intent intent=new Intent(this,BloodPresureHistoryRecordDetailActivity2.class);
-            BloodPresuresaveData data=new BloodPresuresaveData();
-            data.setHighPressure(mResults.get(0).getHighPressure());
-            data.setLowPressure(mResults.get(0).getLowPressure());
-            data.setPluseRate(mResults.get(0).getPluseRate());
-            data.setMeasureDate(mResults.get(0).getMeasureDate());
-          Map map=  BloodPresure.computeRate(mResults.get(0).getHighPressure(),mResults.get(0).getLowPressure());
-          data.setRate((int)map.get("rate"));
-          data.setRateName((String)map.get("rateName"));
-            intent.putExtra("savedata",data);
-            startActivity(intent);
+
+
+        if(mResults.size()>0){
+            String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+            ConnectHttp.connect(UnionAPIPackage.getIsDoctor(token), new BaseObserver<IsDoctorData>(context) {
+
+                @Override
+                public void onResponse(IsDoctorData data) {
+                    if (TextUtils.equals("4000", data.getCode())) {
+                        Intent intent=new Intent(BlueToothMeasureActivity2.this,BloodPresureHistoryRecordDetailActivity2.class);
+                        if(TextUtils.equals("1",data.getData().getIsMedical())){
+//医护
+                            intent.putExtra("isDoctor","true");
+                        }
+//                        else if(TextUtils.equals("0",data.getData().getIsMedical())){
+                        else{
+
+
+                        }
+                        BloodPresuresaveData blooddata=new BloodPresuresaveData();
+                        blooddata.setHighPressure(mResults.get(0).getHighPressure());
+                        blooddata.setLowPressure(mResults.get(0).getLowPressure());
+                        blooddata.setPluseRate(mResults.get(0).getPluseRate());
+                        blooddata.setMeasureDate(mResults.get(0).getMeasureDate());
+                        Map map=  BloodPresure.computeRate(mResults.get(0).getHighPressure(),mResults.get(0).getLowPressure());
+                        blooddata.setRate((int)map.get("rate"));
+                        blooddata.setRateName((String)map.get("rateName"));
+                        intent.putExtra("savedata",blooddata);
+                        intent.putExtra("first","first");
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        showTost(data.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable e) {
+                    Log.d("linshi","getIsDoctorFaild");
+                }
+            });
+
+
 
         }
 
