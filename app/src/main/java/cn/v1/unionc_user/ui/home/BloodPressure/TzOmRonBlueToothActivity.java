@@ -34,6 +34,9 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.humrousz.sequence.AnimationImageView;
+import com.humrousz.sequence.FrescoSequence;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -70,7 +73,7 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     ImageView topSearchImg;
 
     @BindView(R.id.tv_specification)
-    TextView tv_specification;
+    AnimationImageView mGoogleImage;
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -105,7 +108,17 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     }
 
     private void initView() {
-        tv_specification.setBackground(getResources().getDrawable(R.drawable.oml_bz1));
+//        Glide.with(context).load(R.drawable.oml_gif).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                .placeholder(tv_specification.getDrawable()).dontAnimate()
+//                .error(R.drawable.oml_bz1)
+//                .into(tv_specification);
+//        tv_specification.setBackground(getResources().getDrawable(R.drawable.oml_bz1));
+        mGoogleImage.setSequenceFactory(FrescoSequence.getSequenceFactory(FrescoSequence.GIF));
+        //设置重复次数
+        mGoogleImage.setLoopInf();
+        //设置图片通过drawable
+        mGoogleImage.setImageResource(R.drawable.oml_gif);
+
         ObjectAnimator icon_anim = ObjectAnimator.ofFloat(topSearchImg, "rotation", 0.0F, 359.0F);
         icon_anim.setRepeatCount(-1);
         icon_anim.setDuration(1500);
@@ -144,8 +157,8 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     private Handler timeTaskHadler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-//            Intent intents = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
-//            startActivity(intents);
+            Intent intents = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
+            startActivity(intents);
             Log.d("linshi","OMLLostData2");
             OMLLostData eventData = new OMLLostData();
             BusProvider.getInstance().post(eventData);
@@ -282,7 +295,8 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
                     case BluetoothDevice.BOND_BONDING://正在配对
                         isFirstMatch = true;
                         Log.d("BlueToothTestActivity", "正在配对......");
-                        tv_specification.setBackground(getResources().getDrawable(R.drawable.oml_bz2));
+//                        mGoogleImage.setBackground(getResources().getDrawable(R.drawable.oml_bz2));
+                        mGoogleImage.setImageResource(R.drawable.oml_bz2);
                         break;
                     case BluetoothDevice.BOND_BONDED://配对结束
                         Log.d("BlueToothTestActivity", "完成配对");
@@ -291,8 +305,8 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
                         break;
                     case BluetoothDevice.BOND_NONE://取消配对/未配对
                         Log.d("BlueToothTestActivity", "取消配对");
-//                        Intent intents = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
-//                        startActivity(intents);
+                        Intent intents = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
+                        startActivity(intents);
                         Log.d("linshi","OMLLostData3");
                         OMLLostData eventData = new OMLLostData();
                         BusProvider.getInstance().post(eventData);
@@ -603,8 +617,8 @@ public class TzOmRonBlueToothActivity extends BaseActivity {
     public void findService(List<BluetoothGattService> gattServices) {
         Log.i(TAG, "Count is:" + gattServices.size());
         if(gattServices.size()==0){
-//            Intent intent = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(TzOmRonBlueToothActivity.this,OmrLoseCoActivity.class);
+            startActivity(intent);
             Log.d("linshi","OMLLostData1");
             OMLLostData eventData = new OMLLostData();
             BusProvider.getInstance().post(eventData);

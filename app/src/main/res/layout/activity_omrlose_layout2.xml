@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <TextView
+        android:background="@drawable/oml_faild"
+        android:layout_width="140dp"
+        android:layout_height="110dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="66dp"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="绑定失败"
+    android:textSize="15sp"
+    android:textColor="#26282E"
+    android:layout_marginTop="20dp"
+android:layout_gravity="center_horizontal"
+    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="40dp"
+        android:lineSpacingExtra="6dp"
+        android:text="如绑定失败，请检查：\n1.测量设备是否在1米以内；\n2.测量设备是否已开启。"
+        android:textColor="@color/text_34"
+        android:textSize="14sp" />
+
+    <Button
+        android:elevation="20dp"
+        android:id="@+id/omr_lose_btn"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:text="我知道了"
+        android:textSize="15sp"
+        android:background="#FFFFFF"
+        android:textColor="#4E78F6"/>
+
+</LinearLayout>

@@ -67,7 +67,7 @@ public class DossierHeartrateAutoPreviewFragment extends BaseFragment {
             connectTv.setText("请打开手机蓝牙和设备电源");
             disConnectTv.setVisibility(View.GONE);
             tvLinkDevice.setText("连接设备");
-            imStatus.setBackground(getResources().getDrawable(R.drawable.im_status_no));
+            imStatus.setBackground(getResources().getDrawable(R.drawable.im_status));
         } catch (IOException e) {
             e.printStackTrace();
         }

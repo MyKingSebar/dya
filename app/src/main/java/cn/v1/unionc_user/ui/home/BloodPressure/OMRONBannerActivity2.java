@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +24,11 @@ import butterknife.OnClick;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.OMLHistoryData;
+import cn.v1.unionc_user.network_frame.ConnectHttp;
+import cn.v1.unionc_user.network_frame.UnionAPIPackage;
+import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.OMLLostData;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.OMLSuccessData;
@@ -96,6 +102,29 @@ public class OMRONBannerActivity2 extends BaseActivity {
         BusProvider.getInstance().register(this);
         initData();
         initView();
+        getData();
+    }
+
+    private void getData() {
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.getOMLData(token, "2", "1","1" +
+                ""), new BaseObserver<OMLHistoryData>(context) {
+
+            @Override
+            public void onResponse(OMLHistoryData data) {
+                if (TextUtils.equals("4000", data.getCode())) {
+                    showTost("获取成功");
+                }
+                else {
+                    showTost(data.getMessage());
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                showTost("删除失败");
+            }
+        });
     }
 
     //连接设备
@@ -195,6 +224,7 @@ public class OMRONBannerActivity2 extends BaseActivity {
     private void initView() {
         tvTitle.setText(deviceName);
         toplayout.setBackgroundColor(getResources().getColor(R.color.green_oml));
+        imStatus.setBackground(getResources().getDrawable(R.drawable.im_status));
     }
 
     @Subscribe
@@ -202,7 +232,7 @@ public class OMRONBannerActivity2 extends BaseActivity {
         Log.d("linshi", "OMLLostData");
         tvLinkDevice.setText("连接设备");
         connectTv.setText("请绑定设备");
-        imStatus.setBackground(getResources().getDrawable(R.drawable.im_status_no));
+        imStatus.setBackground(getResources().getDrawable(R.drawable.im_status));
     }
 
     @Subscribe

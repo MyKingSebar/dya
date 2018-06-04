@@ -51,7 +51,7 @@ public class BloodPresureHistoryAdapter2 extends RecyclerView.Adapter<BloodPresu
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_bloodpresure_history, null));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_bloodpresure_history2, null));
     }
 
     @Override
@@ -124,8 +124,8 @@ public class BloodPresureHistoryAdapter2 extends RecyclerView.Adapter<BloodPresu
         TextView tvHeartRate;
         @BindView(R.id.tv_measure_time)
         TextView tvMeasureTime;
-        @BindView(R.id.tv_measure_way)
-        TextView tvMeasureWay;
+//        @BindView(R.id.tv_measure_way)
+//        TextView tvMeasureWay;
         @BindView(R.id.tv_delete)
         TextView tvDelete;
         @BindView(R.id.ll_history_record)

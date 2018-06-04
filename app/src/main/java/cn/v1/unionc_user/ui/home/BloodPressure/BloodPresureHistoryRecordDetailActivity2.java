@@ -88,8 +88,9 @@ public class BloodPresureHistoryRecordDetailActivity2 extends BaseActivity {
     ImageView im_qr;
     @BindView(R.id.img_back)
     ImageView img_back;
+
     @OnClick(R.id.img_back)
-void back(){
+    void back() {
         finish();
     }
 
@@ -97,7 +98,7 @@ void back(){
     private Context context;
     private int mResultHour;
     private int mResultMinute;
-//    private BloodPresureHistoryData.DataData.BloodPressureData historyItemData;
+    //    private BloodPresureHistoryData.DataData.BloodPressureData historyItemData;
     private BloodPresuresaveData savedata;
     private int screenWidth;
     private int imgWidth;
@@ -190,13 +191,13 @@ void back(){
 //                onBackPressed();
 //            }
 //        });
-if(isFirst){
-    tvSave.setVisibility(View.VISIBLE);
-}else{
-    tvSave.setVisibility(View.GONE);
-}
+        if (isFirst) {
+            tvSave.setVisibility(View.VISIBLE);
+        } else {
+            tvSave.setVisibility(View.GONE);
+        }
         tv_title.setText("测量详情");
-        if(null!=savedata){
+        if (null != savedata) {
 
         }
         if (null != savedata) {
@@ -224,9 +225,9 @@ if(isFirst){
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            tvHighPresure.setText(highPresureNum+"");
-            tvLowPresure.setText(lowPresureNum+"");
-            tvHeartRate.setText(heartrate+"");
+            tvHighPresure.setText(highPresureNum + "");
+            tvLowPresure.setText(lowPresureNum + "");
+            tvHeartRate.setText(heartrate + "");
 //            if (highPresureNum >= 140) {
 //                tvHighPresure.setText(Html.fromHtml("<font color=\"#ed1b24\">" + highPresureNum + "</font>" +
 //                        "<font color=\"#333333\">mmHg</font>"));
@@ -299,15 +300,15 @@ if(isFirst){
             } else {
                 tvPatientInfo.setText("");
             }
-if(isDoctor){
-    im_qr.setVisibility(View.VISIBLE);
-    Bitmap bitmap = ZXingUtils.createQRImage("医巴士血压二维码"+highPresure+","+lowPresure+","+heartrate+","+savedata.getRate()+","+savedata.getRateName()+","+savedata.getMeasureDate(), 500, 500);
-    im_qr.setImageBitmap(bitmap);
-    ll_grogress.setVisibility(View.GONE);
-}else{
-    im_qr.setVisibility(View.GONE);
-    ll_grogress.setVisibility(View.VISIBLE);
-}
+            if (isDoctor) {
+                im_qr.setVisibility(View.VISIBLE);
+                Bitmap bitmap = ZXingUtils.createQRImage("医巴士血压二维码" + highPresure + "," + lowPresure + "," + heartrate + "," + savedata.getRate() + "," + savedata.getRateName() + "," + savedata.getMeasureDate(), 500, 500);
+                im_qr.setImageBitmap(bitmap);
+                ll_grogress.setVisibility(View.GONE);
+            } else {
+                im_qr.setVisibility(View.GONE);
+                ll_grogress.setVisibility(View.VISIBLE);
+            }
         }
 
         tvUpdateDate.addTextChangedListener(new TextWatcher() {
@@ -365,7 +366,7 @@ if(isDoctor){
 
     /**
      * 保存编辑数据
-     *      *token:"yGGSVMEtTZdpdw8zSJJlpzhUgzeBRuKAyrOmdTw4OdQ\u003d",
+     * *token:"yGGSVMEtTZdpdw8zSJJlpzhUgzeBRuKAyrOmdTw4OdQ\u003d",
      * monitorId:"2",
      * heartRate:"65",
      * monitorDate:"2018-05-29 10:38:00",
@@ -380,8 +381,8 @@ if(isDoctor){
      */
     private void saveEdit() {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.saveOMLData(token, "2", savedata.getPluseRate(), savedata.getMeasureDate(),"0",savedata.getBdaCode(),"欧姆龙血压仪", savedata.getHighPressure(), savedata.getLowPressure(),
-                "0","0",""), new BaseObserver<BaseData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.saveOMLData(token, "2", savedata.getPluseRate(), savedata.getMeasureDate(), "0", savedata.getBdaCode(), "欧姆龙血压仪", savedata.getHighPressure(), savedata.getLowPressure(),
+                "0", "0", ""), new BaseObserver<BaseData>(context) {
 
             @Override
             public void onResponse(BaseData data) {
@@ -433,7 +434,7 @@ if(isDoctor){
             int day = Integer.parseInt(data.getStringExtra("thirdColum"));
             String timeStr = data.getStringExtra("firstColum") + "-" + StringUtil.getStrNumWithZero(month) + "-" + StringUtil.getStrNumWithZero(day);
             if (DateUtil.timeCompare(timeStr + " 00:00:00")) {
-                Toast.makeText(context,"不可以选择未来的时间",Toast.LENGTH_SHORT);
+                Toast.makeText(context, "不可以选择未来的时间", Toast.LENGTH_SHORT);
             } else {
                 tvUpdateDate.setText(timeStr);
             }
@@ -444,7 +445,7 @@ if(isDoctor){
                 int resultMinute = data.getIntExtra("seconeIndex", 0);
                 String selectTime = tvMeasureTime.getText().toString().trim() + " " + StringUtil.getStrNumWithZero(resultHour) + ":" + StringUtil.getStrNumWithZero(resultMinute) + ":00";
                 if (DateUtil.timeCompare(selectTime)) {
-                    Toast.makeText(context,"不可以选择未来的时间",Toast.LENGTH_SHORT);
+                    Toast.makeText(context, "不可以选择未来的时间", Toast.LENGTH_SHORT);
                 } else {
                     mResultHour = resultHour;
                     mResultMinute = resultMinute;

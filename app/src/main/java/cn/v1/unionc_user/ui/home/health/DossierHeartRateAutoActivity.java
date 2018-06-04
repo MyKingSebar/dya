@@ -305,7 +305,7 @@ public class DossierHeartRateAutoActivity extends BaseActivity {
                             dossierHeartrateAutoPreviewFragment.connectTv.setText("请打开手机蓝牙和设备电源");
                             dossierHeartrateAutoPreviewFragment.disConnectTv.setVisibility(View.GONE);
                             dossierHeartrateAutoPreviewFragment.tvLinkDevice.setText("连接设备");
-                            dossierHeartrateAutoPreviewFragment.imStatus.setBackground(getResources().getDrawable(R.drawable.im_status_no));
+                            dossierHeartrateAutoPreviewFragment.imStatus.setBackground(getResources().getDrawable(R.drawable.im_status));
                         }
                     }
                 break;
