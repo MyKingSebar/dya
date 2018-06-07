@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,8 +33,6 @@ import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.utils.PhoneCheck;
-
-import static cn.v1.unionc_user.data.Common.ADDRESS;
 
 
 public class LoginActivity extends BaseActivity {
@@ -261,6 +258,7 @@ public class LoginActivity extends BaseActivity {
                             finish();
                         }
                     });
+
                 } else {
                     showTost(data.getMessage());
                 }

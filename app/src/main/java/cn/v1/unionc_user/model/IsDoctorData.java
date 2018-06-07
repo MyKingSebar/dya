@@ -32,6 +32,15 @@ public class IsDoctorData extends BaseData {
     public static class DataData {
 
         private String isMedical;
+        private String clinicId;
+
+        public String getClinicId() {
+            return clinicId;
+        }
+
+        public void setClinicId(String clinicId) {
+            this.clinicId = clinicId;
+        }
 
         public String getIsMedical() {
             return isMedical;

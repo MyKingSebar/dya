@@ -395,7 +395,7 @@ public class BlueToothMeasureActivity2 extends BaseActivity {
                         Intent intent=new Intent(BlueToothMeasureActivity2.this,BloodPresureHistoryRecordDetailActivity2.class);
                         if(TextUtils.equals("1",data.getData().getIsMedical())){
 //医护
-                            intent.putExtra("isDoctor","true");
+                            intent.putExtra("isDoctor",""+data.getData().getClinicId());
                         }
 //                        else if(TextUtils.equals("0",data.getData().getIsMedical())){
                         else{

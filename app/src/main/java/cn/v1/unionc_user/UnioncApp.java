@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
-import cn.v1.unionc_user.tecent_qcloud.InitSDK;
-import cn.v1.unionc_user.tecent_qcloud.UserConfig;
 import cn.v1.unionc_user.tecent_qcloud.tim_util.Foreground;
 import cn.v1.unionc_user.ui.home.health.LogUtils;
 
@@ -84,6 +82,7 @@ public class UnioncApp extends MultiDexApplication {
         //蓝牙心电记录仪SDK的初始化
         initmHelath365SDK();
     }
+
 
     private void initJiGuang() {
         JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志

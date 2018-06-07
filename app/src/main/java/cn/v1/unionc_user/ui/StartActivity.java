@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.orhanobut.logger.Logger;
@@ -30,7 +30,7 @@ import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.tecent_qcloud.InitSDK;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
-public class StartActivity extends BaseActivity {
+public class StartActivity extends BaseActivity  {
 
     private final int REQUEST_PHONE_PERMISSIONS = 0;
     private SplashPresenter presenter;
@@ -38,6 +38,7 @@ public class StartActivity extends BaseActivity {
 
     private Unbinder unbinder;
 
+    private final static int REQ_PERMISSION_CODE = 0x100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +85,9 @@ public class StartActivity extends BaseActivity {
          * 腾讯云初始化
          */
         InitSDK.init(context);
+
+
+
         if (!isLogin()) {
             gotoMain();
         } else {
@@ -179,4 +183,7 @@ public class StartActivity extends BaseActivity {
                 .getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }
+
+
+
 }

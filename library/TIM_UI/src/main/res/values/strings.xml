@@ -8,6 +8,7 @@
     <string name="chat_image">图片</string>
     <string name="chat_file">文件</string>
     <string name="chat_photo">拍摄</string>
+    <string name="chat_videolive">音视频聊天</string>
     <string name="chat_video">小视频</string>
     <string name="chat_audio_too_short">录音过短，请重试</string>
     <string name="chat_video_too_short">录制过短，请重试</string>

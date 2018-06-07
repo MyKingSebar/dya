@@ -65,7 +65,7 @@ import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
 import cn.v1.unionc_user.ui.home.HospitalDetailActivity;
 
-public class TIMChatActivity extends BaseActivity implements ChatView {
+public class TIMChatActivity extends BaseActivity implements ChatView{
 
 
     @BindView(R.id.input_panel)
@@ -94,6 +94,7 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
     private static final int VIDEO_RECORD = 500;
     private Uri fileUri;
     private RecorderUtil recorder = new RecorderUtil();
+    String doctorIdentifier;
 
     public static void navToChat(Context context, DoctorInfo doctorInfo, TIMConversationType type) {
         Intent intent = new Intent(context, TIMChatActivity.class);
@@ -108,6 +109,7 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
         setContentView(R.layout.activity_timchat);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
+
         initData();
         initView();
 
@@ -118,7 +120,7 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
         type = (TIMConversationType) getIntent().getSerializableExtra("type");
 
 
-        String doctorIdentifier = doctoInfo.getIdentifier();
+        doctorIdentifier = doctoInfo.getIdentifier();
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         showDialog("加载中...");
         Log.d("linshi","doctorIdentifier:"+doctoInfo.getIdentifier());
@@ -475,6 +477,7 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
 
     }
 
+
     @Override
     public void showToast(String msg) {
         showToast(msg);
@@ -604,4 +607,6 @@ public class TIMChatActivity extends BaseActivity implements ChatView {
             title.setTitleText(titleStr);
         }
     };
+
+
 }

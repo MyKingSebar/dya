@@ -1,6 +1,7 @@
 package com.tencent.qcloud.ui;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -77,6 +78,8 @@ public class ChatInput extends RelativeLayout implements TextWatcher, View.OnCli
         btnEmotion.setOnClickListener(this);
         morePanel = (LinearLayout) findViewById(R.id.morePanel);
         morePanel.setVisibility(View.GONE);
+        LinearLayout Btnvideolive = (LinearLayout) findViewById(R.id.btn_videolive);
+        Btnvideolive.setOnClickListener(this);
         LinearLayout BtnImage = (LinearLayout) findViewById(R.id.btn_photo);
         BtnImage.setOnClickListener(this);
         LinearLayout BtnPhoto = (LinearLayout) findViewById(R.id.btn_image);
@@ -173,6 +176,7 @@ public class ChatInput extends RelativeLayout implements TextWatcher, View.OnCli
     }
 
 
+    @SuppressLint("NewApi")
     private void updateVoiceView() {
         if (isHoldVoiceBtn) {
             voicePanel.setText(getResources().getString(R.string.chat_release_send));
@@ -333,6 +337,11 @@ public class ChatInput extends RelativeLayout implements TextWatcher, View.OnCli
         if (id == R.id.btn_voice) {
             if (activity != null && requestAudio(activity)) {
                 updateView(InputMode.VOICE);
+            }
+        }
+        if (id == R.id.btn_videolive) {
+            if (activity != null && requestAudio(activity)) {
+//                chatView.sendvideolive();
             }
         }
         if (id == R.id.btn_keyboard) {

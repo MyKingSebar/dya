@@ -154,6 +154,7 @@
                     android:text="@string/chat_video"
                     android:textColor="@color/text_gray1"/>
             </LinearLayout>
+
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -176,6 +177,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/chat_file"
+                    android:textColor="@color/text_gray1"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btn_videolive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_centerInParent="true">
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_photography"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/chat_videolive"
                     android:textColor="@color/text_gray1"/>
             </LinearLayout>
         </RelativeLayout>

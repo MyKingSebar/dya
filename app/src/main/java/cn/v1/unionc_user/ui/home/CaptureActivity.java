@@ -171,7 +171,7 @@ public class CaptureActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(splitText1[1])) {
                             qrCodeContentCode = splitText1[1];
                             String[] splitText2 = qrCodeContentCode.split(",");
-                            if (splitText2.length == 6) {
+                            if (splitText2.length == 7) {
 
                                 getOMLqr(splitText2);
                             } else {
@@ -397,6 +397,7 @@ public class CaptureActivity extends BaseActivity {
         data.setRateName((String) map.get("rateName"));
         intent.putExtra("savedata", data);
         intent.putExtra("first", "first");
+        intent.putExtra("saoma", qrCodeContentCode[6]);
         startActivity(intent);
         finish();
 

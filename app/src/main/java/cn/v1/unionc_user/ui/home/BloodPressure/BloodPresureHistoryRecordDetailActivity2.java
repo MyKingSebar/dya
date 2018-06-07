@@ -108,7 +108,10 @@ public class BloodPresureHistoryRecordDetailActivity2 extends BaseActivity {
     private boolean isDoctor = false;
     private boolean isFirst = false;
 
-
+String clinicId="";
+    private boolean isSaoma = false;
+    private String saomatype = "1";
+String saomaId="";
 //    private Toolbar mActionBarToolbar;
 
     @Override
@@ -177,9 +180,15 @@ public class BloodPresureHistoryRecordDetailActivity2 extends BaseActivity {
         }
         if (getIntent().hasExtra("isDoctor")) {
             isDoctor = true;
+            clinicId=""+getIntent().getStringExtra("isDoctor");
         }
         if (getIntent().hasExtra("first")) {
             isFirst = true;
+        }
+        if (getIntent().hasExtra("saoma")) {
+            isSaoma=true;
+            saomaId=""+getIntent().getStringExtra("saoma");
+            saomatype="2";
         }
     }
 
@@ -302,7 +311,7 @@ public class BloodPresureHistoryRecordDetailActivity2 extends BaseActivity {
             }
             if (isDoctor) {
                 im_qr.setVisibility(View.VISIBLE);
-                Bitmap bitmap = ZXingUtils.createQRImage("医巴士血压二维码" + highPresure + "," + lowPresure + "," + heartrate + "," + savedata.getRate() + "," + savedata.getRateName() + "," + savedata.getMeasureDate(), 500, 500);
+                Bitmap bitmap = ZXingUtils.createQRImage("医巴士血压二维码" + highPresure + "," + lowPresure + "," + heartrate + "," + savedata.getRate() + "," + savedata.getRateName() + "," + savedata.getMeasureDate()+","+clinicId, 500, 500);
                 im_qr.setImageBitmap(bitmap);
                 ll_grogress.setVisibility(View.GONE);
             } else {
@@ -378,11 +387,14 @@ public class BloodPresureHistoryRecordDetailActivity2 extends BaseActivity {
      * deviceType:"0",
      * measureWay:"0",
      * patientInfoId:""
+     *
+     * type:1-用户自己测量，2-通过扫码
+     clinicId:医院id
      */
     private void saveEdit() {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         ConnectHttp.connect(UnionAPIPackage.saveOMLData(token, "2", savedata.getPluseRate(), savedata.getMeasureDate(), "0", savedata.getBdaCode(), "欧姆龙血压仪", savedata.getHighPressure(), savedata.getLowPressure(),
-                "0", "0", ""), new BaseObserver<BaseData>(context) {
+                "0", "0", "",saomatype,saomaId), new BaseObserver<BaseData>(context) {
 
             @Override
             public void onResponse(BaseData data) {

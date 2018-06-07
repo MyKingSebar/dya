@@ -17,8 +17,6 @@ import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMUserStatusListener;
 
-import butterknife.BindView;
-import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.BaseData;
@@ -26,11 +24,9 @@ import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.tecent_qcloud.UserConfig;
-import cn.v1.unionc_user.ui.home.BloodPressure.views.MDProgressGifDialog;
 import cn.v1.unionc_user.ui.me.RealNameAuthActivity;
 import cn.v1.unionc_user.view.PromptDialog;
 import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * Created by qy on 2018/2/1.

@@ -732,12 +732,15 @@ public class UnionAPIPackage {
      * deviceType:"0",
      * measureWay:"0",
      * patientInfoId:""
+     *
+     * type:1-用户自己测量，2-通过扫码
+     clinicId:医院id
      * @return
      */
     public static Observable<BaseData> saveOMLData(String token, String monitorId, String heartRate,
                                                    String monitorDate,String avgMeasure,String bdaCode,
                                                    String deviceModel,String highPressure,String lowPressure,
-                                                   String deviceType,String measureWay,String patientInfoId) {
+                                                   String deviceType,String measureWay,String patientInfoId,String type,String clinicId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("monitorId", monitorId);
@@ -751,6 +754,8 @@ public class UnionAPIPackage {
         params.put("deviceType", deviceType);
         params.put("measureWay", measureWay);
         params.put("patientInfoId", patientInfoId);
+        params.put("type", type);
+        params.put("clinicId", clinicId);
         return ConnectHttp.getUnionAPI().saveOMLData(dataProcess(params));
     }
     /**

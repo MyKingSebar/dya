@@ -511,6 +511,15 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("doctor/is-medical")
     Observable<IsDoctorData> getIsDoctor(@FieldMap Map<String, Object> params);
+    /**
+     * 获取融云token
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("rongyun/rongyun_token")
+    Observable<IsDoctorData> getRongToken(@FieldMap Map<String, Object> params);
 
 
 }
