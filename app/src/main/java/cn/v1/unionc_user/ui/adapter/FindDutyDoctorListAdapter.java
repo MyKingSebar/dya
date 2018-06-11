@@ -21,10 +21,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.MyDutyDoctorsData;
 import cn.v1.unionc_user.model.MyRecommenDoctorsData;
 import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
 import cn.v1.unionc_user.view.CircleImageView;
 import cn.v1.unionc_user.view.ProgressDialog;
@@ -87,14 +90,26 @@ public class FindDutyDoctorListAdapter extends RecyclerView.Adapter<FindDutyDoct
         holder.sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goIm(doctorData);
+                if(isLogin()){
+
+                    goIm(doctorData);
+                }else {
+                    Intent intent =new Intent(context,LoginActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goIm(doctorData);
+                if(isLogin()){
+
+                    goIm(doctorData);
+                }else {
+                    Intent intent =new Intent(context,LoginActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
 
@@ -104,6 +119,7 @@ private void goIm(MyDutyDoctorsData.DataData.DoctorsData doctorData){
     doctorInfo.setDoctorName( ""+doctorData.getDoctName());
     doctorInfo.setIdentifier(""+doctorData.getIdentifier());
     doctorInfo.setImagePath(""+doctorData.getDoctImagePath());
+    doctorInfo.setId(""+doctorData.getDoctId());
     Log.d("linshi","homeData.getIdentifier:"+doctorData.getIdentifier());
     TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
 }
@@ -145,5 +161,12 @@ private void goIm(MyDutyDoctorsData.DataData.DoctorsData doctorData){
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    /**
+     * 是否登录
+     */
+    protected boolean isLogin() {
+        return SPUtil.contains(context, Common.USER_TOKEN);
     }
 }

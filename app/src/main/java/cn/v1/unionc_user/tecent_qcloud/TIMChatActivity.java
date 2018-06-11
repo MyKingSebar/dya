@@ -43,6 +43,7 @@ import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.LoginUpdateEventData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
@@ -66,7 +67,7 @@ import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
 import cn.v1.unionc_user.ui.home.HospitalDetailActivity;
 
 public class TIMChatActivity extends BaseActivity implements ChatView{
-
+private int messagetime=0;
 
     @BindView(R.id.input_panel)
     ChatInput input;
@@ -327,9 +328,31 @@ public class TIMChatActivity extends BaseActivity implements ChatView{
      */
     @Override
     public void onSendMessageSuccess(TIMMessage message) {
+        Log.d("linshi","onSendMessageSuccess"+messagetime);
         showMessage(message);
-    }
 
+
+    }
+    private void savetalk() {
+        Log.d("linshi","savetalk");
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.savetalk(token,  doctorOrClinicData.getData().getDoctId()),
+                new BaseObserver<BaseData>(context) {
+                    @Override
+                    public void onResponse(BaseData data) {
+                        if (TextUtils.equals("4000", data.getCode())) {
+                            Log.d("linshi",data.getMessage());
+                        } else {
+                            Log.d("linshi",data.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+
+                    }
+                });
+    }
     /**
      * 发送消息失败
      *
@@ -360,6 +383,10 @@ public class TIMChatActivity extends BaseActivity implements ChatView{
      */
     @Override
     public void sendImage() {
+        if(messagetime<1){
+            messagetime++;
+            savetalk();
+        }
         Intent intent_album = new Intent("android.intent.action.GET_CONTENT");
         intent_album.setType("image/*");
         startActivityForResult(intent_album, IMAGE_STORE);
@@ -371,6 +398,10 @@ public class TIMChatActivity extends BaseActivity implements ChatView{
      */
     @Override
     public void sendPhoto() {
+        if(messagetime<1){
+            messagetime++;
+            savetalk();
+        }
         Intent intent_photo = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent_photo.resolveActivity(getPackageManager()) != null) {
             File tempFile = TIMFileUtil.getTempFile(TIMFileUtil.FileType.IMG);
@@ -387,6 +418,10 @@ public class TIMChatActivity extends BaseActivity implements ChatView{
      */
     @Override
     public void sendText() {
+        if(messagetime<1){
+            messagetime++;
+            savetalk();
+        }
         Message message = new TextMessage(input.getText());
         presenter.sendMessage(message.getMessage());
         input.setText("");
@@ -397,6 +432,10 @@ public class TIMChatActivity extends BaseActivity implements ChatView{
      */
     @Override
     public void sendFile() {
+        if(messagetime<1){
+            messagetime++;
+            savetalk();
+        }
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
         startActivityForResult(intent, FILE_CODE);
@@ -407,6 +446,10 @@ public class TIMChatActivity extends BaseActivity implements ChatView{
      */
     @Override
     public void startSendVoice() {
+        if(messagetime<1){
+            messagetime++;
+            savetalk();
+        }
         voiceSendingView.setVisibility(View.VISIBLE);
         voiceSendingView.showRecording();
         recorder.startRecording();
@@ -437,6 +480,10 @@ public class TIMChatActivity extends BaseActivity implements ChatView{
      */
     @Override
     public void sendVideo(String fileName) {
+        if(messagetime<1){
+            messagetime++;
+            savetalk();
+        }
         Message message = new VideoMessage(fileName);
         presenter.sendMessage(message.getMessage());
     }

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.v1.unionc_user.ui.LoginActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="选择您与被监护人的关系"
+        android:textColor="#4F5360"
+        android:textSize="17sp" />
+
+    <LinearLayout
+        android:layout_marginTop="29.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:gravity="center_horizontal"
+        >
+
+        <CheckBox
+            android:id="@+id/cb1"
+            android:text="父母"
+            android:textSize="14sp"
+            android:textColor="#4F5360"
+            android:gravity="center"
+            android:layout_width="101dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/guardianship_checkbox"
+            android:button="@null" />
+        <CheckBox
+            android:id="@+id/cb2"
+            android:text="岳父母"
+            android:textSize="14sp"
+            android:textColor="#4F5360"
+            android:gravity="center"
+            android:layout_width="101dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/guardianship_checkbox"
+            android:button="@null" />
+        <CheckBox
+            android:id="@+id/cb3"
+            android:text="祖父母"
+            android:textSize="14sp"
+            android:textColor="#4F5360"
+            android:gravity="center"
+            android:layout_width="101dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/guardianship_checkbox"
+            android:button="@null" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="19dp"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:gravity="center_horizontal"
+        >
+
+        <CheckBox
+            android:id="@+id/cb4"
+            android:text="亲戚"
+            android:textSize="14sp"
+            android:textColor="#4F5360"
+            android:gravity="center"
+            android:layout_width="101dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/guardianship_checkbox"
+            android:button="@null" />
+        <CheckBox
+            android:id="@+id/cb5"
+            android:text="朋友"
+            android:textSize="14sp"
+            android:textColor="#4F5360"
+            android:gravity="center"
+            android:layout_width="101dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/guardianship_checkbox"
+            android:button="@null" />
+        <CheckBox
+            android:id="@+id/cb6"
+            android:text="其他"
+            android:textSize="14sp"
+            android:textColor="#4F5360"
+            android:gravity="center"
+            android:layout_width="101dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/guardianship_checkbox"
+            android:button="@null" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_bind"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="177.5dp"
+        android:background="@drawable/bg_login_btn"
+        android:gravity="center"
+        android:text="绑定亲情监护"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="亲情监护服务，通过Pad端与家人连接，可接收\n来自家人的紧急呼叫"
+        android:textColor="#9B9CA0"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14sp"
+        />
+
+
+
+
+</LinearLayout>

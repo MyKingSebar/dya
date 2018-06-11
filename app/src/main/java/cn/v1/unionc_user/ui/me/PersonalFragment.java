@@ -5,12 +5,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +18,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.squareup.otto.Subscribe;
 import com.tencent.connect.share.QQShare;
 import com.tencent.tauth.IUiListener;
@@ -50,7 +42,6 @@ import cn.v1.unionc_user.model.UserInfoData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
-import cn.v1.unionc_user.ui.MainActivity;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.home.health.DossierHertRateHistoryActivity;
 import cn.v1.unionc_user.utils.WXShare;
@@ -157,7 +148,7 @@ public class PersonalFragment extends BaseFragment {
         getUserInfo();
     }
 
-    @OnClick({R.id.img_back, R.id.tv_right, R.id.tv_edit, R.id.tv_yaoqing, R.id.tv_my_activity, R.id.tv_kefu,R.id.tv_my_heart,
+    @OnClick({R.id.img_back, R.id.tv_right, R.id.tv_edit, R.id.tv_yaoqing, R.id.tv_my_activity, R.id.tv_kefu,R.id.tv_my_heart,R.id.tv_my_tutelage,
 //            R.id.tv_doctor_num,R.id.tv_hospital_num,R.id.tv_comment_num,
             R.id.ll_doctor_num,R.id.ll_hospital_num,R.id.ll_comment_num})
     public void onClick(View view) {
@@ -218,6 +209,11 @@ public class PersonalFragment extends BaseFragment {
                 //心率
 //                goNewActivity(HeartHistoryListActivity.class);
                 goNewActivity(DossierHertRateHistoryActivity.class);
+                break;
+            case R.id.tv_my_tutelage:
+                //亲情监护
+
+
                 break;
             case R.id.tv_kefu:
                 //客服中心

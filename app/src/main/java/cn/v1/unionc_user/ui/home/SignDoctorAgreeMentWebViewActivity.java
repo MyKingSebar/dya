@@ -126,7 +126,7 @@ public class SignDoctorAgreeMentWebViewActivity extends BaseActivity {
      * 查询是否实名认证
      */
     private void isCertification() {
-        showTost("查询用户信息...");
+//        showTost("查询用户信息...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         ConnectHttp.connect(UnionAPIPackage.isCertification(token),
                 new BaseObserver<BaseData>(context) {

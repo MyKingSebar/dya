@@ -546,7 +546,7 @@ public void onBackPressed() {
     }
 
     /**
-     * 初始化SDk
+     * 初始化SDk+++++++++++++++++++++++
      */
     public void initSdk() {
         mOsdkHelper = EcgOpenApiHelper.getInstance();

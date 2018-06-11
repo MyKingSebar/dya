@@ -782,6 +782,17 @@ public class UnionAPIPackage {
         params.put("token", token);
         return ConnectHttp.getUnionAPI().getIsDoctor(dataProcess(params));
     }
+    /**
+     *
+     保存咨询记录
+     *localhost:8080/unionWeb/user/save-doctor-conversation?data={token:"yGGSVMEtTZdpdw8zSJJlpzhUgzeBRuKAyrOmdTw4OdQ\u003d",doctId:"30"}&encryption=false
+     */
+    public static Observable<BaseData> savetalk(String token,String doctId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("doctId", doctId);
+        return ConnectHttp.getUnionAPI().savetalk(dataProcess(params));
+    }
 
 
 

@@ -163,7 +163,12 @@ public class DoctorDetailActivity extends BaseActivity {
                 break;
             case R.id.ll_message:
                 if (isLogin()) {
-                    isCertification(MESSAGE);
+                    if(!TextUtils.isEmpty(identifier)){
+
+                        isCertification(MESSAGE);
+                    }else{
+                        showTost("暂未开通");
+                    }
                 } else {
                     goNewActivity(LoginActivity.class);
                     Log.d("linshi","LoginActivity:Doctorll_message");

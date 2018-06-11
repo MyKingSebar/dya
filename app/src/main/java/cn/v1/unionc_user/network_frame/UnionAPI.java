@@ -512,6 +512,15 @@ public interface UnionAPI {
     @POST("doctor/is-medical")
     Observable<IsDoctorData> getIsDoctor(@FieldMap Map<String, Object> params);
     /**
+     * 保存咨询记录
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/save-doctor-conversation")
+    Observable<BaseData> savetalk(@FieldMap Map<String, Object> params);
+    /**
      * 获取融云token
      *
      * @param params
