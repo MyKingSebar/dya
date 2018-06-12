@@ -17,6 +17,10 @@ import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMUserStatusListener;
 
+import cn.v1.unionc_user.Rong.listener.MyConnectionStatusListener;
+import cn.v1.unionc_user.Rong.listener.MyReceiveMessageListener;
+import cn.v1.unionc_user.Rong.listener.MySendMessageListener;
+import cn.v1.unionc_user.UnioncApp;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.BaseData;
@@ -24,9 +28,12 @@ import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.tecent_qcloud.UserConfig;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.me.RealNameAuthActivity;
 import cn.v1.unionc_user.view.PromptDialog;
 import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 /**
  * Created by qy on 2018/2/1.
@@ -91,6 +98,14 @@ public class BaseActivity extends FragmentActivity {
     protected void login(String token) {
         SPUtil.put(context, Common.USER_TOKEN, (String) token);
     }
+    /**
+     * Rong登录
+     *
+     * @param token
+     */
+    protected void ronglogin(String token) {
+        SPUtil.put(context, Common.USER_RONGTOKEN, (String) token);
+    }
 
     /**
      * 是否登录
@@ -105,6 +120,8 @@ public class BaseActivity extends FragmentActivity {
     protected void logout() {
         SPUtil.remove(context, Common.USER_TOKEN);
         SPUtil.remove(context, Common.USER_ADD);
+        SPUtil.remove(context, Common.USER_RONGTOKEN);
+        RongIM.getInstance().logout();
         //登出
         TIMManager.getInstance().logout(new TIMCallBack() {
             @Override
@@ -232,5 +249,55 @@ public class BaseActivity extends FragmentActivity {
     }
 
 
+    /**
+     * <p>连接服务器，在整个应用程序全局，只需要调用一次，需在 {@link #(Context)} 之后调用。</p>
+     * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
+     * 在这之后如果仍没有连接成功，还会在当检测到设备网络状态变化时再次进行重连。</p>
+     *
+     * @param token    从服务端获取的用户身份令牌（Token）。
+     * @return RongIM  客户端核心类的实例。
+     */
+    public void connect(String token) {
+final String Rongtoken=token;
+        if (getApplicationInfo().packageName.equals(UnioncApp.getCurProcessName(getApplicationContext()))) {
 
+            RongIM.connect(token, new RongIMClient.ConnectCallback() {
+
+                /**
+                 * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
+                 *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
+                 */
+                @Override
+                public void onTokenIncorrect() {
+                    Log.e("linshi", "onTokenIncorrect");
+                }
+
+                /**
+                 * 连接融云成功
+                 * @param userid 当前 token 对应的用户 id
+                 */
+                @Override
+                public void onSuccess(String userid) {
+                    ronglogin(Rongtoken);
+                    Log.d("linshi", "--onSuccess" + userid);
+                    if(BaseActivity.this instanceof LoginActivity){
+                        finish();
+                    }
+                }
+
+                /**
+                 * 连接融云失败
+                 * @param errorCode 错误码，可到官网 查看错误码对应的注释
+                 */
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+                    Log.e("linshi", "onError"+errorCode);
+
+                }
+            });
+            RongIM.getInstance().setSendMessageListener(new MySendMessageListener());
+            RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
+            RongIM.setConnectionStatusListener(new MyConnectionStatusListener());
+        }
+    }
 }

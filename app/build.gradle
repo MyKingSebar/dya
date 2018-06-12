@@ -53,7 +53,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
-            abiFilters "armeabi"
             abiFilters "armeabi-v7a", "x86"
 
         }
@@ -65,6 +64,12 @@ android {
 ////                FACEBOOK_APPID: " facebook 开发者应用的 appID ",// facebook 注册应用得到的 appId
 //        ]
         signingConfig signingConfigs.config
+    }
+    sourceSets{
+        main{
+            jni.srcDirs = []
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
     }
     buildTypes {
         release {
@@ -153,4 +158,17 @@ dependencies {
     //    compile project(path: ':calldemo')
 //    compile project(':CallLib')
 //    compile project(':ImLib')
+    //融云
+    compile 'com.android.support:multidex:1.0.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    compile project(':IMKit')
+    compile project(':CallKit')
+    implementation project(':CallLib')
+    implementation project(':IMLib')
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.facebook.stetho:stetho:1.4.1'
+    compile 'com.huawei.android.hms:push:2.5.3.305'
 }

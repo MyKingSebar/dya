@@ -1,6 +1,7 @@
 package cn.v1.unionc_user;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +32,9 @@ import java.util.List;
 import cn.jpush.android.api.JPushInterface;
 import cn.v1.unionc_user.tecent_qcloud.tim_util.Foreground;
 import cn.v1.unionc_user.ui.home.health.LogUtils;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Message;
 
 /**
  * Created by qy on 2018/2/1.
@@ -72,6 +76,7 @@ public class UnioncApp extends MultiDexApplication {
         initAndroidN();
         initJiGuang();
 
+
         // 注册 SDK 广播监听者
         IntentFilter iFilter = new IntentFilter();
         iFilter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
@@ -81,6 +86,18 @@ public class UnioncApp extends MultiDexApplication {
         registerReceiver(mReceiver, iFilter);
         //蓝牙心电记录仪SDK的初始化
         initmHelath365SDK();
+
+        initRongYun();
+    }
+
+    private void initRongYun() {
+        RongIM.init(this,"tdrvipkstxpf5");
+        RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+            @Override
+            public boolean onReceived(Message message, int i) {
+                return false;
+            }
+        });
     }
 
 
@@ -236,5 +253,19 @@ public class UnioncApp extends MultiDexApplication {
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
         return outMetrics .widthPixels ;
+    }
+
+
+    public static String getCurProcessName(Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager mActivityManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : mActivityManager
+                .getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }
+        }
+        return null;
     }
 }

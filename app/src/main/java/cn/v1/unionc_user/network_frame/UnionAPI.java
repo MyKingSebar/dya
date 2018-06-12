@@ -11,6 +11,8 @@ import cn.v1.unionc_user.model.DoctorInfoData;
 import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
+import cn.v1.unionc_user.model.GetGuardianshipInfoData;
+import cn.v1.unionc_user.model.GetRongTokenData;
 import cn.v1.unionc_user.model.HeartHistoryData;
 import cn.v1.unionc_user.model.HeartHistoryListData;
 import cn.v1.unionc_user.model.HeartIndicationData;
@@ -528,7 +530,17 @@ public interface UnionAPI {
      */
     @FormUrlEncoded
     @POST("rongyun/rongyun_token")
-    Observable<IsDoctorData> getRongToken(@FieldMap Map<String, Object> params);
+    Observable<GetRongTokenData> getRongToken(@FieldMap Map<String, Object> params);
+    /**
+     * 获取一键呼叫监护人信息
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("rongyun/chat_object_info")
+    Observable<GetGuardianshipInfoData> GetGuardianshipInfo(@FieldMap Map<String, Object> params);
+
 
 
 }
