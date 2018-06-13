@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/color_location" />
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginRight="12dp"
+        android:layout_weight="1"
+
+        android:orientation="horizontal">
+
+        <cn.v1.unionc_user.view.CircleImageView
+            android:id="@+id/img_message_avator"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            tools:src="@drawable/icon_tab_me_select" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#26282E"
+                    android:textSize="17sp"
+                    tools:text="熊亚" />
+
+                <TextView
+                    android:id="@+id/tv_relation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="6dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#9B9CA0"
+                    android:textSize="13sp"
+                    tools:text="父母" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp">
+
+                <TextView
+                    android:id="@+id/tv_describe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#9B9CA0"
+                    android:textSize="14sp"
+                    tools:text="服务医生：杨幂" />
+
+
+
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/bt_unbind"
+                android:layout_width="76dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="67.5dp"
+                android:text="解除绑定"
+                android:textSize="12sp"
+                android:textColor="#26282E"
+                android:background="@drawable/bg_button_grey4_line"
+                />
+            <Button
+                android:id="@+id/bt_serve"
+                android:layout_width="76dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="67.5dp"
+                android:layout_marginLeft="86.3dp"
+                android:text="赠送服务"
+                android:textSize="12sp"
+                android:textColor="#4E78F6"
+                android:background="@drawable/bg_button_blue_line_thin"
+                android:visibility="invisible"
+                />
+            <Button
+                android:id="@+id/bt_video"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_guardianship_video"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="22dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>
+</LinearLayout>

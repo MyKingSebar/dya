@@ -252,6 +252,7 @@
 
 
         <activity android:name=".ui.me.guardianship.BindguardianshipActivity"></activity>
+        <activity android:name=".ui.me.guardianship.GuardianshipListActivity"></activity>
 
 
 

@@ -91,6 +91,7 @@ public class StartActivity extends BaseActivity  {
         if (!isLogin()) {
             gotoMain();
         } else {
+            initRong();
             initTIMUserConfig();
             String identifier = (String) SPUtil.get(context, Common.IDENTIFIER, "");
             String timSig = (String) SPUtil.get(context, Common.TIM_SIG, "");
@@ -116,6 +117,11 @@ public class StartActivity extends BaseActivity  {
             });
         }
 
+    }
+
+    private void initRong() {
+        String rongToken = (String) SPUtil.get(context, Common.USER_RONGTOKEN, "");
+        connect(rongToken);
     }
 
     private void gotoMain() {

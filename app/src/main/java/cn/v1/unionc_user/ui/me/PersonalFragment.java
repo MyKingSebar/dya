@@ -44,6 +44,7 @@ import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.home.health.DossierHertRateHistoryActivity;
+import cn.v1.unionc_user.ui.me.guardianship.GuardianshipListActivity;
 import cn.v1.unionc_user.utils.WXShare;
 import cn.v1.unionc_user.view.CircleImageView;
 
@@ -212,7 +213,7 @@ public class PersonalFragment extends BaseFragment {
                 break;
             case R.id.tv_my_tutelage:
                 //亲情监护
-
+goNewActivity(GuardianshipListActivity.class);
 
                 break;
             case R.id.tv_kefu:

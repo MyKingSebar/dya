@@ -24,6 +24,7 @@ import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
+import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.model.MyDutyDoctorsData;
 import cn.v1.unionc_user.model.MyRecommenDoctorsData;
 import cn.v1.unionc_user.model.OMLHistoryData;
@@ -540,6 +541,15 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("rongyun/chat_object_info")
     Observable<GetGuardianshipInfoData> GetGuardianshipInfo(@FieldMap Map<String, Object> params);
+    /**
+     *获取亲情监护列表
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/guardians")
+    Observable<MeguardianshipData> GetGuardianshipListInfo(@FieldMap Map<String, Object> params);
 
 
 

@@ -31,6 +31,7 @@ import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
+import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.model.MyDutyDoctorsData;
 import cn.v1.unionc_user.model.MyRecommenDoctorsData;
 import cn.v1.unionc_user.model.OMLHistoryData;
@@ -813,6 +814,15 @@ public class UnionAPIPackage {
         params.put("token", token);
 
         return ConnectHttp.getUnionAPI().GetGuardianshipInfo(dataProcess(params));
+    }
+    /**
+     * 获取亲情监护列表
+     */
+    public static Observable<MeguardianshipData> GetGuardianshipListInfo(String token) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+
+        return ConnectHttp.getUnionAPI().GetGuardianshipListInfo(dataProcess(params));
     }
 
 }
