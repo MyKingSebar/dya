@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F2F4F7"
     tools:context="cn.v1.unionc_user.ui.me.PersonalFragment">
 
 <TextView
@@ -76,14 +77,33 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/white"
-        android:drawableLeft="@drawable/find_home_doc"
+        android:drawableLeft="@drawable/find_zb_live"
         android:drawablePadding="12dp"
         android:gravity="center_vertical"
         android:paddingLeft="26dp"
         android:text="健康直播"
         android:textColor="#4F5360"
         android:textSize="17sp"
-        android:visibility="gone"/>
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="-1dp"
+        android:background="@color/line" />
+    <TextView
+        android:id="@+id/tv_activity"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/find_zb_activity"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="26dp"
+        android:text="社区活动"
+        android:textColor="#4F5360"
+        android:textSize="17sp"
+        />
 
 
 </LinearLayout>

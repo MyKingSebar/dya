@@ -29,7 +29,7 @@ import io.rong.callkit.RongCallKit;
  */
 
 public class MeguardianshipListAdapter extends RecyclerView.Adapter<MeguardianshipListAdapter.ViewHolder> {
-
+private onMyClick onmyClick;
     private Context context;
     private List<MeguardianshipData.DataData.GuardianshipData> datas = new ArrayList<>();
 
@@ -75,11 +75,15 @@ public class MeguardianshipListAdapter extends RecyclerView.Adapter<Meguardiansh
                 }
             }
         });
-        holder.bt_unbind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        if(onmyClick!=null){
+
+            holder.bt_unbind.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onmyClick.myTextViewClick(position);
+                }
+            });
+        }
         holder.bt_serve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,5 +120,12 @@ public class MeguardianshipListAdapter extends RecyclerView.Adapter<Meguardiansh
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface onMyClick{
+        public void myTextViewClick(int id);
+    }
+    public void setOnClickMyTextView(onMyClick onMyClick) {
+        this.onmyClick = onMyClick;
     }
 }

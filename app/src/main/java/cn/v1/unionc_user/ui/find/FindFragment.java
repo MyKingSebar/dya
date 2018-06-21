@@ -65,6 +65,10 @@ public class FindFragment extends BaseFragment {
     TextView tvHomedoc;
     @BindView(R.id.tv_zbdoc)
     TextView tvZbdoc;
+    @BindView(R.id.tv_activity)
+    TextView tv_activity;
+    @BindView(R.id.tv_healthlive)
+    TextView tv_healthlive;
 
 
     private Intent intent;
@@ -98,7 +102,7 @@ public class FindFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @OnClick({R.id.tv_my_healthcircle, R.id.tv_homedoc, R.id.tv_zbdoc})
+    @OnClick({R.id.tv_my_healthcircle, R.id.tv_homedoc, R.id.tv_zbdoc,R.id.tv_healthlive,R.id.tv_activity})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_my_healthcircle:
@@ -117,6 +121,14 @@ public class FindFragment extends BaseFragment {
 //                    goNewActivity(LoginActivity.class);
 //                }
 
+                break;
+            case R.id.tv_healthlive:
+                //健康直播
+
+                break;
+            case R.id.tv_activity:
+                //社区活动
+goNewActivity(AroundActivityActivity.class);
                 break;
 
 

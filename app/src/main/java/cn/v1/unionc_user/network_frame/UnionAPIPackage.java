@@ -192,6 +192,21 @@ public class UnionAPIPackage {
         return ConnectHttp.getUnionAPI().getMeWatchingActivityList(dataProcess(params));
     }
     /**
+     * 获取周边活动 列表
+     *
+     * @return
+     */
+    public static Observable<WatchingActivityData> getFindActivityList(boolean hastoken,String token) {
+        HashMap<String, String> params = new HashMap<>();
+        if(hastoken){
+
+            params.put("token", token);
+        }
+        params.put("pageNo", "1");
+        params.put("pageSize", "100");
+        return ConnectHttp.getUnionAPI().getFindActivityList(dataProcess(params));
+    }
+    /**
      * 获取我的/关注/报名活动 列表
      *
      * @return
@@ -823,6 +838,37 @@ public class UnionAPIPackage {
         params.put("token", token);
 
         return ConnectHttp.getUnionAPI().GetGuardianshipListInfo(dataProcess(params));
+    }
+    /**
+     * 绑定监护人
+     */
+    public static Observable<BaseData> BindGuardianship(String token,String elderlyUserId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyUserId", elderlyUserId);
+
+        return ConnectHttp.getUnionAPI().BindGuardianship(dataProcess(params));
+    }
+    /**
+     * 保存关系
+     */
+    public static Observable<BaseData> SaveGuardianship(String token,String elderlyUserId,String roleName) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyUserId", elderlyUserId);
+        params.put("roleName", roleName);
+
+        return ConnectHttp.getUnionAPI().SaveGuardianship(dataProcess(params));
+    }
+    /**
+     * 解绑
+     */
+    public static Observable<BaseData> UnbindGuardianship(String token,String elderlyUserId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyUserId", elderlyUserId);
+
+        return ConnectHttp.getUnionAPI().UnbindGuardianship(dataProcess(params));
     }
 
 }

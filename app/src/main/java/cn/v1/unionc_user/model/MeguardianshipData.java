@@ -65,6 +65,15 @@ public class MeguardianshipData extends BaseData {
             private String GuardianHeadImage;
             private String GuardianName;
             private String DoctName;
+            private String ElderlyUserId;
+
+            public String getElderlyUserId() {
+                return ElderlyUserId;
+            }
+
+            public void setElderlyUserId(String elderlyUserId) {
+                ElderlyUserId = elderlyUserId;
+            }
 
             public String getDoctName() {
                 return DoctName;

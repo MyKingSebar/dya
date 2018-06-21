@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.BaseData;
+import cn.v1.unionc_user.model.BindSuccessReturnEventData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
@@ -59,6 +63,7 @@ public class GuardianshipListActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guardianship_guardianshiplist);
+        BusProvider.getInstance().register(this);
         ButterKnife.bind(this);
         initView();
         getList();
@@ -69,6 +74,33 @@ public class GuardianshipListActivity extends BaseActivity {
         recycleview.setLayoutManager(new LinearLayoutManager(context));
         meguardianshipListAdapter = new MeguardianshipListAdapter(context);
         recycleview.setAdapter(meguardianshipListAdapter);
+        meguardianshipListAdapter.setOnClickMyTextView(new MeguardianshipListAdapter.onMyClick() {
+            @Override
+            public void myTextViewClick(int id) {
+                final int iid=id;
+                showDialog("加载中...");
+                String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+                ConnectHttp.connect(UnionAPIPackage.UnbindGuardianship(token,datas.get(id).getElderlyUserId()), new BaseObserver<BaseData>(context) {
+                    @Override
+                    public void onResponse(BaseData data) {
+                        closeDialog();
+                        if (TextUtils.equals("4000", data.getCode())) {
+                            showTost("解绑成功");
+                            datas.remove(iid);
+                            meguardianshipListAdapter.notifyDataSetChanged();
+
+                        } else {
+                            showTost(data.getMessage() + "");
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        closeDialog();
+                    }
+                });
+            }
+        });
     }
     private void getList() {
 //        showDialog("加载中...");
@@ -97,5 +129,10 @@ public class GuardianshipListActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Subscribe
+    public void bindsuccessReturn(final BindSuccessReturnEventData data) {
+        getList();
     }
 }

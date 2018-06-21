@@ -693,6 +693,9 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 if (!ExampleUtil.isEmpty(extras)) {
                     Log.d("linshi", "extras():" + extras);
                     JiGuangData child2 = gson.fromJson(extras, JiGuangData.class);
+                    if(TextUtils.equals("0",child2.getShow())){
+                        return;
+                    }
                     pushactivitydata = new HomeListData.DataData.HomeData();
                     pushactivitydata.setName(child2.getTitle());
                     pushactivitydata.setStartTime(child2.getStartTime());

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.LoginUpdateEventData;
 import cn.v1.unionc_user.model.WatchingActivityData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
@@ -102,12 +104,14 @@ private String type;
     }
 
     private void getList() {
-        showDialog("加载中...");
+//        showDialog("加载中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         if(TextUtils.equals(type,Common.APPLYACTIVITY)){
             initapply(token);
         }else if(TextUtils.equals(type,Common.COLLECTACTIVITY)){
             initcollect(token);
+        }else if(TextUtils.equals(type,Common.AROUNDACTIVITY)){
+            initaround(token);
         }
 
 
@@ -132,6 +136,33 @@ private void initcollect(String token){
                 showTost(data.getMessage());
             }
         }
+
+        @Override
+        public void onFail(Throwable e) {
+            closeDialog();
+        }
+    });
+}
+private void initaround(String token){
+    ConnectHttp.connect(UnionAPIPackage.getFindActivityList(isLogin(),token), new BaseObserver<WatchingActivityData>(context) {
+        @Override
+        public void onResponse(WatchingActivityData data) {
+            closeDialog();
+            Log.d("linshi","datas:"+new Gson().toJson(data));
+
+            if (TextUtils.equals("4000", data.getCode())) {
+                datas.clear();
+                if (data.getData().getActivities().size() != 0) {
+                    datas=data.getData().getActivities();
+                }
+                activityAdapter.setData(datas);
+                closeDialog();
+                Logger.json(new Gson().toJson(datas));
+            } else {
+                showTost(data.getMessage());
+            }
+        }
+
 
         @Override
         public void onFail(Throwable e) {
@@ -174,6 +205,11 @@ private void initapply(String token){
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Subscribe
+    public void bindsuccessReturn(final LoginUpdateEventData data) {
+        getList();
     }
 
 }

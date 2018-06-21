@@ -82,4 +82,22 @@ private String actionAddr;
     private String publishTime;
 private String startTime;
 private String endTime;
+private String jump;
+private String show;
+
+    public String getJump() {
+        return jump;
+    }
+
+    public void setJump(String jump) {
+        this.jump = jump;
+    }
+
+    public String getShow() {
+        return show;
+    }
+
+    public void setShow(String show) {
+        this.show = show;
+    }
 }

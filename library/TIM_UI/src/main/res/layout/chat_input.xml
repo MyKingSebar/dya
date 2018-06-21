@@ -180,6 +180,7 @@
                     android:textColor="@color/text_gray1"/>
             </LinearLayout>
             <LinearLayout
+                android:visibility="invisible"
                 android:id="@+id/btn_videolive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -140,6 +140,15 @@ public interface UnionAPI {
     @POST("activity/user-attention-activities")
     Observable<WatchingActivityData> getMeWatchingActivityList(@FieldMap Map<String, Object> params);
     /**
+     * 获取周边活动 列表
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("activity/activities2")
+    Observable<WatchingActivityData> getFindActivityList(@FieldMap Map<String, Object> params);
+    /**
      * 获取我的/报名/活动 列表
      *
      * @param params
@@ -550,6 +559,33 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("old-man/guardians")
     Observable<MeguardianshipData> GetGuardianshipListInfo(@FieldMap Map<String, Object> params);
+    /**
+     *绑定监护人
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/guardian-bound")
+    Observable<BaseData>BindGuardianship(@FieldMap Map<String, Object> params);
+    /**
+     *保存关系
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/guardian-old-man-relation")
+    Observable<BaseData> SaveGuardianship(@FieldMap Map<String, Object> params);
+    /**
+     *解绑监护人
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/guardian-unbound")
+    Observable<BaseData> UnbindGuardianship(@FieldMap Map<String, Object> params);
 
 
 

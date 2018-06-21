@@ -45,6 +45,7 @@ public class Common {
 
     public static final String APPLYACTIVITY = "APPLYACTIVITY";
     public static final String COLLECTACTIVITY = "COLLECTACTIVITY";
+    public static final String AROUNDACTIVITY = "AROUNDACTIVITY";
 
 
 

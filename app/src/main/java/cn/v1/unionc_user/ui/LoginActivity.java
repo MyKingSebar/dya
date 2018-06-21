@@ -257,7 +257,7 @@ public class LoginActivity extends BaseActivity {
                             //通知首页和我的页面刷新数据
                             BusProvider.getInstance().post(new LoginUpdateEventData(true));
                             getRong(token);
-//                            finish();
+                            finish();
                         }
                     });
 
@@ -281,6 +281,8 @@ private void getRong(String token){
                     if (TextUtils.equals("4000", data.getCode())) {
                         if (!TextUtils.isEmpty(data.getData().getIMToken())) {
                             connect(data.getData().getIMToken());
+                        }else{
+                            Log.d("linshi","getIMToken.isEmpty");
                         }
 
 

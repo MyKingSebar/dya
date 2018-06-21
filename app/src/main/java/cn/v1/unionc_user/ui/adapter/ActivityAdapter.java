@@ -19,7 +19,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.WatchingActivityData;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.home.ToDoorWebViewActivity;
 
 /**
@@ -59,19 +62,29 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
         holder.im.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ToDoorWebViewActivity.class);
-                intent.putExtra("type", 3);
-                intent.putExtra("activityid", activitiesData.getActivityId());
-                context.startActivity(intent);
+                if(isLogin()){
+                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+                    intent.putExtra("type", 3);
+                    intent.putExtra("activityid", activitiesData.getActivityId());
+                    context.startActivity(intent);
+                }else{
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
         holder.tvRegis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ToDoorWebViewActivity.class);
-                intent.putExtra("type", 3);
-                intent.putExtra("activityid", activitiesData.getActivityId());
-                context.startActivity(intent);
+                if(isLogin()){
+                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+                    intent.putExtra("type", 3);
+                    intent.putExtra("activityid", activitiesData.getActivityId());
+                    context.startActivity(intent);
+                }else{
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
 
@@ -166,5 +179,13 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+
+    /**
+     * 是否登录
+     */
+    protected boolean isLogin() {
+        return SPUtil.contains(context, Common.USER_TOKEN);
     }
 }

@@ -40,6 +40,7 @@ import cn.v1.unionc_user.ui.home.BloodPressure.BloodPresureHistoryRecordDetailAc
 import cn.v1.unionc_user.ui.home.BloodPressure.data.BloodPresuresaveData;
 import cn.v1.unionc_user.ui.home.BloodPressure.utils.BloodPresure;
 import cn.v1.unionc_user.ui.home.health.StringUtil;
+import cn.v1.unionc_user.ui.me.guardianship.BindguardianshipActivity;
 
 public class CaptureActivity extends BaseActivity {
 
@@ -178,6 +179,25 @@ public class CaptureActivity extends BaseActivity {
                                 Log.d("linshi", "splitText2:" + splitText2.toString());
                             }
                         } else {
+                            Log.d("linshi", "TextUtils.isEmpty(splitText1[1])");
+                        }
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                /**
+                 * Pad二维码+elderlyUserId
+                 */
+                else if (rawResult.getText().contains("Pad二维码")) {
+                    try {
+                        String[] splitText1 = text.split("Pad二维码");
+                        Logger.d(Arrays.toString(splitText1));
+                        if (!TextUtils.isEmpty(splitText1[1])) {
+                            checkbind(splitText1[1]);
+                        } else {
+                            showTost("Pad二维码无效");
                             Log.d("linshi", "TextUtils.isEmpty(splitText1[1])");
                         }
 
@@ -420,5 +440,30 @@ public class CaptureActivity extends BaseActivity {
 //        });
     }
 
+private void checkbind(String elderlyUserId){
+        final String id=elderlyUserId;
+    showDialog("加载中...");
+    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+    ConnectHttp.connect(UnionAPIPackage.BindGuardianship( token, elderlyUserId), new BaseObserver<BaseData>(context) {
+        @Override
+        public void onResponse(BaseData data) {
+            closeDialog();
+            if (TextUtils.equals("4000", data.getCode())) {
+
+                    Intent intent = new Intent(context, BindguardianshipActivity.class);
+                    intent.putExtra("elderlyUserId", id);
+                    startActivity(intent);
+                    finish();
+            } else {
+                showTost(data.getMessage() + "");
+            }
+        }
+
+        @Override
+        public void onFail(Throwable e) {
+            closeDialog();
+        }
+    });
+}
 
 }
