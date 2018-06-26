@@ -25,6 +25,7 @@ import cn.v1.unionc_user.model.HeartHistoryListData;
 import cn.v1.unionc_user.model.HeartIndicationData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.HomeToHomeData;
+import cn.v1.unionc_user.model.IsBindJianhurenData;
 import cn.v1.unionc_user.model.IsDoctorData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
@@ -842,10 +843,11 @@ public class UnionAPIPackage {
     /**
      * 绑定监护人
      */
-    public static Observable<BaseData> BindGuardianship(String token,String elderlyUserId) {
+    public static Observable<BaseData> BindGuardianship(String token,String elderlyUserId,String roleName) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("elderlyUserId", elderlyUserId);
+        params.put("roleName", roleName);
 
         return ConnectHttp.getUnionAPI().BindGuardianship(dataProcess(params));
     }
@@ -869,6 +871,16 @@ public class UnionAPIPackage {
         params.put("elderlyUserId", elderlyUserId);
 
         return ConnectHttp.getUnionAPI().UnbindGuardianship(dataProcess(params));
+    }
+
+    /**
+     * 是否有监护人
+     */
+    public static Observable<IsBindJianhurenData> ishasguardian(String token) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+
+        return ConnectHttp.getUnionAPI().ishasguardian(dataProcess(params));
     }
 
 }

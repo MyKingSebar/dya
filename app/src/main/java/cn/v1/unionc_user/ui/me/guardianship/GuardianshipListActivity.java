@@ -112,6 +112,9 @@ public class GuardianshipListActivity extends BaseActivity {
 
                 if (TextUtils.equals("4000", data.getCode())) {
                     datas.clear();
+                    if(null==data.getData().getGuardian()){
+                        return;
+                    }
                     if (data.getData().getGuardian().size() != 0) {
                         datas=data.getData().getGuardian();
                     }

@@ -18,6 +18,7 @@ import cn.v1.unionc_user.model.HeartHistoryListData;
 import cn.v1.unionc_user.model.HeartIndicationData;
 import cn.v1.unionc_user.model.HomeListData;
 import cn.v1.unionc_user.model.HomeToHomeData;
+import cn.v1.unionc_user.model.IsBindJianhurenData;
 import cn.v1.unionc_user.model.IsDoctorData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
@@ -588,5 +589,12 @@ public interface UnionAPI {
     Observable<BaseData> UnbindGuardianship(@FieldMap Map<String, Object> params);
 
 
-
+    /**
+     * 是否绑定监护人
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/has-guardian")
+    Observable<IsBindJianhurenData> ishasguardian(@FieldMap Map<String, Object> params);
 }

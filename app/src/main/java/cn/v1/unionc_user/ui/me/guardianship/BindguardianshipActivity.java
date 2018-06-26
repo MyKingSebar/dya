@@ -34,15 +34,44 @@ public class BindguardianshipActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick(R.id.tv_bind)
-    void bind() {
+//    @OnClick(R.id.tv_bind)
+//    void bind() {
+//        if (TextUtils.isEmpty(ralationText)) {
+//            showTost("请选择关系");
+//            return;
+//        }
+//        showDialog("加载中...");
+//        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//        ConnectHttp.connect(UnionAPIPackage.SaveGuardianship(token, elderlyUserId, ralationText), new BaseObserver<BaseData>(context) {
+//            @Override
+//            public void onResponse(BaseData data) {
+//                closeDialog();
+//                if (TextUtils.equals("4000", data.getCode())) {
+//                    showTost("绑定成功");
+//                    finish();
+//                    BindSuccessReturnEventData eventData = new BindSuccessReturnEventData();
+//                    BusProvider.getInstance().post(eventData);
+//                } else {
+//                    showTost(data.getMessage() + "");
+//                }
+//            }
+//
+//            @Override
+//            public void onFail(Throwable e) {
+//                closeDialog();
+//            }
+//        });
+//    }
+@OnClick(R.id.tv_bind)
+    void bind2() {
         if (TextUtils.isEmpty(ralationText)) {
             showTost("请选择关系");
             return;
         }
         showDialog("加载中...");
+
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.SaveGuardianship(token, elderlyUserId, ralationText), new BaseObserver<BaseData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.BindGuardianship(token, elderlyUserId, ralationText), new BaseObserver<BaseData>(context) {
             @Override
             public void onResponse(BaseData data) {
                 closeDialog();
@@ -99,13 +128,13 @@ public class BindguardianshipActivity extends BaseActivity {
     }
 
     private void initView() {
-        for (int i = 0; i < cb.length ; i++) {
+        for (int i = 0; i < cb.length; i++) {
             final int fi = i;
             cb[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        for (int i = 0; i < cb.length ; i++) {
+                        for (int i = 0; i < cb.length; i++) {
                             if (i != fi) {
                                 cb[i].setChecked(false);
                             }

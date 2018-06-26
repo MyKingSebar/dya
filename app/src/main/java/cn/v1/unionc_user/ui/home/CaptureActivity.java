@@ -31,6 +31,8 @@ import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.ActivityListReturnEventData;
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicActivityData;
+import cn.v1.unionc_user.model.IsBindJianhurenData;
+import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.model.WeiXinQRcodeData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
@@ -195,7 +197,7 @@ public class CaptureActivity extends BaseActivity {
                         String[] splitText1 = text.split("Pad二维码");
                         Logger.d(Arrays.toString(splitText1));
                         if (!TextUtils.isEmpty(splitText1[1])) {
-                            checkbind(splitText1[1]);
+                            checkbind2(splitText1[1]);
                         } else {
                             showTost("Pad二维码无效");
                             Log.d("linshi", "TextUtils.isEmpty(splitText1[1])");
@@ -444,7 +446,7 @@ private void checkbind(String elderlyUserId){
         final String id=elderlyUserId;
     showDialog("加载中...");
     String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-    ConnectHttp.connect(UnionAPIPackage.BindGuardianship( token, elderlyUserId), new BaseObserver<BaseData>(context) {
+    ConnectHttp.connect(UnionAPIPackage.BindGuardianship( token, elderlyUserId,""), new BaseObserver<BaseData>(context) {
         @Override
         public void onResponse(BaseData data) {
             closeDialog();
@@ -464,6 +466,47 @@ private void checkbind(String elderlyUserId){
             closeDialog();
         }
     });
+}
+
+private void checkbind2(String elderlyUserId){
+        final String id=elderlyUserId;
+    String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+    ConnectHttp.connect(UnionAPIPackage.GetGuardianshipListInfo(token), new BaseObserver<MeguardianshipData>(context) {
+        @Override
+        public void onResponse(MeguardianshipData data) {
+
+            if (TextUtils.equals("4000", data.getCode())) {
+                if(null==data.getData().getGuardian()){
+                    Intent intent = new Intent(context, BindguardianshipActivity.class);
+                    intent.putExtra("elderlyUserId", id);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+                if (data.getData().getGuardian().size() > 0) {
+                    showTost("您已绑定监护人");
+                    finish();
+                }else{
+                    Intent intent = new Intent(context, BindguardianshipActivity.class);
+                    intent.putExtra("elderlyUserId", id);
+                    startActivity(intent);
+                    finish();
+                }
+                closeDialog();
+            } else {
+                showTost(data.getMessage());
+            }
+        }
+
+        @Override
+        public void onFail(Throwable e) {
+            closeDialog();
+        }
+    });
+
+
+
+
 }
 
 }

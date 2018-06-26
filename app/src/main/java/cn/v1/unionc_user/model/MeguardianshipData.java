@@ -37,6 +37,16 @@ public class MeguardianshipData extends BaseData {
     }
 
     public static class DataData {
+        private String hasGuardian;//hasGuardian字段，0-无，1-有
+
+        public String getHasGuardian() {
+            return hasGuardian;
+        }
+
+        public void setHasGuardian(String hasGuardian) {
+            this.hasGuardian = hasGuardian;
+        }
+
         private List<GuardianshipData> guardian;
 
         public List<GuardianshipData> getGuardian() {
