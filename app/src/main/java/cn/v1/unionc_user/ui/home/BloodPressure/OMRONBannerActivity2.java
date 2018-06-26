@@ -113,7 +113,12 @@ public class OMRONBannerActivity2 extends BaseActivity {
             @Override
             public void onResponse(OMLHistoryData data) {
                 if (TextUtils.equals("4000", data.getCode())) {
-                    showTost("获取成功");
+                    if(data.getData().getHealthDatas().size()>0){
+                        num.setText(data.getData().getHealthDatas().get(0).getHighPressure()+"/"+data.getData().getHealthDatas().get(0).getLowPressure());
+                        time.setText(data.getData().getHealthDatas().get(0).getMonitorDate()+"   "+data.getData().getHealthDatas().get(0).getMonitorTime());
+
+                    }
+//                    showTost("获取成功");
                 }
                 else {
                     showTost(data.getMessage());
