@@ -706,6 +706,54 @@
         <!-- MeiZu 配置结束 < -->
 
         <!--第三方推送的权限 广播 服务 配置结束-->
+        <!--网易云-->
+        
+        <activity
+            android:name="cn.v1.demo.activity.NEWelcomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="cn.v1.demo.activity.NEMainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+        <activity
+            android:name="cn.v1.demo.activity.NEVideoPlayerActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+    <!--    <activity
+            android:name="cn.v1.demo.activity.NEQRCodeScanActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>-->
+        <!-- 播放器资源释放结束通知，申明播放器的广播接收器，第三方APP集成时，receiver和action中的cn.v1.demo请替换为自己的包名 -->
+        <receiver
+            android:name="cn.v1.demo.receiver.NELivePlayerReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.v1.demo.ACTION.RECEIVE_NELP_RELEASE_SUCCESS_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 申明本地电话状态（通话状态）的广播接收器，第三方APP集成时，如果需要在App中处理播放器与本地电话的交互请加上此接收器 -->
+        <!-- receiver中的cn.v1.demo请替换为自己的包名 -->
+        <receiver android:name="cn.v1.demo.receiver.NEIncomingCallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

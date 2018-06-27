@@ -67,4 +67,13 @@
     <string name="title_healcare_dossiercuremidicine">治疗药物</string>
     <string name="title_healcare_doctorwords">健康指导</string>
     <string name="title_healcare_uploadpic">检查资料</string>
+
+
+    <string name="buffering">缓冲中</string>
+
+    <string name="mediacontroller_play_pause">Play/Pause</string>
+    <string name="_drawable_mediacontroller_mute02">\@drawable/mediacontroller_mute02</string>
+
+    <string name="player_option">播 放 选 项</string>
+
 </resources>

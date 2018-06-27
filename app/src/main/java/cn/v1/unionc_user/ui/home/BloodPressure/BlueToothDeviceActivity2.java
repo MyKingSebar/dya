@@ -32,18 +32,21 @@ public class BlueToothDeviceActivity2 extends BaseActivity {
     TextView tv_title;
     @BindView(R.id.img_back)
     ImageView back;
-@OnClick(R.id.img_back)
-void back(){
-    finish();
-}
+
+    @OnClick(R.id.img_back)
+    void back() {
+        finish();
+    }
+
     @OnClick(R.id.xueya)
-    void xueya(){
-        Intent intent = new Intent(context,OMRONBannerActivity2.class);
-        intent.putExtra("device","血压仪");
+    void xueya() {
+        Intent intent = new Intent(context, OMRONBannerActivity2.class);
+        intent.putExtra("device", "血压仪");
         context.startActivity(intent);
     }
+
     @OnClick(R.id.xindian)
-    void xindian(){
+    void xindian() {
         Intent intent = new Intent(context, DossierHeartRateAutoActivity.class);
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         intent.putExtra("userId", token);
@@ -58,7 +61,6 @@ void back(){
         ButterKnife.bind(this);
         initView();
     }
-
 
 
     private void initView() {

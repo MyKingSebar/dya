@@ -33,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.v1.demo.activity.NEMainActivity;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
@@ -124,7 +125,7 @@ public class FindFragment extends BaseFragment {
                 break;
             case R.id.tv_healthlive:
                 //健康直播
-
+goNewActivity(NEMainActivity.class);
                 break;
             case R.id.tv_activity:
                 //社区活动
