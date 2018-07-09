@@ -56,8 +56,16 @@ public class JiGuangData {
     }
 
 
+    public String getPushCategory() {
+        return pushCategory;
+    }
+
+    public void setPushCategory(String pushCategory) {
+        this.pushCategory = pushCategory;
+    }
 
     /**
+     pushCategory：类型  推送类型：1-活动，2-直播，3-医生，4-护士
      activityId：活动id
      title:活动主题
      digest：活动描述
@@ -66,6 +74,7 @@ public class JiGuangData {
      startTime：活动开始时间
      endTime：活动结束时间
      */
+private String pushCategory;
 private String activityId;
     private String title;
     private String digest;

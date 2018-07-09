@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.v1.unionc_user.ui.LoginActivity">
+
+    <include layout="@layout/layout_toolbar" />
+<LinearLayout
+    android:layout_marginTop="17dp"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <LinearLayout
+        android:id="@+id/ll_saomiao"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:elevation="10dp"
+        android:background="@color/white"
+        >
+        <View
+            android:background="@drawable/icon_guardianshiplist_saoma"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+        <TextView
+            android:layout_marginLeft="9dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加监护"
+            android:textSize="15sp"
+            android:textColor="#4E78F6"
+            />
+
+    </LinearLayout>
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="#D3D4D8"
+        />
+    <LinearLayout
+        android:id="@+id/ll_luru"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:elevation="10dp"
+        android:background="@color/white"
+        >
+        <View
+            android:background="@drawable/icon_guardianshiplist_luru"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+        <TextView
+            android:layout_marginLeft="9dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加监护"
+            android:textSize="15sp"
+            android:textColor="#4E78F6"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+<LinearLayout
+    android:id="@+id/ll_no"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:visibility="gone"
+    >
+<TextView
+    android:layout_marginTop="46dp"
+    android:layout_width="140dp"
+    android:layout_height="110dp"
+    android:background="@drawable/icon_oldman_list_no"
+    android:layout_gravity="center_horizontal"
+
+    />
+<TextView
+    android:layout_marginTop="45dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="暂无监护人，绑定监护人后\n可以为监护人赠送服务"
+    android:textSize="17sp"
+    android:textColor="#9B9CA0"
+    android:gravity="center"
+    android:layout_gravity="center_horizontal"
+
+    />
+</LinearLayout>
+<Button
+    android:id="@+id/bt_next"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:text="下一步"
+    android:textSize="17sp"
+    android:textColor="@color/white"
+    android:background="@drawable/bg_button_blue"
+
+    />
+<View
+    android:layout_width="match_parent"
+    android:layout_height="59dp"/>
+</LinearLayout>

@@ -12,6 +12,8 @@ import java.util.Map;
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicActivityData;
 import cn.v1.unionc_user.model.ClinicInfoData;
+import cn.v1.unionc_user.model.ClinicServerInfoData;
+import cn.v1.unionc_user.model.ClinicServerListData;
 import cn.v1.unionc_user.model.DoctorAnswerDetailData;
 import cn.v1.unionc_user.model.DoctorEvaluateData;
 import cn.v1.unionc_user.model.DoctorInfoData;
@@ -35,8 +37,12 @@ import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.model.MyDutyDoctorsData;
 import cn.v1.unionc_user.model.MyRecommenDoctorsData;
+import cn.v1.unionc_user.model.NearbyClinicData;
+import cn.v1.unionc_user.model.NetCouldPullData;
 import cn.v1.unionc_user.model.OMLHistoryData;
+import cn.v1.unionc_user.model.OldmanInfoData;
 import cn.v1.unionc_user.model.RecommendDoctorsData;
+import cn.v1.unionc_user.model.SaveOldBaseData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
@@ -834,9 +840,10 @@ public class UnionAPIPackage {
     /**
      * 获取亲情监护列表
      */
-    public static Observable<MeguardianshipData> GetGuardianshipListInfo(String token) {
+    public static Observable<MeguardianshipData> GetGuardianshipListInfo(String token,String serviceCode) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
+        params.put("serviceCode", serviceCode);
 
         return ConnectHttp.getUnionAPI().GetGuardianshipListInfo(dataProcess(params));
     }
@@ -881,6 +888,129 @@ public class UnionAPIPackage {
         params.put("token", token);
 
         return ConnectHttp.getUnionAPI().ishasguardian(dataProcess(params));
+    }
+    /**
+     * 直播列表
+     */
+    public static Observable<NetCouldPullData> getlivelist(String token,String pageNo,String pageSize) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
+
+        return ConnectHttp.getUnionAPI().getlivelist(dataProcess(params));
+    }
+    /**
+     * 保存老人基本信息
+     */
+    public static Observable<SaveOldBaseData> saveoldbase(String token, String userName, String userMobile, String cardNo, String address) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("userName", userName);
+        params.put("userMobile", userMobile);
+        params.put("cardNo", cardNo);
+        params.put("address", address);
+
+        return ConnectHttp.getUnionAPI().saveoldbase(dataProcess(params));
+    }
+    /**
+     * 附近注册的医院列表
+     */
+    public static Observable<NearbyClinicData> nearbyclinic(String token, String elderlyId, String longitude, String latitude, String pageNo, String pageSize) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyId", elderlyId);
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
+
+        return ConnectHttp.getUnionAPI().nearbyclinic(dataProcess(params));
+    }
+    /**
+     * 老人添加照片
+     */
+    public static Observable<BaseData> oldaddphoto(String token, String elderlyUserId, String imagePath) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyUserId", elderlyUserId);
+        params.put("imagePath", imagePath);
+
+        return ConnectHttp.getUnionAPI().oldaddphoto(dataProcess(params));
+    }
+    /**
+     * 医院服务列表：
+     */
+    public static Observable<ClinicServerListData> getclinicserverlist(String token, String clinicId, String elderlyId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("clinicId", clinicId);
+        params.put("elderlyId", elderlyId);
+
+        return ConnectHttp.getUnionAPI().getclinicserverlist(dataProcess(params));
+    }
+    /**
+     * 服务详细：
+     */
+    public static Observable<ClinicServerInfoData> getclinicserverinfo(String token, String clinicId, String serviceCode, String elderlyId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("clinicId", clinicId);
+        params.put("serviceCode", serviceCode);
+        params.put("elderlyId", elderlyId);
+
+        return ConnectHttp.getUnionAPI().getclinicserverinfo(dataProcess(params));
+    }
+    /**
+     * 医院服务列表：status:"-1:审核不通过 1：审核通过"
+     */
+    public static Observable<BaseData> guardiancheck(String token, String elderlyUserId, String status) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyUserId", elderlyUserId);
+        params.put("status", status);
+
+        return ConnectHttp.getUnionAPI().guardiancheck(dataProcess(params));
+    }
+    /**
+     * 老人详细
+     */
+    public static Observable<OldmanInfoData> getOldmanInfo(String token, String elderlyUserId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyUserId", elderlyUserId);
+        return ConnectHttp.getUnionAPI().getOldmanInfo(dataProcess(params));
+    }
+    /**
+     * 修改监护老人详细信息
+     */
+    public static Observable<BaseData> updateoldmanInfo(String token, String elderlyUserId, String address) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyUserId", elderlyUserId);
+        params.put("address", address);
+        return ConnectHttp.getUnionAPI().updateoldmanInfo(dataProcess(params));
+    }
+    /**
+     * 修改老人图片
+     */
+    public static Observable<BaseData> updateOldmanPhoto(String token, String elderlyUserId, String imagePath){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyUserId", elderlyUserId);
+        params.put("imagePath", imagePath);
+        return ConnectHttp.getUnionAPI().updateOldmanPhoto(dataProcess(params));
+    }
+    /**
+     * 申请服务
+     */
+    public static Observable<BaseData> applyservice(String token, String elderlyIds,String clinicId,String  serviceCode) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("elderlyIds", elderlyIds);
+        params.put("clinicId", clinicId);
+        params.put("serviceCode", serviceCode);
+        return ConnectHttp.getUnionAPI().applyservice(dataProcess(params));
     }
 
 }

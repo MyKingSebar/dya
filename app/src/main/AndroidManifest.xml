@@ -214,6 +214,7 @@
         <activity android:name=".ui.me.SettingActivity" />
         <activity android:name=".ui.me.MyactivityActivity" />
         <activity android:name=".ui.find.AroundActivityActivity" />
+        <activity android:name=".ui.find.LiveListActivity" />
         <activity android:name=".ui.me.MyWatchinghActivity" />
         <activity android:name=".ui.me.ServerCenterActivity" />
         <activity android:name=".ui.home.SearchWebViewActivity" />
@@ -224,6 +225,11 @@
 
         <activity android:name="cn.v1.unionc_user.ui.find.HomeDocActivity" />
         <activity android:name="cn.v1.unionc_user.ui.find.DutyDocActivity" />
+        <activity android:name="cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity" />
+        <activity android:name="cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity1" />
+        <activity android:name="cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity2" />
+        <activity android:name="cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity3" />
+        <activity android:name="cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity4" />
 
         <activity
             android:name=".ui.home.SignactivityActivity"
@@ -254,6 +260,14 @@
 
         <activity android:name=".ui.me.guardianship.BindguardianshipActivity"></activity>
         <activity android:name=".ui.me.guardianship.GuardianshipListActivity"></activity>
+        <activity android:name=".ui.me.guardianship.GuardianshipListActivity2"
+            android:launchMode="singleTask"
+            ></activity>
+        <activity android:name=".ui.me.guardianship.ServiceListActivity"></activity>
+        <activity android:name=".ui.me.guardianship.ServiceInfoActivity"></activity>
+        <activity android:name=".ui.me.guardianship.ServiceOkActivity"></activity>
+        <activity android:name=".ui.me.guardianship.ServiceClinicListActivity"></activity>
+        <activity android:name=".ui.me.guardianship.GuardianshipListActivityServerType"></activity>
 
 
 
@@ -712,11 +726,6 @@
             android:name="cn.v1.demo.activity.NEWelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity

@@ -76,7 +76,7 @@ public class GuardianshipListActivity extends BaseActivity {
         recycleview.setAdapter(meguardianshipListAdapter);
         meguardianshipListAdapter.setOnClickMyTextView(new MeguardianshipListAdapter.onMyClick() {
             @Override
-            public void myTextViewClick(int id) {
+            public void myTextViewClick(int id,int type) {
                 final int iid=id;
                 showDialog("加载中...");
                 String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
@@ -105,7 +105,7 @@ public class GuardianshipListActivity extends BaseActivity {
     private void getList() {
 //        showDialog("加载中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.GetGuardianshipListInfo(token), new BaseObserver<MeguardianshipData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.GetGuardianshipListInfo(token,""), new BaseObserver<MeguardianshipData>(context) {
             @Override
             public void onResponse(MeguardianshipData data) {
                 Log.d("linshi","datas:"+new Gson().toJson(datas));

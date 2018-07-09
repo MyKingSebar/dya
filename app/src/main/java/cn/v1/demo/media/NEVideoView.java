@@ -495,8 +495,9 @@ public class NEVideoView extends FrameLayout implements NEMediaController.MediaP
              */
             if (getWindowToken() != null) {
                 new AlertDialog.Builder(mContext)
-                        .setTitle("Error")
-                        .setMessage("There is an unknown error")
+//                        .setTitle("Error")
+                        .setMessage("暂无直播")
+//                        .setMessage("There is an unknown error")
                         .setPositiveButton("Ok",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {

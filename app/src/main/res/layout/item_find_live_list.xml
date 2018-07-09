@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/re_img"
+        android:layout_width="match_parent"
+        android:layout_height="210.9dp"
+        tools:background="#335555">
+        <ImageView
+            android:id="@+id/img_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_alignParentBottom="true"
+    android:background="@drawable/live_banner_background"
+    ></LinearLayout>
+        <TextView
+            android:id="@+id/tv_righttop"
+            android:layout_width="35dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/find_live_tip_on" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/find_live_persion"
+
+            android:drawablePadding="5dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            tools:text="李春 知名专家" />
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginRight="14dp"
+            android:drawableLeft="@drawable/find_live_people"
+
+            android:drawablePadding="5dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            tools:text="200" />
+
+        <TextView
+            android:id="@+id/tv_play"
+            android:layout_width="82.2dp"
+            android:layout_height="82.2dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/find_live_play" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_livename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="9dp"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            tools:text="提升老年人抵抗力和生命力的秘诀" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/tv_clinic_img"
+                android:layout_width="20.5dp"
+                android:layout_height="13.8dp"
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/icon_hospital_zh" />
+
+            <TextView
+                android:id="@+id/tv_clinic_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#9B9CA0"
+                android:textSize="12sp"
+                tools:text="北京市安贞医院" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_location" />
+
+
+</LinearLayout>

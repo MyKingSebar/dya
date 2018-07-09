@@ -471,7 +471,7 @@ private void checkbind(String elderlyUserId){
 private void checkbind2(String elderlyUserId){
         final String id=elderlyUserId;
     String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-    ConnectHttp.connect(UnionAPIPackage.GetGuardianshipListInfo(token), new BaseObserver<MeguardianshipData>(context) {
+    ConnectHttp.connect(UnionAPIPackage.GetGuardianshipListInfo(token,""), new BaseObserver<MeguardianshipData>(context) {
         @Override
         public void onResponse(MeguardianshipData data) {
 

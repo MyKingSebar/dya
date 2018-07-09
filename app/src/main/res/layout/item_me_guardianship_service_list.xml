@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/tv_name"
+            android:textStyle="bold"
+            android:textColor="#26282E"
+            android:textSize="15sp"
+            tool:text="健康监护"
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_des"
+            android:textColor="#9B9CA0"
+            android:textSize="13sp"
+            tool:text="含紧急告警、健康咨询等基础服务。"
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="23dp" />
+        <TextView
+            android:id="@+id/tv_price"
+            android:textColor="#FFA654"
+            android:textSize="15sp"
+            tool:text="365元/年"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_ok"
+            android:textColor="#25C191"
+            android:textSize="12sp"
+            android:text="已开通"
+            android:layout_marginBottom= "17dp"
+            android:layout_marginRight="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_go"
+            android:background="@drawable/bg_button_blue"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="立即申请"
+            android:layout_marginBottom= "12dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="76dp"
+            android:layout_height="25dp" />
+        <View
+            android:layout_alignParentBottom="true"
+
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:background="#D3D4D8" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

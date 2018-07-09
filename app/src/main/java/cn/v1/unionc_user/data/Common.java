@@ -66,4 +66,8 @@ public class Common {
 
     public static final String MESSAGE_JGPUSH_ACTION = "MESSAGE_JGPUSH_ACTION";
 
+
+    public static final int SERVER_HOSPITAL = 1;
+    public static final int SERVER_OLDMEN = 2;
+
 }

@@ -29,7 +29,9 @@ import io.rong.callkit.RongCallKit;
  */
 
 public class MeguardianshipListAdapter extends RecyclerView.Adapter<MeguardianshipListAdapter.ViewHolder> {
+    private int type=0;
 private onMyClick onmyClick;
+private onMyClick2 onmyClick2;
     private Context context;
     private List<MeguardianshipData.DataData.GuardianshipData> datas = new ArrayList<>();
 
@@ -62,9 +64,10 @@ private onMyClick onmyClick;
                     .into(holder.imgMessageAvator);
 
         }
+
         holder.tv_name.setText(doctorData.getGuardianName());
         holder.tv_relation.setText(doctorData.getGuardianRoleName());
-        holder.tv_describe.setText(doctorData.getDoctName());
+
         holder.bt_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,17 +83,35 @@ private onMyClick onmyClick;
             holder.bt_unbind.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onmyClick.myTextViewClick(position);
+                    onmyClick.myTextViewClick(position,type);
                 }
             });
         }
-        holder.bt_serve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        if(onmyClick2!=null){
 
+            holder.bt_serve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onmyClick2.myTextViewClick(position,type);
+                }
+            });
+        }
 
+        if(TextUtils.equals("0",doctorData.getIsBound())){
+            //未绑定
+            holder.bt_video.setVisibility(View.GONE);
+            holder.bt_unbind.setText("不同意");
+            holder.bt_serve.setText("同意");
+            holder.tv_describe.setText(doctorData.getCreatedTime()+"【"+doctorData.getClinicName()+"】邀请您做他的监护人");
+            type=0;
+        }else if(TextUtils.equals("1",doctorData.getIsBound())){
+            //已绑定
+            holder.bt_video.setVisibility(View.VISIBLE);
+            holder.bt_unbind.setText("解除绑定");
+            holder.bt_serve.setText("尽孝心");
+            holder.tv_describe.setText(doctorData.getDoctName());
+            type=1;
+        }
     }
 
     @Override
@@ -123,9 +144,16 @@ private onMyClick onmyClick;
     }
 
     public interface onMyClick{
-        public void myTextViewClick(int id);
+        public void myTextViewClick(int id,int type);
     }
     public void setOnClickMyTextView(onMyClick onMyClick) {
         this.onmyClick = onMyClick;
+    }
+
+    public interface onMyClick2{
+        public void myTextViewClick(int id,int type);
+    }
+    public void setOnClickMyTextView2(onMyClick2 onMyClick2) {
+        this.onmyClick2 = onMyClick2;
     }
 }

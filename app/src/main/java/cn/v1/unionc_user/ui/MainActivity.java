@@ -23,7 +23,7 @@ import cn.v1.unionc_user.model.LogOutEventData;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment2;
-import cn.v1.unionc_user.ui.discover.DiscoverFragment3;
+import cn.v1.unionc_user.ui.discover.DiscoverHospitalFragment;
 import cn.v1.unionc_user.ui.find.FindFragment;
 import cn.v1.unionc_user.ui.me.PersonalFragment;
 import cn.v1.unionc_user.ui.home.MessageFragment;
@@ -40,7 +40,8 @@ public class MainActivity extends BaseActivity {
     private Fragment mCurrentfragment;//记录选中的fragment
     private int mCurrentCheckedId;//记录选中的id
     private MessageFragment messageFragment;
-    private DiscoverFragment3 discoverFragment3;
+//    private DiscoverFragment3 discoverFragment3;
+    private DiscoverHospitalFragment discoverFragment3;
     private PersonalFragment personalFragment;
     private FindFragment findFragment;
     private final String MESSAGE = "message";
@@ -116,7 +117,7 @@ public class MainActivity extends BaseActivity {
                     case R.id.discover:
                         mCurrentCheckedId = R.id.discover;
                         if (null == discoverFragment3) {
-                            discoverFragment3 = new DiscoverFragment3();
+                            discoverFragment3 = new DiscoverHospitalFragment();
                         }
                         switchContent(discoverFragment3, 1);
                         break;

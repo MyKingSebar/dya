@@ -58,6 +58,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
     }
 
     private void initData() {
+
         if (getIntent().hasExtra("type")) {
             type = getIntent().getIntExtra("type", 0);
         }

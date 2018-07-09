@@ -69,6 +69,16 @@ public class MeguardianshipData extends BaseData {
             /**
              * "GuardianRoleName":"绑定的角色","GuardianId":"监护人Id","DataId":"1","GuardianHeadImage":"头像","GuardianName":"姓名","GuardianIdentifier":"监护人IM Id"
              */
+            /**
+             * 返回值：{"message":"成功","data":{"guardian":[{"IsAssignDoctor":"0","CreatedTime":"2018-07-05 15:07:35","ClinicName":"","ElderlyId":"23","DataId":"26","GuardianHeadImage":"http://192.168.21.93:8080/unionWeb/image/webServer/compress/78/9/14/0765cd6b-03c9-4cdd-b9dc-8efd43ca9f30_file.jpg","ElderlyUserId":"1330","GuardianIdentifier":"45722f85a2ec497a9ff44ba19c184d93","DoctName":"","GuardianId":"1330","GuardianRoleName":"","GuardianName":"苏涛测试","IsBound":" 0:初始化 1：绑定","IsOpenUp":"0：未开通 1：审核中 2：已开通"}],"hasGuardian":1},"code":"4000"}
+             */
+            private String IsAssignDoctor;
+            private String CreatedTime;
+            private String ClinicName;
+            private String ElderlyId;
+            private String IsBound;
+            private String IsOpenUp;
+
             private String GuardianRoleName;
             private String GuardianId;
             private String DataId;
@@ -76,6 +86,18 @@ public class MeguardianshipData extends BaseData {
             private String GuardianName;
             private String DoctName;
             private String ElderlyUserId;
+            private String GuardianIdentifier;
+
+
+            private boolean haschecked ;
+
+            public boolean getHaschecked() {
+                return haschecked;
+            }
+
+            public void setHaschecked(boolean haschecked) {
+                this.haschecked = haschecked;
+            }
 
             public String getElderlyUserId() {
                 return ElderlyUserId;
@@ -141,7 +163,53 @@ public class MeguardianshipData extends BaseData {
                 GuardianIdentifier = guardianIdentifier;
             }
 
-            private String GuardianIdentifier;
+            public String getIsAssignDoctor() {
+                return IsAssignDoctor;
+            }
+
+            public void setIsAssignDoctor(String isAssignDoctor) {
+                IsAssignDoctor = isAssignDoctor;
+            }
+
+            public String getCreatedTime() {
+                return CreatedTime;
+            }
+
+            public void setCreatedTime(String createdTime) {
+                CreatedTime = createdTime;
+            }
+
+            public String getClinicName() {
+                return ClinicName;
+            }
+
+            public void setClinicName(String clinicName) {
+                ClinicName = clinicName;
+            }
+
+            public String getElderlyId() {
+                return ElderlyId;
+            }
+
+            public void setElderlyId(String elderlyId) {
+                ElderlyId = elderlyId;
+            }
+
+            public String getIsBound() {
+                return IsBound;
+            }
+
+            public void setIsBound(String isBound) {
+                IsBound = isBound;
+            }
+
+            public String getIsOpenUp() {
+                return IsOpenUp;
+            }
+
+            public void setIsOpenUp(String isOpenUp) {
+                IsOpenUp = isOpenUp;
+            }
         }
     }
 }

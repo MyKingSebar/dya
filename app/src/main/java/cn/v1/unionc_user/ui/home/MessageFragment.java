@@ -693,17 +693,20 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 if (!ExampleUtil.isEmpty(extras)) {
                     Log.d("linshi", "extras():" + extras);
                     JiGuangData child2 = gson.fromJson(extras, JiGuangData.class);
-                    if(TextUtils.equals("0",child2.getShow())){
-                        return;
+                    if(TextUtils.equals("1",child2.getPushCategory())){
+                      //推送类型：1-活动，2-直播，3-医生，4-护士
+                        if(TextUtils.equals("0",child2.getShow())){
+                            return;
+                        }
+                        pushactivitydata = new HomeListData.DataData.HomeData();
+                        pushactivitydata.setName(child2.getTitle());
+                        pushactivitydata.setStartTime(child2.getStartTime());
+                        pushactivitydata.setEndTime(child2.getEndTime());
+                        pushactivitydata.setAddress(child2.getActionAddr());
+                        pushactivitydata.setCreatedTime(child2.getPublishTime());
+                        pushactivitydata.setActivityId(child2.getActivityId());
+                        pushactivitydata.setType(Common.ACTIVITY_PUSH);
                     }
-                    pushactivitydata = new HomeListData.DataData.HomeData();
-                    pushactivitydata.setName(child2.getTitle());
-                    pushactivitydata.setStartTime(child2.getStartTime());
-                    pushactivitydata.setEndTime(child2.getEndTime());
-                    pushactivitydata.setAddress(child2.getActionAddr());
-                    pushactivitydata.setCreatedTime(child2.getPublishTime());
-                    pushactivitydata.setActivityId(child2.getActivityId());
-                    pushactivitydata.setType(Common.ACTIVITY_PUSH);
 
                 }
                 if (pushactivitydata != null) {

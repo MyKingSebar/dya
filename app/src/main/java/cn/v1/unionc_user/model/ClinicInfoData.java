@@ -11,27 +11,26 @@ public class ClinicInfoData extends BaseData {
 
     /**
      * {"message":"成功","data":{"clinicInfo":{"IsHaveContributing":"","AUniress":"","Distance":"0.00","CollectionCount":"0","ClinicId":"50708","RecommendCount":"0","Name":"","Notes":"","evaluates":[],"Latitude":0.0,"Longitude":0.0,"ImagePath":"","Tips":[],"Tel":"","EvaCount":"0"},"doctors":[]},"code":"4000"}
-     *
-     "clinicInfo": {
-     "IsHaveContributing": "0",
-     "AUniress": "北京市,市辖区,东城区,锐创国际",
-     "EvaCount": "0",
-     "ImagePath": "http://192.168.21.93:8080/unionWeb/image/webServer/compress/68/14/4/baaaccdf-e809-49ed-8a5c-e7b2e54b6a82_logo.png",
-     "Tel": "0108888888",
-     "Latitude": 40.015698,
-     "CollectionCount": "0",
-     "RecommendCount ": “0”,
-     "Longitude": 116.491371,
-     "Distance": "0.32",
-     "Notes": "范围12",
-     "Name": "苏涛的测试医院",
-     "Tips": [
-     "感冒",
-     "发烧",
-     "口腔"
-     ]
-     }
-
+     * <p>
+     * "clinicInfo": {
+     * "IsHaveContributing": "0",
+     * "AUniress": "北京市,市辖区,东城区,锐创国际",
+     * "EvaCount": "0",
+     * "ImagePath": "http://192.168.21.93:8080/unionWeb/image/webServer/compress/68/14/4/baaaccdf-e809-49ed-8a5c-e7b2e54b6a82_logo.png",
+     * "Tel": "0108888888",
+     * "Latitude": 40.015698,
+     * "CollectionCount": "0",
+     * "RecommendCount ": “0”,
+     * "Longitude": 116.491371,
+     * "Distance": "0.32",
+     * "Notes": "范围12",
+     * "Name": "苏涛的测试医院",
+     * "Tips": [
+     * "感冒",
+     * "发烧",
+     * "口腔"
+     * ]
+     * }
      */
 
     private DataData data;
@@ -61,6 +60,15 @@ public class ClinicInfoData extends BaseData {
 
         private ClinicData clinicInfo;
         private List<DoctorsData> doctors;
+        private List<ServiceData> service;
+
+        public List<ServiceData> getService() {
+            return service;
+        }
+
+        public void setService(List<ServiceData> service) {
+            this.service = service;
+        }
 
         public List<DoctorsData> getDoctors() {
             return doctors;
@@ -68,6 +76,41 @@ public class ClinicInfoData extends BaseData {
 
         public void setDoctors(List<DoctorsData> doctors) {
             this.doctors = doctors;
+        }
+
+        /**
+         *
+         *
+         * "service":[{"ServiceName":"服务名称","ServiceCode":"服务code","Content":"内容"}]
+         */
+        public class ServiceData {
+            private String ServiceName;
+            private String ServiceCode;
+            private String Content;
+
+            public String getServiceName() {
+                return ServiceName;
+            }
+
+            public void setServiceName(String serviceName) {
+                ServiceName = serviceName;
+            }
+
+            public String getServiceCode() {
+                return ServiceCode;
+            }
+
+            public void setServiceCode(String serviceCode) {
+                ServiceCode = serviceCode;
+            }
+
+            public String getContent() {
+                return Content;
+            }
+
+            public void setContent(String content) {
+                Content = content;
+            }
         }
 
         public static class ClinicData {
@@ -176,26 +219,26 @@ public class ClinicInfoData extends BaseData {
             }
 
             /**
-             "IsHaveContributing": "0",
-             "AUniress": "北京市,市辖区,东城区,锐创国际",
-             "EvaCount": "0",
-             "ImagePath": "http://192.168.21.93:8080/unionWeb/image/webServer/compress/68/14/4/baaaccdf-e809-49ed-8a5c-e7b2e54b6a82_logo.png",
-             "Tel": "0108888888",
-             "Latitude": 40.015698,
-             "CollectionCount": "0",
-             "RecommendCount ": “0”,
-             "Longitude": 116.491371,
-             "Distance": "0.32",
-             "Notes": "范围12",
-             "Name": "苏涛的测试医院",
-             "Tips": [
-             "感冒",
-             "发烧",
-             "口腔"
-             ]
-
-             新家俩字段：clinicData.put("DoctName", "");
-             clinicData.put("DoctImagePath", "");
+             * "IsHaveContributing": "0",
+             * "AUniress": "北京市,市辖区,东城区,锐创国际",
+             * "EvaCount": "0",
+             * "ImagePath": "http://192.168.21.93:8080/unionWeb/image/webServer/compress/68/14/4/baaaccdf-e809-49ed-8a5c-e7b2e54b6a82_logo.png",
+             * "Tel": "0108888888",
+             * "Latitude": 40.015698,
+             * "CollectionCount": "0",
+             * "RecommendCount ": “0”,
+             * "Longitude": 116.491371,
+             * "Distance": "0.32",
+             * "Notes": "范围12",
+             * "Name": "苏涛的测试医院",
+             * "Tips": [
+             * "感冒",
+             * "发烧",
+             * "口腔"
+             * ]
+             * <p>
+             * 新家俩字段：clinicData.put("DoctName", "");
+             * clinicData.put("DoctImagePath", "");
              */
 
             private String ParCategory;
@@ -270,9 +313,6 @@ public class ClinicInfoData extends BaseData {
             }
 
 
-
-
-
             public String getIsRecom() {
                 return IsRecom;
             }
@@ -289,8 +329,8 @@ public class ClinicInfoData extends BaseData {
                 IsAttention = isAttention;
             }
 
-            private String IsRecom ; //是否推荐（0-未推荐，1-已推荐）
-            private String IsAttention  ;//是否关注 0未关注 1已关注
+            private String IsRecom; //是否推荐（0-未推荐，1-已推荐）
+            private String IsAttention;//是否关注 0未关注 1已关注
             private List<String> Tips;
 
 
@@ -319,7 +359,6 @@ public class ClinicInfoData extends BaseData {
              * Remarks : 备注
              * Telphone : 0108888888
              */
-
 
 
             private String DoctId;

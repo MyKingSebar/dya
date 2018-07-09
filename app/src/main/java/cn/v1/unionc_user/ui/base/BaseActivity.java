@@ -113,6 +113,12 @@ public class BaseActivity extends FragmentActivity {
     protected boolean isLogin() {
         return SPUtil.contains(context, Common.USER_TOKEN);
     }
+    /**
+     * getToken
+     */
+    protected String getToken() {
+        return  (String) SPUtil.get(context, Common.USER_TOKEN, "");
+    }
 
     /**
      * 退出

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.donkingliang.labels.LabelsView;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.tencent.imsdk.TIMConversationType;
 
@@ -35,6 +38,7 @@ import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicInfoData;
+import cn.v1.unionc_user.model.ClinicServerListData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
@@ -42,6 +46,7 @@ import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
 import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.adapter.HospitalDoctorAdapter;
+import cn.v1.unionc_user.ui.adapter.MeguardianshipServiceListAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.welcome.DepthPageTransformer;
 import cn.v1.unionc_user.ui.welcome.ViewPagerAdatper;
@@ -115,6 +120,17 @@ public class HospitalDetailActivity extends BaseActivity {
     @BindView(R.id.kefu2)
     ImageView kefu2;
 
+
+    @BindView(R.id.recycleview)
+    RecyclerView recycleview;
+    @BindView(R.id.zanwufuwu)
+    TextView zanwufuwu;
+    private MeguardianshipServiceListAdapter meguardianshipServiceListAdapter;
+    private List<ClinicServerListData.DataData.DataDataData> datas = new ArrayList<>();
+
+
+
+
     private String recommendNum;
     private String attention;
 
@@ -151,11 +167,12 @@ public class HospitalDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hospital_detail);
+        setContentView(R.layout.activity_hospital_detail2);
         ButterKnife.bind(this);
         initData();
         initView();
         initBottomSheet();
+        getServiceList();
     }
 
     @OnClick({R.id.img_back, R.id.img_share, R.id.img_dial, R.id.ll_recommend, R.id.ll_follow, R.id.ll_comment,
@@ -272,6 +289,14 @@ public class HospitalDetailActivity extends BaseActivity {
 //        listView.setFocusable(false);
         hospitalDoctorAdapter = new HospitalDoctorAdapter(context);
         listView.setAdapter(hospitalDoctorAdapter);
+
+
+
+        recycleview.setLayoutManager(new LinearLayoutManager(context));
+        meguardianshipServiceListAdapter = new MeguardianshipServiceListAdapter(context);
+        meguardianshipServiceListAdapter.setClinicId(clinicId);
+        meguardianshipServiceListAdapter.setType(Common.SERVER_HOSPITAL);
+        recycleview.setAdapter(meguardianshipServiceListAdapter);
     }
 
     private void initfragmentData() {
@@ -661,4 +686,50 @@ public class HospitalDetailActivity extends BaseActivity {
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
         bottomDialog.show();
     }
+
+
+
+    private void getServiceList() {
+//        showDialog("加载中...");
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect(UnionAPIPackage.getclinicserverlist(token, clinicId,""), new BaseObserver<ClinicServerListData>(context) {
+            @Override
+            public void onResponse(ClinicServerListData data) {
+                Log.d("linshi", "datas:" + new Gson().toJson(datas));
+
+                if (TextUtils.equals("4000", data.getCode())) {
+                    datas.clear();
+                    if (null == data.getData().getService()) {
+                        recycleview.setVisibility(View.GONE);
+                        zanwufuwu.setVisibility(View.VISIBLE);
+                        return;
+                    }
+                    if (data.getData().getService().size() != 0) {
+                        datas = data.getData().getService();
+                        recycleview.setVisibility(View.VISIBLE);
+                        zanwufuwu.setVisibility(View.GONE);
+                    }else{
+                        recycleview.setVisibility(View.GONE);
+                        zanwufuwu.setVisibility(View.VISIBLE);
+                    }
+                    meguardianshipServiceListAdapter.setData(datas);
+                    closeDialog();
+                    Logger.json(new Gson().toJson(datas));
+                } else {
+                    showTost(data.getMessage());
+                    recycleview.setVisibility(View.GONE);
+                    zanwufuwu.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                recycleview.setVisibility(View.GONE);
+                zanwufuwu.setVisibility(View.VISIBLE);
+                closeDialog();
+            }
+        });
+
+    }
+
 }

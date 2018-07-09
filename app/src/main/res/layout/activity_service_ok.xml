@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <include layout="@layout/layout_toolbar" />
+    <TextView
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="43dp"
+        android:background="@drawable/icon_server_ok"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="服务申请已经提交，院方评估后，会为您的亲人指派最合适的医生"
+        android:textColor="#4F5360"
+        android:textSize="14sp"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="38dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginTop="52dp"
+        />
+    <TextView
+        android:id="@+id/tv_go"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginRight="38dp"
+        android:background="@drawable/bg_button_blue"
+        android:text="完成"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="98dp"
+        android:textColor="@color/white"
+        />
+
+</LinearLayout>

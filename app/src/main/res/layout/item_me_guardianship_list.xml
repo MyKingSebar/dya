@@ -90,11 +90,10 @@
                 android:layout_height="26dp"
                 android:layout_marginTop="67.5dp"
                 android:layout_marginLeft="86.3dp"
-                android:text="赠送服务"
+                android:text="尽孝心"
                 android:textSize="12sp"
-                android:textColor="#4E78F6"
-                android:background="@drawable/bg_button_blue_line_thin"
-                android:visibility="invisible"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_button_blue"
                 />
             <Button
                 android:id="@+id/bt_video"

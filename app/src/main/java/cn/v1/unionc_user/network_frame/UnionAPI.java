@@ -5,6 +5,8 @@ import java.util.Map;
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.ClinicActivityData;
 import cn.v1.unionc_user.model.ClinicInfoData;
+import cn.v1.unionc_user.model.ClinicServerInfoData;
+import cn.v1.unionc_user.model.ClinicServerListData;
 import cn.v1.unionc_user.model.DoctorAnswerDetailData;
 import cn.v1.unionc_user.model.DoctorEvaluateData;
 import cn.v1.unionc_user.model.DoctorInfoData;
@@ -28,8 +30,12 @@ import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.model.MyDutyDoctorsData;
 import cn.v1.unionc_user.model.MyRecommenDoctorsData;
+import cn.v1.unionc_user.model.NearbyClinicData;
+import cn.v1.unionc_user.model.NetCouldPullData;
 import cn.v1.unionc_user.model.OMLHistoryData;
+import cn.v1.unionc_user.model.OldmanInfoData;
 import cn.v1.unionc_user.model.RecommendDoctorsData;
+import cn.v1.unionc_user.model.SaveOldBaseData;
 import cn.v1.unionc_user.model.TIMSigData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.model.UserInfoData;
@@ -597,4 +603,92 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("old-man/has-guardian")
     Observable<IsBindJianhurenData> ishasguardian(@FieldMap Map<String, Object> params);
+    /**
+     * 获取直播列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("live/lives")
+    Observable<NetCouldPullData> getlivelist(@FieldMap Map<String, Object> params);
+    /**
+     * 保存老人基本信息
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/save-old-man")
+    Observable<SaveOldBaseData> saveoldbase(@FieldMap Map<String, Object> params);
+    /**
+     * 附近注册的医院列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("clinic/periphery")
+    Observable<NearbyClinicData> nearbyclinic(@FieldMap Map<String, Object> params);
+    /**
+     * laoren 添加照片
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/save-old-man-image")
+    Observable<BaseData> oldaddphoto(@FieldMap Map<String, Object> params);
+    /**
+     * 医院服务列表：
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("clinic/clinic-services")
+    Observable<ClinicServerListData> getclinicserverlist(@FieldMap Map<String, Object> params);
+    /**
+     * 服务详细
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("clinic/clinic-services")
+    Observable<ClinicServerInfoData> getclinicserverinfo(@FieldMap Map<String, Object> params);
+    /**
+     * 服务详细
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/guardian-check")
+    Observable<BaseData> guardiancheck(@FieldMap Map<String, Object> params);
+    /**
+     * 老人详细：
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/old-man-info")
+    Observable<OldmanInfoData> getOldmanInfo(@FieldMap Map<String, Object> params);
+    /**
+     * 修改监护老人详细信息：
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/update-old-man")
+    Observable<BaseData> updateoldmanInfo(@FieldMap Map<String, Object> params);
+    /**
+     * 修改老人图片
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/update-old-man-image")
+    Observable<BaseData> updateOldmanPhoto(@FieldMap Map<String, Object> params);
+    /**
+     * 申请服务：
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/elderly-service-submit")
+    Observable<BaseData> applyservice(@FieldMap Map<String, Object> params);
 }
