@@ -56,6 +56,8 @@ public class UnioncApp extends MultiDexApplication {
 
     @Override
     public void onCreate() {
+        Log.d("linshi", "UnioncAppCreated");
+        Log.e("linshi", "UnioncAppCreated");
         super.onCreate();
         Foreground.init(this);
         app = this;

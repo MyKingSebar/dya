@@ -1,5 +1,6 @@
 package cn.v1.unionc_user.ui.me.guardianship;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -20,11 +21,12 @@ import cn.v1.unionc_user.model.NearbyClinicData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
+import cn.v1.unionc_user.ui.MainActivity;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class ServiceOkActivity extends BaseActivity {
 
-
+int type;
 
 
     @OnClick(R.id.img_back)
@@ -33,8 +35,17 @@ public class ServiceOkActivity extends BaseActivity {
     }
     @OnClick(R.id.tv_go)
     void tv_go() {
-        goNewActivity(GuardianshipListActivity2.class);
-        finish();
+        switch (type){
+            case Common.SERVER_OLDMEN:
+                goNewActivity(GuardianshipListActivity2.class);
+                finish();
+                break;
+            case Common.SERVER_HOSPITAL:
+                goNewActivity(MainActivity.class);
+                finish();
+                break;
+        }
+
     }
 
     @BindView(R.id.tv_title)
@@ -49,6 +60,13 @@ public class ServiceOkActivity extends BaseActivity {
         initView();
     }
     private void initView() {
+        Intent intent=getIntent();
+        if(intent.hasExtra("type")){
+            type=intent.getIntExtra("type",0);
+            Log.d("linshi","type:"+type);
+        }
+
+
         tvTitle.setText("服务申请");
 
 

@@ -174,7 +174,10 @@ String serviceCode,clinicId;
             public void onResponse(BaseData data) {
 
                 if (TextUtils.equals("4000", data.getCode())) {
-                    goNewActivity(ServiceOkActivity.class);
+//                    goNewActivity(ServiceOkActivity.class);
+                    Intent intent =new Intent(GuardianshipListActivityServerType.this,ServiceOkActivity.class);
+                    intent.putExtra("type",Common.SERVER_HOSPITAL);
+                    startActivity(intent);
                 } else {
                     showTost(data.getMessage());
                 }

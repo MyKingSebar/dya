@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="cn.v1.unionc_user"
-    android:versionCode="3"
-    android:versionName="1.2">
+    android:versionCode="4"
+    android:versionName="1.3">
 
     >
 
@@ -119,6 +119,8 @@
         //开发者申请的key
         <meta-data android:name="com.amap.api.v2.apikey" android:value="68694536e205145a4a0e36b801388f01">
         </meta-data>
+
+
         <activity
             android:name=".ui.StartActivity"
             android:theme="@style/AppSplash">
@@ -464,12 +466,12 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="cn.v1.unionc_user.FileProvider"
+            android:authorities="cn.v1.unionc_user.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/rc_file_path" />
+                android:resource="@xml/rc_file_path2" />
         </provider>
 
         <activity

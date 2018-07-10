@@ -35,8 +35,8 @@ public class AboutYIBASHIActivity extends BaseActivity {
     }
 
     private void initView() {
-        tvTitle.setText("关于医巴士");
-        tvVersion.setText("医巴士"+ MobileConfigUtil.getVersionName());
+        tvTitle.setText("关于"+getResources().getString(R.string.app_name));
+        tvVersion.setText(getResources().getString(R.string.app_name)+ MobileConfigUtil.getVersionName());
 //        tvVersion.setText("医巴士"+ MobileConfigUtil.getVersionName());
         Log.d("linshi","医巴士:"+MobileConfigUtil.getVersionName());
     }

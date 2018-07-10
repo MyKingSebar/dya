@@ -93,7 +93,10 @@ startActivity(intent);
             public void onResponse(BaseData data) {
 
                 if (TextUtils.equals("4000", data.getCode())) {
-                    goNewActivity(ServiceOkActivity.class);
+//                    goNewActivity(ServiceOkActivity.class);
+                    Intent intent =new Intent(ServiceInfoActivity.this,ServiceOkActivity.class);
+                    intent.putExtra("type",Common.SERVER_OLDMEN);
+                    startActivity(intent);
                 } else {
                     showTost(data.getMessage());
                 }

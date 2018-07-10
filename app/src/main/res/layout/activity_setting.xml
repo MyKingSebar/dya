@@ -40,7 +40,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="12dp"
-        android:text="关于医巴士"
+        android:text="关于壹家"
         android:textColor="@color/main_text"
         android:textSize="16sp" />
 

@@ -72,7 +72,7 @@ public class FindFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.tv_my_healthcircle:
                 //健康圈
-                goNewActivity(OldRegisterActivity.class);
+
                 break;
             case R.id.tv_homedoc:
                 //家庭医生

@@ -52,8 +52,12 @@ public class OldRegisterActivity2 extends BaseActivity {
     TextView title;
     @BindView(R.id.im_img)
     ImageView im_img;
+    @BindView(R.id.im_status)
+    ImageView im_status;
     @BindView(R.id.bt_next)
     Button bt_next;
+    @BindView(R.id.bt_photo)
+    Button bt_photo;
 
     @OnClick(R.id.img_back)
     void back(){
@@ -99,6 +103,7 @@ public class OldRegisterActivity2 extends BaseActivity {
     }
 
     private void initView() {
+        im_status.setVisibility(View.INVISIBLE);
         bt_next.setClickable(false);
         bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
         try {
@@ -348,16 +353,14 @@ public class OldRegisterActivity2 extends BaseActivity {
                     updateUserInfo(data.getPath() + "");
                 } else {
                     showTost(data.getMessage() + "");
-                    bt_next.setClickable(false);
-                    bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+                    onPhotoFail();
                 }
             }
 
             @Override
             public void onFail(Throwable e) {
                 closeDialog();
-                bt_next.setClickable(false);
-                bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+                onPhotoFail();
             }
         });
 
@@ -374,21 +377,28 @@ public class OldRegisterActivity2 extends BaseActivity {
                 if (TextUtils.equals("4000", data.getCode())) {
                     bt_next.setClickable(true);
                     bt_next.setBackgroundResource(R.drawable.blue_btn_bg);
+                    bt_photo.setVisibility(View.INVISIBLE);
+                    im_status.setBackgroundResource(R.drawable.icon_upload_success);
+
                 } else {
                     showTost(data.getMessage() + "");
-                    bt_next.setClickable(false);
-                    bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+                    onPhotoFail();
                 }
             }
 
             @Override
             public void onFail(Throwable e) {
                 closeDialog();
-                bt_next.setClickable(false);
-                bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+                onPhotoFail();
             }
         });
 
 
+    }
+    private void onPhotoFail(){
+        bt_next.setClickable(false);
+        bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+        bt_photo.setVisibility(View.VISIBLE);
+        im_status.setBackgroundResource(R.drawable.icon_upload_fail);
     }
 }

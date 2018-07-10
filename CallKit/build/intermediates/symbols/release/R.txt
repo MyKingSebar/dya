@@ -1565,3 +1565,4 @@ int styleable FontFamilyFont_fontWeight 2
 int[] styleable RongExtension { 0x7f040007 }
 int styleable RongExtension_RCStyle 0
 int xml rc_file_path 0x7f190001
+int xml rc_file_path2 0x7f190002

@@ -1390,5 +1390,6 @@ public final class R {
     }
     public static final class xml {
         public static int rc_file_path = 0x7f190001;
+        public static int rc_file_path2 = 0x7f190002;
     }
 }

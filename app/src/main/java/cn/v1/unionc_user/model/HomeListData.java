@@ -68,6 +68,35 @@ public class HomeListData extends BaseData  {
         }
 
         public static class HomeData implements Serializable{
+            @Override
+            public String toString() {
+                return "HomeData{" +
+                        "type='" + type + '\'' +
+                        ", lastMessage=" + lastMessage +
+                        ", lasttime='" + lasttime + '\'' +
+                        ", unReadMessage='" + unReadMessage + '\'' +
+                        ", clinicId='" + clinicId + '\'' +
+                        ", clinicName='" + clinicName + '\'' +
+                        ", departName='" + departName + '\'' +
+                        ", distance='" + distance + '\'' +
+                        ", doctId='" + doctId + '\'' +
+                        ", doctorName='" + doctorName + '\'' +
+                        ", identifier='" + identifier + '\'' +
+                        ", imagePath='" + imagePath + '\'' +
+                        ", major='" + major + '\'' +
+                        ", professLevel='" + professLevel + '\'' +
+                        ", LinkUrl='" + LinkUrl + '\'' +
+                        ", EndTime='" + EndTime + '\'' +
+                        ", activityId='" + activityId + '\'' +
+                        ", StartTime='" + StartTime + '\'' +
+                        ", ImagePath='" + ImagePath + '\'' +
+                        ", LinkType='" + LinkType + '\'' +
+                        ", MessageId='" + MessageId + '\'' +
+                        ", Name='" + Name + '\'' +
+                        ", Address='" + Address + '\'' +
+                        ", CreatedTime='" + CreatedTime + '\'' +
+                        '}';
+            }
 
             private String type;
 

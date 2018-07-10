@@ -46,6 +46,7 @@ public class ToDoorWebViewActivity extends BaseActivity {
      ProgressBar bar;
     int type = 0;
     String activityId = null;
+    String url = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,9 @@ public class ToDoorWebViewActivity extends BaseActivity {
 //        Log.d("linshi", "todoor.hasExtra2:" + getIntent().getStringExtra("activityid"));
         if (getIntent().hasExtra("activityid")) {
             activityId = getIntent().getStringExtra("activityid");
+        }
+        if (getIntent().hasExtra("url")) {
+            url = getIntent().getStringExtra("url");
         }
     }
 
@@ -114,6 +118,11 @@ public class ToDoorWebViewActivity extends BaseActivity {
                 iniactivity();
 
                 break;
+            case 31:
+                //站外活动详情
+                iniactivity2();
+
+                break;
             case 4:
                 //心电图使用说明
                 initHelp();
@@ -159,6 +168,10 @@ public class ToDoorWebViewActivity extends BaseActivity {
 //        showDialog("加载中...");
         toplayout.setVisibility(View.GONE);
         initactivityInfo();
+    }
+    private void iniactivity2() {
+        tvTitle.setText("活动详情");
+        webviewSearch.loadUrl(url);
     }
 
 

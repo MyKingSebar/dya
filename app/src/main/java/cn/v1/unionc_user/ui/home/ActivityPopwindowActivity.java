@@ -2,6 +2,7 @@ package cn.v1.unionc_user.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -53,6 +54,7 @@ private  List<HomeListData.DataData.HomeData> data;
     private void initData() {
         if (getIntent().hasExtra("list")) {
             data = (List<HomeListData.DataData.HomeData>) getIntent().getSerializableExtra("list");//获取list方式
+            Log.d("linshi","datapush:"+data.toString());
         }
     }
 
@@ -68,6 +70,8 @@ private  List<HomeListData.DataData.HomeData> data;
                     .setOnSliderClickListener(onSliderClickListener);//图片点击
             textSliderView.bundle(new Bundle());
             textSliderView.getBundle().putString("activityid",homedata.getActivityId());//传入参数
+            textSliderView.getBundle().putString("type",homedata.getType());//传入参数
+            textSliderView.getBundle().putString("url",homedata.getLinkUrl());//传入参数
             mDemoSlider.addSlider(textSliderView);//添加一个滑动页面
         }
 
@@ -91,9 +95,16 @@ private  List<HomeListData.DataData.HomeData> data;
         @Override
         public void onSliderClick(BaseSliderView slider) {
             Intent intent = new Intent(context, ToDoorWebViewActivity.class);
-            intent.putExtra("type", 3);
-            intent.putExtra("activityid", slider.getBundle().get("activity")+"");
-            Log.d("linshi","onSliderClickListener.activityid:"+slider.getBundle().get("activity"));
+            if(TextUtils.equals("1",slider.getBundle().get("type")+"")){
+//站内
+                intent.putExtra("type", 3);
+                intent.putExtra("activityid", slider.getBundle().get("activityid")+"");
+                Log.d("linshi","onSliderClickListener.activityid:"+slider.getBundle().get("activityid"));
+            }else if(TextUtils.equals("2",slider.getBundle().get("type")+"")){
+                //站外
+                intent.putExtra("type", 31);
+                intent.putExtra("url", slider.getBundle().get("url")+"");
+            }
             context.startActivity(intent);
         }
     };
