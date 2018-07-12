@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity;
 
@@ -72,7 +74,7 @@ public class FindFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.tv_my_healthcircle:
                 //健康圈
-
+                showTost("暂未开通");
                 break;
             case R.id.tv_homedoc:
                 //家庭医生
@@ -91,7 +93,12 @@ public class FindFragment extends BaseFragment {
             case R.id.tv_healthlive:
                 //健康直播
 //goNewActivity(NEMainActivity.class);
-goNewActivity(LiveListActivity.class);
+//goNewActivity(LiveListActivity.class);
+                if (isLogin()) {
+                    goNewActivity(LiveListActivity.class);
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
                 break;
             case R.id.tv_activity:
                 //社区活动

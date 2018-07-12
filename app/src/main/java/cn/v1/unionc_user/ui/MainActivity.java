@@ -68,7 +68,16 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         if (!isLogin()) {
-            mCurrentCheckedId=R.id.message;
+            switch (mCurrentCheckedId){
+                case R.id.discover:
+                    break;
+                case R.id.find:
+                    break;
+                    default:
+                        mCurrentCheckedId=R.id.message;
+                        break;
+
+            }
             rg.check(mCurrentCheckedId);
             Log.d("linshi","onresume");
         }

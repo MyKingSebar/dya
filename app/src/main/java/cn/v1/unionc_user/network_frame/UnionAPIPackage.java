@@ -994,11 +994,12 @@ public class UnionAPIPackage {
     /**
      * 修改老人图片
      */
-    public static Observable<BaseData> updateOldmanPhoto(String token, String elderlyUserId, String imagePath){
+    public static Observable<BaseData> updateOldmanPhoto(String token, String elderlyUserId, String imagePath,String imageId){
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("elderlyUserId", elderlyUserId);
         params.put("imagePath", imagePath);
+        params.put("imageId", imageId);
         return ConnectHttp.getUnionAPI().updateOldmanPhoto(dataProcess(params));
     }
     /**

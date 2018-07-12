@@ -82,7 +82,7 @@ public class OldmanInfoData extends BaseData {
                 CardNo = cardNo;
             }
 
-            private class ImageInfo{
+            public class ImageInfo{
               private String ImageId;
               private String ImagePath;
 

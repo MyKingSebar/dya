@@ -21,6 +21,8 @@ import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
+import cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity1;
+import cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity2;
 import cn.v1.unionc_user.view.CircleImageView;
 import io.rong.callkit.RongCallKit;
 
@@ -67,7 +69,15 @@ private onMyClick2 onmyClick2;
 
         holder.tv_name.setText(doctorData.getGuardianName());
         holder.tv_relation.setText(doctorData.getGuardianRoleName());
-
+holder.itemView.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent =new Intent(context,OldRegisterActivity1.class);
+        intent.putExtra("ElderlyUserId",doctorData.getElderlyUserId());
+        intent.putExtra("edit",true);
+        context.startActivity(intent);
+    }
+});
         holder.bt_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

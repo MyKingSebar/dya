@@ -70,7 +70,7 @@ private  List<HomeListData.DataData.HomeData> data;
                     .setOnSliderClickListener(onSliderClickListener);//图片点击
             textSliderView.bundle(new Bundle());
             textSliderView.getBundle().putString("activityid",homedata.getActivityId());//传入参数
-            textSliderView.getBundle().putString("type",homedata.getType());//传入参数
+            textSliderView.getBundle().putString("type",homedata.getLinkType());//传入参数
             textSliderView.getBundle().putString("url",homedata.getLinkUrl());//传入参数
             mDemoSlider.addSlider(textSliderView);//添加一个滑动页面
         }
@@ -95,17 +95,21 @@ private  List<HomeListData.DataData.HomeData> data;
         @Override
         public void onSliderClick(BaseSliderView slider) {
             Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+            Log.d("linshi","onSliderClickListener.type:"+slider.getBundle().get("type"));
             if(TextUtils.equals("1",slider.getBundle().get("type")+"")){
 //站内
                 intent.putExtra("type", 3);
                 intent.putExtra("activityid", slider.getBundle().get("activityid")+"");
                 Log.d("linshi","onSliderClickListener.activityid:"+slider.getBundle().get("activityid"));
+                context.startActivity(intent);
             }else if(TextUtils.equals("2",slider.getBundle().get("type")+"")){
                 //站外
                 intent.putExtra("type", 31);
                 intent.putExtra("url", slider.getBundle().get("url")+"");
+                Log.d("linshi","onSliderClickListener.url:"+slider.getBundle().get("url"));
+                context.startActivity(intent);
             }
-            context.startActivity(intent);
+
         }
     };
     //页面改变监听

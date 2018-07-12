@@ -27,6 +27,7 @@ import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.BaseData;
 import cn.v1.unionc_user.model.BindSuccessReturnEventData;
+import cn.v1.unionc_user.model.GuardianshipReturnEventData;
 import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
@@ -229,7 +230,7 @@ public class GuardianshipListActivity2 extends BaseActivity {
     }
 
     @Subscribe
-    public void bindsuccessReturn(final BindSuccessReturnEventData data) {
+    public void GuardianshipReturn(final GuardianshipReturnEventData data) {
         getList();
     }
 }

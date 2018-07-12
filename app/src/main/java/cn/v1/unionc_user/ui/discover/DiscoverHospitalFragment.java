@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
@@ -43,6 +44,10 @@ public class DiscoverHospitalFragment extends BaseFragment {
 
     @BindView(R.id.recycleview)
     RecyclerView mainRecycleview;
+    @BindView(R.id.swipeRefreshLayout)
+    PullRefreshLayout pullRefreshLayout;
+
+
 
     @OnClick(R.id.tv_add)
     void changeaddress(){
@@ -87,6 +92,16 @@ public class DiscoverHospitalFragment extends BaseFragment {
 
 
     private void initView() {
+        // listen refresh event
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // start refresh
+                getHospitalList();
+            }
+        });
+
+
         mainRecycleview.setLayoutManager(new LinearLayoutManager(context));
         meWatchingHospitalListAdapter = new DiscoverHospitalListAdapter(context);
         mainRecycleview.setAdapter(meWatchingHospitalListAdapter);
@@ -112,14 +127,17 @@ public class DiscoverHospitalFragment extends BaseFragment {
                     meWatchingHospitalListAdapter.setData(datas);
                     closeDialog();
                     Logger.json(new Gson().toJson(datas));
+                    pullRefreshLayout.setRefreshing(false);
                 } else {
                     showTost(data.getMessage());
+                    pullRefreshLayout.setRefreshing(false);
                 }
             }
 
             @Override
             public void onFail(Throwable e) {
                 closeDialog();
+                pullRefreshLayout.setRefreshing(false);
             }
         });
 

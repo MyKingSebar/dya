@@ -608,6 +608,9 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                         Intent intent = new Intent(context, ActivityPopwindowActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("list", (Serializable) data.getData().getActivities());//序列化,要注意转化(Serializable)
+
+
+
                         intent.putExtras(bundle);//发送数据
                         startActivity(intent);//启动intent
                     }

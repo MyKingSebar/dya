@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +38,7 @@ import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.BaseData;
+import cn.v1.unionc_user.model.OldmanInfoData;
 import cn.v1.unionc_user.model.UpdateFileData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
@@ -46,6 +48,8 @@ import cn.v1.unionc_user.utils.UploadAvatarUtil;
 
 public class OldRegisterActivity3 extends BaseActivity {
     private String ElderlyUserId;
+    private String pictureid;
+    private boolean edit=false;
     @BindView(R.id.img_back)
     ImageView bakc;
     @BindView(R.id.tv_title)
@@ -54,8 +58,12 @@ public class OldRegisterActivity3 extends BaseActivity {
     ImageView im_img;
     @BindView(R.id.im_top)
     ImageView im_top;
+    @BindView(R.id.im_status)
+    ImageView im_status;
     @BindView(R.id.bt_next)
     Button bt_next;
+    @BindView(R.id.bt_photo)
+    Button bt_photo;
 
     @OnClick(R.id.img_back)
     void back(){
@@ -66,6 +74,7 @@ public class OldRegisterActivity3 extends BaseActivity {
 
         Intent intent=new Intent(OldRegisterActivity3.this,OldRegisterActivity4.class);
         intent.putExtra("ElderlyUserId",ElderlyUserId);
+        intent.putExtra("edit",true);
         startActivity(intent);
 //       goNewActivity(OldRegisterActivity3.class);
     }
@@ -101,14 +110,24 @@ public class OldRegisterActivity3 extends BaseActivity {
     }
 
     private void initView() {
-        bt_next.setClickable(false);
-        bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
         im_top.setBackgroundResource(R.drawable.find_register3);
+        im_status.setVisibility(View.INVISIBLE);
+        if(edit){
+            bt_next.setClickable(true);
+            bt_next.setBackgroundResource(R.drawable.blue_btn_bg);
+        }else {
+            bt_next.setClickable(false);
+            bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+        }
+
+
         try {
             photoFile = createFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
     private File createFile() throws IOException {
         photoFile = null;
@@ -142,14 +161,17 @@ public class OldRegisterActivity3 extends BaseActivity {
 
         return photoFile;
     }
-
     private void initData(){
-    Intent intent=getIntent();
-    if(intent.hasExtra("ElderlyUserId")){
-        ElderlyUserId=intent.getStringExtra("ElderlyUserId");
-        Log.d("linshi","ElderlyUserId:"+ElderlyUserId);
+        Intent intent=getIntent();
+        if(intent.hasExtra("ElderlyUserId")){
+            ElderlyUserId=intent.getStringExtra("ElderlyUserId");
+            Log.d("linshi","ElderlyUserId:"+ElderlyUserId);
+        }
+        if(intent.hasExtra("edit")){
+            edit=true;
+            getOldman();
+        }
     }
-}
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -349,19 +371,22 @@ public class OldRegisterActivity3 extends BaseActivity {
                 Log.d("linshi","UpdateFileData:"+ new Gson().toJson(data));
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
-                    updateUserInfo(data.getPath() + "");
+                    if(TextUtils.isEmpty(pictureid)){
+
+                        updateUserInfo(data.getPath() + "");
+                    }else{
+                        updateOldmanPhoto(data.getPath() + "");
+                    }
                 } else {
                     showTost(data.getMessage() + "");
-                    bt_next.setClickable(false);
-                    bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+                    onPhotoFail();
                 }
             }
 
             @Override
             public void onFail(Throwable e) {
                 closeDialog();
-                bt_next.setClickable(false);
-                bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+                onPhotoFail();
             }
         });
 
@@ -378,21 +403,101 @@ public class OldRegisterActivity3 extends BaseActivity {
                 if (TextUtils.equals("4000", data.getCode())) {
                     bt_next.setClickable(true);
                     bt_next.setBackgroundResource(R.drawable.blue_btn_bg);
+                    bt_photo.setVisibility(View.INVISIBLE);
+                    im_status.setBackgroundResource(R.drawable.icon_upload_success);
+
                 } else {
                     showTost(data.getMessage() + "");
-                    bt_next.setClickable(false);
-                    bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+                    onPhotoFail();
                 }
             }
 
             @Override
             public void onFail(Throwable e) {
                 closeDialog();
-                bt_next.setClickable(false);
-                bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+                onPhotoFail();
             }
         });
 
+
+    }
+    private void updateOldmanPhoto(String url) {
+        Log.d("linshi","uploadImage:"+urlpath);
+        showDialog("头像上传中...");
+        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+        ConnectHttp.connect((UnionAPIPackage.updateOldmanPhoto(token,ElderlyUserId,url,pictureid)), new BaseObserver<BaseData>(context) {
+            @Override
+            public void onResponse(BaseData data) {
+                closeDialog();
+                if (TextUtils.equals("4000", data.getCode())) {
+                    bt_next.setClickable(true);
+                    bt_next.setBackgroundResource(R.drawable.blue_btn_bg);
+                    bt_photo.setVisibility(View.INVISIBLE);
+                    im_status.setBackgroundResource(R.drawable.icon_upload_success);
+
+                } else {
+                    showTost(data.getMessage() + "");
+                    onPhotoFail();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                closeDialog();
+                onPhotoFail();
+            }
+        });
+
+
+    }
+    protected void getOldman() {
+        showDialog("请稍侯...");
+        ConnectHttp.connect(UnionAPIPackage.getOldmanInfo(getToken(),ElderlyUserId), new BaseObserver<OldmanInfoData>(context) {
+
+            @Override
+            public void onResponse(OldmanInfoData data) {
+                closeDialog();
+                if (TextUtils.equals("4000", data.getCode())) {
+                    List<OldmanInfoData.DataData.DataDataData.ImageInfo> images=data.getData().getElderLyInfo().getImages();
+                    if(images.size()>1){
+                        if(!TextUtils.isEmpty(images.get(1).getImageId())){
+                            pictureid=images.get(1).getImageId();
+                        }
+                        if (TextUtils.isEmpty(images.get(1).getImagePath())) {
+
+                            im_img.setImageResource(R.drawable.user_default);
+                        } else {
+                            Glide.with(context)
+                                    .load(images.get(1).getImagePath())
+                                    .placeholder(R.drawable.user_default).dontAnimate()
+                                    .error(R.drawable.user_default)
+                                    .into(im_img);
+
+                        }
+                    }
+                } else {
+                    showTost(data.getMessage());
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                closeDialog();
+                showTost("保存失败");
+            }
+        });
+    }
+
+
+    private void onPhotoFail(){
+        if(edit){
+            im_status.setBackgroundResource(R.drawable.icon_upload_fail);
+        }else {
+            bt_next.setClickable(false);
+            bt_next.setBackgroundResource(R.drawable.bg_gray_btn);
+            bt_photo.setVisibility(View.VISIBLE);
+            im_status.setBackgroundResource(R.drawable.icon_upload_fail);
+        }
 
     }
 }
