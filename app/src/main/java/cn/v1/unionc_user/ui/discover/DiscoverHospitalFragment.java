@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.baoyz.widget.PullRefreshLayout;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
+import cn.v1.unionc_user.model.LocationUpdateEventData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.NearbyClinicData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
@@ -66,6 +68,7 @@ public class DiscoverHospitalFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BusProvider.getInstance().register(this);
+        getHospitalList();
     }
 
     @Override
@@ -87,7 +90,7 @@ public class DiscoverHospitalFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
-        getHospitalList();
+
     }
 
 
@@ -148,5 +151,11 @@ public class DiscoverHospitalFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Subscribe
+    public void subscribeLocationUpdate(LocationUpdateEventData data) {
+        getHospitalList();
+    }
+
 
 }

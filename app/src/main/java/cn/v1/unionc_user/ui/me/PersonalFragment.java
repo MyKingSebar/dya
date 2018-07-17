@@ -44,7 +44,6 @@ import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.home.health.DossierHertRateHistoryActivity;
-import cn.v1.unionc_user.ui.me.guardianship.GuardianshipListActivity;
 import cn.v1.unionc_user.ui.me.guardianship.GuardianshipListActivity2;
 import cn.v1.unionc_user.utils.WXShare;
 import cn.v1.unionc_user.view.CircleImageView;

@@ -182,4 +182,6 @@ dependencies {
 
 //    implementation(name:'zxing-1.8.4', ext:'aar')
     implementation(name:'barcodescanner-core-1.8.4', ext:'aar')
+
+    compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
 }

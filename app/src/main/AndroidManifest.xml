@@ -232,6 +232,7 @@
         <activity android:name="cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity2" />
         <activity android:name="cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity3" />
         <activity android:name="cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity4" />
+        <activity android:name="cn.v1.unionc_user.ui.me.oldregister.TestInfo" />
 
         <activity
             android:name=".ui.home.SignactivityActivity"

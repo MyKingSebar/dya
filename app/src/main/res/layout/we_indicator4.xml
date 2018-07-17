@@ -7,6 +7,6 @@
         android:id="@+id/im4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/wlcome4"
+        android:src="@drawable/we_indicator4"
         android:scaleType="fitXY"/>
 </LinearLayout>

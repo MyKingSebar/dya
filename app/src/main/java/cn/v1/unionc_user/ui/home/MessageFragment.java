@@ -460,11 +460,11 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                     if (data.getData().getRecommendDoctors().size() != 0) {
                         int index = datas.size();
                         int recommendDoctors = data.getData().getRecommendDoctors().size();
-                        if (recommendDoctors == 0) {
-                            rlRecommond.setVisibility(View.GONE);
-                        } else {
-                            rlRecommond.setVisibility(View.VISIBLE);
-                        }
+//                        if (recommendDoctors == 0) {
+//                            rlRecommond.setVisibility(View.GONE);
+//                        } else {
+//                            rlRecommond.setVisibility(View.VISIBLE);
+//                        }
                         tvRecommond.setText("向您推荐附近" + recommendDoctors + "名家庭医生为您服务");
                         for (int i = 0; i < recommendDoctors; i++) {
                             datas.add(data.getData().getRecommendDoctors().get(i));
@@ -490,7 +490,6 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                         }
                     }
                     if (isLogin()) {
-
                         getCoversationList();
                         for (int i = 0; i < newConversations.size(); i++) {
                             String conversationIdentifier = newConversations.get(i).getIdentifier();

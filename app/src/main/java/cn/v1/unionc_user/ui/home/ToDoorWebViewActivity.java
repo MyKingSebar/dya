@@ -225,7 +225,6 @@ public class ToDoorWebViewActivity extends BaseActivity {
                 public void onResponse(HomeToHomeData data) {
                     String url = data.getData().getRedirectUrl();
                     webviewSearch.loadUrl(url);
-
                 }
 
                 @Override

@@ -23,6 +23,7 @@ import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
 import cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity1;
 import cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity2;
+import cn.v1.unionc_user.ui.me.oldregister.TestInfo;
 import cn.v1.unionc_user.view.CircleImageView;
 import io.rong.callkit.RongCallKit;
 
@@ -31,9 +32,9 @@ import io.rong.callkit.RongCallKit;
  */
 
 public class MeguardianshipListAdapter extends RecyclerView.Adapter<MeguardianshipListAdapter.ViewHolder> {
-    private int type=0;
-private onMyClick onmyClick;
-private onMyClick2 onmyClick2;
+    private int type = 0;
+    private onMyClick onmyClick;
+    private onMyClick2 onmyClick2;
     private Context context;
     private List<MeguardianshipData.DataData.GuardianshipData> datas = new ArrayList<>();
 
@@ -69,58 +70,61 @@ private onMyClick2 onmyClick2;
 
         holder.tv_name.setText(doctorData.getGuardianName());
         holder.tv_relation.setText(doctorData.getGuardianRoleName());
-holder.itemView.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent =new Intent(context,OldRegisterActivity1.class);
-        intent.putExtra("ElderlyUserId",doctorData.getElderlyUserId());
-        intent.putExtra("edit",true);
-        context.startActivity(intent);
-    }
-});
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(context, OldRegisterActivity1.class);
+//                intent.putExtra("ElderlyUserId", doctorData.getElderlyUserId());
+//                intent.putExtra("edit", true);
+//                context.startActivity(intent);
+                Intent intent = new Intent(context, TestInfo.class);
+                context.startActivity(intent);
+            }
+        });
         holder.bt_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(doctorData.getGuardianIdentifier())) {
-                    RongCallKit.startSingleCall(context, doctorData.getGuardianIdentifier(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+                    RongCallKit.startSingleCall(context, doctorData.getGuardianIdentifier(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
                 } else {
                     Toast.makeText(context, "暂时无法连接", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        if(onmyClick!=null){
+        if (onmyClick != null) {
 
             holder.bt_unbind.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onmyClick.myTextViewClick(position,type);
+                    onmyClick.myTextViewClick(position, type);
                 }
             });
         }
-        if(onmyClick2!=null){
+        if (onmyClick2 != null) {
 
             holder.bt_serve.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onmyClick2.myTextViewClick(position,type);
+                    onmyClick2.myTextViewClick(position, type);
                 }
             });
         }
 
-        if(TextUtils.equals("0",doctorData.getIsBound())){
+        if (TextUtils.equals("0", doctorData.getIsBound())) {
             //未绑定
             holder.bt_video.setVisibility(View.GONE);
             holder.bt_unbind.setText("不同意");
             holder.bt_serve.setText("同意");
-            holder.tv_describe.setText(doctorData.getCreatedTime()+"【"+doctorData.getClinicName()+"】邀请您做他的监护人");
-            type=0;
-        }else if(TextUtils.equals("1",doctorData.getIsBound())){
+            holder.tv_describe.setText(doctorData.getCreatedTime() + "【" + doctorData.getClinicName() + "】邀请您做他的监护人");
+            type = 0;
+        } else if (TextUtils.equals("1", doctorData.getIsBound())) {
             //已绑定
             holder.bt_video.setVisibility(View.VISIBLE);
             holder.bt_unbind.setText("解除绑定");
             holder.bt_serve.setText("尽孝心");
             holder.tv_describe.setText(doctorData.getDoctName());
-            type=1;
+            type = 1;
         }
     }
 
@@ -153,16 +157,18 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
         }
     }
 
-    public interface onMyClick{
-        public void myTextViewClick(int id,int type);
+    public interface onMyClick {
+        public void myTextViewClick(int id, int type);
     }
+
     public void setOnClickMyTextView(onMyClick onMyClick) {
         this.onmyClick = onMyClick;
     }
 
-    public interface onMyClick2{
-        public void myTextViewClick(int id,int type);
+    public interface onMyClick2 {
+        public void myTextViewClick(int id, int type);
     }
+
     public void setOnClickMyTextView2(onMyClick2 onMyClick2) {
         this.onmyClick2 = onMyClick2;
     }
