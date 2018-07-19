@@ -24,6 +24,7 @@ import cn.v1.unionc_user.model.IsBindJianhurenData;
 import cn.v1.unionc_user.model.IsDoctorData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
+import cn.v1.unionc_user.model.MainMessagePushData;
 import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
@@ -691,4 +692,28 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("old-man/elderly-service-submit")
     Observable<BaseData> applyservice(@FieldMap Map<String, Object> params);
+    /**
+     * 消息记录：
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("message/message-push-record")
+    Observable<MainMessagePushData> messagepushrecord(@FieldMap Map<String, Object> params);
+    /**
+     * 阅读消息：：
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("message/message-read")
+    Observable<BaseData> readmessage(@FieldMap Map<String, Object> params);
+    /**
+     * 删除消息：：
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("message/message-delete")
+    Observable<BaseData> deletemessage(@FieldMap Map<String, Object> params);
 }

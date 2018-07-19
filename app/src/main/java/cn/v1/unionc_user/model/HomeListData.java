@@ -355,6 +355,72 @@ public class HomeListData extends BaseData  {
                 CreatedTime = createdTime;
             }
 
+
+            private String JumpId;
+//            private String CreatedTime;
+//            private String MessageId;
+            private String OrderBy;
+            private String IsDelete;
+            private String IsJump;
+            private String IsRead;
+            private String PushCategory;//"推送类型（1-活动，2-直播，3-医生，4-护士5-绑定监护人）",
+            private MainMessagePushData.DataData.DataDataData.MessageData Content;
+
+            public String getJumpId() {
+                return JumpId;
+            }
+
+            public void setJumpId(String jumpId) {
+                JumpId = jumpId;
+            }
+
+            public String getOrderBy() {
+                return OrderBy;
+            }
+
+            public void setOrderBy(String orderBy) {
+                OrderBy = orderBy;
+            }
+
+            public String getIsDelete() {
+                return IsDelete;
+            }
+
+            public void setIsDelete(String isDelete) {
+                IsDelete = isDelete;
+            }
+
+            public String getIsJump() {
+                return IsJump;
+            }
+
+            public void setIsJump(String isJump) {
+                IsJump = isJump;
+            }
+
+            public String getIsRead() {
+                return IsRead;
+            }
+
+            public void setIsRead(String isRead) {
+                IsRead = isRead;
+            }
+
+            public String getPushCategory() {
+                return PushCategory;
+            }
+
+            public void setPushCategory(String pushCategory) {
+                PushCategory = pushCategory;
+            }
+
+            public MainMessagePushData.DataData.DataDataData.MessageData getContent() {
+                return Content;
+            }
+
+            public void setContent(MainMessagePushData.DataData.DataDataData.MessageData content) {
+                Content = content;
+            }
         }
 
     }

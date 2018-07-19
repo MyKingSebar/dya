@@ -70,4 +70,15 @@ public class Common {
     public static final int SERVER_HOSPITAL = 1;
     public static final int SERVER_OLDMEN = 2;
 
+//首页推送列表
+    //推送类型（1-活动，2-直播，3-医生，4-护士5-绑定监护人）6：视频问诊  7：一键呼叫监护人8：预约护士上门
+    public static final String PUSH_ACTICITY = "1";
+    public static final String PUSH_LIVE = "2";
+    public static final String PUSH_DOC = "3";
+    public static final String PUSH_NUR = "4";
+    public static final String PUSH_BIND= "5";
+    public static final String PUSH_VIDEO = "6";
+    public static final String PUSH_CALL= "7";
+    public static final String PUSH_CALLNURSE = "8";
+
 }

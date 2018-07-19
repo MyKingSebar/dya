@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +21,7 @@ import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMFriendshipManager;
 import com.tencent.imsdk.TIMUserProfile;
 import com.tencent.imsdk.TIMValueCallBack;
+import com.tencent.imsdk.ext.message.TIMManagerExt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +63,7 @@ public class HomeListAdapter2 extends RecyclerView.Adapter<HomeListAdapter2.View
     @Override
     public void onBindViewHolder(final HomeListAdapter2.ViewHolder holder, final int position) {
         final HomeListData.DataData.HomeData homeData = datas.get(position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String type = datas.get(position).getType();
@@ -92,7 +95,18 @@ public class HomeListAdapter2 extends RecyclerView.Adapter<HomeListAdapter2.View
                 }
             }
         });
-
+holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        String type = datas.get(position).getType();
+        String identifier = datas.get(position).getIdentifier() + "";
+        if(TextUtils.equals(type, Common.CONVERSATIONS)){
+            TIMManagerExt.getInstance().deleteConversation(TIMConversationType.C2C, identifier);
+            datas.remove(position);
+            notifyDataSetChanged();
+        }
+    }
+});
         if (TextUtils.equals(homeData.getType(), Common.INQUIRY_RECORD)) {
             Glide.with(context).load(homeData.getImagePath()).into(holder.imgMessageAvator);
             holder.tvMessageName.setText(homeData.getDoctorName() + "  ");
@@ -102,7 +116,6 @@ public class HomeListAdapter2 extends RecyclerView.Adapter<HomeListAdapter2.View
         }
         if (TextUtils.equals(homeData.getType(), Common.ATTENDING_DOCTORS)) {
             if (TextUtils.isEmpty(homeData.getImagePath())) {
-
                 holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
             } else {
                 Glide.with(context)
@@ -168,7 +181,7 @@ public class HomeListAdapter2 extends RecyclerView.Adapter<HomeListAdapter2.View
                 /**
                  * 处理im标题有时为空的问题
                  */
-                holder.itemView.setClickable(false);
+                holder.ll.setClickable(false);
 
                 //获取用户资料
                 TIMFriendshipManager.getInstance().getUsersProfile(users, new TIMValueCallBack<List<TIMUserProfile>>() {
@@ -179,7 +192,7 @@ public class HomeListAdapter2 extends RecyclerView.Adapter<HomeListAdapter2.View
                         Log.e("tim", "getUsersProfile failed: " + code + " desc");
                         holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
                         holder.tvMessageName.setText(homeData.getIdentifier() + "");
-                        holder.itemView.setClickable(true);
+                        holder.ll.setClickable(true);
                     }
 
                     @Override
@@ -224,7 +237,7 @@ public class HomeListAdapter2 extends RecyclerView.Adapter<HomeListAdapter2.View
                                 holder.imgMessageAvator.setImageResource(R.drawable.icon_doctor_default);
                             }
                         }
-                        holder.itemView.setClickable(true);
+                        holder.ll.setClickable(true);
                     }
                 });
 
@@ -296,6 +309,10 @@ public class HomeListAdapter2 extends RecyclerView.Adapter<HomeListAdapter2.View
         TextView tvEndTime;
         @BindView(R.id.tv_address)
         TextView tvAddress;
+        @BindView(R.id.ll)
+        LinearLayout ll;
+        @BindView(R.id.btnDelete)
+        Button btnDelete;
 
         ViewHolder(View view) {
             super(view);

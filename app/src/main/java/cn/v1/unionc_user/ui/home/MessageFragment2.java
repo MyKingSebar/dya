@@ -66,7 +66,6 @@ import cn.v1.unionc_user.model.JiGuangData;
 import cn.v1.unionc_user.model.LocationUpdateEventData;
 import cn.v1.unionc_user.model.LogOutEventData;
 import cn.v1.unionc_user.model.LoginUpdateEventData;
-import cn.v1.unionc_user.model.MainMessagePushData;
 import cn.v1.unionc_user.model.Position;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
@@ -86,7 +85,7 @@ import cn.v1.unionc_user.view.dialog_interface.OnButtonClickListener;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MessageFragment extends BaseFragment implements LocationSource,
+public class MessageFragment2 extends BaseFragment implements LocationSource,
         AMapLocationListener {
     //声明mLocationOption对象
     public AMapLocationClientOption mLocationOption = null;
@@ -127,6 +126,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     PullRefreshLayout pullRefreshLayout;
 
 
+
     private int[] imgs = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
     private HomeListAdapter homeListAdapter;
     private List<HomeListData.DataData.HomeData> datas = new ArrayList<>();
@@ -144,7 +144,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
 
     Gson gson = new Gson();
 
-    public MessageFragment() {
+    public MessageFragment2() {
         // Required empty public constructor
     }
 
@@ -270,6 +270,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 getHomeList(longitude, latitude);
             }
         });
+
+
 
 
         rlRecommond.setVisibility(View.GONE);
@@ -502,12 +504,9 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                         Log.d("linshi", "Tim3:" + new Gson().toJson(newConversations));
                         datas.addAll(newConversations);
 //                        getPushActivity();
-                        getMessagePush();
                         if (pushactivitydatas != null && pushactivitydatas.size() != 0) {
                             datas.addAll((List<HomeListData.DataData.HomeData>) pushactivitydatas);
                         }
-
-
                     }
 
 //                    getActivityPush();
@@ -610,58 +609,9 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                         bundle.putSerializable("list", (Serializable) data.getData().getActivities());//序列化,要注意转化(Serializable)
 
 
+
                         intent.putExtras(bundle);//发送数据
                         startActivity(intent);//启动intent
-                    }
-
-                } else {
-                    showTost(data.getMessage());
-                }
-                connectclosedialog();
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                connectclosedialog();
-            }
-        });
-
-    }
-
-    private void getMessagePush() {
-        Log.d("linshi", "getActivityPush()");
-        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        pushactivitydatas.clear();
-        ConnectHttp.connect(UnionAPIPackage.messagepushrecord(token), new BaseObserver<MainMessagePushData>(context) {
-            @Override
-            public void onResponse(MainMessagePushData data) {
-
-                if (TextUtils.equals("4000", data.getCode())) {
-                    Log.d("linshi", "data:" + new Gson().toJson(data));
-                    Log.d("linshi", "size:" + data.getData().getMessages().size());
-
-                    if (data.getData().getMessages().size() > 0) {
-                        for (int i = 0; i < data.getData().getMessages().size(); i++) {
-                            pushactivitydata = new HomeListData.DataData.HomeData();
-                            pushactivitydata.setJumpId(data.getData().getMessages().get(i).getJumpId());
-                            pushactivitydata.setCreatedTime(data.getData().getMessages().get(i).getCreatedTime());
-                            pushactivitydata.setMessageId(data.getData().getMessages().get(i).getMessageId());
-                            pushactivitydata.setOrderBy(data.getData().getMessages().get(i).getOrderBy());
-                            pushactivitydata.setIsDelete(data.getData().getMessages().get(i).getIsDelete());
-                            pushactivitydata.setIsJump(data.getData().getMessages().get(i).getIsJump());
-                            pushactivitydata.setIsRead(data.getData().getMessages().get(i).getIsRead());
-                            pushactivitydata.setPushCategory(data.getData().getMessages().get(i).getPushCategory());
-                            pushactivitydata.setContent(data.getData().getMessages().get(i).getContent());
-                            pushactivitydata.setType(Common.ACTIVITY_PUSH);
-                            if (pushactivitydata != null) {
-                                pushactivitydatas.add(pushactivitydata);
-                            }
-                        }
-                        if (pushactivitydatas.size() > 0) {
-                            datas.addAll(pushactivitydatas);
-                            homeListAdapter.setData(datas);
-
-                        }
                     }
 
                 } else {
@@ -745,9 +695,9 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 if (!ExampleUtil.isEmpty(extras)) {
                     Log.d("linshi", "extras():" + extras);
                     JiGuangData child2 = gson.fromJson(extras, JiGuangData.class);
-                    if (TextUtils.equals("1", child2.getPushCategory())) {
-                        //推送类型：1-活动，2-直播，3-医生，4-护士
-                        if (TextUtils.equals("0", child2.getShow())) {
+                    if(TextUtils.equals("1",child2.getPushCategory())){
+                      //推送类型：1-活动，2-直播，3-医生，4-护士
+                        if(TextUtils.equals("0",child2.getShow())){
                             return;
                         }
                         pushactivitydata = new HomeListData.DataData.HomeData();

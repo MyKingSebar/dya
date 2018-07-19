@@ -31,6 +31,7 @@ import cn.v1.unionc_user.model.IsBindJianhurenData;
 import cn.v1.unionc_user.model.IsDoctorData;
 import cn.v1.unionc_user.model.IsDoctorSignData;
 import cn.v1.unionc_user.model.LoginData;
+import cn.v1.unionc_user.model.MainMessagePushData;
 import cn.v1.unionc_user.model.MapClinicData;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
@@ -1012,6 +1013,32 @@ public class UnionAPIPackage {
         params.put("clinicId", clinicId);
         params.put("serviceCode", serviceCode);
         return ConnectHttp.getUnionAPI().applyservice(dataProcess(params));
+    }
+    /**
+     * 消息记录
+     */
+    public static Observable<MainMessagePushData> messagepushrecord(String token) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        return ConnectHttp.getUnionAPI().messagepushrecord(dataProcess(params));
+    }
+    /**
+     * 消息记录
+     */
+    public static Observable<BaseData> readmessage(String token,String messageId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("messageId", messageId);
+        return ConnectHttp.getUnionAPI().readmessage(dataProcess(params));
+    }
+    /**
+     * 删除消息
+     */
+    public static Observable<BaseData> deletemessage(String token,String messageId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("messageId", messageId);
+        return ConnectHttp.getUnionAPI().deletemessage(dataProcess(params));
     }
 
 }
