@@ -80,5 +80,6 @@ public class Common {
     public static final String PUSH_VIDEO = "6";
     public static final String PUSH_CALL= "7";
     public static final String PUSH_CALLNURSE = "8";
+    public static final String PUSH_PRESCRIPTION = "9";
 
 }

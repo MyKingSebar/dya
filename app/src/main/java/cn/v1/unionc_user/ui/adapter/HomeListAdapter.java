@@ -44,6 +44,7 @@ import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.tecent_qcloud.TIMChatActivity;
 import cn.v1.unionc_user.tecent_qcloud.tim_model.DoctorInfo;
 import cn.v1.unionc_user.ui.find.LiveListActivity;
+import cn.v1.unionc_user.ui.find.PrescriptionActivity;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
 import cn.v1.unionc_user.ui.home.ToDoorWebViewActivity;
 import cn.v1.unionc_user.ui.me.guardianship.BindguardianshipActivity;
@@ -112,6 +113,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         context.startActivity(intent);
                     } else if (TextUtils.equals(PushCategory, Common.PUSH_LIVE)) {
                         Intent intent = new Intent(context, LiveListActivity.class);
+                        context.startActivity(intent);
+                    }else if (TextUtils.equals(PushCategory, Common.PUSH_PRESCRIPTION)) {
+                        Intent intent = new Intent(context, PrescriptionActivity.class);
+                        intent.putExtra("prescriptionId", homeData.getContent().getPrescriptionId());
                         context.startActivity(intent);
                     }
                 }
@@ -387,6 +392,15 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvRole.setVisibility(View.GONE);
                 holder.tvAddress.setText(homeData.getContent().getElderlyRealName() + "已预约护士上门");
                 holder.tvMessageName.setText("预约护士上门");
+                holder.tvTime.setText(homeData.getCreatedTime());
+            }else if (TextUtils.equals(PushCategory, Common.PUSH_PRESCRIPTION)) {
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                holder.tvEndTime.setVisibility(View.INVISIBLE);
+                holder.tvAddress.setVisibility(View.VISIBLE);
+                holder.tvDescribe.setVisibility(View.GONE);
+                holder.tvRole.setVisibility(View.GONE);
+                holder.tvAddress.setText( "医生（"+homeData.getContent().getDoctName()+"）已为您的监护人（"+homeData.getContent().getElderlyRealName()+"）开具处方，详情请点击查看");
+                holder.tvMessageName.setText("处方通知");
                 holder.tvTime.setText(homeData.getCreatedTime());
             }
 

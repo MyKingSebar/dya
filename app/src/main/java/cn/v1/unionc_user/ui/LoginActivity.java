@@ -253,6 +253,8 @@ public class LoginActivity extends BaseActivity {
                                 goNewActivity(MainActivity.class);
                             }
                             login(token);
+                            LoginData logeventData = new LoginData();
+                            BusProvider.getInstance().post(logeventData);
                             Log.d("linshi","puttoken:"+token);
                             //通知首页和我的页面刷新数据
                             BusProvider.getInstance().post(new LoginUpdateEventData(true));

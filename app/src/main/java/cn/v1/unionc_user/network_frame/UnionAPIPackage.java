@@ -42,6 +42,7 @@ import cn.v1.unionc_user.model.NearbyClinicData;
 import cn.v1.unionc_user.model.NetCouldPullData;
 import cn.v1.unionc_user.model.OMLHistoryData;
 import cn.v1.unionc_user.model.OldmanInfoData;
+import cn.v1.unionc_user.model.PrescriptionInfoData;
 import cn.v1.unionc_user.model.RecommendDoctorsData;
 import cn.v1.unionc_user.model.SaveOldBaseData;
 import cn.v1.unionc_user.model.TIMSigData;
@@ -1039,6 +1040,15 @@ public class UnionAPIPackage {
         params.put("token", token);
         params.put("messageId", messageId);
         return ConnectHttp.getUnionAPI().deletemessage(dataProcess(params));
+    }
+    /**
+     * 查询处方详细
+     */
+    public static Observable<PrescriptionInfoData> prescriptioninfo(String token, String prescriptionId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("prescriptionId", prescriptionId);
+        return ConnectHttp.getUnionAPI().prescriptioninfo(dataProcess(params));
     }
 
 }

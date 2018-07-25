@@ -35,6 +35,7 @@ import cn.v1.unionc_user.model.NearbyClinicData;
 import cn.v1.unionc_user.model.NetCouldPullData;
 import cn.v1.unionc_user.model.OMLHistoryData;
 import cn.v1.unionc_user.model.OldmanInfoData;
+import cn.v1.unionc_user.model.PrescriptionInfoData;
 import cn.v1.unionc_user.model.RecommendDoctorsData;
 import cn.v1.unionc_user.model.SaveOldBaseData;
 import cn.v1.unionc_user.model.TIMSigData;
@@ -716,4 +717,12 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("message/message-delete")
     Observable<BaseData> deletemessage(@FieldMap Map<String, Object> params);
+    /**
+     * 查询处方详细
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("old-man/prescription-info")
+    Observable<PrescriptionInfoData> prescriptioninfo(@FieldMap Map<String, Object> params);
 }

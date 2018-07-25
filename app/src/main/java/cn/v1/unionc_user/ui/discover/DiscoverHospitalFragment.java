@@ -30,6 +30,7 @@ import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.data.Common;
 import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.LocationUpdateEventData;
+import cn.v1.unionc_user.model.LoginData;
 import cn.v1.unionc_user.model.MeWatchingHospitalListData;
 import cn.v1.unionc_user.model.NearbyClinicData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
@@ -113,6 +114,7 @@ public class DiscoverHospitalFragment extends BaseFragment {
 
     private void getHospitalList() {
 //        showDialog("加载中...");
+
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         ConnectHttp.connect(UnionAPIPackage.nearbyclinic(token,"",(String)SPUtil.get(context,Common.LONGITUDE,""), (String)SPUtil.get(context,Common.LATITUDE,""),"1","50"), new BaseObserver<NearbyClinicData>(context) {
             @Override
@@ -153,7 +155,9 @@ public class DiscoverHospitalFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void subscribeLocationUpdate(LocationUpdateEventData data) {
+    public void subscribeLocationUpdate(LoginData data) {
+        Log.d("linshi","DiscoverHospitalFragment,subscribeLocationUpdate");
+
         getHospitalList();
     }
 

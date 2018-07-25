@@ -217,6 +217,16 @@ private MessageData Content;
     private String Title;
     private String ActionAddr;
 
+    private String PrescriptionId;
+
+                public String getPrescriptionId() {
+                    return PrescriptionId;
+                }
+
+                public void setPrescriptionId(String prescriptionId) {
+                    PrescriptionId = prescriptionId;
+                }
+
                 public String getHttpPullUrl1() {
                     return HttpPullUrl1;
                 }

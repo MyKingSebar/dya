@@ -21,6 +21,7 @@ import cn.v1.unionc_user.R;
 import cn.v1.unionc_user.model.MeWatchingDoctorListData;
 import cn.v1.unionc_user.model.MeguardianshipData;
 import cn.v1.unionc_user.ui.home.DoctorDetailActivity;
+import cn.v1.unionc_user.ui.me.guardianship.OldManInfoActivity;
 import cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity1;
 import cn.v1.unionc_user.ui.me.oldregister.OldRegisterActivity2;
 import cn.v1.unionc_user.ui.me.oldregister.TestInfo;
@@ -78,7 +79,10 @@ public class MeguardianshipListAdapter extends RecyclerView.Adapter<Meguardiansh
 //                intent.putExtra("ElderlyUserId", doctorData.getElderlyUserId());
 //                intent.putExtra("edit", true);
 //                context.startActivity(intent);
-                Intent intent = new Intent(context, TestInfo.class);
+//                Intent intent = new Intent(context, TestInfo.class);
+//                context.startActivity(intent);
+                Intent intent = new Intent(context, OldManInfoActivity.class);
+                intent.putExtra("elderlyUserId",doctorData.getElderlyUserId());
                 context.startActivity(intent);
             }
         });

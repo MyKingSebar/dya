@@ -217,6 +217,7 @@
         <activity android:name=".ui.me.MyactivityActivity" />
         <activity android:name=".ui.find.AroundActivityActivity" />
         <activity android:name=".ui.find.LiveListActivity" />
+        <activity android:name=".ui.find.PrescriptionActivity" />
         <activity android:name=".ui.me.MyWatchinghActivity" />
         <activity android:name=".ui.me.ServerCenterActivity" />
         <activity android:name=".ui.home.SearchWebViewActivity" />
@@ -263,6 +264,7 @@
 
         <activity android:name=".ui.me.guardianship.BindguardianshipActivity"></activity>
         <activity android:name=".ui.me.guardianship.GuardianshipListActivity"></activity>
+        <activity android:name=".ui.me.guardianship.OldManInfoActivity"></activity>
         <activity android:name=".ui.me.guardianship.GuardianshipListActivity2"
             android:launchMode="singleTask"
             ></activity>

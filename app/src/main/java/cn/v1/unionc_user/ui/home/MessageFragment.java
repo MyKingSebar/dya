@@ -267,7 +267,10 @@ public class MessageFragment extends BaseFragment implements LocationSource,
             @Override
             public void onRefresh() {
                 // start refresh
-                getHomeList(longitude, latitude);
+                if(isLogin()){
+
+                    getHomeList(longitude, latitude);
+                }
             }
         });
 
@@ -455,38 +458,39 @@ public class MessageFragment extends BaseFragment implements LocationSource,
 //                        }
 //                    }
                     datas.clear();
-                    if (data.getData().getRecommendDoctors().size() != 0) {
-                        int index = datas.size();
-                        int recommendDoctors = data.getData().getRecommendDoctors().size();
-//                        if (recommendDoctors == 0) {
-//                            rlRecommond.setVisibility(View.GONE);
-//                        } else {
-//                            rlRecommond.setVisibility(View.VISIBLE);
+                    rlRecommond.setVisibility(View.GONE);
+//                    if (data.getData().getRecommendDoctors().size() != 0) {
+//                        int index = datas.size();
+//                        int recommendDoctors = data.getData().getRecommendDoctors().size();
+////                        if (recommendDoctors == 0) {
+////                            rlRecommond.setVisibility(View.GONE);
+////                        } else {
+////                            rlRecommond.setVisibility(View.VISIBLE);
+////                        }
+//                        tvRecommond.setText("向您推荐附近" + recommendDoctors + "名家庭医生为您服务");
+//                        for (int i = 0; i < recommendDoctors; i++) {
+//                            datas.add(data.getData().getRecommendDoctors().get(i));
+//                            datas.get(index + i).setType(Common.RECOMMEND_DOCTOR);
 //                        }
-                        tvRecommond.setText("向您推荐附近" + recommendDoctors + "名家庭医生为您服务");
-                        for (int i = 0; i < recommendDoctors; i++) {
-                            datas.add(data.getData().getRecommendDoctors().get(i));
-                            datas.get(index + i).setType(Common.RECOMMEND_DOCTOR);
-                        }
-                    } else {
-                        rlRecommond.setVisibility(View.GONE);
-                    }
-                    if (data.getData().getSignedDoctros().size() != 0) {
-                        int index = datas.size();
-                        int SignedDoctros = data.getData().getSignedDoctros().size();
-                        for (int i = 0; i < SignedDoctros; i++) {
-                            datas.add(data.getData().getSignedDoctros().get(i));
-                            datas.get(index + i).setType(Common.SIGNED_DOCTROS);
-                        }
-                    }
-                    if (data.getData().getAttendingDoctors().size() != 0) {
-                        int index = datas.size();
-                        int attendingDoctors = data.getData().getAttendingDoctors().size();
-                        for (int i = 0; i < attendingDoctors; i++) {
-                            datas.add(data.getData().getAttendingDoctors().get(i));
-                            datas.get(index + i).setType(Common.ATTENDING_DOCTORS);
-                        }
-                    }
+//                    } else {
+//                        rlRecommond.setVisibility(View.GONE);
+//                    }
+//                    if (data.getData().getSignedDoctros().size() != 0) {
+//                        int index = datas.size();
+//                        int SignedDoctros = data.getData().getSignedDoctros().size();
+//                        for (int i = 0; i < SignedDoctros; i++) {
+//                            datas.add(data.getData().getSignedDoctros().get(i));
+//                            datas.get(index + i).setType(Common.SIGNED_DOCTROS);
+//                        }
+//                    }
+//                    if (data.getData().getAttendingDoctors().size() != 0) {
+//                        int index = datas.size();
+//                        int attendingDoctors = data.getData().getAttendingDoctors().size();
+//                        for (int i = 0; i < attendingDoctors; i++) {
+//                            datas.add(data.getData().getAttendingDoctors().get(i));
+//                            datas.get(index + i).setType(Common.ATTENDING_DOCTORS);
+//                        }
+//                    }
                     if (isLogin()) {
                         getCoversationList();
                         for (int i = 0; i < newConversations.size(); i++) {
@@ -745,36 +749,37 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 if (!ExampleUtil.isEmpty(extras)) {
                     Log.d("linshi", "extras():" + extras);
                     JiGuangData child2 = gson.fromJson(extras, JiGuangData.class);
-                    if (TextUtils.equals("1", child2.getPushCategory())) {
-                        //推送类型：1-活动，2-直播，3-医生，4-护士
-                        if (TextUtils.equals("0", child2.getShow())) {
-                            return;
-                        }
-                        pushactivitydata = new HomeListData.DataData.HomeData();
-                        pushactivitydata.setName(child2.getTitle());
-                        pushactivitydata.setStartTime(child2.getStartTime());
-                        pushactivitydata.setEndTime(child2.getEndTime());
-                        pushactivitydata.setAddress(child2.getActionAddr());
-                        pushactivitydata.setCreatedTime(child2.getPublishTime());
-                        pushactivitydata.setActivityId(child2.getActivityId());
-                        pushactivitydata.setType(Common.ACTIVITY_PUSH);
-                    }
-
-                }
-                if (pushactivitydata != null) {
-//                    pushactivitydatas=(List<HomeListData.DataData.HomeData>) SPUtil.get(context,Common.PUSH_ACTIVITY_LOCAL,null);
-//                    pushactivitydatas = SPUtil.getDataList(context, Common.PUSH_ACTIVITY_LOCAL);
-                    if (pushactivitydatas != null) {
-
-                        pushactivitydatas.add(pushactivitydata);
-//                        SPUtil.put(context,Common.PUSH_ACTIVITY_LOCAL,pushactivitydatas);
-//                        SPUtil.setDataList(context, Common.PUSH_ACTIVITY_LOCAL, pushactivitydatas);
-                    }
-//                    pushactivitydatas.clear();
-//                    pushactivitydatas.add(pushactivitydata);
-//                    datas.addAll(pushactivitydatas);
-                    datas.add(pushactivitydata);
-                    homeListAdapter.setData(datas);
+                    getHomeList(longitude, latitude);
+//                    if (TextUtils.equals("1", child2.getPushCategory())) {
+//                        //推送类型：1-活动，2-直播，3-医生，4-护士
+//                        if (TextUtils.equals("0", child2.getShow())) {
+//                            return;
+//                        }
+//                        pushactivitydata = new HomeListData.DataData.HomeData();
+//                        pushactivitydata.setName(child2.getTitle());
+//                        pushactivitydata.setStartTime(child2.getStartTime());
+//                        pushactivitydata.setEndTime(child2.getEndTime());
+//                        pushactivitydata.setAddress(child2.getActionAddr());
+//                        pushactivitydata.setCreatedTime(child2.getPublishTime());
+//                        pushactivitydata.setActivityId(child2.getActivityId());
+//                        pushactivitydata.setType(Common.ACTIVITY_PUSH);
+//                    }
+//
+//                }
+//                if (pushactivitydata != null) {
+////                    pushactivitydatas=(List<HomeListData.DataData.HomeData>) SPUtil.get(context,Common.PUSH_ACTIVITY_LOCAL,null);
+////                    pushactivitydatas = SPUtil.getDataList(context, Common.PUSH_ACTIVITY_LOCAL);
+//                    if (pushactivitydatas != null) {
+//
+//                        pushactivitydatas.add(pushactivitydata);
+////                        SPUtil.put(context,Common.PUSH_ACTIVITY_LOCAL,pushactivitydatas);
+////                        SPUtil.setDataList(context, Common.PUSH_ACTIVITY_LOCAL, pushactivitydatas);
+//                    }
+////                    pushactivitydatas.clear();
+////                    pushactivitydatas.add(pushactivitydata);
+////                    datas.addAll(pushactivitydatas);
+//                    datas.add(pushactivitydata);
+//                    homeListAdapter.setData(datas);
 
                 }
             }

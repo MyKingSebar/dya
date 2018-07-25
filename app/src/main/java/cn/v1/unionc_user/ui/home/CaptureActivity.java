@@ -37,6 +37,7 @@ import cn.v1.unionc_user.model.WeiXinQRcodeData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
+import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.home.BloodPressure.BloodPresureHistoryRecordDetailActivity2;
 import cn.v1.unionc_user.ui.home.BloodPressure.data.BloodPresuresaveData;
@@ -370,7 +371,14 @@ public class CaptureActivity extends BaseActivity {
                     if (TextUtils.equals(data.getData().getType(), "0")) {
                         //医院
                         if (!TextUtils.isEmpty(data.getData().getId())) {
-                            clinicActivities(data.getData().getId());
+                            if(isLogin()){
+
+                                clinicActivities(data.getData().getId());
+                            }else{
+                                showTost("请先登录");
+                                goNewActivity(LoginActivity.class);
+                                finish();
+                            }
                         }
                     } else if (TextUtils.equals(data.getData().getType(), "1")) {
                         //医生

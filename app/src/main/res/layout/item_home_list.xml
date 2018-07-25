@@ -91,7 +91,6 @@
                 android:layout_below="@id/tv_describe"
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
-                android:maxLength="10"
                 android:textColor="@color/detail_text"
                 android:textSize="14dp"
                 tools:text="就诊记录就诊记录就诊记录" />
