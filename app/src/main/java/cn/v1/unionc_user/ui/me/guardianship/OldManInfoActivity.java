@@ -23,44 +23,57 @@ import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class OldManInfoActivity extends BaseActivity {
-private String elderlyUserId;
+    private String elderlyUserId;
 
 
     private Unbinder unbinder;
 
-    @BindView(R.id.tv)
-    TextView tv;
     @BindView(R.id.img_back)
     ImageView bakc;
     @BindView(R.id.tv_title)
     TextView title;
 
+
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.sex)
+    TextView sex;
+    @BindView(R.id.age)
+    TextView age;
+    @BindView(R.id.ago)
+    TextView ago;
+    @BindView(R.id.die)
+    TextView die;
+    @BindView(R.id.family)
+    TextView family;
+    @BindView(R.id.person)
+    TextView person;
+    @BindView(R.id.marry)
+    TextView marry;
+
+
     @OnClick(R.id.img_back)
-     void back(){
+    void back() {
         finish();
     }
-
-
-
-
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_rescription_info);
-        unbinder= ButterKnife.bind(this);
+        setContentView(R.layout.activity_oldman_info);
+        unbinder = ButterKnife.bind(this);
         initData();
         initView();
         getOldman();
     }
 
     private void initData() {
-        Intent intent=getIntent();
-        if(intent.hasExtra("elderlyUserId")){
-            elderlyUserId=intent.getStringExtra("elderlyUserId");
-            Log.d("linshi","elderlyUserId:"+elderlyUserId);
+        Intent intent = getIntent();
+        if (intent.hasExtra("elderlyUserId")) {
+            elderlyUserId = intent.getStringExtra("elderlyUserId");
+            Log.d("linshi", "elderlyUserId:" + elderlyUserId);
         }
     }
 
@@ -72,21 +85,32 @@ private String elderlyUserId;
     }
 
 
-
-
     protected void getOldman() {
-        if(TextUtils.isEmpty(elderlyUserId)){
+        if (TextUtils.isEmpty(elderlyUserId)) {
             return;
         }
-        ConnectHttp.connect(UnionAPIPackage.getOldmanInfo(getToken(),elderlyUserId), new BaseObserver<OldmanInfoData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.getOldmanInfo(getToken(), elderlyUserId), new BaseObserver<OldmanInfoData>(context) {
 
             @Override
             public void onResponse(OldmanInfoData data) {
                 closeDialog();
                 if (TextUtils.equals("4000", data.getCode())) {
-                    OldmanInfoData.DataData.DataDataData datadata=data.getData().getElderLyInfo();
-                    String src="姓名："+datadata.getUserName()+"\nid："+datadata.getCardNo()+"\n地址："+datadata.getAddress()+"\n电话："+datadata.getTelphone();
-                    tv.setText(src);
+
+
+
+
+                    OldmanInfoData.DataData.DataDataData datadata = data.getData().getElderLyInfo();
+                    name.setText(datadata.getUserName() + "");
+//                    sex.setText(datadata.get()+"");
+//                    name.setText(datadata.getUserName()+"");
+//                    name.setText(datadata.getUserName()+"");
+//                    name.setText(datadata.getUserName()+"");
+//                    name.setText(datadata.getUserName()+"");
+//                    name.setText(datadata.getUserName()+"");
+//                    name.setText(datadata.getUserName()+"");
+//                    name.setText(datadata.getUserName()+"");
+//                    String src="姓名："+datadata.getUserName()+"\nid："+datadata.getCardNo()+"\n地址："+datadata.getAddress()+"\n电话："+datadata.getTelphone();
+//                    tv.setText(src);
 
                 } else {
                     showTost(data.getMessage());
@@ -96,13 +120,12 @@ private String elderlyUserId;
             @Override
             public void onFail(Throwable e) {
                 closeDialog();
-                showTost("保存失败");
             }
         });
     }
-    private void initView() {
-        title.setText("老人详情");
 
+    private void initView() {
+        title.setText("健康档案");
     }
 
 
@@ -111,7 +134,6 @@ private String elderlyUserId;
         Log.d("linshi", "on pause");
         super.onPause();
     }
-
 
 
     @Override

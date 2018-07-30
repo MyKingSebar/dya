@@ -93,12 +93,12 @@ public class FindFragment extends BaseFragment {
             case R.id.tv_healthlive:
                 //健康直播
 //goNewActivity(NEMainActivity.class);
-//goNewActivity(LiveListActivity.class);
-                if (isLogin()) {
-                    goNewActivity(LiveListActivity.class);
-                } else {
-                    goNewActivity(LoginActivity.class);
-                }
+goNewActivity(LiveListActivity.class);
+//                if (isLogin()) {
+//                    goNewActivity(LiveListActivity.class);
+//                } else {
+//                    goNewActivity(LoginActivity.class);
+//                }
                 break;
             case R.id.tv_activity:
                 //社区活动

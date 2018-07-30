@@ -93,7 +93,8 @@ public class UnioncApp extends MultiDexApplication {
     }
 
     private void initRongYun() {
-        RongIM.init(this,"tdrvipkstxpf5");
+//        RongIM.init(this,"tdrvipkstxpf5");
+        RongIM.init(this,"3argexb63mx4e");
         RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
             @Override
             public boolean onReceived(Message message, int i) {

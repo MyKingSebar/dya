@@ -47,11 +47,12 @@ import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
 import cn.v1.unionc_user.network_frame.core.BaseObserver;
 import cn.v1.unionc_user.ui.adapter.FindLiveListAdapter;
+import cn.v1.unionc_user.ui.adapter.PrescriptionAdapter;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 
 public class PrescriptionActivity extends BaseActivity {
 private String prescriptionId;
-
+private PrescriptionAdapter prescriptionAdapter;
 
     private Unbinder unbinder;
 
@@ -61,6 +62,19 @@ private String prescriptionId;
     ImageView bakc;
     @BindView(R.id.tv_title)
     TextView title;
+
+    @BindView(R.id.ClinicName)
+    TextView ClinicName;
+    @BindView(R.id.DoctName)
+    TextView DoctName;
+    @BindView(R.id.CreatedTime)
+    TextView CreatedTime;
+    @BindView(R.id.ClinicalDiagnosis)
+    TextView ClinicalDiagnosis;
+    @BindView(R.id.Supplement)
+    TextView Supplement;
+    @BindView(R.id.recycleView)
+    RecyclerView recycleView;
 
     @OnClick(R.id.img_back)
      void back(){
@@ -109,10 +123,15 @@ private String prescriptionId;
             @Override
             public void onResponse(PrescriptionInfoData data) {
                 if (TextUtils.equals("4000", data.getCode())) {
-                    String src="医生姓名："+data.getData().getPrescription().getDoctName()+"\n补充说明:"+data.getData().getPrescription().getSupplement()+"\n临床诊断:"+data.getData().getPrescription().getClinicalDiagnosis()
-                            +"\n医院:"+data.getData().getPrescription().getClinicName()+"\n价格:"+data.getData().getPrescription().getCharge();
-//                    tv.setText(new Gson().toJson(data.getData()));
-                    tv.setText(src);
+                    DoctName.setText(data.getData().getPrescription().getDoctName());
+                    ClinicName.setText(data.getData().getPrescription().getClinicName());
+                    CreatedTime.setText(data.getData().getPrescription().getCreatedTime());
+                    ClinicalDiagnosis.setText(data.getData().getPrescription().getClinicalDiagnosis());
+                    Supplement.setText(data.getData().getPrescription().getSupplement());
+//                    String src="医生姓名："+data.getData().getPrescription().getDoctName()+"\n补充说明:"+data.getData().getPrescription().getSupplement()+"\n临床诊断:"+data.getData().getPrescription().getClinicalDiagnosis()
+//                            +"\n医院:"+data.getData().getPrescription().getClinicName()+"\n价格:"+data.getData().getPrescription().getCharge();
+////                    tv.setText(new Gson().toJson(data.getData()));
+//                    tv.setText(src);
                 }else{
                     showTost(data.getMessage());
                 }
@@ -126,8 +145,10 @@ private String prescriptionId;
 
 
     private void initView() {
-        title.setText("处方详情");
-
+        title.setText("处方");
+        recycleView.setLayoutManager(new LinearLayoutManager(context));
+        prescriptionAdapter = new PrescriptionAdapter(context);
+        recycleView.setAdapter(prescriptionAdapter);
     }
 
 

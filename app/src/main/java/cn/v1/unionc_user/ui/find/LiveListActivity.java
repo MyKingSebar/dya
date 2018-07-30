@@ -66,14 +66,12 @@ public class LiveListActivity extends BaseActivity {
     TextView title;
 
     @OnClick(R.id.img_back)
-     void back(){
+    void back() {
         finish();
     }
 
 
     private FindLiveListAdapter findDutyDoctorListAdapter;
-
-
 
 
     @Override
@@ -83,7 +81,7 @@ public class LiveListActivity extends BaseActivity {
         bPermission = checkPublishPermission();
 
         setContentView(R.layout.find_live_recycleview);
-        unbinder= ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         initlive();
         initView();
         initrecommenddoctor();
@@ -92,26 +90,26 @@ public class LiveListActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         Log.d("linshi", "on destroy");
-        NELivePlayerObserver.getInstance().observeNELivePlayerObserver(observer,false);
+        NELivePlayerObserver.getInstance().observeNELivePlayerObserver(observer, false);
         super.onDestroy();
         unbinder.unbind();
     }
 
 
-
     private void initrecommenddoctor() {
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.getlivelist(token,"1","20"), new BaseObserver<NetCouldPullData>(context) {
+        ConnectHttp.connect(UnionAPIPackage.getlivelist(token, "1", "20"), new BaseObserver<NetCouldPullData>(context) {
             @Override
             public void onResponse(NetCouldPullData data) {
-                if(data.getData().getLives().size()>0){
-                    Log.d("linshi","doctorsdata:"+data.getData().getLives().get(0).toString());
+                if (data.getData().getLives().size() > 0) {
+                    Log.d("linshi", "doctorsdata:" + data.getData().getLives().get(0).toString());
                     findDutyDoctorListAdapter.setData(data.getData().getLives());
-                }else{
+                } else {
                     mainRecycleview.setVisibility(View.GONE);
                 }
 
             }
+
             @Override
             public void onFail(Throwable e) {
                 mainRecycleview.setVisibility(View.GONE);
@@ -134,46 +132,50 @@ public class LiveListActivity extends BaseActivity {
                 Intent intent = new Intent(LiveListActivity.this, NEVideoPlayerActivity.class);
 
 
-Log.d("linshi0","url:"+url);
+                Log.d("linshi0", "url:" + url);
 
-                        if(!bPermission){
-                            Toast.makeText(getApplication(),"请先允许app所需要的权限",Toast.LENGTH_LONG).show();
-                            bPermission = checkPublishPermission();
-                            return;
-                        }
-                        if(config!=null && config.dynamicLoadingConfig!=null &&config.dynamicLoadingConfig.isDynamicLoading&&!NELivePlayer.isDynamicLoadReady()) {
-                            Toast.makeText(getApplication(),"请等待加载so文件",Toast.LENGTH_LONG).show();
-                            return;
-                        }
+                if (!bPermission) {
+                    Toast.makeText(getApplication(), "请先允许app所需要的权限", Toast.LENGTH_LONG).show();
+                    bPermission = checkPublishPermission();
+                    return;
+                }
+                if (config != null && config.dynamicLoadingConfig != null && config.dynamicLoadingConfig.isDynamicLoading && !NELivePlayer.isDynamicLoadReady()) {
+                    Toast.makeText(getApplication(), "请等待加载so文件", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
-                        //把多个参数传给NEVideoPlayerActivity
-                        intent.putExtra("media_type", mediaType);
-                        intent.putExtra("decode_type", decodeType);
-                        intent.putExtra("videoPath", url);
-                        startActivity(intent);
+                //把多个参数传给NEVideoPlayerActivity
+                intent.putExtra("media_type", mediaType);
+                intent.putExtra("decode_type", decodeType);
+                intent.putExtra("videoPath", url);
+                startActivity(intent);
 
 
             }
         });
     }
 
-void initlive(){
-    config = new NESDKConfig();
-    //动态加载
-    config.dynamicLoadingConfig = new NEDynamicLoadingConfig();
-    //是否开启动态加载功能，默认关闭
+    void initlive() {
+        config = new NESDKConfig();
+        //动态加载
+        config.dynamicLoadingConfig = new NEDynamicLoadingConfig();
+        //是否开启动态加载功能，默认关闭
 //		config.dynamicLoadingConfig.isDynamicLoading = true;
-    config.dynamicLoadingConfig.isArmeabi = true;
-    config.dynamicLoadingConfig.onDynamicLoadingListener = mOnDynamicLoadingListener;
-    config.supportDecodeListener = mOnSupportDecodeListener;
-    //SDK将内部的网络请求以回调的方式开给上层，如果需要上层自己进行网络请求请实现config.dataUploadListener，如果上层不需要自己进行网络请求而是让SDK进行网络请求，这里就不需要操作config.dataUploadListener
-    config.dataUploadListener =  mOnDataUploadListener;
-    NELivePlayer.init(this,config);
-    NELivePlayerObserver.getInstance().observeNELivePlayerObserver(observer,true);
-}
-    /**   6.0权限处理     **/
+        config.dynamicLoadingConfig.isArmeabi = true;
+        config.dynamicLoadingConfig.onDynamicLoadingListener = mOnDynamicLoadingListener;
+        config.supportDecodeListener = mOnSupportDecodeListener;
+        //SDK将内部的网络请求以回调的方式开给上层，如果需要上层自己进行网络请求请实现config.dataUploadListener，如果上层不需要自己进行网络请求而是让SDK进行网络请求，这里就不需要操作config.dataUploadListener
+        config.dataUploadListener = mOnDataUploadListener;
+        NELivePlayer.init(this, config);
+        NELivePlayerObserver.getInstance().observeNELivePlayerObserver(observer, true);
+    }
+
+    /**
+     * 6.0权限处理
+     **/
     private boolean bPermission = false;
     private final int WRITE_PERMISSION_REQ_CODE = 100;
+
     private boolean checkPublishPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
             List<String> permissions = new ArrayList<>();
@@ -220,7 +222,6 @@ void initlive(){
     }
 
 
-
     @Override
     public void onRestart() {
         Log.d("linshi", "on restart");
@@ -238,18 +239,19 @@ void initlive(){
         Log.d("linshi", "on start");
         super.onStart();
     }
+
     private Observer<Void> observer = new Observer<Void>() {
         @Override
         public void onEvent(Void aVoid) {
             //接收到播放器资源释放结束通知
-            Log.i("linshi","onEvent -> NELivePlayer RELEASE SUCCESS!");
+            Log.i("linshi", "onEvent -> NELivePlayer RELEASE SUCCESS!");
         }
     };
 
     private NELivePlayer.OnDynamicLoadingListener mOnDynamicLoadingListener = new NELivePlayer.OnDynamicLoadingListener() {
         @Override
         public void onDynamicLoading(NEDynamicLoadingConfig.ArchitectureType type, boolean isCompleted) {
-            Log.d("linshi", "type:"+type+"，isCompleted:"+isCompleted);
+            Log.d("linshi", "type:" + type + "，isCompleted:" + isCompleted);
         }
     };
 
@@ -272,8 +274,8 @@ void initlive(){
 
         @Override
         public boolean onDocumentUpload(String url, Map<String, String> params, Map<String, String> filepaths) {
-            Log.d("linshi", "onDataUpload url:" + url + ", params:" + params+",filepaths:"+filepaths);
-            return  (new HttpPostUtils(url, params, filepaths).connPost());
+            Log.d("linshi", "onDataUpload url:" + url + ", params:" + params + ",filepaths:" + filepaths);
+            return (new HttpPostUtils(url, params, filepaths).connPost());
         }
     };
 

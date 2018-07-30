@@ -2,18 +2,154 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
     <include layout="@layout/layout_toolbar" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="18dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginBottom="45dp"
+    android:background="@color/white"
+    >
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/tv"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="医院名称："
+        android:textColor="#999996"
+        android:textSize="14sp"
+        />
+    <TextView
+        android:id="@+id/ClinicName"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="医院名称："
+        android:textColor="#3F3F3F"
+        android:textSize="14sp"
+        />
+
+</LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="医生姓名："
+        android:textColor="#999996"
+        android:textSize="14sp"
+        />
+    <TextView
+        android:id="@+id/DoctName"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="医院名称："
+        android:textColor="#3F3F3F"
+        android:textSize="14sp"
+        />
+
+</LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开具时间："
+        android:textColor="#999996"
+        android:textSize="14sp"
+        />
+    <TextView
+        android:id="@+id/CreatedTime"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="医院名称："
+        android:textColor="#3F3F3F"
+        android:textSize="14sp"
+        />
+
+</LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="临床诊断："
+        android:textColor="#999996"
+        android:textSize="14sp"
+        />
+    <TextView
+        android:id="@+id/ClinicalDiagnosis"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="医院名称："
+        android:textColor="#3F3F3F"
+        android:textSize="14sp"
+        />
+
+</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#FFCCCCCC"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="#9B9CA0"
-        android:textSize="17sp"
-        android:layout_marginTop="45dp"
-        android:layout_gravity="center_horizontal"
-
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#FFCCCCCC"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        />
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="补充说明："
+            android:textColor="#999996"
+            android:textSize="14sp"
+            />
+        <TextView
+            android:id="@+id/Supplement"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="医院名称："
+            android:textColor="#3F3F3F"
+            android:textSize="14sp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
 </LinearLayout>

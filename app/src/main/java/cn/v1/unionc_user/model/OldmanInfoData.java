@@ -37,10 +37,19 @@ public class OldmanInfoData extends BaseData {
 
         public class DataDataData{
             private String Address;
-             private String UserName;
+            private String UserName;
             private List<ImageInfo> Images;
             private String Telphone;
             private String CardNo;
+            private String Gender;
+
+            public String getGender() {
+                return Gender;
+            }
+
+            public void setGender(String gender) {
+                Gender = gender;
+            }
 
             public String getAddress() {
                 return Address;
