@@ -364,22 +364,27 @@ public class HospitalDetailActivity extends BaseActivity {
          4		动物医疗场所
          5		卫生院
          */
-        switch (Integer.parseInt(clinicData.getParCategory())) {
-            case 1:
-                clinicType = R.drawable.icon_hospital_zh;
-                break;
-            case 2:
-                clinicType = R.drawable.icon_hospital_zk;
-                break;
-            case 3:
-                clinicType = R.drawable.icon_hospital_zs;
-                break;
-            case 4:
-                clinicType = R.drawable.icon_hospital_cw;
-                break;
-            case 5:
-                clinicType = R.drawable.icon_hospital_sq;
-                break;
+        if(TextUtils.isEmpty(clinicData.getParCategory())){
+            clinicType = R.drawable.icon_hospital_sq;
+        }else{
+
+            switch (Integer.parseInt(clinicData.getParCategory())) {
+                case 1:
+                    clinicType = R.drawable.icon_hospital_zh;
+                    break;
+                case 2:
+                    clinicType = R.drawable.icon_hospital_zk;
+                    break;
+                case 3:
+                    clinicType = R.drawable.icon_hospital_zs;
+                    break;
+                case 4:
+                    clinicType = R.drawable.icon_hospital_cw;
+                    break;
+                case 5:
+                    clinicType = R.drawable.icon_hospital_sq;
+                    break;
+            }
         }
 
         mViewList = new ArrayList<View>();

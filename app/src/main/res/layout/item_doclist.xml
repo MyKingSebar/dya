@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <cn.v1.unionc_user.view.CircleImageView
+            android:id="@+id/img_message_avator"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            tools:src="@drawable/icon_tab_me_select" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLength="8"
+                    android:textColor="#26282E"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:text="李晓光" />
+
+                <TextView
+                    android:id="@+id/tv_role"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="11dp"
+                    android:textColor="@color/detail_text"
+                    android:textSize="12sp"
+                    tools:text="小儿内科" />
+
+                <TextView
+                    android:id="@+id/tv_identity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="11dp"
+                    android:layout_toRightOf="@id/tv_role"
+                    android:textColor="@color/detail_text"
+                    android:textSize="12sp"
+                    tools:text="主治医师" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#4F5360"
+                android:textSize="12sp"
+                tools:text="北京协和医院广安门附属医院" />
+
+            <TextView
+                android:id="@+id/tv_major"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#4F5360"
+                android:textSize="12sp"
+                tools:text="擅长：生长发育、营养、咳嗽、腹痛啊啊啊啊啊啊啊啊啊啊啊啊啊" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/icon_like" />
+                <TextView
+                    android:id="@+id/tv_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:textColor="@color/detail_text"
+                    android:textSize="12sp"
+                    tools:text="100" />
+                <ImageView
+                    android:layout_marginLeft="11dp"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/icon_comment2" />
+                <TextView
+                    android:id="@+id/tv_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="6dp"
+                    android:textColor="@color/detail_text"
+                    android:textSize="12sp"
+                    tools:text="100" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="11dp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_location" />
+
+
+</LinearLayout>

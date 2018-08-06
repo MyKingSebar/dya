@@ -108,7 +108,9 @@ public class MainMessagePushData extends BaseData {
         }
 
         public class DataDataData{
-private String JumpId;
+
+
+            private String JumpId;
 private String CreatedTime;
 private String MessageId;
 private String OrderBy;

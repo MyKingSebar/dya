@@ -21,6 +21,8 @@ import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.GetGuardianshipInfoData;
+import cn.v1.unionc_user.model.GetLiveDoctorListData;
+import cn.v1.unionc_user.model.GetNurseListData;
 import cn.v1.unionc_user.model.GetRongTokenData;
 import cn.v1.unionc_user.model.HeartHistoryData;
 import cn.v1.unionc_user.model.HeartHistoryListData;
@@ -1049,6 +1051,43 @@ public class UnionAPIPackage {
         params.put("token", token);
         params.put("prescriptionId", prescriptionId);
         return ConnectHttp.getUnionAPI().prescriptioninfo(dataProcess(params));
+    }
+    /**
+     * 视频问诊医生列表
+     */
+    public static Observable<GetLiveDoctorListData> getvideodoctors(String token, String pageNo, String pageSize) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
+        return ConnectHttp.getUnionAPI().getvideodoctors(dataProcess(params));
+    }
+    /**
+     * 视频问诊医生列表    roleId(4-护士，6-护工)
+     */
+    public static Observable<GetNurseListData> getnurses(String roleId, String pageNo, String pageSize) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("roleId", roleId);
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
+        return ConnectHttp.getUnionAPI().getnurses(dataProcess(params));
+    }
+    /**
+     * 视频问诊医生列表    roleId(4-护士，6-护工)
+     */
+    public static Observable<BaseData> subscribenurses(String token, String doctId, String serviceId, String serviceTime, String serviceType, String name, String addr, String telphone, String addrId,String userType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", token);
+        params.put("doctId", doctId);
+        params.put("serviceId", serviceId);
+        params.put("serviceTime", serviceTime);
+        params.put("serviceType", serviceType);
+        params.put("name", name);
+        params.put("addr", addr);
+        params.put("telphone", telphone);
+        params.put("addrId", addrId);
+        params.put("userType", userType);
+        return ConnectHttp.getUnionAPI().subscribenurses(dataProcess(params));
     }
 
 }

@@ -295,6 +295,7 @@ public class BaseCallActivity extends BaseNoActionBarActivity implements IRongCa
             RongCallKit.getCustomerHandlerListener().onCallDisconnected(callProfile, reason);
         }
         shouldShowFloat = false;
+        stopRing();
 
         String text = null;
         switch (reason) {

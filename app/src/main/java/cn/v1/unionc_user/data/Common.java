@@ -82,4 +82,6 @@ public class Common {
     public static final String PUSH_CALLNURSE = "8";
     public static final String PUSH_PRESCRIPTION = "9";
 
+    public static final int NURSE=1;
+    public static final int WORKER=2;
 }

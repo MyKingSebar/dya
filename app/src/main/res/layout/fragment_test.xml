@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:textSize="17sp"
+        android:textColor="#26282E"
+        android:paddingLeft="12dp"
+        android:gravity="center_vertical"
+        tool:text="15000000000"
+        android:textColorHint="#9B9CA0"
+        android:background="@drawable/myeditext"
+        android:hint="手机号"
+        android:inputType="number"
+        />
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:textSize="17sp"
+        android:textColor="#26282E"
+        android:paddingLeft="12dp"
+        android:gravity="center_vertical"
+        android:textColorHint="#9B9CA0"
+        android:background="@drawable/myeditext"
+        android:hint="姓名"
+        />
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:textSize="17sp"
+        android:textColor="#26282E"
+        android:paddingLeft="12dp"
+        android:gravity="center_vertical"
+        android:textColorHint="#9B9CA0"
+        android:background="@drawable/myeditext"
+        android:hint="住址"
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+
+    <FrameLayout
+        android:id="@+id/fragmen_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_show"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/tvTime"
+        android:text="显示时间选择器"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <Button
+        android:id="@+id/bt_next"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/bg_button_blue"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:text="确定"
+        />
+
+
+
+
+
+</LinearLayout>

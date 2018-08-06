@@ -3,11 +3,11 @@ package cn.v1.unionc_user.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.Button;
 
-import com.bigkoo.pickerview.TimePickerView;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 
-import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -76,7 +76,7 @@ public abstract class TimePicker {
             this.type = new boolean[]{false, false, false, true, true, false};
         }
         //时间选择器
-        TimePickerView pvTime = new TimePickerView.Builder(context, new TimePickerView.OnTimeSelectListener() {
+        TimePickerView pvTime = new TimePickerBuilder(context, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
                 // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
@@ -89,7 +89,6 @@ public abstract class TimePicker {
                 .setLabel("年", "月", "日", "时", "分", "秒")
                 .isCenterLabel(false)
                 .setDividerColor(Color.DKGRAY)
-                .setContentSize(21)
                 .setDate(selectedDate)
                 .setRangDate(startDate, endDate)
 //                .setBackgroundId(0x00FFFFFF) //设置外部遮罩颜色

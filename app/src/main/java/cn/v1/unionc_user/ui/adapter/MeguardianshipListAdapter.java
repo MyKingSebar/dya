@@ -127,6 +127,7 @@ public class MeguardianshipListAdapter extends RecyclerView.Adapter<Meguardiansh
             holder.bt_video.setVisibility(View.VISIBLE);
             holder.bt_unbind.setText("解除绑定");
             holder.bt_serve.setText("尽孝心");
+            holder.bt_serve.setVisibility(View.INVISIBLE);
             holder.tv_describe.setText(doctorData.getDoctName());
             type = 1;
         }
@@ -153,6 +154,7 @@ public class MeguardianshipListAdapter extends RecyclerView.Adapter<Meguardiansh
         TextView bt_serve;
         @BindView(R.id.bt_video)
         TextView bt_video;
+
 
 
         ViewHolder(View view) {

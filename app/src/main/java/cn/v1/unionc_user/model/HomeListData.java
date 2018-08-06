@@ -87,7 +87,7 @@ public class HomeListData extends BaseData  {
                         ", professLevel='" + professLevel + '\'' +
                         ", LinkUrl='" + LinkUrl + '\'' +
                         ", EndTime='" + EndTime + '\'' +
-                        ", activityId='" + activityId + '\'' +
+                        ", activityId='" + ActivityId + '\'' +
                         ", StartTime='" + StartTime + '\'' +
                         ", ImagePath='" + ImagePath + '\'' +
                         ", LinkType='" + LinkType + '\'' +
@@ -263,18 +263,23 @@ public class HomeListData extends BaseData  {
              */
             private String LinkUrl;
             private String EndTime;
-            private String activityId;
+            private String ActivityId;
             private String StartTime;
             private String ImagePath;
             private String LinkType;
             private String MessageId;
             private String Name;
-
-
-
             private String Address;
             private String CreatedTime;
 
+
+            public String getActivityId() {
+                return ActivityId;
+            }
+
+            public void setActivityId(String activityId) {
+                ActivityId = activityId;
+            }
 
             public String getImagePath2() {
                 return ImagePath;
@@ -299,13 +304,7 @@ public class HomeListData extends BaseData  {
                 EndTime = endTime;
             }
 
-            public String getActivityId() {
-                return activityId;
-            }
 
-            public void setActivityId(String activityId) {
-                this.activityId = activityId;
-            }
 
             public String getStartTime() {
                 return StartTime;

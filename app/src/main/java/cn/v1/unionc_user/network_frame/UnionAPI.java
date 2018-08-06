@@ -14,6 +14,8 @@ import cn.v1.unionc_user.model.DoctorInfoIdentifierData;
 import cn.v1.unionc_user.model.DoctorOrClinicData;
 import cn.v1.unionc_user.model.DoctorScheduleData;
 import cn.v1.unionc_user.model.GetGuardianshipInfoData;
+import cn.v1.unionc_user.model.GetLiveDoctorListData;
+import cn.v1.unionc_user.model.GetNurseListData;
 import cn.v1.unionc_user.model.GetRongTokenData;
 import cn.v1.unionc_user.model.HeartHistoryData;
 import cn.v1.unionc_user.model.HeartHistoryListData;
@@ -725,4 +727,28 @@ public interface UnionAPI {
     @FormUrlEncoded
     @POST("old-man/prescription-info")
     Observable<PrescriptionInfoData> prescriptioninfo(@FieldMap Map<String, Object> params);
+    /**
+     * 视频问诊医生列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("doctor/video-doctors")
+    Observable<GetLiveDoctorListData> getvideodoctors(@FieldMap Map<String, Object> params);
+    /**
+     * 查护工/护士列表：
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nurse/visit-nursers")
+    Observable<GetNurseListData> getnurses(@FieldMap Map<String, Object> params);
+    /**
+     * 预约上门：
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nurse/appoint-nurse")
+    Observable<BaseData> subscribenurses(@FieldMap Map<String, Object> params);
 }

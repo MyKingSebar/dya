@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <include layout="@layout/layout_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_had_register"
+            android:layout_width="108dp"
+            android:layout_height="30dp"
+            android:background="@drawable/selector_blue_line_two_radius_left"
+            android:button="@null"
+            android:gravity="center"
+            android:text="护士"
+            android:textColor="@color/selector_tab_my_activity"
+            android:textSize="14sp" />
+
+        <CheckBox
+            android:id="@+id/cb_collect"
+            android:layout_width="108dp"
+            android:layout_height="30dp"
+            android:background="@drawable/selector_blue_line_two_radius_right"
+            android:button="@null"
+            android:gravity="center"
+            android:text="护工"
+            android:textColor="@color/selector_tab_my_activity"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/color_location"/>
+    <LinearLayout
+        android:id="@+id/ll_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" />
+</LinearLayout>

@@ -287,6 +287,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             } catch (Exception e) {
 
             }
+        }else{
+            holder.tvUnread.setVisibility(View.GONE);
         }
         if (TextUtils.equals(homeData.getType(), Common.ACTIVITY_PUSH)) {
 
@@ -295,12 +297,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
                 if (TextUtils.isEmpty(homeData.getImagePath())) {
 
-                    holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                    holder.imgMessageAvator.setImageResource(R.drawable.icon_activity2);
                 } else {
                     Glide.with(context)
                             .load(homeData.getImagePath2())
-                            .placeholder(R.drawable.icon_push).dontAnimate()
-                            .error(R.drawable.icon_push)
+                            .placeholder(R.drawable.icon_activity2).dontAnimate()
+                            .error(R.drawable.icon_activity2)
                             .into(holder.imgMessageAvator);
 
                 }
@@ -320,12 +322,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             } else if (TextUtils.equals(PushCategory, Common.PUSH_LIVE)) {
                 if (TextUtils.isEmpty(homeData.getContent().getBanner())) {
 
-                    holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                    holder.imgMessageAvator.setImageResource(R.drawable.icon_live);
                 } else {
                     Glide.with(context)
                             .load(homeData.getContent().getBanner())
-                            .placeholder(R.drawable.icon_push).dontAnimate()
-                            .error(R.drawable.icon_push)
+                            .placeholder(R.drawable.icon_live).dontAnimate()
+                            .error(R.drawable.icon_live)
                             .into(holder.imgMessageAvator);
 
                 }
@@ -340,7 +342,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText(homeData.getContent().getLiveTitle() + "  ");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_DOC)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);
@@ -349,7 +351,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("指派医生");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_NUR)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);
@@ -358,7 +360,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("指派护士");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_BIND)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);
@@ -367,7 +369,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("申请监护");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_VIDEO)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);
@@ -376,7 +378,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("视频问诊");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_CALL)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);
@@ -385,7 +387,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("一键呼叫");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_CALLNURSE)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);
@@ -394,7 +396,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("预约护士上门");
                 holder.tvTime.setText(homeData.getCreatedTime());
             }else if (TextUtils.equals(PushCategory, Common.PUSH_PRESCRIPTION)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_push);
+                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);

@@ -223,6 +223,9 @@
         <activity android:name=".ui.home.SearchWebViewActivity" />
         <activity android:name=".ui.home.MapClinicWebViewActivity" />
         <activity android:name=".ui.home.TeachWebViewActivity" />
+        <activity android:name=".ui.home.DoctorListActivity" />
+        <activity android:name=".ui.home.NurseAndWorkerActivity" />
+        <activity android:name=".ui.home.FragmentTestActivity" />
 
 
 

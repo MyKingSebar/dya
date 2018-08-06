@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -77,6 +78,7 @@ import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.adapter.HomeListAdapter;
 import cn.v1.unionc_user.ui.base.BaseFragment;
 import cn.v1.unionc_user.ui.home.BloodPressure.BlueToothDeviceActivity2;
+import cn.v1.unionc_user.ui.me.guardianship.GuardianshipListActivity2;
 import cn.v1.unionc_user.utils.Location;
 import cn.v1.unionc_user.view.BannerView;
 import cn.v1.unionc_user.view.LocationDialog;
@@ -115,8 +117,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     TextView tvGuahao;
     @BindView(R.id.tv_yihu)
     TextView tvYihu;
-    @BindView(R.id.tv_health)
-    TextView tvHealth;
+//    @BindView(R.id.tv_health)
+//    TextView tvHealth;
     @BindView(R.id.main_recycleview)
     RecyclerView mainRecycleview;
     @BindView(R.id.tv_recommond)
@@ -125,6 +127,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     RelativeLayout rlRecommond;
     @BindView(R.id.swipeRefreshLayout)
     PullRefreshLayout pullRefreshLayout;
+    @BindView(R.id.bt_addman)
+    Button bt_addman;
 
 
     private int[] imgs = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
@@ -185,7 +189,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
         getActivityPush();
     }
 
-    @OnClick({R.id.tv_address, R.id.ll_search, R.id.tv_saoma, R.id.tv_guahao, R.id.tv_yihu, R.id.tv_health})
+    @OnClick({R.id.tv_address, R.id.ll_search, R.id.tv_saoma, R.id.tv_guahao, R.id.tv_yihu,R.id.tv_shipin,R.id.bt_addman})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_address:
@@ -227,24 +231,41 @@ public class MessageFragment extends BaseFragment implements LocationSource,
             case R.id.tv_yihu:
                 //医护上门
                 if (isLogin()) {
-                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
-                    intent.putExtra("type", Common.WEB_YIHUSHANGMEN);
-                    startActivity(intent);
+//                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+//                    intent.putExtra("type", Common.WEB_YIHUSHANGMEN);
+//                    startActivity(intent);
+                    goNewActivity(NurseAndWorkerActivity.class);
                 } else {
                     goNewActivity(LoginActivity.class);
                 }
 
                 break;
-            case R.id.tv_health:
-                //送药上门
+            case R.id.tv_shipin:
+                //视频问诊
                 if (isLogin()) {
-                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
-                    intent.putExtra("type", Common.WEB_SONGYAOSHANGMEN);
-                    startActivity(intent);
+                    goNewActivity(DoctorListActivity.class);
+//                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+//                    intent.putExtra("type", Common.WEB_SONGYAOSHANGMEN);
+//                    startActivity(intent);
                 } else {
                     goNewActivity(LoginActivity.class);
                 }
                 break;
+            case R.id.bt_addman:
+                //添加老人
+                goNewActivity(GuardianshipListActivity2.class);
+                break;
+//            case R.id.tv_health:
+//                //送药上门
+//                if (isLogin()) {
+//                    goNewActivity(DoctorListActivity.class);
+////                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+////                    intent.putExtra("type", Common.WEB_SONGYAOSHANGMEN);
+////                    startActivity(intent);
+//                } else {
+//                    goNewActivity(LoginActivity.class);
+//                }
+//                break;
         }
     }
 
@@ -648,6 +669,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                         for (int i = 0; i < data.getData().getMessages().size(); i++) {
                             pushactivitydata = new HomeListData.DataData.HomeData();
                             pushactivitydata.setJumpId(data.getData().getMessages().get(i).getJumpId());
+                            pushactivitydata.setActivityId(data.getData().getMessages().get(i).getContent().getActivityId());
                             pushactivitydata.setCreatedTime(data.getData().getMessages().get(i).getCreatedTime());
                             pushactivitydata.setMessageId(data.getData().getMessages().get(i).getMessageId());
                             pushactivitydata.setOrderBy(data.getData().getMessages().get(i).getOrderBy());
@@ -664,8 +686,12 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                         if (pushactivitydatas.size() > 0) {
                             datas.addAll(pushactivitydatas);
                             homeListAdapter.setData(datas);
-
+                            mainRecycleview.setVisibility(View.VISIBLE);
+                        }else {
+                            mainRecycleview.setVisibility(View.GONE);
                         }
+                    }else {
+                        mainRecycleview.setVisibility(View.GONE);
                     }
 
                 } else {

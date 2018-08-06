@@ -7,11 +7,11 @@
 
 
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="#4E78F6"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_city"
@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/ll_search"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/tv_city"
@@ -35,7 +36,6 @@
             android:drawablePadding="3dp"
             android:drawableRight="@drawable/icon_sanjiao"
             android:ellipsize="end"
-            android:layout_gravity="center_vertical"
             android:lines="1"
             android:maxLength="5"
             android:maxWidth="120dp"
@@ -43,18 +43,20 @@
             android:textSize="14sp"
             android:visibility="gone"
             tools:text="锐创国际" />
-<View
-    android:visibility="gone"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
         <LinearLayout
             android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="12dp"
             android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:background="@drawable/bg_search"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -86,9 +88,9 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="#4E78F6"
-        android:paddingTop="13dp"
+        android:orientation="horizontal"
         android:paddingBottom="14dp"
-        android:orientation="horizontal">
+        android:paddingTop="13dp">
 
         <TextView
             android:id="@+id/tv_saoma"
@@ -101,6 +103,65 @@
             android:text="扫一扫"
             android:textColor="@color/white"
             android:textSize="14dp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_shipin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="6dp"
+                android:drawableTop="@drawable/icon_shipinwenzhen"
+                android:gravity="center"
+                android:text="视频问诊"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:text="…敬请期待…"
+                android:textColor="#FFB6B8BF"
+                android:textSize="11sp"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_yihu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="6dp"
+                android:drawableTop="@drawable/icon_hulishangmen"
+                android:gravity="center"
+                android:text="护理上门"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:text="…敬请期待…"
+                android:textColor="#FFB6B8BF"
+                android:textSize="11sp"
+                android:visibility="invisible" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -121,75 +182,46 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:text="…敬请期待…"
                 android:textColor="#FFB6B8BF"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:visibility="invisible" />
 
         </LinearLayout>
+        <!--
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_health"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="6dp"
+                        android:drawableTop="@drawable/icon_songyao"
+                        android:gravity="center"
+                        android:text="视频问诊"
+                        android:textColor="@color/white"
+                        android:textSize="14dp" />
 
-            <TextView
-                android:id="@+id/tv_yihu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="6dp"
-                android:drawableTop="@drawable/icon_yihushangmen"
-                android:gravity="center"
-                android:text="医护上门"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                    <TextView
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="0dp"
+                        android:text="…敬请期待…"
+                        android:textColor="#FFB6B8BF"
+                        android:textSize="11sp" />
 
-            <TextView
-                android:visibility="invisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="0dp"
-                android:text="…敬请期待…"
-                android:textColor="#FFB6B8BF"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_health"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="6dp"
-                android:drawableTop="@drawable/icon_songyao"
-                android:gravity="center"
-                android:text="送药上门"
-                android:textColor="@color/white"
-                android:textSize="14dp" />
-
-            <TextView
-                android:visibility="invisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="0dp"
-                android:text="…敬请期待…"
-                android:textColor="#FFB6B8BF"
-                android:textSize="11sp" />
-
-        </LinearLayout>
+                </LinearLayout>-->
 
 
     </LinearLayout>
@@ -237,9 +269,9 @@
             android:layout_below="@+id/img_hi"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="5dp"
-            tools:text="向您推荐附近3名家庭医生为您服务！"
             android:textColor="@color/describe_color"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:text="向您推荐附近3名家庭医生为您服务！" />
 
 
     </RelativeLayout>
@@ -248,6 +280,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line" />
+
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -255,12 +288,53 @@
 
         <!-- ListView、ScrollView、RecyclerView、Other -->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/main_recycleview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-            />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/icon_mian_noman" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="21dp"
+            android:text="您还未创建被监护人，请先添加被监护人"
+            android:textColor="#9B9CA0"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/bt_addman"
+            android:layout_width="210dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="42dp"
+            android:background="@drawable/bg_button_blue"
+            android:gravity="center"
+            android:text="添加监护人"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        />
+</FrameLayout>
+
     </com.baoyz.widget.PullRefreshLayout>
 
 
