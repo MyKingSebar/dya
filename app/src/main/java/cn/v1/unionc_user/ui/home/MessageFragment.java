@@ -289,8 +289,11 @@ public class MessageFragment extends BaseFragment implements LocationSource,
             public void onRefresh() {
                 // start refresh
                 if(isLogin()){
-
-                    getHomeList(longitude, latitude);
+                    getHomeList2();
+//                    getHomeList(longitude, latitude);
+                }else{
+                    pullRefreshLayout.setRefreshing(false);
+                    mainRecycleview.setVisibility(View.GONE);
                 }
             }
         });
@@ -343,7 +346,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
         SPUtil.put(context, Common.ADDRESS, data.getPoiName());
         SPUtil.put(context, Common.LONGITUDE, longitude);
         SPUtil.put(context, Common.LATITUDE, latitude);
-        getHomeList(longitude, latitude);
+//        getHomeList(longitude, latitude);
+        getHomeList2();
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
         if (isLogin() && !TextUtils.equals(Common.LOCATYPE_NET, data.getType())) {
             updateAdd(token, data.getPoiName(), latitude, longitude);
@@ -357,12 +361,14 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     @Subscribe
     public void subscribeUpdate(LoginUpdateEventData data) {
         refrash = true;
-        getHomeList(longitude, latitude);
+//        getHomeList(longitude, latitude);
+        getHomeList2();
     }
 
     @Subscribe
     public void logoutReturn(LogOutEventData data) {
-        getHomeList(longitude, latitude);
+//        getHomeList(longitude, latitude);
+        getHomeList2();
     }
 
     @Subscribe
@@ -423,7 +429,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 SPUtil.put(context, Common.LATITUDE, latitude);
                 closeDialog();
                 //请求数据
-                getHomeList(longitude, latitude);
+//                getHomeList(longitude, latitude);
+                getHomeList2();
             }
 
             @Override
@@ -559,6 +566,48 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 pullRefreshLayout.setRefreshing(false);
             }
         });
+
+    }
+    private void getHomeList2() {
+
+        datas.clear();
+        if (isLogin()) {
+            getCoversationList();
+            for (int i = 0; i < newConversations.size(); i++) {
+                String conversationIdentifier = newConversations.get(i).getIdentifier();
+                Iterator<HomeListData.DataData.HomeData> it = datas.iterator();
+                while (it.hasNext()) {
+                    String datasIdentifier = it.next().getIdentifier();
+                    if (TextUtils.equals(conversationIdentifier, datasIdentifier)) {
+                        it.remove();
+                    }
+                }
+            }
+            Log.d("linshi", "Tim3:" + new Gson().toJson(newConversations));
+            datas.addAll(newConversations);
+//                        getPushActivity();
+            if(isLogin()){
+
+                getMessagePush();
+            }
+            if (pushactivitydatas != null && pushactivitydatas.size() != 0) {
+                datas.addAll((List<HomeListData.DataData.HomeData>) pushactivitydatas);
+            }
+
+
+        }else {
+            mainRecycleview.setVisibility(View.GONE);
+        }
+
+        homeListAdapter.setData(datas);
+//                    homeListAdapter.setData(datas);
+        Logger.json(new Gson().toJson(datas));
+        pullRefreshLayout.setRefreshing(false);
+
+
+        Log.d("linshi", "getHomeList2");
+
+
 
     }
 
@@ -775,7 +824,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 if (!ExampleUtil.isEmpty(extras)) {
                     Log.d("linshi", "extras():" + extras);
                     JiGuangData child2 = gson.fromJson(extras, JiGuangData.class);
-                    getHomeList(longitude, latitude);
+//                    getHomeList(longitude, latitude);
+                    getHomeList2();
 //                    if (TextUtils.equals("1", child2.getPushCategory())) {
 //                        //推送类型：1-活动，2-直播，3-医生，4-护士
 //                        if (TextUtils.equals("0", child2.getShow())) {
@@ -817,7 +867,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     public void onResume() {
         super.onResume();
         if (refrash) {
-            getHomeList(longitude, latitude);
+//            getHomeList(longitude, latitude);
+            getHomeList2();
             refrash = false;
         }
     }
@@ -901,7 +952,8 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                 SPUtil.put(context, Common.LONGITUDE, longitude);
                 SPUtil.put(context, Common.LATITUDE, latitude);
                 //请求数据
-                getHomeList(longitude, latitude);
+//                getHomeList(longitude, latitude);
+                getHomeList2();
                 closeDialog();
 
 
