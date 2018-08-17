@@ -50,7 +50,9 @@ public class DoctorListActivity extends BaseActivity {
     private void initdoclist() {
 
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.getvideodoctors(token,"1","50"), new BaseObserver<GetLiveDoctorListData>(context) {
+        String la=(String)SPUtil.get(context,Common.LATITUDE,"");
+        String lo=(String)SPUtil.get(context,Common.LONGITUDE,"");
+        ConnectHttp.connect(UnionAPIPackage.getvideodoctors(token,"1","50",lo,la), new BaseObserver<GetLiveDoctorListData>(context) {
             @Override
             public void onResponse(GetLiveDoctorListData data) {
                 if (TextUtils.equals("4000", data.getCode())) {

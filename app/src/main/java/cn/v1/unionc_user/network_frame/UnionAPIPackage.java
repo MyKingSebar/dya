@@ -1055,11 +1055,13 @@ public class UnionAPIPackage {
     /**
      * 视频问诊医生列表
      */
-    public static Observable<GetLiveDoctorListData> getvideodoctors(String token, String pageNo, String pageSize) {
+    public static Observable<GetLiveDoctorListData> getvideodoctors(String token,String pageNo,String pageSize,String longitude,String latitude) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("pageNo", pageNo);
         params.put("pageSize", pageSize);
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
         return ConnectHttp.getUnionAPI().getvideodoctors(dataProcess(params));
     }
     /**

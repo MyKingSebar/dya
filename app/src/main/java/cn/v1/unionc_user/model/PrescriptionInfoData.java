@@ -47,7 +47,44 @@ public class PrescriptionInfoData extends BaseData {
             private String Supplement;
             private String Charge;
             private String DoctName;
+
+            private String UserName;
+            private String Age;
+            private String  DepartName;
+            private String  Gender;
             private List<MedicinesData> medicines;
+
+            public String getUserName() {
+                return UserName;
+            }
+
+            public void setUserName(String userName) {
+                UserName = userName;
+            }
+
+            public String getAge() {
+                return Age;
+            }
+
+            public void setAge(String age) {
+                Age = age;
+            }
+
+            public String getDepartName() {
+                return DepartName;
+            }
+
+            public void setDepartName(String departName) {
+                DepartName = departName;
+            }
+
+            public String getGender() {
+                return Gender;
+            }
+
+            public void setGender(String gender) {
+                Gender = gender;
+            }
 
             public String getClinicalDiagnosis() {
                 return ClinicalDiagnosis;

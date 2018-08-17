@@ -43,7 +43,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
 
     @Override
     public PrescriptionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_find_live_list, null));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_prescription_recycle, null));
     }
 
 
