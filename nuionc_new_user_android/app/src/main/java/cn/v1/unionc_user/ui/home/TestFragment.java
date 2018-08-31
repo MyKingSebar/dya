@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -156,7 +157,10 @@ public class TestFragment extends BaseFragment {
         //serviceType：1-护士，2-护工  :
         //userType
         //1-手机用户，2-老人
-        ConnectHttp.connect(UnionAPIPackage.subscribenurses(token, id, "1", time, type, name.getText().toString(), address.getText().toString(), phone.getText().toString(),"" , "2"), new BaseObserver<BaseData>(context) {
+        String la = (String) SPUtil.get(context, Common.LATITUDE, "");
+        String lo = (String) SPUtil.get(context, Common.LONGITUDE, "");
+        Log.d("linshi","la2:"+la + "," + lo);
+        ConnectHttp.connect(UnionAPIPackage.subscribenurses(token, id, "1", time, type, name.getText().toString(), address.getText().toString(), phone.getText().toString(),"" , "2",lo,la), new BaseObserver<BaseData>(context) {
             @Override
             public void onResponse(BaseData data) {
                 if (TextUtils.equals("4000", data.getCode())) {

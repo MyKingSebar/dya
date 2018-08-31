@@ -351,7 +351,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("指派医生");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_NUR)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
+                holder.imgMessageAvator.setImageResource(R.drawable.tz_smhl);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);
@@ -369,7 +369,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("申请监护");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_VIDEO)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
+                holder.imgMessageAvator.setImageResource(R.drawable.tz_spwz);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);
@@ -378,7 +378,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("视频问诊");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_CALL)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
+                holder.imgMessageAvator.setImageResource(R.drawable.tz_yjhj);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);
@@ -387,7 +387,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 holder.tvMessageName.setText("一键呼叫");
                 holder.tvTime.setText(homeData.getCreatedTime());
             } else if (TextUtils.equals(PushCategory, Common.PUSH_CALLNURSE)) {
-                holder.imgMessageAvator.setImageResource(R.drawable.icon_remind);
+                holder.imgMessageAvator.setImageResource(R.drawable.tz_smhl);
                 holder.tvEndTime.setVisibility(View.INVISIBLE);
                 holder.tvAddress.setVisibility(View.VISIBLE);
                 holder.tvDescribe.setVisibility(View.GONE);

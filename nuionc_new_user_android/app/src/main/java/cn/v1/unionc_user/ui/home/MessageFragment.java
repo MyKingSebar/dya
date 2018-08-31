@@ -77,6 +77,7 @@ import cn.v1.unionc_user.tecent_qcloud.tim_util.TimeUtil;
 import cn.v1.unionc_user.ui.LoginActivity;
 import cn.v1.unionc_user.ui.adapter.HomeListAdapter;
 import cn.v1.unionc_user.ui.base.BaseFragment;
+import cn.v1.unionc_user.ui.find.LiveListActivity;
 import cn.v1.unionc_user.ui.home.BloodPressure.BlueToothDeviceActivity2;
 import cn.v1.unionc_user.ui.me.guardianship.GuardianshipListActivity2;
 import cn.v1.unionc_user.utils.Location;
@@ -117,7 +118,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     TextView tvGuahao;
     @BindView(R.id.tv_yihu)
     TextView tvYihu;
-//    @BindView(R.id.tv_health)
+    //    @BindView(R.id.tv_health)
 //    TextView tvHealth;
     @BindView(R.id.main_recycleview)
     RecyclerView mainRecycleview;
@@ -189,7 +190,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
         getActivityPush();
     }
 
-    @OnClick({R.id.tv_address, R.id.ll_search, R.id.tv_saoma, R.id.tv_guahao, R.id.tv_yihu,R.id.tv_shipin,R.id.bt_addman})
+    @OnClick({R.id.ll_noman,R.id.tv_address, R.id.ll_search, R.id.tv_saoma, R.id.tv_guahao, R.id.tv_yihu, R.id.tv_shipin, R.id.bt_addman, R.id.ll_qqjh, R.id.ll_spwz, R.id.ll_smhl, R.id.ll_axdc, R.id.ll_yjhj, R.id.ll_kysp, R.id.ll_jkzb, R.id.ll_znjc})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_address:
@@ -266,6 +267,54 @@ public class MessageFragment extends BaseFragment implements LocationSource,
 //                    goNewActivity(LoginActivity.class);
 //                }
 //                break;
+            case R.id.ll_qqjh:
+                goNewActivity(GuardianshipListActivity2.class);
+                break;
+            case R.id.ll_spwz:
+                //视频问诊
+                if (isLogin()) {
+                    goNewActivity(DoctorListActivity.class);
+//                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+//                    intent.putExtra("type", Common.WEB_SONGYAOSHANGMEN);
+//                    startActivity(intent);
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
+                break;
+            case R.id.ll_smhl:
+                //医护上门
+                if (isLogin()) {
+//                    Intent intent = new Intent(context, ToDoorWebViewActivity.class);
+//                    intent.putExtra("type", Common.WEB_YIHUSHANGMEN);
+//                    startActivity(intent);
+                    goNewActivity(NurseAndWorkerActivity.class);
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
+                break;
+            case R.id.ll_axdc:
+
+                break;
+            case R.id.ll_yjhj:
+                goNewActivity(GuardianshipListActivity2.class);
+                break;
+            case R.id.ll_noman:
+                goNewActivity(GuardianshipListActivity2.class);
+                break;
+            case R.id.ll_kysp:
+
+                break;
+            case R.id.ll_jkzb:
+                goNewActivity(LiveListActivity.class);
+                break;
+            case R.id.ll_znjc:
+                if (isLogin()) {
+                    Intent intent = new Intent(getActivity(), BlueToothDeviceActivity2.class);
+                    startActivity(intent);
+                } else {
+                    goNewActivity(LoginActivity.class);
+                }
+                break;
         }
     }
 
@@ -288,10 +337,10 @@ public class MessageFragment extends BaseFragment implements LocationSource,
             @Override
             public void onRefresh() {
                 // start refresh
-                if(isLogin()){
+                if (isLogin()) {
                     getHomeList2();
 //                    getHomeList(longitude, latitude);
-                }else{
+                } else {
                     pullRefreshLayout.setRefreshing(false);
                     mainRecycleview.setVisibility(View.GONE);
                 }
@@ -568,12 +617,14 @@ public class MessageFragment extends BaseFragment implements LocationSource,
         });
 
     }
+
     private void getHomeList2() {
 
         datas.clear();
         if (isLogin()) {
             getCoversationList();
             for (int i = 0; i < newConversations.size(); i++) {
+
                 String conversationIdentifier = newConversations.get(i).getIdentifier();
                 Iterator<HomeListData.DataData.HomeData> it = datas.iterator();
                 while (it.hasNext()) {
@@ -586,7 +637,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
             Log.d("linshi", "Tim3:" + new Gson().toJson(newConversations));
             datas.addAll(newConversations);
 //                        getPushActivity();
-            if(isLogin()){
+            if (isLogin()) {
 
                 getMessagePush();
             }
@@ -595,7 +646,7 @@ public class MessageFragment extends BaseFragment implements LocationSource,
             }
 
 
-        }else {
+        } else {
             mainRecycleview.setVisibility(View.GONE);
         }
 
@@ -606,7 +657,6 @@ public class MessageFragment extends BaseFragment implements LocationSource,
 
 
         Log.d("linshi", "getHomeList2");
-
 
 
     }
@@ -736,10 +786,10 @@ public class MessageFragment extends BaseFragment implements LocationSource,
                             datas.addAll(pushactivitydatas);
                             homeListAdapter.setData(datas);
                             mainRecycleview.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             mainRecycleview.setVisibility(View.GONE);
                         }
-                    }else {
+                    } else {
                         mainRecycleview.setVisibility(View.GONE);
                     }
 
@@ -866,11 +916,12 @@ public class MessageFragment extends BaseFragment implements LocationSource,
     @Override
     public void onResume() {
         super.onResume();
-        if (refrash) {
-//            getHomeList(longitude, latitude);
-            getHomeList2();
-            refrash = false;
-        }
+//        if (refrash) {
+////            getHomeList(longitude, latitude);
+//            getHomeList2();
+//            refrash = false;
+//        }
+        getHomeList2();
     }
 
     private void initLocation2() {

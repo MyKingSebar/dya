@@ -75,11 +75,14 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.equals(doctorData.getOnlineState(),"1")){
+                //(0-离线，1-忙碌，2-在线)
+                if(TextUtils.equals(doctorData.getOnlineState(),"2")){
 
                     RongCallKit.startSingleCall(context, doctorData.getIdentifier(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
-                }else {
+                }else if(TextUtils.equals(doctorData.getOnlineState(),"0")){
                     Toast.makeText(context,"医生不在线",Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.equals(doctorData.getOnlineState(),"1")){
+                    Toast.makeText(context,"医生忙碌",Toast.LENGTH_SHORT).show();
                 }
             }
         });

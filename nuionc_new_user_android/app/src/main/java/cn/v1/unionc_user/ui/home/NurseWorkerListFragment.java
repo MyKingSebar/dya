@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.GetNurseListData;
 import cn.v1.unionc_user.network_frame.ConnectHttp;
 import cn.v1.unionc_user.network_frame.UnionAPIPackage;
@@ -89,7 +91,10 @@ public class NurseWorkerListFragment extends BaseFragment {
 
     private void getDoctorList() {
         showDialog("加载中...");
-        ConnectHttp.connect(UnionAPIPackage.getnurses("6","1","50"), new BaseObserver<GetNurseListData>(context) {
+        String la = (String) SPUtil.get(context, Common.LATITUDE, "");
+        String lo = (String) SPUtil.get(context, Common.LONGITUDE, "");
+        Log.d("linshi","la2:"+la + "," + lo);
+        ConnectHttp.connect(UnionAPIPackage.getnurses("6","1","50",lo,la), new BaseObserver<GetNurseListData>(context) {
             @Override
             public void onResponse(GetNurseListData data) {
                 Log.d("linshi","datas:"+new Gson().toJson(datas));

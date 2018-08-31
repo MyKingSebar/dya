@@ -80,6 +80,12 @@ public class GuardianshipListActivity2 extends BaseActivity {
         getList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getList();
+    }
+
     private void initView() {
         tvTitle.setText("亲情监护");
         recycleview.setLayoutManager(new LinearLayoutManager(context));

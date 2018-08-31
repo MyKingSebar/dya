@@ -934,13 +934,15 @@ public class UnionAPIPackage {
     /**
      * 老人添加照片
      */
-    public static Observable<BaseData> oldaddphoto(String token, String elderlyUserId, String imagePath) {
+    public static Observable<BaseData> oldaddphoto(String token, String elderlyUserId,File file) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("elderlyUserId", elderlyUserId);
-        params.put("imagePath", imagePath);
-
-        return ConnectHttp.getUnionAPI().oldaddphoto(dataProcess(params));
+        String data = gson.toJson(params).toString();
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        // MultipartBody.Part 和后端约定好Key，这里的partName是用image
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        return ConnectHttp.getUnionAPI().oldaddphoto(data,false,body);
     }
     /**
      * 医院服务列表：
@@ -1067,17 +1069,19 @@ public class UnionAPIPackage {
     /**
      * 视频问诊医生列表    roleId(4-护士，6-护工)
      */
-    public static Observable<GetNurseListData> getnurses(String roleId, String pageNo, String pageSize) {
+    public static Observable<GetNurseListData> getnurses(String roleId, String pageNo, String pageSize,String longitude,String latitude) {
         HashMap<String, String> params = new HashMap<>();
         params.put("roleId", roleId);
         params.put("pageNo", pageNo);
         params.put("pageSize", pageSize);
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
         return ConnectHttp.getUnionAPI().getnurses(dataProcess(params));
     }
     /**
-     * 视频问诊医生列表    roleId(4-护士，6-护工)
+     * 预约上门：
      */
-    public static Observable<BaseData> subscribenurses(String token, String doctId, String serviceId, String serviceTime, String serviceType, String name, String addr, String telphone, String addrId,String userType) {
+    public static Observable<BaseData> subscribenurses(String token, String doctId, String serviceId, String serviceTime, String serviceType, String name, String addr, String telphone, String addrId,String userType,String longitude,String latitude) {
         HashMap<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("doctId", doctId);
@@ -1089,6 +1093,8 @@ public class UnionAPIPackage {
         params.put("telphone", telphone);
         params.put("addrId", addrId);
         params.put("userType", userType);
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
         return ConnectHttp.getUnionAPI().subscribenurses(dataProcess(params));
     }
 

@@ -183,13 +183,13 @@ public class LoginActivity extends BaseActivity {
                     String identifier = data.getData().getIdentifier() + "";
                     SPUtil.put(context, Common.IDENTIFIER, identifier);
                     SPUtil.put(context, Common.USER_PHONE, phoneNumber);
+//                    SPUtil.put(context, Common.USER_TOKEN, data.getData().getToken());
                     Log.d("linshi","Add:"+data.getData().getAddr());
                     Log.d("linshi","login:"+identifier);
                     if(!TextUtils.isEmpty(data.getData().getAddr())){
 
                         SPUtil.put(context, Common.USER_ADD, data.getData().getAddr());
-                        SPUtil.put(context, Common.USER_LATITUDE, data.getData().getAddrLatitude());
-                        SPUtil.put(context, Common.USER_LONGITUDE, data.getData().getAddrLongitude());
+
                         LocationUpdateEventData eventData = new LocationUpdateEventData();
                         eventData.setLat(Double.parseDouble(data.getData().getAddrLatitude()));
                         eventData.setLon(Double.parseDouble(data.getData().getAddrLongitude()));

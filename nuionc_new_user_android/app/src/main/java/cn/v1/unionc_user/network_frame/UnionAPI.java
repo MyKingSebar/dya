@@ -636,9 +636,10 @@ public interface UnionAPI {
      *
      * @return
      */
-    @FormUrlEncoded
+    @Multipart
     @POST("old-man/save-old-man-image")
-    Observable<BaseData> oldaddphoto(@FieldMap Map<String, Object> params);
+    Observable<BaseData> oldaddphoto(@Query("data") String data, @Query("encryption") boolean encryption,
+                                     @Part MultipartBody.Part imgs);
     /**
      * 医院服务列表：
      *

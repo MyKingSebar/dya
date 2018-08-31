@@ -5,20 +5,26 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.v1.unionc_user.BusProvider;
 import cn.v1.unionc_user.R;
+import cn.v1.unionc_user.data.Common;
+import cn.v1.unionc_user.data.SPUtil;
 import cn.v1.unionc_user.model.LogOutEventData;
 import cn.v1.unionc_user.ui.base.BaseActivity;
 import cn.v1.unionc_user.ui.discover.DiscoverFragment;
@@ -27,6 +33,7 @@ import cn.v1.unionc_user.ui.discover.DiscoverHospitalFragment;
 import cn.v1.unionc_user.ui.find.FindFragment;
 import cn.v1.unionc_user.ui.me.PersonalFragment;
 import cn.v1.unionc_user.ui.home.MessageFragment;
+import cn.v1.unionc_user.utils.Location;
 
 public class MainActivity extends BaseActivity {
 
@@ -63,6 +70,7 @@ public class MainActivity extends BaseActivity {
 //        getRongToken();
 //        initLocation();
         initView();
+        initLocation();
     }
 
     @Override
@@ -255,6 +263,25 @@ public class MainActivity extends BaseActivity {
             System.exit(0);
         }
     }
+    private void initLocation() {
+        new Location(context) {
+            @Override
+            protected void locationSuccess(AMapLocation amapLocation) {
+                stopLocation();
+                //位置确定弹框
+//                confirmLocationDialog();
+                //获取经纬度
+                SPUtil.put(context, Common.LONGITUDE, amapLocation.getLongitude() + "");
+                SPUtil.put(context, Common.LATITUDE, amapLocation.getLatitude() + "");
+            }
 
+            @Override
+            protected void locationFailure() {
+                stopLocation();
+            }
+        };
+
+
+    }
 
 }

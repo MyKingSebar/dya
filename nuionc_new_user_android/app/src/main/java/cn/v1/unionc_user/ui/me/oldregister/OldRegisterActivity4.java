@@ -351,7 +351,8 @@ public class OldRegisterActivity4 extends BaseActivity {
         Log.d("linshi","urlpath:"+urlpath);
         Glide.get(context).clearMemory();
         Glide.with(context).load( urlpath).into(im_img);
-        uploadImage();
+//        uploadImage();
+        updateUserInfo(new File(mHeadCacheFile.getAbsolutePath()));
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
@@ -360,41 +361,41 @@ public class OldRegisterActivity4 extends BaseActivity {
 //        }, 2000);
     }
 
-    /**
-     * 头像上传
-     */
-    private void uploadImage() {
-        Log.d("linshi","uploadImage:"+urlpath);
-        showDialog("头像上传中...");
-        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.uploadImge(token, new File(mHeadCacheFile.getAbsolutePath())), new BaseObserver<UpdateFileData>(context) {
-            @Override
-            public void onResponse(UpdateFileData data) {
-                Log.d("linshi","UpdateFileData:"+ new Gson().toJson(data));
-                closeDialog();
-                if (TextUtils.equals("4000", data.getCode())) {
-                    if(TextUtils.isEmpty(pictureid)){
-
-                        updateUserInfo(data.getPath() + "");
-                    }else{
-                        updateOldmanPhoto(data.getPath() + "");
-                    }
-                } else {
-                    showTost(data.getMessage() + "");
-                    onPhotoFail();
-                }
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                closeDialog();
-                onPhotoFail();
-            }
-        });
-
-
-    }
-    private void updateUserInfo(String url) {
+//    /**
+//     * 头像上传
+//     */
+//    private void uploadImage() {
+//        Log.d("linshi","uploadImage:"+urlpath);
+//        showDialog("头像上传中...");
+//        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//        ConnectHttp.connect(UnionAPIPackage.uploadImge(token, new File(mHeadCacheFile.getAbsolutePath())), new BaseObserver<UpdateFileData>(context) {
+//            @Override
+//            public void onResponse(UpdateFileData data) {
+//                Log.d("linshi","UpdateFileData:"+ new Gson().toJson(data));
+//                closeDialog();
+//                if (TextUtils.equals("4000", data.getCode())) {
+//                    if(TextUtils.isEmpty(pictureid)){
+//
+//                        updateUserInfo(data.getPath() + "");
+//                    }else{
+//                        updateOldmanPhoto(data.getPath() + "");
+//                    }
+//                } else {
+//                    showTost(data.getMessage() + "");
+//                    onPhotoFail();
+//                }
+//            }
+//
+//            @Override
+//            public void onFail(Throwable e) {
+//                closeDialog();
+//                onPhotoFail();
+//            }
+//        });
+//
+//
+//    }
+    private void updateUserInfo(File url) {
         Log.d("linshi","uploadImage:"+urlpath);
         showDialog("头像上传中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");

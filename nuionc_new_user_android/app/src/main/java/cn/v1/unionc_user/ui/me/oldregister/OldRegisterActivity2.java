@@ -346,7 +346,8 @@ public class OldRegisterActivity2 extends BaseActivity {
         Log.d("linshi","urlpath:"+urlpath);
         Glide.get(context).clearMemory();
         Glide.with(context).load( urlpath).into(im_img);
-        uploadImage();
+//        uploadImage();
+        updateUserInfo(new File(mHeadCacheFile.getAbsolutePath()));
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
@@ -355,45 +356,45 @@ public class OldRegisterActivity2 extends BaseActivity {
 //        }, 2000);
     }
 
-    /**
-     * 头像上传
-     */
-    private void uploadImage() {
+//    /**
+//     * 头像上传
+//     */
+//    private void uploadImage() {
+//        Log.d("linshi","uploadImage:"+urlpath);
+//        showDialog("头像上传中...");
+//        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//        ConnectHttp.connect(UnionAPIPackage.uploadImge(token, new File(mHeadCacheFile.getAbsolutePath())), new BaseObserver<UpdateFileData>(context) {
+//            @Override
+//            public void onResponse(UpdateFileData data) {
+//                Log.d("linshi","UpdateFileData:"+ new Gson().toJson(data));
+//                closeDialog();
+//                if (TextUtils.equals("4000", data.getCode())) {
+//                    if(TextUtils.isEmpty(pictureid)){
+//
+//                        updateUserInfo(data.getPath() + "");
+//                    }else{
+//                        updateOldmanPhoto(data.getPath() + "");
+//                    }
+//                } else {
+//                    showTost(data.getMessage() + "");
+//                    onPhotoFail();
+//                }
+//            }
+//
+//            @Override
+//            public void onFail(Throwable e) {
+//                closeDialog();
+//                onPhotoFail();
+//            }
+//        });
+//
+//
+//    }
+    private void updateUserInfo(File file) {
         Log.d("linshi","uploadImage:"+urlpath);
         showDialog("头像上传中...");
         String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect(UnionAPIPackage.uploadImge(token, new File(mHeadCacheFile.getAbsolutePath())), new BaseObserver<UpdateFileData>(context) {
-            @Override
-            public void onResponse(UpdateFileData data) {
-                Log.d("linshi","UpdateFileData:"+ new Gson().toJson(data));
-                closeDialog();
-                if (TextUtils.equals("4000", data.getCode())) {
-                    if(TextUtils.isEmpty(pictureid)){
-
-                        updateUserInfo(data.getPath() + "");
-                    }else{
-                        updateOldmanPhoto(data.getPath() + "");
-                    }
-                } else {
-                    showTost(data.getMessage() + "");
-                    onPhotoFail();
-                }
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                closeDialog();
-                onPhotoFail();
-            }
-        });
-
-
-    }
-    private void updateUserInfo(String url) {
-        Log.d("linshi","uploadImage:"+urlpath);
-        showDialog("头像上传中...");
-        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
-        ConnectHttp.connect((UnionAPIPackage.oldaddphoto(token,ElderlyUserId,url)), new BaseObserver<BaseData>(context) {
+        ConnectHttp.connect((UnionAPIPackage.oldaddphoto(token,ElderlyUserId,file)), new BaseObserver<BaseData>(context) {
             @Override
             public void onResponse(BaseData data) {
                 closeDialog();
@@ -418,6 +419,35 @@ public class OldRegisterActivity2 extends BaseActivity {
 
 
     }
+//    private void updateUserInfo(String url) {
+//        Log.d("linshi","uploadImage:"+urlpath);
+//        showDialog("头像上传中...");
+//        String token = (String) SPUtil.get(context, Common.USER_TOKEN, "");
+//        ConnectHttp.connect((UnionAPIPackage.oldaddphoto(token,ElderlyUserId,url)), new BaseObserver<BaseData>(context) {
+//            @Override
+//            public void onResponse(BaseData data) {
+//                closeDialog();
+//                if (TextUtils.equals("4000", data.getCode())) {
+//                    bt_next.setClickable(true);
+//                    bt_next.setBackgroundResource(R.drawable.blue_btn_bg);
+//                    bt_photo.setVisibility(View.INVISIBLE);
+//                    im_status.setBackgroundResource(R.drawable.icon_upload_success);
+//
+//                } else {
+//                    showTost(data.getMessage() + "");
+//                    onPhotoFail();
+//                }
+//            }
+//
+//            @Override
+//            public void onFail(Throwable e) {
+//                closeDialog();
+//                onPhotoFail();
+//            }
+//        });
+//
+//
+//    }
     private void updateOldmanPhoto(String url) {
         Log.d("linshi","uploadImage:"+urlpath);
         showDialog("头像上传中...");

@@ -90,7 +90,7 @@ public class MeguardianshipListAdapter extends RecyclerView.Adapter<Meguardiansh
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(doctorData.getGuardianIdentifier())) {
-                    RongCallKit.startSingleCall(context, doctorData.getGuardianIdentifier(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
+                    RongCallKit.startSingleCall(context, doctorData.getGuardianIdentifier(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
                 } else {
                     Toast.makeText(context, "暂时无法连接", Toast.LENGTH_SHORT).show();
                 }

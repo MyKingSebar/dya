@@ -177,6 +177,7 @@ public class ViewDoctorAnswerActivity extends BaseActivity {
                                 doctorInfo.setDoctorName(doctorName + "");
                                 doctorInfo.setIdentifier(identifier + "");
                                 doctorInfo.setImagePath(doctorAvator + "");
+                                doctorInfo.setId(doctorId + "");
                                 TIMChatActivity.navToChat(context, doctorInfo, TIMConversationType.C2C);
                             }
 
